@@ -1,6 +1,6 @@
 ---
 layout: page
-title: AddressBook Level-3
+title: SmartNUS Level-1
 ---
 
 [![CI Status](https://github.com/se-edu/addressbook-level3/workflows/Java%20CI/badge.svg)](https://github.com/se-edu/addressbook-level3/actions)
@@ -8,10 +8,10 @@ title: AddressBook Level-3
 
 ![Ui](images/Ui.png)
 
-**AddressBook is a desktop application for managing your contact details.** While it has a GUI, most of the user interactions happen using a CLI (Command Line Interface).
+**SmartNUS is a desktop app specifically designed for students to revise for their exams.** It has been optimized for use via a Command Line Interface but it also incorporates a Graphical User Interface (GUI). SmartNUS is the go-to app if you’re a fast typer or if you need a tool to streamline your revision process. Download today!
 
-* If you are interested in using AddressBook, head over to the [_Quick Start_ section of the **User Guide**](UserGuide.html#quick-start).
-* If you are interested about developing AddressBook, the [**Developer Guide**](DeveloperGuide.html) is a good place to start.
+* If you are interested in using SmartNUS, head over to the [_Quick Start_ section of the **User Guide**](UserGuide.html#quick-start).
+* If you are interested about developing SmartNUS, the [**Developer Guide**](DeveloperGuide.html) is a good place to start.
 
 
 **Acknowledgements**
