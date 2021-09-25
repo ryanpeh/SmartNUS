@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.choice.Choice;
 import seedu.address.model.question.Address;
 import seedu.address.model.question.Email;
 import seedu.address.model.question.Name;
@@ -69,6 +70,9 @@ class JsonAdaptedPerson {
         for (JsonAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
         }
+        
+        // TODO: Implement loading functionality for choices
+        final List<Choice> questionChoices = new ArrayList<>();
 
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
@@ -103,7 +107,10 @@ class JsonAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Question(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        
+        final Set<Choice> modelChoices = new HashSet<>(questionChoices);
+        
+        return new Question(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelChoices);
     }
 
 }

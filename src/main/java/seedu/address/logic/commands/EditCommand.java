@@ -19,6 +19,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.choice.Choice;
 import seedu.address.model.question.Address;
 import seedu.address.model.question.Email;
 import seedu.address.model.question.Name;
@@ -99,7 +100,9 @@ public class EditCommand extends Command {
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(questionToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(questionToEdit.getTags());
 
-        return new Question(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        // TODO: implement parsing for choices
+        Set<Choice> updatedChoices = questionToEdit.getChoices();
+        return new Question(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedChoices);
     }
 
     @Override

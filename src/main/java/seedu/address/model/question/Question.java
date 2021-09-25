@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.choice.Choice;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -23,18 +24,19 @@ public class Question {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
-    private final Set<Tag> choices = new HashSet<>();
+    private final Set<Choice> choices = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Question(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Question(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Set<Choice> choices) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.choices.addAll(choices);
     }
 
     public Name getName() {
@@ -59,6 +61,14 @@ public class Question {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Returns an immutable choice set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Choice> getChoices() {
+        return Collections.unmodifiableSet(choices);
     }
 
     /**
@@ -117,6 +127,12 @@ public class Question {
         if (!tags.isEmpty()) {
             builder.append("; Tags: ");
             tags.forEach(builder::append);
+        }
+
+        Set<Choice> choices = getChoices();
+        if (!choices.isEmpty()) { // may be empty for open-ended questions
+            builder.append("; Choices: ");
+            choices.forEach(builder::append);
         }
         return builder.toString();
     }
