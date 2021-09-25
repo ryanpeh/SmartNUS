@@ -14,7 +14,7 @@ import seedu.address.model.tag.Tag;
  * Represents a Question in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Question {
+public abstract class Question {
 
     // Identity fields
     private final Name name;

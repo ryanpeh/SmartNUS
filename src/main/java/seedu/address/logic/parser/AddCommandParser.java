@@ -16,6 +16,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.choice.Choice;
 import seedu.address.model.question.Address;
 import seedu.address.model.question.Email;
+import seedu.address.model.question.MultipleChoiceQuestion;
 import seedu.address.model.question.Name;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.Phone;
@@ -49,7 +50,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         // TODO: implement parsing for choices
         Set<Choice> choiceList = new HashSet<>(); 
         choiceList.add(new Choice("Empty Choice", true));
-        Question question = new Question(name, phone, email, address, tagList, choiceList);
+        // TODO: check if AddCommand will be used for different types of Questions
+        Question question = new MultipleChoiceQuestion(name, phone, email, address, tagList, choiceList);
 
         return new AddCommand(question);
     }

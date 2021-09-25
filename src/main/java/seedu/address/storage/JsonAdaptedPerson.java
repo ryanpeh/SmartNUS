@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.choice.Choice;
 import seedu.address.model.question.Address;
 import seedu.address.model.question.Email;
+import seedu.address.model.question.MultipleChoiceQuestion;
 import seedu.address.model.question.Name;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.Phone;
@@ -110,7 +111,8 @@ class JsonAdaptedPerson {
         
         final Set<Choice> modelChoices = new HashSet<>(questionChoices);
         
-        return new Question(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelChoices);
+        // TODO: save question type in json and instantiate correct Question type when more types are supported
+        return new MultipleChoiceQuestion(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelChoices);
     }
 
 }

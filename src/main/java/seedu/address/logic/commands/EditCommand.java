@@ -22,6 +22,7 @@ import seedu.address.model.Model;
 import seedu.address.model.choice.Choice;
 import seedu.address.model.question.Address;
 import seedu.address.model.question.Email;
+import seedu.address.model.question.MultipleChoiceQuestion;
 import seedu.address.model.question.Name;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.Phone;
@@ -102,7 +103,13 @@ public class EditCommand extends Command {
 
         // TODO: implement parsing for choices
         Set<Choice> updatedChoices = questionToEdit.getChoices();
-        return new Question(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedChoices);
+        
+        if (questionToEdit instanceof MultipleChoiceQuestion) {
+            return new MultipleChoiceQuestion(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
+                    updatedChoices);
+        }
+        // TODO: edit this and add a better exception?
+        throw new RuntimeException("Question type not supported");
     }
 
     @Override

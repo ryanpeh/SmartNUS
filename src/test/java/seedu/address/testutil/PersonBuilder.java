@@ -6,6 +6,7 @@ import java.util.Set;
 import seedu.address.model.choice.Choice;
 import seedu.address.model.question.Address;
 import seedu.address.model.question.Email;
+import seedu.address.model.question.MultipleChoiceQuestion;
 import seedu.address.model.question.Name;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.Phone;
@@ -96,7 +97,8 @@ public class PersonBuilder {
     }
 
     public Question build() {
-        return new Question(name, phone, email, address, tags, choices);
+        // TODO: edit when more Question types are supported
+        return new MultipleChoiceQuestion(name, phone, email, address, tags, choices);
     }
 
 }
