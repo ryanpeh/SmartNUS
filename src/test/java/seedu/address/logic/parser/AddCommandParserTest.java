@@ -35,8 +35,8 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.question.Address;
 import seedu.address.model.question.Email;
 import seedu.address.model.question.Name;
-import seedu.address.model.question.Question;
 import seedu.address.model.question.Phone;
+import seedu.address.model.question.Question;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 
