@@ -23,6 +23,7 @@ public class Question {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private final Set<Tag> choices = new HashSet<>();
 
     /**
      * Every field must be present and not null.
