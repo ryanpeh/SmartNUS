@@ -24,8 +24,8 @@ import seedu.address.model.question.Address;
 import seedu.address.model.question.Email;
 import seedu.address.model.question.MultipleChoiceQuestion;
 import seedu.address.model.question.Name;
-import seedu.address.model.question.Question;
 import seedu.address.model.question.Phone;
+import seedu.address.model.question.Question;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -103,7 +103,7 @@ public class EditCommand extends Command {
 
         // TODO: implement parsing for choices
         Set<Choice> updatedChoices = questionToEdit.getChoices();
-        
+
         if (questionToEdit instanceof MultipleChoiceQuestion) {
             return new MultipleChoiceQuestion(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
                     updatedChoices);

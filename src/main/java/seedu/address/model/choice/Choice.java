@@ -4,7 +4,13 @@ package seedu.address.model.choice;
 public class Choice {
     private final String title;
     private final boolean isCorrect;
-    
+
+    /**
+     * Constructs a {@code Choice}.
+     *
+     * @param title Title of the Choice.
+     * @param isCorrect Whether the Choice is the correct answer to a Question.
+     */
     public Choice(String title, boolean isCorrect) {
         this.title = title;
         this.isCorrect = isCorrect;
@@ -13,7 +19,7 @@ public class Choice {
     public boolean getIsCorrect() {
         return isCorrect;
     }
-    
+
     public String getTitle() {
         return title;
     }
@@ -28,7 +34,7 @@ public class Choice {
         if (other == this) {
             return true;
         }
-        
+
         if (!(other instanceof Choice)) {
             return false;
         }

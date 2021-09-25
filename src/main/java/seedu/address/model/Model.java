@@ -72,7 +72,8 @@ public interface Model {
     /**
      * Replaces the given question {@code target} with {@code editedQuestion}.
      * {@code target} must exist in the address book.
-     * The question identity of {@code editedQuestion} must not be the same as another existing question in the address book.
+     * The question identity of {@code editedQuestion} must not be the same as another existing question
+     * in the address book.
      */
     void setPerson(Question target, Question editedQuestion);
 

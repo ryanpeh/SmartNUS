@@ -13,10 +13,11 @@ import seedu.address.model.question.exceptions.PersonNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A question is considered unique by comparing using {@code Question#isSamePerson(Question)}. As such, adding and updating of
- * persons uses Question#isSamePerson(Question) for equality so as to ensure that the question being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a question uses Question#equals(Object) so
- * as to ensure that the question with exactly the same fields will be removed.
+ * A question is considered unique by comparing using {@code Question#isSamePerson(Question)}.
+ * As such, adding and updating of persons uses Question#isSamePerson(Question) for equality
+ * to ensure that the question being added or updated is unique in terms of identity in
+ * the UniquePersonList. However, the removal of a question uses Question#equals(Object) to
+ * ensure that the question with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *

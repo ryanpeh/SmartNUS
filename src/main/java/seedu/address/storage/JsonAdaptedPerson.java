@@ -15,8 +15,8 @@ import seedu.address.model.question.Address;
 import seedu.address.model.question.Email;
 import seedu.address.model.question.MultipleChoiceQuestion;
 import seedu.address.model.question.Name;
-import seedu.address.model.question.Question;
 import seedu.address.model.question.Phone;
+import seedu.address.model.question.Question;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -71,7 +71,7 @@ class JsonAdaptedPerson {
         for (JsonAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
         }
-        
+
         // TODO: Implement loading functionality for choices
         final List<Choice> questionChoices = new ArrayList<>();
 
@@ -108,9 +108,9 @@ class JsonAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        
+
         final Set<Choice> modelChoices = new HashSet<>(questionChoices);
-        
+
         // TODO: save question type in json and instantiate correct Question type when more types are supported
         return new MultipleChoiceQuestion(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelChoices);
     }

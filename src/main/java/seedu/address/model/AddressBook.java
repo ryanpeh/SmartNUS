@@ -77,7 +77,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Replaces the given question {@code target} in the list with {@code editedQuestion}.
      * {@code target} must exist in the address book.
-     * The question identity of {@code editedQuestion} must not be the same as another existing question in the address book.
+     * The question identity of {@code editedQuestion} must not be the same as another existing question
+     * in the address book.
      */
     public void setPerson(Question target, Question editedQuestion) {
         requireNonNull(editedQuestion);

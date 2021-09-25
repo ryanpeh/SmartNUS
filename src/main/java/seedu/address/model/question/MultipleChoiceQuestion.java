@@ -1,12 +1,13 @@
 package seedu.address.model.question;
 
+import java.util.Set;
+
 import seedu.address.model.choice.Choice;
 import seedu.address.model.tag.Tag;
 
-import java.util.Set;
-
 public class MultipleChoiceQuestion extends Question {
-    public MultipleChoiceQuestion(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Set<Choice> choices) {
+    public MultipleChoiceQuestion(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+                                  Set<Choice> choices) {
         super(name, phone, email, address, tags, choices);
     }
 
