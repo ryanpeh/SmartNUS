@@ -99,12 +99,12 @@ public abstract class Question {
         }
 
         Question otherQuestion = (Question) other;
+        // TODO: Add Choice comparison after Choices can be saved and loaded from storage
         return otherQuestion.getName().equals(getName())
                 && otherQuestion.getPhone().equals(getPhone())
                 && otherQuestion.getEmail().equals(getEmail())
                 && otherQuestion.getAddress().equals(getAddress())
-                && otherQuestion.getTags().equals(getTags())
-                && otherQuestion.getChoices().equals(getChoices());
+                && otherQuestion.getTags().equals(getTags());
     }
 
     @Override
