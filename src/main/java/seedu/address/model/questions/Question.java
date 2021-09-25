@@ -42,7 +42,13 @@ public abstract class Question {
         return Collections.unmodifiableSet(tags);
     }
     
+    /**
+     * Checks if a given {@code Choice} is the correct answer to the {@code Question}.
+     */
     public abstract boolean checkAnswer(Choice choice);
     
+    /**
+     * Returns true if the {@code Question} is valid and false otherwise. Conditions for validity can depend on {@code Question} types.
+     */
     public abstract boolean isValidQuestion();
 }
