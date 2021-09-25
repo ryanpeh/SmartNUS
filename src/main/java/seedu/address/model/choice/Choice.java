@@ -1,7 +1,18 @@
 package seedu.address.model.choice;
 
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 public class Choice {
+    public static final String MESSAGE_CONSTRAINTS = "Choices can take any values, and it should not be blank";
+
+    /*
+     * The first character of the choice must not be a whitespace,
+     * otherwise " " (a blank string) becomes a valid input.
+     */
+    public static final String VALIDATION_REGEX = "[^\\s].*";
+    
     private final String title;
     private final boolean isCorrect;
 
@@ -12,8 +23,17 @@ public class Choice {
      * @param isCorrect Whether the Choice is the correct answer to a Question.
      */
     public Choice(String title, boolean isCorrect) {
+        requireNonNull(title);
+        checkArgument(isValidChoiceTitle(title), MESSAGE_CONSTRAINTS);
         this.title = title;
         this.isCorrect = isCorrect;
+    }
+
+    /**
+     * Returns true if a given string is a valid choice title.
+     */
+    public static boolean isValidChoiceTitle(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 
     public boolean getIsCorrect() {
