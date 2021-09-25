@@ -12,7 +12,7 @@ public class Choice {
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[^\\s].*";
-    
+
     private final String title;
     private final boolean isCorrect;
 

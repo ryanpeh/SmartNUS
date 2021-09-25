@@ -22,14 +22,14 @@ public class ChoiceTest {
     public void isValidChoiceTitle_nullTitle_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> Choice.isValidChoiceTitle(null));
     }
-    
+
     @Test
     public void isValidChoiceTitle_emptyStringTitle_false() {
         // Choice title containing only spaces
         assertFalse(Choice.isValidChoiceTitle(""));
         assertFalse(Choice.isValidChoiceTitle("  "));
     }
-    
+
     @Test
     public void isValidChoiceTitle_validTitle_true() {
         assertTrue(Choice.isValidChoiceTitle("option 1"));
