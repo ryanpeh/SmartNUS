@@ -13,34 +13,34 @@ import seedu.address.model.question.exceptions.PersonNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A person is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
- * persons uses Person#isSamePerson(Person) for equality so as to ensure that the person being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a person uses Person#equals(Object) so
- * as to ensure that the person with exactly the same fields will be removed.
+ * A question is considered unique by comparing using {@code Question#isSamePerson(Question)}. As such, adding and updating of
+ * persons uses Question#isSamePerson(Question) for equality so as to ensure that the question being added or updated is
+ * unique in terms of identity in the UniquePersonList. However, the removal of a question uses Question#equals(Object) so
+ * as to ensure that the question with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
- * @see Person#isSamePerson(Person)
+ * @see Question#isSamePerson(Question)
  */
-public class UniquePersonList implements Iterable<Person> {
+public class UniquePersonList implements Iterable<Question> {
 
-    private final ObservableList<Person> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Person> internalUnmodifiableList =
+    private final ObservableList<Question> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Question> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent question as the given argument.
      */
-    public boolean contains(Person toCheck) {
+    public boolean contains(Question toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSamePerson);
     }
 
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
+     * Adds a question to the list.
+     * The question must not already exist in the list.
      */
-    public void add(Person toAdd) {
+    public void add(Question toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicatePersonException();
@@ -49,30 +49,30 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * Replaces the question {@code target} in the list with {@code editedQuestion}.
      * {@code target} must exist in the list.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
+     * The question identity of {@code editedQuestion} must not be the same as another existing question in the list.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void setPerson(Question target, Question editedQuestion) {
+        requireAllNonNull(target, editedQuestion);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new PersonNotFoundException();
         }
 
-        if (!target.isSamePerson(editedPerson) && contains(editedPerson)) {
+        if (!target.isSamePerson(editedQuestion) && contains(editedQuestion)) {
             throw new DuplicatePersonException();
         }
 
-        internalList.set(index, editedPerson);
+        internalList.set(index, editedQuestion);
     }
 
     /**
-     * Removes the equivalent person from the list.
-     * The person must exist in the list.
+     * Removes the equivalent question from the list.
+     * The question must exist in the list.
      */
-    public void remove(Person toRemove) {
+    public void remove(Question toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new PersonNotFoundException();
@@ -85,27 +85,27 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Replaces the contents of this list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of this list with {@code questions}.
+     * {@code questions} must not contain duplicate questions.
      */
-    public void setPersons(List<Person> persons) {
-        requireAllNonNull(persons);
-        if (!personsAreUnique(persons)) {
+    public void setPersons(List<Question> questions) {
+        requireAllNonNull(questions);
+        if (!personsAreUnique(questions)) {
             throw new DuplicatePersonException();
         }
 
-        internalList.setAll(persons);
+        internalList.setAll(questions);
     }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Person> asUnmodifiableObservableList() {
+    public ObservableList<Question> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
     @Override
-    public Iterator<Person> iterator() {
+    public Iterator<Question> iterator() {
         return internalList.iterator();
     }
 
@@ -122,12 +122,12 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Returns true if {@code persons} contains only unique persons.
+     * Returns true if {@code questions} contains only unique questions.
      */
-    private boolean personsAreUnique(List<Person> persons) {
-        for (int i = 0; i < persons.size() - 1; i++) {
-            for (int j = i + 1; j < persons.size(); j++) {
-                if (persons.get(i).isSamePerson(persons.get(j))) {
+    private boolean personsAreUnique(List<Question> questions) {
+        for (int i = 0; i < questions.size() - 1; i++) {
+            for (int j = i + 1; j < questions.size(); j++) {
+                if (questions.get(i).isSamePerson(questions.get(j))) {
                     return false;
                 }
             }
