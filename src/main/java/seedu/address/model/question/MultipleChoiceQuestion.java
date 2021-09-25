@@ -13,19 +13,10 @@ public class MultipleChoiceQuestion extends Question {
 
     @Override
     public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
         if (!(other instanceof MultipleChoiceQuestion)) {
             return false;
         }
 
-        Question otherQuestion = (Question) other;
-        return otherQuestion.getName().equals(getName())
-                && otherQuestion.getPhone().equals(getPhone())
-                && otherQuestion.getEmail().equals(getEmail())
-                && otherQuestion.getAddress().equals(getAddress())
-                && otherQuestion.getTags().equals(getTags());
+        return super.equals(other);
     }
 }

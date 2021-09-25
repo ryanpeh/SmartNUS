@@ -103,7 +103,8 @@ public abstract class Question {
                 && otherQuestion.getPhone().equals(getPhone())
                 && otherQuestion.getEmail().equals(getEmail())
                 && otherQuestion.getAddress().equals(getAddress())
-                && otherQuestion.getTags().equals(getTags());
+                && otherQuestion.getTags().equals(getTags())
+                && otherQuestion.getChoices().equals(getChoices());
     }
 
     @Override
