@@ -36,19 +36,19 @@ public class ChoiceTest {
         assertTrue(Choice.isValidChoiceTitle("10"));
         assertTrue(Choice.isValidChoiceTitle("901p#__"));
     }
-    
+
     @Test
     public void equals() {
         Choice choiceACorrect = new Choice("choice A", true);
         Choice choiceAWrong = new Choice("choice A", false);
         Choice choiceBCorrect = new Choice("choice B", true);
-        
+
         // different isCorrect values
         assertFalse(choiceACorrect.equals(choiceAWrong));
-        
+
         // different titles
         assertFalse(choiceBCorrect.equals(choiceACorrect));
-        
+
         assertTrue(choiceACorrect.equals(new Choice("choice A", true)));
     }
 }

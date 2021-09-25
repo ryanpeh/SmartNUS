@@ -103,7 +103,7 @@ public class EditCommand extends Command {
 
         // TODO: implement parsing for choices
         Set<Choice> updatedChoices = questionToEdit.getChoices();
-        
+
         // TODO: edit when more Question types are supported
         return new MultipleChoiceQuestion(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
                 updatedChoices);
