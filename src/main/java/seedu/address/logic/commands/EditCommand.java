@@ -103,13 +103,10 @@ public class EditCommand extends Command {
 
         // TODO: implement parsing for choices
         Set<Choice> updatedChoices = questionToEdit.getChoices();
-
-        if (questionToEdit instanceof MultipleChoiceQuestion) {
-            return new MultipleChoiceQuestion(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
-                    updatedChoices);
-        }
-        // TODO: edit this and add a better exception?
-        throw new RuntimeException("Question type not supported");
+        
+        // TODO: edit when more Question types are supported
+        return new MultipleChoiceQuestion(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
+                updatedChoices);
     }
 
     @Override
