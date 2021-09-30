@@ -3,57 +3,57 @@ layout: page
 title: About Us
 ---
 
+**SmartNUS** is a project built for CS2103T Software Engineering.
+
 We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
 
-You can reach us at the email `seer[at]comp.nus.edu.sg`
+## Project Team
 
-## Project team
+### Abhishek Gupta
 
-### John Doe
+<img src="images/agentum07.png" width="200px">
 
-<img src="images/johndoe.png" width="200px">
-
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Project Advisor
-
-### Jane Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Team Lead
-* Responsibilities: UI
-
-### Johnny Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: Data
-
-### Jean Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
+[[github](https://github.com/agentum07)]
 [[portfolio](team/johndoe.md)]
 
 * Role: Developer
-* Responsibilities: Dev Ops + Threading
+* Responsibilities:
 
-### James Doe
+### Arya Nagatama Giat
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/aryagiat.png" width="200px">
 
-[[github](http://github.com/johndoe)]
+[[github](http://github.com/aryagiat)]
 [[portfolio](team/johndoe.md)]
 
 * Role: Developer
-* Responsibilities: UI
+* Responsibilities:
+
+### Neo Jing Xuan
+
+<img src="images/neojxuan.png" width="200px">
+
+[[github](http://github.com/neojxuan)] [[portfolio](team/johndoe.md)]
+
+* Role: Developer
+* Responsibilities:
+
+### Ong Jun Heng, Cedric
+
+<img src="images/cedricongjh.png" width="200px">
+
+[[github](http://github.com/cedricongjh)]
+[[portfolio](team/johndoe.md)]
+
+* Role: Developer
+* Responsibilities:
+
+### Peh Kai Min, Ryan
+
+<img src="images/ryanpeh.png" width="200px">
+
+[[github](http://github.com/ryanpeh)]
+[[portfolio](team/johndoe.md)]
+
+* Role: Developer
+* Responsibilities: 
