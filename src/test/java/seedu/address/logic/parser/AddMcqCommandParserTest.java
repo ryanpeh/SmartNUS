@@ -1,8 +1,5 @@
 package seedu.address.logic.parser;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.logic.commands.AddMcqCommand;
-
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_1;
 import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_2;
@@ -28,14 +25,18 @@ import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_ANSWER;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_OPTION;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_QUESTION;
 
+import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.commands.AddMcqCommand;
+
 class AddMcqCommandParserTest {
 
-    private AddMcqCommandParser parser = new AddMcqCommandParser();
+    private final AddMcqCommandParser parser = new AddMcqCommandParser();
 
     @Test
     void parse_allFieldsValid_success() {
-        String[] validOptions = new String[] {VALID_OPTION_1, VALID_OPTION_3, VALID_OPTION_4};
-        AddMcqCommand expectedCommand = new AddMcqCommand(VALID_QUESTION_1, validOptions,VALID_ANSWER_1);
+        String[] validOptions = new String[]{VALID_OPTION_1, VALID_OPTION_3, VALID_OPTION_4};
+        AddMcqCommand expectedCommand = new AddMcqCommand(VALID_QUESTION_1, validOptions, VALID_ANSWER_1);
 
         // normal command with preamble whitespace
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + QUESTION_DESC_1 + OPTIONS_DESC_1 + ANSWER_DESC_1,
@@ -65,7 +66,7 @@ class AddMcqCommandParserTest {
         // answer prefix missing
         assertParseFailure(parser, VALID_QUESTION_1 + OPTIONS_DESC_1 + VALID_ANSWER_1, expectedMessage);
         // options prefix missing
-        assertParseFailure(parser,QUESTION_DESC_1 + VALID_OPTION_1 + VALID_OPTION_3 + VALID_OPTION_4 + ANSWER_DESC_1,
+        assertParseFailure(parser, QUESTION_DESC_1 + VALID_OPTION_1 + VALID_OPTION_3 + VALID_OPTION_4 + ANSWER_DESC_1,
                 expectedMessage);
         // question prefix missing
         assertParseFailure(parser, VALID_QUESTION_1 + OPTIONS_DESC_1 + ANSWER_DESC_1, expectedMessage);

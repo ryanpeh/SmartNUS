@@ -51,8 +51,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseIndex_outOfRangeInput_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
-            -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
+        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, () ->
+                ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
     }
 
     @Test
@@ -220,7 +220,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseQuestion_InvalidValue_throwsParseException() {
+    public void parseQuestion_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseQuestion(INVALID_QUESTION));
     }
 
@@ -242,7 +242,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseAnswer_InvalidValue_throwsParseException() {
+    public void parseAnswer_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseAnswer(INVALID_ANSWER));
     }
 
@@ -265,7 +265,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseOption_InvalidValue_throwsParseException() {
+    public void parseOption_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseOption(INVALID_OPTION));
     }
 
@@ -277,20 +277,22 @@ public class ParserUtilTest {
     @Test
     public void parseOptions_validValues_returnsOptions() throws Exception {
         String[] actualOptions = ParserUtil.parseOptions(Arrays.asList(VALID_OPTION_1, VALID_OPTION_2, VALID_OPTION_3));
-        String[] expectedOptions = new String[] {VALID_OPTION_1, VALID_OPTION_2, VALID_OPTION_3};
+        String[] expectedOptions = new String[]{VALID_OPTION_1, VALID_OPTION_2, VALID_OPTION_3};
         // Temp hacky method to compare if the 2 array contents are the same, once Options object is implemented, this
         // can be removed (currently Options is just a String[])
         assertEquals(Arrays.toString(actualOptions), Arrays.toString(expectedOptions));
     }
 
     @Test
-    public void parseOptions_invalidValues_throwsParseException() throws Exception {
+    public void parseOptions_invalidValues_throwsParseException() {
 
         // One invalid option
-        assertThrows(ParseException.class, () -> ParserUtil.parseOptions(Arrays.asList(VALID_OPTION_1, INVALID_OPTION, VALID_OPTION_3)));
+        assertThrows(ParseException.class, () ->
+                ParserUtil.parseOptions(Arrays.asList(VALID_OPTION_1, INVALID_OPTION, VALID_OPTION_3)));
 
         // Not enough valid options
-        assertThrows(ParseException.class, () -> ParserUtil.parseOptions(Arrays.asList(VALID_OPTION_1, VALID_OPTION_2)));
+        assertThrows(ParseException.class, () ->
+                ParserUtil.parseOptions(Arrays.asList(VALID_OPTION_1, VALID_OPTION_2)));
 
         // No options
         assertThrows(ParseException.class, () -> ParserUtil.parseOptions(Collections.emptyList()));
