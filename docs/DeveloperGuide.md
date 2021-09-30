@@ -283,32 +283,125 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `SmartNUS` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+
+**Use case: Add Multiple Choice question and options**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to add an MCQ question and its options, indicating the correct answer.
+2.  SmartNUS saves the question, its options and the correct answer.
 
+**Extensions**
+
+* 1a. User does not specify any options.
+* SmartNUS shows error message.  
+  Use case ends.
+
+* 1b. User does not specify the correct answer.
+* SmartNUS shows error message.  
+  Use case ends.
+
+* 1c. User specifies more than one correct answer.
+* SmartNUS shows error message.  
+  Use case ends.
+
+
+**Use case: Add True/False question**
+
+**MSS**
+
+1.  User requests to add a True/False question, indicating the correct answer.
+2.  SmartNUS saves the question and the correct answer.
+
+**Extensions**
+
+* 1a. User does not specify the correct answer.
+    * 1a1. SmartNUS shows error message.  
+      Use case ends.
+
+* 1b. User specifies more than one correct answer.
+    * 1b1. SmartNUS shows error message.  
+      Use case ends.
+
+
+**Use case: Delete a question**
+
+**MSS**
+
+1.  User requests to list questions.
+2.  SmartNUS shows a list of all questions.
+3.  User requests to delete a specific question in the list.
+4.  SmartNUS deletes the question.
     Use case ends.
 
 **Extensions**
 
 * 2a. The list is empty.
-
-  Use case ends.
+    * 2a1. SmartNUS shows message that there are no questions.
+      Use case ends.
 
 * 3a. The given index is invalid.
+    * 3a1. SmartNUS shows an error message.
+      Use case resumes at Step 2.
 
-    * 3a1. AddressBook shows an error message.
 
-      Use case resumes at step 2.
+**Use case: Tag a question**
 
-*{More to be added}*
+**MSS**
+
+1.  User requests to list questions.
+2.  SmartNUS shows a list of all questions.
+3.  User requests to tag a specific question in the list with specific tag(s).
+4.  SmartNUS tags the question with the specified tags.  
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+    * 2a1. SmartNUS shows message that there are no questions.  
+      Use case ends.
+
+* 3a. The given index is invalid.
+    * 3a1. SmartNUS shows an error message.  
+      Use case resumes at Step 2.
+
+* 3b. At least one specified tag does not exist.
+    * 3b1. SmartNUS creates tags that do not exist.  
+      Use case resumes at Step 4.
+
+
+**Use case: Start a quiz**
+
+**MSS**
+
+1.  User requests to start a quiz, specifying number of questions and tags.
+2.  SmartNUS shows a question from one of the specified tags and its options.
+3.  User chooses one option.
+4.  SmartNUS shows the correct option (answer).
+5.  Steps 2 to 4 are repeated until the user has answered the number of questions he/she specified when starting the quiz.
+6.  SmartNUS shows the user’s score (number of questions correct and total number of questions answered).
+
+**Extensions**
+
+* 1a. Number of questions is invalid (negative or more than total number of questions).
+    * 1a1. SmartNUS shows error message.
+      Use case ends.
+
+* 1b. At least one tag does not exist.
+    * 1b1. SmartNUS shows an error message.
+      Use case ends.
+
+* 2a. User did not specify any tags.
+    * 2a1. SmartNUS shows any question (that has not yet been shown in the quiz) and its options.
+      Use case resumes at Step 3.
+
+* 5a. User did not specify number of questions.
+    * 5a1. Steps 2 to 4 are repeated until all questions from the specified tags have been shown.
+      Use case resumes at Step 6.
+
+
 
 ### Non-Functional Requirements
 
