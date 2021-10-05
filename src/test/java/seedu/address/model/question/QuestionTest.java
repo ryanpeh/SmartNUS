@@ -1,6 +1,8 @@
 package seedu.address.model.question;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
@@ -13,6 +15,7 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 
 public class QuestionTest {
@@ -64,6 +67,8 @@ public class QuestionTest {
 
         // different type -> returns false
         assertFalse(ALICE.equals(5));
+        // added to test code coverage
+        assertFalse(ALICE.equals(new Tag("abc")));
 
         // different question -> returns false
         assertFalse(ALICE.equals(BOB));
@@ -87,5 +92,32 @@ public class QuestionTest {
         // different tags -> returns false
         editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(ALICE.equals(editedAlice));
+    }
+    
+    @Test
+    public void hashcode() {
+        Question aliceQuestion = new PersonBuilder(ALICE).build();
+        Question aliceCopy = new PersonBuilder(ALICE).build();
+
+        assertEquals(aliceQuestion.hashCode(), aliceCopy.hashCode());
+        
+        Question bobQuestion = new PersonBuilder(BOB).build();
+        assertNotEquals(aliceQuestion.hashCode(), bobQuestion.hashCode());
+        
+        // different phone -> returns false
+        Question editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
+        assertNotEquals(aliceQuestion.hashCode(), editedAlice.hashCode());
+
+        // different email -> returns false
+        editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        assertNotEquals(aliceQuestion.hashCode(), editedAlice.hashCode());
+
+        // different address -> returns false
+        editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
+        assertNotEquals(aliceQuestion.hashCode(), editedAlice.hashCode());
+
+        // different tags -> returns false
+        editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
+        assertNotEquals(aliceQuestion.hashCode(), editedAlice.hashCode());
     }
 }
