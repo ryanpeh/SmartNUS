@@ -96,6 +96,10 @@ public class QuestionBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Choices} of the {@code Question} that we are building to
+     * a set containing the default choice.
+     */
     public QuestionBuilder withChoices() {
         choices = new HashSet<>();
         choices.add(DEFAULT_CHOICE);
