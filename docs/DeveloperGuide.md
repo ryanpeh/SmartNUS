@@ -257,13 +257,14 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
+* needs to organise and revise materials for many modules
+* wants to note down important information in the form of questions and answers that they can quiz themselves on
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: organise and revise information faster than a typical mouse/GUI driven app
 
 
 ### User stories
@@ -272,56 +273,180 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 | Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
 | -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new question               |                                                                        |
-| `* * *`  | user                                       | delete a question                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a question by name          | locate details of questions without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many questions in the address book | sort questions by name           | locate a question easily                                                 |
+| `* * *`  | NUS Student | add a multiple choice question to the topic         | review the question in MCQ style|
+| `* * *`  | NUS Student | add an answer to the multiple choice question       | see the correct answer during the review                                                                        |
+| `* * *`  | NUS Student | delete the question and at the same time delete all answers belonging to that question | remove questions and answer that are not needed|
+| `* * *`  | NUS Student | do a quiz containing only questions from a certain tag       | revise questions for the specific tag|
+| `* * *`  | NUS Student | specify the number of questions to be included in any quiz| revise the number of questions taking into account time constraints or the importance I place on that module/topic, rather than having to go through all questions|
+| `* * *`  | NUS Student | see the list of all commands | know what commands to use to perform a specific task that I want|
+| `* * *`  | NUS Student | specify the number of questions to be included in any quiz| revise the number of questions taking into account time constraints or the importance I place on that module/topic, rather than having to go through all questions|
+| `* * *`  | NUS Student | add tags | tag questions to categorise them and search through them easily|
+| `* * *`  | NUS Student | delete existing tag | delete unneeded tags|
+| `* * *`  | NUS Student | add a True or False question to the topic | review the question in T/F style|
+| `* * *`  | NUS Student | add an open ended question to the topic | review the question open endedly|
+| `* * *`  | NUS Student | add an answer to the True or False question | see the correct answer during the review|
+| `* * *`  | NUS Student | add an answer to the open ended question | see the correct answer during the review|
+| `* * *`  | NUS Student | tag questions with custom tags (e.g. midterm, quiz, finals) | mark questions (add a note)|
+| `* *`    | NUS Student | end the quiz mid way | end the quiz without finishing it, and return to question list|
+| `* * `   | NUS Student | search questions by tag | filter out questions based on the specific tags|
+| `* * `   | NUS Student | search questions by keyword | filter out questions based on the specific keyword|
+| `* *`    | NUS Student | update existing tag | change a tag if there is a typo|
+| `* *`    | NUS Student | edit the multiple choice question | amend the question just in case I made a mistake |
+| `* *`    | NUS Student | edit the True or False question | amend the question just in case I made a mistake |
+| `* *`    | NUS Student | edit the open ended question | amend the question just in case I made a mistake |
+| `* *`    | NUS Student | edit the multiple choice answer | amend the answer just in case I made a mistake |
+| `* *`    | NUS Student | edit the True or False answer | amend the answer just in case I made a mistake |
+| `* *`    | NUS Student | edit the open ended answer | amend the answer just in case I made a mistake |
+| `* *`    | NUS Student | mark a review as correct | track which questions I answered correctly |
+| `* *`    | NUS Student | mark a review as incorrect | track which questions I need to review again |
+| `*`      | NUS Student | undo a command | undo something that I did carelessly |
+| `*`      | NUS Student | add an exam date to a tag | prioritize which modules to study for |
+| `*`      | NUS Student | view how many times I have answered any question correctly and incorrectly | identify areas of improvement to focus on during revision|
+| `*`      | NUS Student | view how many times I have answered questions from a particular topic correctly and incorrectly| identify areas of improvement to focus on during revision|
+| `*`      | NUS Student | have Demo data already in the application [modules, QnA, tags]| see how the application works and try it out easily|
+| `*`      | NUS Student | create a deadline (date) for the selected topic| manage my time to review topics|
+| `*`      | NUS Student | view deleted questions | still see the questions I might need but have deleted|
+| `*`      | NUS Student | restore deleted questions | to restore questions that I deleted but need again|
+| `*`      | NUS Student | delete everything and start fresh | get rid of all data I have entered so far|
+| `*`      | NUS Student | go back or forward in the question list | review again the questions I have answered |
 
-*{More to be added}*
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `SmartNUS` and the **Actor** is the `user`, unless specified otherwise)
+
+
+**Use case: Add Multiple Choice question and options**
+
+**MSS**
+
+1.  User requests to add an MCQ question and its options, indicating the correct answer.
+2.  SmartNUS saves the question, its options and the correct answer.
+
+**Extensions**
+
+* 1a. User does not specify any options.
+* SmartNUS shows error message.  
+  Use case ends.
+
+* 1b. User does not specify the correct answer.
+* SmartNUS shows error message.  
+  Use case ends.
+
+* 1c. User specifies more than one correct answer.
+* SmartNUS shows error message.  
+  Use case ends.
+
+
+**Use case: Add True/False question**
+
+**MSS**
+
+1.  User requests to add a True/False question, indicating the correct answer.
+2.  SmartNUS saves the question and the correct answer.
+
+**Extensions**
+
+* 1a. User does not specify the correct answer.
+    * 1a1. SmartNUS shows error message.  
+      Use case ends.
+
+* 1b. User specifies more than one correct answer.
+    * 1b1. SmartNUS shows error message.  
+      Use case ends.
+
 
 **Use case: Delete a question**
 
 **MSS**
 
-1.  User requests to list questions
-2.  AddressBook shows a list of questions
-3.  User requests to delete a specific question in the list
-4.  AddressBook deletes the question
-
+1.  User requests to list questions.
+2.  SmartNUS shows a list of all questions.
+3.  User requests to delete a specific question in the list.
+4.  SmartNUS deletes the question.
     Use case ends.
 
 **Extensions**
 
 * 2a. The list is empty.
-
-  Use case ends.
+    * 2a1. SmartNUS shows message that there are no questions.
+      Use case ends.
 
 * 3a. The given index is invalid.
+    * 3a1. SmartNUS shows an error message.
+      Use case resumes at Step 2.
 
-    * 3a1. AddressBook shows an error message.
 
-      Use case resumes at step 2.
+**Use case: Tag a question**
 
-*{More to be added}*
+**MSS**
+
+1.  User requests to list questions.
+2.  SmartNUS shows a list of all questions.
+3.  User requests to tag a specific question in the list with specific tag(s).
+4.  SmartNUS tags the question with the specified tags.  
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+    * 2a1. SmartNUS shows message that there are no questions.  
+      Use case ends.
+
+* 3a. The given index is invalid.
+    * 3a1. SmartNUS shows an error message.  
+      Use case resumes at Step 2.
+
+* 3b. At least one specified tag does not exist.
+    * 3b1. SmartNUS creates tags that do not exist.  
+      Use case resumes at Step 4.
+
+
+**Use case: Start a quiz**
+
+**MSS**
+
+1.  User requests to start a quiz, specifying number of questions and tags.
+2.  SmartNUS shows a question from one of the specified tags and its options.
+3.  User chooses one option.
+4.  SmartNUS shows the correct option (answer).
+5.  Steps 2 to 4 are repeated until the user has answered the number of questions he/she specified when starting the quiz.
+6.  SmartNUS shows the user’s score (number of questions correct and total number of questions answered).
+
+**Extensions**
+
+* 1a. Number of questions is invalid (negative or more than total number of questions).
+    * 1a1. SmartNUS shows error message.
+      Use case ends.
+
+* 1b. At least one tag does not exist.
+    * 1b1. SmartNUS shows an error message.
+      Use case ends.
+
+* 2a. User did not specify any tags.
+    * 2a1. SmartNUS shows any question (that has not yet been shown in the quiz) and its options.
+      Use case resumes at Step 3.
+
+* 5a. User did not specify number of questions.
+    * 5a1. Steps 2 to 4 are repeated until all questions from the specified tags have been shown.
+      Use case resumes at Step 6.
+
+
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2.  Should be able to hold up to 1000 questions without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-*{More to be added}*
+1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
+2. Should be able to hold up to 1000 questions without a noticeable sluggishness in performance for typical usage.
+3. A student with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+4. The data should be stored locally and should be in an editable json file.
+5. The product should be for a single user at a time.
+6. The final product should be a result of morphing the given AB3 code base.
+7. The final product should be self-contained i.e should not prompt the user to open any links.
+8. The final product should be fully functional without the internet.
 
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
-* **Private contact detail**: A contact detail that is not meant to be shared with others
 
 --------------------------------------------------------------------------------------------------------------------
 
