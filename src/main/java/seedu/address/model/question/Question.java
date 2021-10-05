@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.question;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -7,13 +7,14 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.choice.Choice;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Question in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person {
+public abstract class Question {
 
     // Identity fields
     private final Name name;
@@ -23,17 +24,19 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private final Set<Choice> choices = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Question(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Set<Choice> choices) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.choices.addAll(choices);
     }
 
     public Name getName() {
@@ -61,16 +64,24 @@ public class Person {
     }
 
     /**
+     * Returns an immutable choice set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Choice> getChoices() {
+        return Collections.unmodifiableSet(choices);
+    }
+
+    /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
+    public boolean isSamePerson(Question otherQuestion) {
+        if (otherQuestion == this) {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().equals(getName());
+        return otherQuestion != null
+                && otherQuestion.getName().equals(getName());
     }
 
     /**
@@ -83,16 +94,17 @@ public class Person {
             return true;
         }
 
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Question)) {
             return false;
         }
 
-        Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+        Question otherQuestion = (Question) other;
+        // TODO: Add Choice comparison after Choices can be saved and loaded from storage
+        return otherQuestion.getName().equals(getName())
+                && otherQuestion.getPhone().equals(getPhone())
+                && otherQuestion.getEmail().equals(getEmail())
+                && otherQuestion.getAddress().equals(getAddress())
+                && otherQuestion.getTags().equals(getTags());
     }
 
     @Override
@@ -116,6 +128,12 @@ public class Person {
         if (!tags.isEmpty()) {
             builder.append("; Tags: ");
             tags.forEach(builder::append);
+        }
+
+        Set<Choice> choices = getChoices();
+        if (!choices.isEmpty()) { // may be empty for open-ended questions
+            builder.append("; Choices: ");
+            choices.forEach(builder::append);
         }
         return builder.toString();
     }

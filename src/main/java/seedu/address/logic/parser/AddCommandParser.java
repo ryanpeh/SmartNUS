@@ -7,16 +7,19 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.choice.Choice;
+import seedu.address.model.question.Address;
+import seedu.address.model.question.Email;
+import seedu.address.model.question.MultipleChoiceQuestion;
+import seedu.address.model.question.Name;
+import seedu.address.model.question.Phone;
+import seedu.address.model.question.Question;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -44,9 +47,13 @@ public class AddCommandParser implements Parser<AddCommand> {
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, phone, email, address, tagList);
+        // TODO: implement parsing for choices
+        Set<Choice> choiceList = new HashSet<>();
+        choiceList.add(new Choice("Empty Choice", true));
+        // TODO: check if AddCommand will be used for different types of Questions
+        Question question = new MultipleChoiceQuestion(name, phone, email, address, tagList, choiceList);
 
-        return new AddCommand(person);
+        return new AddCommand(question);
     }
 
     /**
