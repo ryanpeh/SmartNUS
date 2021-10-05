@@ -12,7 +12,7 @@ import seedu.address.model.question.Question;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Question> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Question> PREDICATE_SHOW_ALL_QUESTIONS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.

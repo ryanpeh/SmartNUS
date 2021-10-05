@@ -190,13 +190,13 @@ Recall from the User Guide that the `edit` command has the format: `edit INDEX [
    public CommandResult execute(Model model) throws CommandException {
        ...
        Person questionToEdit = lastShownList.get(index.getZeroBased());
-       Person editedQuestion = createEditedPerson(questionToEdit, editPersonDescriptor);
+       Person editedQuestion = createEditedQuestion(questionToEdit, editPersonDescriptor);
        if (!questionToEdit.isSamePerson(editedQuestion) && model.hasPerson(editedQuestion)) {
-           throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+           throw new CommandException(MESSAGE_DUPLICATE_QUESTION);
        }
-       model.setPerson(questionToEdit, editedQuestion);
-       model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-       return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedQuestion));
+       model.setQuestion(questionToEdit, editedQuestion);
+       model.updateFilteredQuestionList(PREDICATE_SHOW_ALL_QUESTIONS);
+       return new CommandResult(String.format(MESSAGE_EDIT_QUESTION_SUCCESS, editedQuestion));
    }
    ```
 

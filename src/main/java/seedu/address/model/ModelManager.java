@@ -102,7 +102,7 @@ public class ModelManager implements Model {
     @Override
     public void addQuestion(Question question) {
         addressBook.addQuestion(question);
-        updateFilteredQuestionList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredQuestionList(PREDICATE_SHOW_ALL_QUESTIONS);
     }
 
     @Override
