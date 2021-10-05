@@ -95,7 +95,7 @@ public class QuestionBuilder {
         this.email = new Email(email);
         return this;
     }
-    
+
     public QuestionBuilder withChoices() {
         choices = new HashSet<>();
         choices.add(DEFAULT_CHOICE);

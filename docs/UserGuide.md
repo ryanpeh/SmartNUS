@@ -99,7 +99,7 @@ Deletes an existing question and answer in the question bank.
 
 Format: `/delete QUESTION_ID`
 
-* Deletes the question and answer with the specified `QUESTION_ID`. 
+* Deletes the question and answer with the specified `QUESTION_ID`.
 <!-- * The question id refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​ -->
 
 
@@ -130,7 +130,7 @@ SmartNUS data are saved as a JSON file `[JAR file location]/data/smartnus.json`.
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If your changes to the data file makes its format invalid, SmartNUS will discard all data and start with an empty data file at the next run.
 </div>
-<!-- 
+<!--
 ### Archiving data files `[coming in v2.0]`
 
 _Details coming soon ..._ -->

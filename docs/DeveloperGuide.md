@@ -326,15 +326,18 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**
 
 * 1a. User does not specify any options.
-* SmartNUS shows error message.  
+* SmartNUS shows error message.
+
   Use case ends.
 
 * 1b. User does not specify the correct answer.
-* SmartNUS shows error message.  
+* SmartNUS shows error message.
+  
   Use case ends.
 
 * 1c. User specifies more than one correct answer.
-* SmartNUS shows error message.  
+* SmartNUS shows error message.
+
   Use case ends.
 
 
@@ -348,11 +351,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**
 
 * 1a. User does not specify the correct answer.
-    * 1a1. SmartNUS shows error message.  
+    * 1a1. SmartNUS shows error message.
+
       Use case ends.
 
 * 1b. User specifies more than one correct answer.
-    * 1b1. SmartNUS shows error message.  
+    * 1b1. SmartNUS shows error message.
+
       Use case ends.
 
 
@@ -360,20 +365,23 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to list questions.
-2.  SmartNUS shows a list of all questions.
-3.  User requests to delete a specific question in the list.
-4.  SmartNUS deletes the question.
-    Use case ends.
+1. User requests to list questions.
+2. SmartNUS shows a list of all questions.
+3. User requests to delete a specific question in the list.
+4. SmartNUS deletes the question.
+
+   Use case ends.
 
 **Extensions**
 
 * 2a. The list is empty.
     * 2a1. SmartNUS shows message that there are no questions.
+
       Use case ends.
 
 * 3a. The given index is invalid.
     * 3a1. SmartNUS shows an error message.
+
       Use case resumes at Step 2.
 
 
@@ -390,15 +398,18 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**
 
 * 2a. The list is empty.
-    * 2a1. SmartNUS shows message that there are no questions.  
+    * 2a1. SmartNUS shows message that there are no questions.
+
       Use case ends.
 
 * 3a. The given index is invalid.
-    * 3a1. SmartNUS shows an error message.  
+    * 3a1. SmartNUS shows an error message.
+
       Use case resumes at Step 2.
 
 * 3b. At least one specified tag does not exist.
-    * 3b1. SmartNUS creates tags that do not exist.  
+    * 3b1. SmartNUS creates tags that do not exist.
+
       Use case resumes at Step 4.
 
 
@@ -417,18 +428,22 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. Number of questions is invalid (negative or more than total number of questions).
     * 1a1. SmartNUS shows error message.
+
       Use case ends.
 
 * 1b. At least one tag does not exist.
     * 1b1. SmartNUS shows an error message.
+
       Use case ends.
 
 * 2a. User did not specify any tags.
     * 2a1. SmartNUS shows any question (that has not yet been shown in the quiz) and its options.
+
       Use case resumes at Step 3.
 
 * 5a. User did not specify number of questions.
     * 5a1. Steps 2 to 4 are repeated until all questions from the specified tags have been shown.
+
       Use case resumes at Step 6.
 
 

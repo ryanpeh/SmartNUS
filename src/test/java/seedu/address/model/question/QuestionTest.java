@@ -93,17 +93,17 @@ public class QuestionTest {
         editedAlice = new QuestionBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(ALICE.equals(editedAlice));
     }
-    
+
     @Test
     public void hashCode_test() {
         Question aliceQuestion = new QuestionBuilder(ALICE).build();
         Question aliceCopy = new QuestionBuilder(ALICE).build();
 
         assertEquals(aliceQuestion.hashCode(), aliceCopy.hashCode());
-        
+
         Question bobQuestion = new QuestionBuilder(BOB).build();
         assertNotEquals(aliceQuestion.hashCode(), bobQuestion.hashCode());
-        
+
         // different phone -> returns false
         Question editedAlice = new QuestionBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
         assertNotEquals(aliceQuestion.hashCode(), editedAlice.hashCode());
