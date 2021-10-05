@@ -16,14 +16,14 @@ import seedu.address.model.question.exceptions.PersonNotFoundException;
  * A question is considered unique by comparing using {@code Question#isSamePerson(Question)}.
  * As such, adding and updating of persons uses Question#isSamePerson(Question) for equality
  * to ensure that the question being added or updated is unique in terms of identity in
- * the UniquePersonList. However, the removal of a question uses Question#equals(Object) to
+ * the UniqueQuestionList. However, the removal of a question uses Question#equals(Object) to
  * ensure that the question with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
  * @see Question#isSamePerson(Question)
  */
-public class UniquePersonList implements Iterable<Question> {
+public class UniqueQuestionList implements Iterable<Question> {
 
     private final ObservableList<Question> internalList = FXCollections.observableArrayList();
     private final ObservableList<Question> internalUnmodifiableList =
@@ -80,7 +80,7 @@ public class UniquePersonList implements Iterable<Question> {
         }
     }
 
-    public void setPersons(UniquePersonList replacement) {
+    public void setPersons(UniqueQuestionList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -113,8 +113,8 @@ public class UniquePersonList implements Iterable<Question> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniquePersonList // instanceof handles nulls
-                        && internalList.equals(((UniquePersonList) other).internalList));
+                || (other instanceof UniqueQuestionList // instanceof handles nulls
+                        && internalList.equals(((UniqueQuestionList) other).internalList));
     }
 
     @Override

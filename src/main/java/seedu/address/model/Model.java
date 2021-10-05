@@ -55,19 +55,19 @@ public interface Model {
     /**
      * Returns true if a question with the same identity as {@code question} exists in the address book.
      */
-    boolean hasPerson(Question question);
+    boolean hasQuestion(Question question);
 
     /**
      * Deletes the given question.
      * The question must exist in the address book.
      */
-    void deletePerson(Question target);
+    void deleteQuestion(Question target);
 
     /**
      * Adds the given question.
      * {@code question} must not already exist in the address book.
      */
-    void addPerson(Question question);
+    void addQuestion(Question question);
 
     /**
      * Replaces the given question {@code target} with {@code editedQuestion}.
@@ -75,14 +75,14 @@ public interface Model {
      * The question identity of {@code editedQuestion} must not be the same as another existing question
      * in the address book.
      */
-    void setPerson(Question target, Question editedQuestion);
+    void setQuestion(Question target, Question editedQuestion);
 
     /** Returns an unmodifiable view of the filtered question list */
-    ObservableList<Question> getFilteredPersonList();
+    ObservableList<Question> getFilteredQuestionList();
 
     /**
      * Updates the filter of the filtered question list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Question> predicate);
+    void updateFilteredQuestionList(Predicate<Question> predicate);
 }

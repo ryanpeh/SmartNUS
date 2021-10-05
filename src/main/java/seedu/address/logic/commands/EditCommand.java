@@ -50,7 +50,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Question: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This question already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_QUESTION = "This question already exists in the address book.";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -70,21 +70,21 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Question> lastShownList = model.getFilteredPersonList();
+        List<Question> lastShownList = model.getFilteredQuestionList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX);
         }
 
         Question questionToEdit = lastShownList.get(index.getZeroBased());
         Question editedQuestion = createEditedPerson(questionToEdit, editPersonDescriptor);
 
-        if (!questionToEdit.isSamePerson(editedQuestion) && model.hasPerson(editedQuestion)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (!questionToEdit.isSamePerson(editedQuestion) && model.hasQuestion(editedQuestion)) {
+            throw new CommandException(MESSAGE_DUPLICATE_QUESTION);
         }
 
-        model.setPerson(questionToEdit, editedQuestion);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.setQuestion(questionToEdit, editedQuestion);
+        model.updateFilteredQuestionList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedQuestion));
     }
 

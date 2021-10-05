@@ -6,7 +6,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.question.Question;
-import seedu.address.model.question.UniquePersonList;
+import seedu.address.model.question.UniqueQuestionList;
 
 /**
  * Wraps all data at the address-book level
@@ -14,7 +14,7 @@ import seedu.address.model.question.UniquePersonList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniquePersonList persons;
+    private final UniqueQuestionList questions;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -24,7 +24,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        questions = new UniqueQuestionList();
     }
 
     public AddressBook() {}
@@ -43,8 +43,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the question list with {@code questions}.
      * {@code questions} must not contain duplicate questions.
      */
-    public void setPersons(List<Question> questions) {
-        this.persons.setPersons(questions);
+    public void setQuestions(List<Question> questions) {
+        this.questions.setPersons(questions);
     }
 
     /**
@@ -53,7 +53,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setQuestions(newData.getQuestionList());
     }
 
     //// question-level operations
@@ -61,17 +61,17 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if a question with the same identity as {@code question} exists in the address book.
      */
-    public boolean hasPerson(Question question) {
+    public boolean hasQuestion(Question question) {
         requireNonNull(question);
-        return persons.contains(question);
+        return questions.contains(question);
     }
 
     /**
      * Adds a question to the address book.
      * The question must not already exist in the address book.
      */
-    public void addPerson(Question p) {
-        persons.add(p);
+    public void addQuestion(Question p) {
+        questions.add(p);
     }
 
     /**
@@ -80,42 +80,42 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The question identity of {@code editedQuestion} must not be the same as another existing question
      * in the address book.
      */
-    public void setPerson(Question target, Question editedQuestion) {
+    public void setQuestion(Question target, Question editedQuestion) {
         requireNonNull(editedQuestion);
 
-        persons.setPerson(target, editedQuestion);
+        questions.setPerson(target, editedQuestion);
     }
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Question key) {
-        persons.remove(key);
+    public void removeQuestion(Question key) {
+        questions.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return questions.asUnmodifiableObservableList().size() + " persons";
         // TODO: refine later
     }
 
     @Override
-    public ObservableList<Question> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+    public ObservableList<Question> getQuestionList() {
+        return questions.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                && questions.equals(((AddressBook) other).questions));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return questions.hashCode();
     }
 }

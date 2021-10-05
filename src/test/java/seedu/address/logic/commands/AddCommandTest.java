@@ -47,7 +47,7 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(validQuestion);
         ModelStub modelStub = new ModelStubWithPerson(validQuestion);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_QUESTION, () -> addCommand.execute(modelStub));
     }
 
     @Test
@@ -109,7 +109,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addPerson(Question question) {
+        public void addQuestion(Question question) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -124,27 +124,27 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Question question) {
+        public boolean hasQuestion(Question question) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Question target) {
+        public void deleteQuestion(Question target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(Question target, Question editedQuestion) {
+        public void setQuestion(Question target, Question editedQuestion) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Question> getFilteredPersonList() {
+        public ObservableList<Question> getFilteredQuestionList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Question> predicate) {
+        public void updateFilteredQuestionList(Predicate<Question> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -161,7 +161,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Question question) {
+        public boolean hasQuestion(Question question) {
             requireNonNull(question);
             return this.question.isSamePerson(question);
         }
@@ -174,13 +174,13 @@ public class AddCommandTest {
         final ArrayList<Question> personsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Question question) {
+        public boolean hasQuestion(Question question) {
             requireNonNull(question);
             return personsAdded.stream().anyMatch(question::isSamePerson);
         }
 
         @Override
-        public void addPerson(Question question) {
+        public void addQuestion(Question question) {
             requireNonNull(question);
             personsAdded.add(question);
         }

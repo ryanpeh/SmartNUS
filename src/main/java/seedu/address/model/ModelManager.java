@@ -34,7 +34,7 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredQuestions = new FilteredList<>(this.addressBook.getPersonList());
+        filteredQuestions = new FilteredList<>(this.addressBook.getQuestionList());
     }
 
     public ModelManager() {
@@ -89,27 +89,27 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Question question) {
+    public boolean hasQuestion(Question question) {
         requireNonNull(question);
-        return addressBook.hasPerson(question);
+        return addressBook.hasQuestion(question);
     }
 
     @Override
-    public void deletePerson(Question target) {
-        addressBook.removePerson(target);
+    public void deleteQuestion(Question target) {
+        addressBook.removeQuestion(target);
     }
 
     @Override
-    public void addPerson(Question question) {
-        addressBook.addPerson(question);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addQuestion(Question question) {
+        addressBook.addQuestion(question);
+        updateFilteredQuestionList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
-    public void setPerson(Question target, Question editedQuestion) {
+    public void setQuestion(Question target, Question editedQuestion) {
         requireAllNonNull(target, editedQuestion);
 
-        addressBook.setPerson(target, editedQuestion);
+        addressBook.setQuestion(target, editedQuestion);
     }
 
     //=========== Filtered Question List Accessors =============================================================
@@ -119,12 +119,12 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Question> getFilteredPersonList() {
+    public ObservableList<Question> getFilteredQuestionList() {
         return filteredQuestions;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Question> predicate) {
+    public void updateFilteredQuestionList(Predicate<Question> predicate) {
         requireNonNull(predicate);
         filteredQuestions.setPredicate(predicate);
     }

@@ -105,24 +105,24 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
-        List<Question> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        List<Question> expectedFilteredList = new ArrayList<>(actualModel.getFilteredQuestionList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedAddressBook, actualModel.getAddressBook());
-        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+        assertEquals(expectedFilteredList, actualModel.getFilteredQuestionList());
     }
     /**
      * Updates {@code model}'s filtered list to show only the question at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredQuestionList().size());
 
-        Question question = model.getFilteredPersonList().get(targetIndex.getZeroBased());
+        Question question = model.getFilteredQuestionList().get(targetIndex.getZeroBased());
         final String[] splitName = question.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredQuestionList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(1, model.getFilteredQuestionList().size());
     }
 
 }

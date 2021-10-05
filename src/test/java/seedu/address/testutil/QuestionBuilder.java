@@ -98,11 +98,13 @@ public class QuestionBuilder {
 
     /**
      * Sets the {@code Choices} of the {@code Question} that we are building to
-     * a set containing the default choice.
+     * a set containing choices.
      */
-    public QuestionBuilder withChoices() {
-        choices = new HashSet<>();
-        choices.add(DEFAULT_CHOICE);
+    public QuestionBuilder withChoices(Choice ... choices) {
+        this.choices = new HashSet<>();
+        for (Choice choice : choices) {
+            this.choices.add(choice);
+        }
         return this;
     }
 
