@@ -16,7 +16,7 @@ import seedu.address.model.util.SampleDataUtil;
 /**
  * A utility class to help with building Question objects.
  */
-public class PersonBuilder {
+public class QuestionBuilder {
 
     public static final String DEFAULT_NAME = "Amy Bee";
     public static final String DEFAULT_PHONE = "85355255";
@@ -32,9 +32,9 @@ public class PersonBuilder {
     private Set<Choice> choices;
 
     /**
-     * Creates a {@code PersonBuilder} with the default details.
+     * Creates a {@code QuestionBuilder} with the default details.
      */
-    public PersonBuilder() {
+    public QuestionBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
@@ -45,9 +45,9 @@ public class PersonBuilder {
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code questionToCopy}.
+     * Initializes the QuestionBuilder with the data of {@code questionToCopy}.
      */
-    public PersonBuilder(Question questionToCopy) {
+    public QuestionBuilder(Question questionToCopy) {
         name = questionToCopy.getName();
         phone = questionToCopy.getPhone();
         email = questionToCopy.getEmail();
@@ -59,7 +59,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Name} of the {@code Question} that we are building.
      */
-    public PersonBuilder withName(String name) {
+    public QuestionBuilder withName(String name) {
         this.name = new Name(name);
         return this;
     }
@@ -67,7 +67,7 @@ public class PersonBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Question} that we are building.
      */
-    public PersonBuilder withTags(String ... tags) {
+    public QuestionBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
@@ -75,7 +75,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Address} of the {@code Question} that we are building.
      */
-    public PersonBuilder withAddress(String address) {
+    public QuestionBuilder withAddress(String address) {
         this.address = new Address(address);
         return this;
     }
@@ -83,7 +83,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Phone} of the {@code Question} that we are building.
      */
-    public PersonBuilder withPhone(String phone) {
+    public QuestionBuilder withPhone(String phone) {
         this.phone = new Phone(phone);
         return this;
     }
@@ -91,8 +91,14 @@ public class PersonBuilder {
     /**
      * Sets the {@code Email} of the {@code Question} that we are building.
      */
-    public PersonBuilder withEmail(String email) {
+    public QuestionBuilder withEmail(String email) {
         this.email = new Email(email);
+        return this;
+    }
+    
+    public QuestionBuilder withChoices() {
+        choices = new HashSet<>();
+        choices.add(DEFAULT_CHOICE);
         return this;
     }
 
