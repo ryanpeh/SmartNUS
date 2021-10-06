@@ -26,6 +26,9 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_QUESTION = " ";
+    private static final String INVALID_ANSWER = " ";
+    private static final String INVALID_OPTION = " ";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -33,6 +36,11 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_QUESTION = "What is 1+1?";
+    private static final String VALID_ANSWER = "2";
+    private static final String VALID_OPTION_1 = "3";
+    private static final String VALID_OPTION_2 = "4";
+    private static final String VALID_OPTION_3 = "1";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -43,8 +51,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseIndex_outOfRangeInput_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
-            -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
+        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, () ->
+                ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
     }
 
     @Test
@@ -58,7 +66,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseName_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseName((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseName(null));
     }
 
     @Test
@@ -81,7 +89,7 @@ public class ParserUtilTest {
 
     @Test
     public void parsePhone_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parsePhone((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parsePhone(null));
     }
 
     @Test
@@ -104,7 +112,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseAddress_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress(null));
     }
 
     @Test
@@ -127,7 +135,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseEmail_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseEmail((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseEmail(null));
     }
 
     @Test
@@ -192,5 +200,101 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseQuestion_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseQuestion(null));
+    }
+
+    @Test
+    public void parseQuestion_validValueWithoutWhitespace_returnsQuestion() throws Exception {
+        String actualQuestion = ParserUtil.parseQuestion(VALID_QUESTION);
+        assertEquals(actualQuestion, VALID_QUESTION);
+    }
+
+    @Test
+    public void parseQuestion_validValueWithWhitespace_returnsTrimmedQuestion() throws Exception {
+        String actualQuestion = ParserUtil.parseQuestion(WHITESPACE + VALID_QUESTION + WHITESPACE);
+        assertEquals(actualQuestion, VALID_QUESTION);
+    }
+
+    @Test
+    public void parseQuestion_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseQuestion(INVALID_QUESTION));
+    }
+
+    @Test
+    public void parseAnswer_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseAnswer(null));
+    }
+
+    @Test
+    public void parseAnswer_validValueWithoutWhitespace_returnsAnswer() throws Exception {
+        String actualAnswer = ParserUtil.parseAnswer(VALID_ANSWER);
+        assertEquals(actualAnswer, VALID_ANSWER);
+    }
+
+    @Test
+    public void parseAnswer_validValueWithWhitespace_returnsAnswer() throws Exception {
+        String actualAnswer = ParserUtil.parseAnswer(WHITESPACE + VALID_ANSWER + WHITESPACE);
+        assertEquals(actualAnswer, VALID_ANSWER);
+    }
+
+    @Test
+    public void parseAnswer_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseAnswer(INVALID_ANSWER));
+    }
+
+    @Test
+    public void parseOption_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseOption(null));
+    }
+
+    @Test
+    public void parseOption_validValueWithoutWhitespace_returnsOption() throws Exception {
+        String actualOption = ParserUtil.parseAnswer(VALID_OPTION_1);
+        assertEquals(actualOption, VALID_OPTION_1);
+    }
+
+
+    @Test
+    public void parseOption_validValueWithWhitespace_returnsOption() throws Exception {
+        String actualOption = ParserUtil.parseOption(WHITESPACE + VALID_OPTION_1 + WHITESPACE);
+        assertEquals(actualOption, VALID_OPTION_1);
+    }
+
+    @Test
+    public void parseOption_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseOption(INVALID_OPTION));
+    }
+
+    @Test
+    public void parseOptions_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseOptions(null));
+    }
+
+    @Test
+    public void parseOptions_validValues_returnsOptions() throws Exception {
+        String[] actualOptions = ParserUtil.parseOptions(Arrays.asList(VALID_OPTION_1, VALID_OPTION_2, VALID_OPTION_3));
+        String[] expectedOptions = new String[]{VALID_OPTION_1, VALID_OPTION_2, VALID_OPTION_3};
+        // Temp hacky method to compare if the 2 array contents are the same, once Options object is implemented, this
+        // can be removed (currently Options is just a String[])
+        assertEquals(Arrays.toString(actualOptions), Arrays.toString(expectedOptions));
+    }
+
+    @Test
+    public void parseOptions_invalidValues_throwsParseException() {
+
+        // One invalid option
+        assertThrows(ParseException.class, () ->
+                ParserUtil.parseOptions(Arrays.asList(VALID_OPTION_1, INVALID_OPTION, VALID_OPTION_3)));
+
+        // Not enough valid options
+        assertThrows(ParseException.class, () ->
+                ParserUtil.parseOptions(Arrays.asList(VALID_OPTION_1, VALID_OPTION_2)));
+
+        // No options
+        assertThrows(ParseException.class, () -> ParserUtil.parseOptions(Collections.emptyList()));
     }
 }
