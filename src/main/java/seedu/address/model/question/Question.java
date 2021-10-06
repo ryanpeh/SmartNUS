@@ -19,7 +19,6 @@ public abstract class Question {
     // Identity fields
     private final Name name;
     private final Phone phone;
-    private final Email email;
 
     private final Set<Tag> tags = new HashSet<>();
     private final Set<Choice> choices = new HashSet<>();
@@ -27,11 +26,10 @@ public abstract class Question {
     /**
      * Every field must be present and not null.
      */
-    public Question(Name name, Phone phone, Email email, Set<Tag> tags, Set<Choice> choices) {
-        requireAllNonNull(name, phone, email, tags);
+    public Question(Name name, Phone phone, Set<Tag> tags, Set<Choice> choices) {
+        requireAllNonNull(name, phone, tags);
         this.name = name;
         this.phone = phone;
-        this.email = email;
         this.tags.addAll(tags);
         this.choices.addAll(choices);
     }
@@ -42,10 +40,6 @@ public abstract class Question {
 
     public Phone getPhone() {
         return phone;
-    }
-
-    public Email getEmail() {
-        return email;
     }
 
     /**
@@ -95,14 +89,13 @@ public abstract class Question {
         // TODO: Add Choice comparison after Choices can be saved and loaded from storage
         return otherQuestion.getName().equals(getName())
                 && otherQuestion.getPhone().equals(getPhone())
-                && otherQuestion.getEmail().equals(getEmail())
                 && otherQuestion.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, tags);
+        return Objects.hash(name, phone, tags);
     }
 
     @Override
@@ -110,9 +103,7 @@ public abstract class Question {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append("; Phone: ")
-                .append(getPhone())
-                .append("; Email: ")
-                .append(getEmail());
+                .append(getPhone());
 
         Set<Tag> tags = getTags();
         if (!tags.isEmpty()) {

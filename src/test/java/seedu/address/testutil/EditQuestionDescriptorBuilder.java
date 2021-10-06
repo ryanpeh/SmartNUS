@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.question.Email;
 import seedu.address.model.question.Name;
 import seedu.address.model.question.Phone;
 import seedu.address.model.question.Question;
@@ -33,7 +32,6 @@ public class EditQuestionDescriptorBuilder {
         descriptor = new EditPersonDescriptor();
         descriptor.setName(question.getName());
         descriptor.setPhone(question.getPhone());
-        descriptor.setEmail(question.getEmail());
         descriptor.setTags(question.getTags());
     }
 
@@ -50,14 +48,6 @@ public class EditQuestionDescriptorBuilder {
      */
     public EditQuestionDescriptorBuilder withPhone(String phone) {
         descriptor.setPhone(new Phone(phone));
-        return this;
-    }
-
-    /**
-     * Sets the {@code Email} of the {@code EditPersonDescriptor} that we are building.
-     */
-    public EditQuestionDescriptorBuilder withEmail(String email) {
-        descriptor.setEmail(new Email(email));
         return this;
     }
 

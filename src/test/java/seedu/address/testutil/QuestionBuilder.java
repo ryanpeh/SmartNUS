@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.choice.Choice;
-import seedu.address.model.question.Email;
 import seedu.address.model.question.MultipleChoiceQuestion;
 import seedu.address.model.question.Name;
 import seedu.address.model.question.Phone;
@@ -19,12 +18,10 @@ public class QuestionBuilder {
 
     public static final String DEFAULT_NAME = "Amy Bee";
     public static final String DEFAULT_PHONE = "85355255";
-    public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final Choice DEFAULT_CHOICE = new Choice("option 1", true);
 
     private Name name;
     private Phone phone;
-    private Email email;
     private Set<Tag> tags;
     private Set<Choice> choices;
 
@@ -34,7 +31,6 @@ public class QuestionBuilder {
     public QuestionBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
-        email = new Email(DEFAULT_EMAIL);
         tags = new HashSet<>();
         choices = new HashSet<>();
         choices.add(DEFAULT_CHOICE);
@@ -46,7 +42,6 @@ public class QuestionBuilder {
     public QuestionBuilder(Question questionToCopy) {
         name = questionToCopy.getName();
         phone = questionToCopy.getPhone();
-        email = questionToCopy.getEmail();
         tags = new HashSet<>(questionToCopy.getTags());
         choices = new HashSet<>(questionToCopy.getChoices());
     }
@@ -76,14 +71,6 @@ public class QuestionBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code Question} that we are building.
-     */
-    public QuestionBuilder withEmail(String email) {
-        this.email = new Email(email);
-        return this;
-    }
-
-    /**
      * Sets the {@code Choices} of the {@code Question} that we are building to
      * a set containing choices.
      */
@@ -100,7 +87,7 @@ public class QuestionBuilder {
      */
     public Question build() {
         // TODO: edit when more Question types are supported
-        return new MultipleChoiceQuestion(name, phone, email, tags, choices);
+        return new MultipleChoiceQuestion(name, phone, tags, choices);
     }
 
 }
