@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -20,7 +19,6 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.choice.Choice;
-import seedu.address.model.question.Address;
 import seedu.address.model.question.Email;
 import seedu.address.model.question.MultipleChoiceQuestion;
 import seedu.address.model.question.Name;
@@ -42,7 +40,6 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -77,7 +74,7 @@ public class EditCommand extends Command {
         }
 
         Question questionToEdit = lastShownList.get(index.getZeroBased());
-        Question editedQuestion = createEditedPerson(questionToEdit, editPersonDescriptor);
+        Question editedQuestion = createEditedQuestion(questionToEdit, editPersonDescriptor);
 
         if (!questionToEdit.isSamePerson(editedQuestion) && model.hasQuestion(editedQuestion)) {
             throw new CommandException(MESSAGE_DUPLICATE_QUESTION);
@@ -92,20 +89,19 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Question} with the details of {@code questionToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Question createEditedPerson(Question questionToEdit, EditPersonDescriptor editPersonDescriptor) {
+    private static Question createEditedQuestion(Question questionToEdit, EditPersonDescriptor editPersonDescriptor) {
         assert questionToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(questionToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(questionToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(questionToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(questionToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(questionToEdit.getTags());
 
         // TODO: implement parsing for choices
         Set<Choice> updatedChoices = questionToEdit.getChoices();
 
         // TODO: edit when more Question types are supported
-        return new MultipleChoiceQuestion(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
+        return new MultipleChoiceQuestion(updatedName, updatedPhone, updatedEmail, updatedTags,
                 updatedChoices);
     }
 
@@ -135,7 +131,6 @@ public class EditCommand extends Command {
         private Name name;
         private Phone phone;
         private Email email;
-        private Address address;
         private Set<Tag> tags;
 
         public EditPersonDescriptor() {}
@@ -148,7 +143,6 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
-            setAddress(toCopy.address);
             setTags(toCopy.tags);
         }
 
@@ -156,7 +150,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, tags);
         }
 
         public void setName(Name name) {
@@ -181,14 +175,6 @@ public class EditCommand extends Command {
 
         public Optional<Email> getEmail() {
             return Optional.ofNullable(email);
-        }
-
-        public void setAddress(Address address) {
-            this.address = address;
-        }
-
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
         }
 
         /**
@@ -226,7 +212,6 @@ public class EditCommand extends Command {
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
                     && getTags().equals(e.getTags());
         }
     }

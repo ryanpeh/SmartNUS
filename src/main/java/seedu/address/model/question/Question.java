@@ -21,20 +21,17 @@ public abstract class Question {
     private final Phone phone;
     private final Email email;
 
-    // Data fields
-    private final Address address;
     private final Set<Tag> tags = new HashSet<>();
     private final Set<Choice> choices = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Question(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Set<Choice> choices) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Question(Name name, Phone phone, Email email, Set<Tag> tags, Set<Choice> choices) {
+        requireAllNonNull(name, phone, email, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
         this.tags.addAll(tags);
         this.choices.addAll(choices);
     }
@@ -49,10 +46,6 @@ public abstract class Question {
 
     public Email getEmail() {
         return email;
-    }
-
-    public Address getAddress() {
-        return address;
     }
 
     /**
@@ -103,14 +96,13 @@ public abstract class Question {
         return otherQuestion.getName().equals(getName())
                 && otherQuestion.getPhone().equals(getPhone())
                 && otherQuestion.getEmail().equals(getEmail())
-                && otherQuestion.getAddress().equals(getAddress())
                 && otherQuestion.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, tags);
     }
 
     @Override
@@ -120,9 +112,7 @@ public abstract class Question {
                 .append("; Phone: ")
                 .append(getPhone())
                 .append("; Email: ")
-                .append(getEmail())
-                .append("; Address: ")
-                .append(getAddress());
+                .append(getEmail());
 
         Set<Tag> tags = getTags();
         if (!tags.isEmpty()) {

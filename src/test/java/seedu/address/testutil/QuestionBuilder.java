@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.choice.Choice;
-import seedu.address.model.question.Address;
 import seedu.address.model.question.Email;
 import seedu.address.model.question.MultipleChoiceQuestion;
 import seedu.address.model.question.Name;
@@ -21,13 +20,11 @@ public class QuestionBuilder {
     public static final String DEFAULT_NAME = "Amy Bee";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final Choice DEFAULT_CHOICE = new Choice("option 1", true);
 
     private Name name;
     private Phone phone;
     private Email email;
-    private Address address;
     private Set<Tag> tags;
     private Set<Choice> choices;
 
@@ -38,7 +35,6 @@ public class QuestionBuilder {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
-        address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
         choices = new HashSet<>();
         choices.add(DEFAULT_CHOICE);
@@ -51,7 +47,6 @@ public class QuestionBuilder {
         name = questionToCopy.getName();
         phone = questionToCopy.getPhone();
         email = questionToCopy.getEmail();
-        address = questionToCopy.getAddress();
         tags = new HashSet<>(questionToCopy.getTags());
         choices = new HashSet<>(questionToCopy.getChoices());
     }
@@ -69,14 +64,6 @@ public class QuestionBuilder {
      */
     public QuestionBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
-        return this;
-    }
-
-    /**
-     * Sets the {@code Address} of the {@code Question} that we are building.
-     */
-    public QuestionBuilder withAddress(String address) {
-        this.address = new Address(address);
         return this;
     }
 
@@ -113,7 +100,7 @@ public class QuestionBuilder {
      */
     public Question build() {
         // TODO: edit when more Question types are supported
-        return new MultipleChoiceQuestion(name, phone, email, address, tags, choices);
+        return new MultipleChoiceQuestion(name, phone, email, tags, choices);
     }
 
 }
