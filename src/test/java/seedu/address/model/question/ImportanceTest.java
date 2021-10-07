@@ -1,8 +1,10 @@
 package seedu.address.model.question;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -39,5 +41,17 @@ public class ImportanceTest {
         assertTrue(Importance.isValidImportance("1")); // exactly 1 number
         assertTrue(Importance.isValidImportance("2")); // exactly 1 number
         assertTrue(Importance.isValidImportance("3")); // exactly 1 number
+    }
+
+    @Test
+    public void equals() {
+        Importance importance = new Importance("1");
+
+        assertNotEquals(importance, 1); // not instance of Importance
+        assertNotEquals(importance, new Importance("2")); // different value
+        assertNotEquals(importance, null);
+
+        assertEquals(importance, importance); // same object
+        assertTrue(importance.equals(new Importance("1"))); // same value
     }
 }
