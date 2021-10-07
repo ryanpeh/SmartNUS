@@ -2,8 +2,11 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_IMPORTANCE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -30,6 +33,14 @@ public class CommandTestUtil {
     public static final String VALID_IMPORTANCE_BOB = "2";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_QUESTION_1 = "What is 1+1?";
+    public static final String VALID_QUESTION_2 = "What is 2+2?";
+    public static final String VALID_ANSWER_1 = "2";
+    public static final String VALID_ANSWER_2 = "4";
+    public static final String VALID_OPTION_1 = "1";
+    public static final String VALID_OPTION_3 = "3";
+    public static final String VALID_OPTION_4 = "4";
+    public static final String VALID_OPTION_5 = "5";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -37,10 +48,25 @@ public class CommandTestUtil {
     public static final String IMPORTANCE_DESC_BOB = " " + PREFIX_IMPORTANCE + VALID_IMPORTANCE_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String QUESTION_DESC_1 = " " + PREFIX_QUESTION + VALID_QUESTION_1;
+    public static final String QUESTION_DESC_2 = " " + PREFIX_QUESTION + VALID_QUESTION_2;
+    public static final String ANSWER_DESC_1 = " " + PREFIX_ANSWER + VALID_ANSWER_1;
+    public static final String ANSWER_DESC_2 = " " + PREFIX_ANSWER + VALID_ANSWER_2;
+    public static final String OPTION_DESC_1 = " " + PREFIX_OPTION + VALID_OPTION_1;
+    public static final String OPTION_DESC_3 = " " + PREFIX_OPTION + VALID_OPTION_3;
+    public static final String OPTION_DESC_4 = " " + PREFIX_OPTION + VALID_OPTION_4;
+    public static final String OPTION_DESC_5 = " " + PREFIX_OPTION + VALID_OPTION_5;
+    public static final String OPTIONS_DESC_1 = " " + OPTION_DESC_1 + OPTION_DESC_3 + OPTION_DESC_4;
+    public static final String OPTIONS_DESC_2 = OPTIONS_DESC_1 + OPTION_DESC_5;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + " "; // empty string not allowed for names
     public static final String INVALID_IMPORTANCE_DESC = " " + PREFIX_IMPORTANCE + "1a"; // 'a' not allowed in importance numbers
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_QUESTION_DESC = " " + PREFIX_QUESTION; // empty string not allowed for question
+    public static final String INVALID_ANSWER_DESC = " " + PREFIX_ANSWER; // empty string not allowed for answer
+    public static final String INVALID_OPTION_DESC = " " + PREFIX_OPTION; // empty string not allowed for option
+    // 1 invalid option in the last 3 options argument is not allowed
+    public static final String INVALID_OPTIONS_DESC = " " + OPTIONS_DESC_1 + INVALID_OPTION_DESC;
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
