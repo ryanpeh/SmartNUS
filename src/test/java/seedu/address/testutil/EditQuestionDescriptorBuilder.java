@@ -5,10 +5,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.question.Address;
-import seedu.address.model.question.Email;
+import seedu.address.model.question.Importance;
 import seedu.address.model.question.Name;
-import seedu.address.model.question.Phone;
 import seedu.address.model.question.Question;
 import seedu.address.model.tag.Tag;
 
@@ -33,9 +31,7 @@ public class EditQuestionDescriptorBuilder {
     public EditQuestionDescriptorBuilder(Question question) {
         descriptor = new EditPersonDescriptor();
         descriptor.setName(question.getName());
-        descriptor.setPhone(question.getPhone());
-        descriptor.setEmail(question.getEmail());
-        descriptor.setAddress(question.getAddress());
+        descriptor.setImportance(question.getImportance());
         descriptor.setTags(question.getTags());
     }
 
@@ -48,26 +44,10 @@ public class EditQuestionDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Importance} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditQuestionDescriptorBuilder withPhone(String phone) {
-        descriptor.setPhone(new Phone(phone));
-        return this;
-    }
-
-    /**
-     * Sets the {@code Email} of the {@code EditPersonDescriptor} that we are building.
-     */
-    public EditQuestionDescriptorBuilder withEmail(String email) {
-        descriptor.setEmail(new Email(email));
-        return this;
-    }
-
-    /**
-     * Sets the {@code Address} of the {@code EditPersonDescriptor} that we are building.
-     */
-    public EditQuestionDescriptorBuilder withAddress(String address) {
-        descriptor.setAddress(new Address(address));
+    public EditQuestionDescriptorBuilder withImportance(String importance) {
+        descriptor.setImportance(new Importance(importance));
         return this;
     }
 
