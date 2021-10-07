@@ -14,17 +14,17 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.question.Importance;
 import seedu.address.model.question.Name;
-import seedu.address.model.question.Phone;
 import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {
+    private static final String INVALID_IMPORTANCE = "+651234";
     private static final String INVALID_NAME = " ";
-    private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_TAG = "#friend";
 
+    private static final String VALID_IMPORTANCE = "123456";
     private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_PHONE = "123456";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 
@@ -52,7 +52,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseName_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseName((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseName(null));
     }
 
     @Test
@@ -74,26 +74,26 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parsePhone_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parsePhone((String) null));
+    public void parseImportance_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseImportance(null));
     }
 
     @Test
-    public void parsePhone_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE));
+    public void parseImportance_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseImportance(INVALID_IMPORTANCE));
     }
 
     @Test
-    public void parsePhone_validValueWithoutWhitespace_returnsPhone() throws Exception {
-        Phone expectedPhone = new Phone(VALID_PHONE);
-        assertEquals(expectedPhone, ParserUtil.parsePhone(VALID_PHONE));
+    public void parseImportance_validValueWithoutWhitespace_returnsImportance() throws Exception {
+        Importance expectedImportance = new Importance(VALID_IMPORTANCE);
+        assertEquals(expectedImportance, ParserUtil.parseImportance(VALID_IMPORTANCE));
     }
 
     @Test
-    public void parsePhone_validValueWithWhitespace_returnsTrimmedPhone() throws Exception {
-        String phoneWithWhitespace = WHITESPACE + VALID_PHONE + WHITESPACE;
-        Phone expectedPhone = new Phone(VALID_PHONE);
-        assertEquals(expectedPhone, ParserUtil.parsePhone(phoneWithWhitespace));
+    public void parseImportance_validValueWithWhitespace_returnsTrimmedImportance() throws Exception {
+        String importanceWithWhitespace = WHITESPACE + VALID_IMPORTANCE + WHITESPACE;
+        Importance expectedImportance = new Importance(VALID_IMPORTANCE);
+        assertEquals(expectedImportance, ParserUtil.parseImportance(importanceWithWhitespace));
     }
 
     @Test
@@ -137,7 +137,7 @@ public class ParserUtilTest {
     @Test
     public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
         Set<Tag> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
-        Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
+        Set<Tag> expectedTagSet = new HashSet<>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
     }

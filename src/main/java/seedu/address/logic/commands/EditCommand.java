@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_IMPORTANCE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_QUESTIONS;
 
@@ -18,9 +18,9 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.choice.Choice;
+import seedu.address.model.question.Importance;
 import seedu.address.model.question.MultipleChoiceQuestion;
 import seedu.address.model.question.Name;
-import seedu.address.model.question.Phone;
 import seedu.address.model.question.Question;
 import seedu.address.model.tag.Tag;
 
@@ -36,10 +36,10 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
+            + "[" + PREFIX_IMPORTANCE + "IMPORTANCE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 ";
+            + PREFIX_IMPORTANCE + "3 ";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Question: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -89,14 +89,14 @@ public class EditCommand extends Command {
         assert questionToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(questionToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(questionToEdit.getPhone());
+        Importance updatedImportance = editPersonDescriptor.getImportance().orElse(questionToEdit.getImportance());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(questionToEdit.getTags());
 
         // TODO: implement parsing for choices
         Set<Choice> updatedChoices = questionToEdit.getChoices();
 
         // TODO: edit when more Question types are supported
-        return new MultipleChoiceQuestion(updatedName, updatedPhone, updatedTags, updatedChoices);
+        return new MultipleChoiceQuestion(updatedName, updatedImportance, updatedTags, updatedChoices);
     }
 
     @Override
@@ -123,7 +123,7 @@ public class EditCommand extends Command {
      */
     public static class EditPersonDescriptor {
         private Name name;
-        private Phone phone;
+        private Importance importance;
         private Set<Tag> tags;
 
         public EditPersonDescriptor() {}
@@ -134,7 +134,7 @@ public class EditCommand extends Command {
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setName(toCopy.name);
-            setPhone(toCopy.phone);
+            setImportance(toCopy.importance);
             setTags(toCopy.tags);
         }
 
@@ -142,7 +142,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, tags);
+            return CollectionUtil.isAnyNonNull(name, importance, tags);
         }
 
         public void setName(Name name) {
@@ -153,12 +153,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(name);
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public void setImportance(Importance importance) {
+            this.importance = importance;
         }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
+        public Optional<Importance> getImportance() {
+            return Optional.ofNullable(importance);
         }
 
         /**
@@ -194,7 +194,7 @@ public class EditCommand extends Command {
             EditPersonDescriptor e = (EditPersonDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
+                    && getImportance().equals(e.getImportance())
                     && getTags().equals(e.getTags());
         }
     }

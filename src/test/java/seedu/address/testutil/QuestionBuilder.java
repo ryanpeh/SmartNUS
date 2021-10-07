@@ -4,9 +4,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.choice.Choice;
+import seedu.address.model.question.Importance;
 import seedu.address.model.question.MultipleChoiceQuestion;
 import seedu.address.model.question.Name;
-import seedu.address.model.question.Phone;
 import seedu.address.model.question.Question;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -17,11 +17,11 @@ import seedu.address.model.util.SampleDataUtil;
 public class QuestionBuilder {
 
     public static final String DEFAULT_NAME = "Amy Bee";
-    public static final String DEFAULT_PHONE = "85355255";
+    public static final String DEFAULT_IMPORTANCE = "85355255";
     public static final Choice DEFAULT_CHOICE = new Choice("option 1", true);
 
     private Name name;
-    private Phone phone;
+    private Importance importance;
     private Set<Tag> tags;
     private Set<Choice> choices;
 
@@ -30,7 +30,7 @@ public class QuestionBuilder {
      */
     public QuestionBuilder() {
         name = new Name(DEFAULT_NAME);
-        phone = new Phone(DEFAULT_PHONE);
+        importance = new Importance(DEFAULT_IMPORTANCE);
         tags = new HashSet<>();
         choices = new HashSet<>();
         choices.add(DEFAULT_CHOICE);
@@ -41,7 +41,7 @@ public class QuestionBuilder {
      */
     public QuestionBuilder(Question questionToCopy) {
         name = questionToCopy.getName();
-        phone = questionToCopy.getPhone();
+        importance = questionToCopy.getImportance();
         tags = new HashSet<>(questionToCopy.getTags());
         choices = new HashSet<>(questionToCopy.getChoices());
     }
@@ -63,10 +63,10 @@ public class QuestionBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Question} that we are building.
+     * Sets the {@code Importance} of the {@code Question} that we are building.
      */
-    public QuestionBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
+    public QuestionBuilder withImportance(String importance) {
+        this.importance = new Importance(importance);
         return this;
     }
 
@@ -87,7 +87,7 @@ public class QuestionBuilder {
      */
     public Question build() {
         // TODO: edit when more Question types are supported
-        return new MultipleChoiceQuestion(name, phone, tags, choices);
+        return new MultipleChoiceQuestion(name, importance, tags, choices);
     }
 
 }

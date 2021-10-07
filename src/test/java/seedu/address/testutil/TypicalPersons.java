@@ -2,8 +2,8 @@ package seedu.address.testutil;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_IMPORTANCE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_IMPORTANCE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
@@ -20,32 +20,32 @@ import seedu.address.model.question.Question;
 public class TypicalPersons {
 
     public static final Question ALICE = new QuestionBuilder().withName("Alice Pauline")
-            .withPhone("94351253")
+            .withImportance("94351253")
             .withTags("friends").build();
     public static final Question BENSON = new QuestionBuilder().withName("Benson Meier")
-            .withPhone("98765432")
+            .withImportance("98765432")
             .withTags("owesMoney", "friends").build();
-    public static final Question CARL = new QuestionBuilder().withName("Carl Kurz").withPhone("95352563")
+    public static final Question CARL = new QuestionBuilder().withName("Carl Kurz").withImportance("95352563")
             .build();
-    public static final Question DANIEL = new QuestionBuilder().withName("Daniel Meier").withPhone("87652533")
+    public static final Question DANIEL = new QuestionBuilder().withName("Daniel Meier").withImportance("87652533")
             .withTags("friends").build();
-    public static final Question ELLE = new QuestionBuilder().withName("Elle Meyer").withPhone("9482224")
+    public static final Question ELLE = new QuestionBuilder().withName("Elle Meyer").withImportance("9482224")
             .build();
-    public static final Question FIONA = new QuestionBuilder().withName("Fiona Kunz").withPhone("9482427")
+    public static final Question FIONA = new QuestionBuilder().withName("Fiona Kunz").withImportance("9482427")
             .build();
-    public static final Question GEORGE = new QuestionBuilder().withName("George Best").withPhone("9482442")
+    public static final Question GEORGE = new QuestionBuilder().withName("George Best").withImportance("9482442")
             .build();
 
     // Manually added
-    public static final Question HOON = new QuestionBuilder().withName("Hoon Meier").withPhone("8482424")
+    public static final Question HOON = new QuestionBuilder().withName("Hoon Meier").withImportance("8482424")
             .build();
-    public static final Question IDA = new QuestionBuilder().withName("Ida Mueller").withPhone("8482131")
+    public static final Question IDA = new QuestionBuilder().withName("Ida Mueller").withImportance("8482131")
             .build();
 
     // Manually added - Question's details found in {@code CommandTestUtil}
-    public static final Question AMY = new QuestionBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
+    public static final Question AMY = new QuestionBuilder().withName(VALID_NAME_AMY).withImportance(VALID_IMPORTANCE_AMY)
             .withTags(VALID_TAG_FRIEND).build();
-    public static final Question BOB = new QuestionBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+    public static final Question BOB = new QuestionBuilder().withName(VALID_NAME_BOB).withImportance(VALID_IMPORTANCE_BOB)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 

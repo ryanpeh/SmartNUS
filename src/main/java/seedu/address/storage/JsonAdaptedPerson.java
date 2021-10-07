@@ -11,9 +11,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.choice.Choice;
+import seedu.address.model.question.Importance;
 import seedu.address.model.question.MultipleChoiceQuestion;
 import seedu.address.model.question.Name;
-import seedu.address.model.question.Phone;
 import seedu.address.model.question.Question;
 import seedu.address.model.tag.Tag;
 
@@ -25,17 +25,17 @@ class JsonAdaptedPerson {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Question's %s field is missing!";
 
     private final String name;
-    private final String phone;
+    private final String importance;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given question details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
+    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("importance") String importance,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
-        this.phone = phone;
+        this.importance = importance;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -46,7 +46,7 @@ class JsonAdaptedPerson {
      */
     public JsonAdaptedPerson(Question source) {
         name = source.getName().fullName;
-        phone = source.getPhone().value;
+        importance = source.getImportance().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -74,20 +74,20 @@ class JsonAdaptedPerson {
         }
         final Name modelName = new Name(name);
 
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+        if (importance == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Importance.class.getSimpleName()));
         }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+        if (!Importance.isValidImportance(importance)) {
+            throw new IllegalValueException(Importance.MESSAGE_CONSTRAINTS);
         }
-        final Phone modelPhone = new Phone(phone);
+        final Importance modelImportance = new Importance(importance);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
         final Set<Choice> modelChoices = new HashSet<>(questionChoices);
 
         // TODO: save question type in json and instantiate correct Question type when more types are supported
-        return new MultipleChoiceQuestion(modelName, modelPhone, modelTags, modelChoices);
+        return new MultipleChoiceQuestion(modelName, modelImportance, modelTags, modelChoices);
     }
 
 }

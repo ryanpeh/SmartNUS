@@ -6,9 +6,9 @@ import seedu.address.model.choice.Choice;
 import seedu.address.model.tag.Tag;
 
 public class MultipleChoiceQuestion extends Question {
-    public MultipleChoiceQuestion(Name name, Phone phone, Set<Tag> tags,
+    public MultipleChoiceQuestion(Name name, Importance importance, Set<Tag> tags,
                                   Set<Choice> choices) {
-        super(name, phone, tags, choices);
+        super(name, importance, tags, choices);
     }
 
     @Override
