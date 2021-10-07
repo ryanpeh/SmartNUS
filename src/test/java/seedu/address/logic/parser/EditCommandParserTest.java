@@ -124,7 +124,8 @@ public class EditCommandParserTest {
         // name
         Index targetIndex = INDEX_THIRD_QUESTION;
         String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
-        EditCommand.EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder().withName(VALID_NAME_AMY).build();
+        EditCommand.EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder()
+                .withName(VALID_NAME_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -161,8 +162,8 @@ public class EditCommandParserTest {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_QUESTION;
         String userInput = targetIndex.getOneBased() + INVALID_IMPORTANCE_DESC + IMPORTANCE_DESC_BOB;
-        EditCommand.EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder().withImportance(VALID_IMPORTANCE_BOB)
-                .build();
+        EditCommand.EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder()
+                .withImportance(VALID_IMPORTANCE_BOB).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 

@@ -85,7 +85,8 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Question} with the details of {@code questionToEdit}
      * edited with {@code editQuestionDescriptor}.
      */
-    private static Question createEditedQuestion(Question questionToEdit, EditQuestionDescriptor editQuestionDescriptor) {
+    private static Question createEditedQuestion(Question questionToEdit,
+                                                 EditQuestionDescriptor editQuestionDescriptor) {
         assert questionToEdit != null;
 
         Name updatedName = editQuestionDescriptor.getName().orElse(questionToEdit.getName());

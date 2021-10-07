@@ -158,7 +158,8 @@ public class UniqueQuestionListTest {
     @Test
     public void setQuestions_listWithDuplicateQuestions_throwsDuplicateQuestionException() {
         List<Question> listWithDuplicateQuestions = Arrays.asList(ALICE, ALICE);
-        assertThrows(DuplicateQuestionException.class, () -> uniqueQuestionList.setQuestions(listWithDuplicateQuestions));
+        assertThrows(DuplicateQuestionException.class, () -> uniqueQuestionList
+                .setQuestions(listWithDuplicateQuestions));
     }
 
     @Test
