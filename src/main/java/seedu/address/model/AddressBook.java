@@ -10,7 +10,7 @@ import seedu.address.model.question.UniqueQuestionList;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSameQuestion comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
@@ -30,7 +30,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public AddressBook() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an AddressBook using the Questions in the {@code toBeCopied}
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this();
@@ -44,7 +44,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code questions} must not contain duplicate questions.
      */
     public void setQuestions(List<Question> questions) {
-        this.questions.setPersons(questions);
+        this.questions.setQuestions(questions);
     }
 
     /**
@@ -83,7 +83,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setQuestion(Question target, Question editedQuestion) {
         requireNonNull(editedQuestion);
 
-        questions.setPerson(target, editedQuestion);
+        questions.setQuestion(target, editedQuestion);
     }
 
     /**
@@ -98,7 +98,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return questions.asUnmodifiableObservableList().size() + " persons";
+        return questions.asUnmodifiableObservableList().size() + " questions";
         // TODO: refine later
     }
 

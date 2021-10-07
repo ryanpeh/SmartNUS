@@ -26,26 +26,26 @@ import seedu.address.testutil.QuestionBuilder;
 public class AddCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullQuestion_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddCommand(null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+    public void execute_questionAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingQuestionAdded modelStub = new ModelStubAcceptingQuestionAdded();
         Question validQuestion = new QuestionBuilder().build();
 
         CommandResult commandResult = new AddCommand(validQuestion).execute(modelStub);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validQuestion), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validQuestion), modelStub.personsAdded);
+        assertEquals(Arrays.asList(validQuestion), modelStub.questionsAdded);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_duplicateQuestion_throwsCommandException() {
         Question validQuestion = new QuestionBuilder().build();
         AddCommand addCommand = new AddCommand(validQuestion);
-        ModelStub modelStub = new ModelStubWithPerson(validQuestion);
+        ModelStub modelStub = new ModelStubWithQuestion(validQuestion);
 
         assertThrows(CommandException.class,
                 AddCommand.MESSAGE_DUPLICATE_QUESTION, () -> addCommand.execute(modelStub));
@@ -153,10 +153,10 @@ public class AddCommandTest {
     /**
      * A Model stub that contains a single question.
      */
-    private class ModelStubWithPerson extends ModelStub {
+    private class ModelStubWithQuestion extends ModelStub {
         private final Question question;
 
-        ModelStubWithPerson(Question question) {
+        ModelStubWithQuestion(Question question) {
             requireNonNull(question);
             this.question = question;
         }
@@ -164,26 +164,26 @@ public class AddCommandTest {
         @Override
         public boolean hasQuestion(Question question) {
             requireNonNull(question);
-            return this.question.isSamePerson(question);
+            return this.question.isSameQuestion(question);
         }
     }
 
     /**
      * A Model stub that always accept the question being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Question> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingQuestionAdded extends ModelStub {
+        final ArrayList<Question> questionsAdded = new ArrayList<>();
 
         @Override
         public boolean hasQuestion(Question question) {
             requireNonNull(question);
-            return personsAdded.stream().anyMatch(question::isSamePerson);
+            return questionsAdded.stream().anyMatch(question::isSameQuestion);
         }
 
         @Override
         public void addQuestion(Question question) {
             requireNonNull(question);
-            personsAdded.add(question);
+            questionsAdded.add(question);
         }
 
         @Override

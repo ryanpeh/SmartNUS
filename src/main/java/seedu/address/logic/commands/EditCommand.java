@@ -41,23 +41,23 @@ public class EditCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_IMPORTANCE + "3 ";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Question: %1$s";
+    public static final String MESSAGE_EDIT_QUESTION_SUCCESS = "Edited Question: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_QUESTION = "This question already exists in the address book.";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final EditQuestionDescriptor editQuestionDescriptor;
 
     /**
      * @param index of the question in the filtered question list to edit
-     * @param editPersonDescriptor details to edit the question with
+     * @param editQuestionDescriptor details to edit the question with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditQuestionDescriptor editQuestionDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(editQuestionDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editQuestionDescriptor = new EditQuestionDescriptor(editQuestionDescriptor);
     }
 
     @Override
@@ -70,27 +70,27 @@ public class EditCommand extends Command {
         }
 
         Question questionToEdit = lastShownList.get(index.getZeroBased());
-        Question editedQuestion = createEditedQuestion(questionToEdit, editPersonDescriptor);
+        Question editedQuestion = createEditedQuestion(questionToEdit, editQuestionDescriptor);
 
-        if (!questionToEdit.isSamePerson(editedQuestion) && model.hasQuestion(editedQuestion)) {
+        if (!questionToEdit.isSameQuestion(editedQuestion) && model.hasQuestion(editedQuestion)) {
             throw new CommandException(MESSAGE_DUPLICATE_QUESTION);
         }
 
         model.setQuestion(questionToEdit, editedQuestion);
         model.updateFilteredQuestionList(PREDICATE_SHOW_ALL_QUESTIONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedQuestion));
+        return new CommandResult(String.format(MESSAGE_EDIT_QUESTION_SUCCESS, editedQuestion));
     }
 
     /**
      * Creates and returns a {@code Question} with the details of {@code questionToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * edited with {@code editQuestionDescriptor}.
      */
-    private static Question createEditedQuestion(Question questionToEdit, EditPersonDescriptor editPersonDescriptor) {
+    private static Question createEditedQuestion(Question questionToEdit, EditQuestionDescriptor editQuestionDescriptor) {
         assert questionToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(questionToEdit.getName());
-        Importance updatedImportance = editPersonDescriptor.getImportance().orElse(questionToEdit.getImportance());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(questionToEdit.getTags());
+        Name updatedName = editQuestionDescriptor.getName().orElse(questionToEdit.getName());
+        Importance updatedImportance = editQuestionDescriptor.getImportance().orElse(questionToEdit.getImportance());
+        Set<Tag> updatedTags = editQuestionDescriptor.getTags().orElse(questionToEdit.getTags());
 
         // TODO: implement parsing for choices
         Set<Choice> updatedChoices = questionToEdit.getChoices();
@@ -114,25 +114,25 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+                && editQuestionDescriptor.equals(e.editQuestionDescriptor);
     }
 
     /**
      * Stores the details to edit the question with. Each non-empty field value will replace the
      * corresponding field value of the question.
      */
-    public static class EditPersonDescriptor {
+    public static class EditQuestionDescriptor {
         private Name name;
         private Importance importance;
         private Set<Tag> tags;
 
-        public EditPersonDescriptor() {}
+        public EditQuestionDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
+        public EditQuestionDescriptor(EditQuestionDescriptor toCopy) {
             setName(toCopy.name);
             setImportance(toCopy.importance);
             setTags(toCopy.tags);
@@ -186,12 +186,12 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof EditQuestionDescriptor)) {
                 return false;
             }
 
             // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            EditQuestionDescriptor e = (EditQuestionDescriptor) other;
 
             return getName().equals(e.getName())
                     && getImportance().equals(e.getImportance())
