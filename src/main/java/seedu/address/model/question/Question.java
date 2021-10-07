@@ -59,10 +59,10 @@ public abstract class Question {
     }
 
     /**
-     * Returns true if both persons have the same name.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both questions have the same name.
+     * This defines a weaker notion of equality between two questions.
      */
-    public boolean isSamePerson(Question otherQuestion) {
+    public boolean isSameQuestion(Question otherQuestion) {
         if (otherQuestion == this) {
             return true;
         }
@@ -72,8 +72,8 @@ public abstract class Question {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both questions have the same identity and data fields.
+     * This defines a stronger notion of equality between two questions.
      */
     @Override
     public boolean equals(Object other) {

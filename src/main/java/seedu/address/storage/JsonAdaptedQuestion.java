@@ -20,7 +20,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Jackson-friendly version of {@link Question}.
  */
-class JsonAdaptedPerson {
+class JsonAdaptedQuestion {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Question's %s field is missing!";
 
@@ -29,11 +29,11 @@ class JsonAdaptedPerson {
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given question details.
+     * Constructs a {@code JsonAdaptedQuestion} with the given question details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("importance") String importance,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedQuestion(@JsonProperty("name") String name, @JsonProperty("importance") String importance,
+                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.importance = importance;
         if (tagged != null) {
@@ -44,7 +44,7 @@ class JsonAdaptedPerson {
     /**
      * Converts a given {@code Question} into this class for Jackson use.
      */
-    public JsonAdaptedPerson(Question source) {
+    public JsonAdaptedQuestion(Question source) {
         name = source.getName().fullName;
         importance = source.getImportance().value;
         tagged.addAll(source.getTags().stream()
@@ -58,9 +58,9 @@ class JsonAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted question.
      */
     public Question toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+        final List<Tag> questionTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+            questionTags.add(tag.toModelType());
         }
 
         // TODO: Implement loading functionality for choices
@@ -83,7 +83,7 @@ class JsonAdaptedPerson {
         }
         final Importance modelImportance = new Importance(importance);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
+        final Set<Tag> modelTags = new HashSet<>(questionTags);
 
         final Set<Choice> modelChoices = new HashSet<>(questionChoices);
 

@@ -17,7 +17,7 @@ import seedu.address.model.question.Question;
 /**
  * A utility class containing a list of {@code Question} objects to be used in tests.
  */
-public class TypicalPersons {
+public class TypicalQuestions {
 
     public static final Question ALICE = new QuestionBuilder().withName("Alice Pauline")
             .withImportance("1")
@@ -53,20 +53,20 @@ public class TypicalPersons {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalPersons() {} // prevents instantiation
+    private TypicalQuestions() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code AddressBook} with all the typical questions.
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
-        for (Question question : getTypicalPersons()) {
+        for (Question question : getTypicalQuestions()) {
             ab.addQuestion(question);
         }
         return ab;
     }
 
-    public static List<Question> getTypicalPersons() {
+    public static List<Question> getTypicalQuestions() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 }

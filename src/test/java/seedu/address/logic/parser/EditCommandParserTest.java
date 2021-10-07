@@ -17,15 +17,15 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_QUESTION;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_QUESTION;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_QUESTION;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditCommand.EditQuestionDescriptor;
 import seedu.address.model.question.Importance;
 import seedu.address.model.question.Name;
 import seedu.address.model.tag.Tag;
@@ -95,11 +95,11 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        Index targetIndex = INDEX_SECOND_PERSON;
+        Index targetIndex = INDEX_SECOND_QUESTION;
         String userInput = targetIndex.getOneBased() + IMPORTANCE_DESC_BOB + TAG_DESC_HUSBAND
                 + NAME_DESC_AMY + TAG_DESC_FRIEND;
 
-        EditPersonDescriptor descriptor = new EditQuestionDescriptorBuilder().withName(VALID_NAME_AMY)
+        EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withImportance(VALID_IMPORTANCE_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -109,10 +109,10 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_someFieldsSpecified_success() {
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_QUESTION;
         String userInput = targetIndex.getOneBased() + IMPORTANCE_DESC_BOB;
 
-        EditPersonDescriptor descriptor = new EditQuestionDescriptorBuilder().withImportance(VALID_IMPORTANCE_BOB)
+        EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder().withImportance(VALID_IMPORTANCE_BOB)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -122,9 +122,10 @@ public class EditCommandParserTest {
     @Test
     public void parse_oneFieldSpecified_success() {
         // name
-        Index targetIndex = INDEX_THIRD_PERSON;
+        Index targetIndex = INDEX_THIRD_QUESTION;
         String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
-        EditPersonDescriptor descriptor = new EditQuestionDescriptorBuilder().withName(VALID_NAME_AMY).build();
+        EditCommand.EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder()
+                .withName(VALID_NAME_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -143,12 +144,12 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_QUESTION;
         String userInput = targetIndex.getOneBased() + IMPORTANCE_DESC_AMY
                 + TAG_DESC_FRIEND + IMPORTANCE_DESC_AMY + TAG_DESC_FRIEND
                 + IMPORTANCE_DESC_BOB + TAG_DESC_HUSBAND;
 
-        EditPersonDescriptor descriptor = new EditQuestionDescriptorBuilder().withImportance(VALID_IMPORTANCE_BOB)
+        EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder().withImportance(VALID_IMPORTANCE_BOB)
                 .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -159,10 +160,10 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_QUESTION;
         String userInput = targetIndex.getOneBased() + INVALID_IMPORTANCE_DESC + IMPORTANCE_DESC_BOB;
-        EditPersonDescriptor descriptor = new EditQuestionDescriptorBuilder().withImportance(VALID_IMPORTANCE_BOB)
-                .build();
+        EditCommand.EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder()
+                .withImportance(VALID_IMPORTANCE_BOB).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -175,10 +176,10 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_resetTags_success() {
-        Index targetIndex = INDEX_THIRD_PERSON;
+        Index targetIndex = INDEX_THIRD_QUESTION;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
-        EditPersonDescriptor descriptor = new EditQuestionDescriptorBuilder().withTags().build();
+        EditCommand.EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder().withTags().build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);

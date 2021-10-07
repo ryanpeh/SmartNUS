@@ -8,20 +8,20 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.question.exceptions.DuplicatePersonException;
-import seedu.address.model.question.exceptions.PersonNotFoundException;
+import seedu.address.model.question.exceptions.DuplicateQuestionException;
+import seedu.address.model.question.exceptions.QuestionNotFoundException;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A question is considered unique by comparing using {@code Question#isSamePerson(Question)}.
- * As such, adding and updating of persons uses Question#isSamePerson(Question) for equality
+ * A list of questions that enforces uniqueness between its elements and does not allow nulls.
+ * A question is considered unique by comparing using {@code Question#isSameQuestion(Question)}.
+ * As such, adding and updating of questions uses Question#isSameQuestion(Question) for equality
  * to ensure that the question being added or updated is unique in terms of identity in
  * the UniqueQuestionList. However, the removal of a question uses Question#equals(Object) to
  * ensure that the question with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
- * @see Question#isSamePerson(Question)
+ * @see Question#isSameQuestion(Question)
  */
 public class UniqueQuestionList implements Iterable<Question> {
 
@@ -34,7 +34,7 @@ public class UniqueQuestionList implements Iterable<Question> {
      */
     public boolean contains(Question toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSamePerson);
+        return internalList.stream().anyMatch(toCheck::isSameQuestion);
     }
 
     /**
@@ -44,7 +44,7 @@ public class UniqueQuestionList implements Iterable<Question> {
     public void add(Question toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateQuestionException();
         }
         internalList.add(toAdd);
     }
@@ -54,16 +54,16 @@ public class UniqueQuestionList implements Iterable<Question> {
      * {@code target} must exist in the list.
      * The question identity of {@code editedQuestion} must not be the same as another existing question in the list.
      */
-    public void setPerson(Question target, Question editedQuestion) {
+    public void setQuestion(Question target, Question editedQuestion) {
         requireAllNonNull(target, editedQuestion);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new QuestionNotFoundException();
         }
 
-        if (!target.isSamePerson(editedQuestion) && contains(editedQuestion)) {
-            throw new DuplicatePersonException();
+        if (!target.isSameQuestion(editedQuestion) && contains(editedQuestion)) {
+            throw new DuplicateQuestionException();
         }
 
         internalList.set(index, editedQuestion);
@@ -76,11 +76,11 @@ public class UniqueQuestionList implements Iterable<Question> {
     public void remove(Question toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
+            throw new QuestionNotFoundException();
         }
     }
 
-    public void setPersons(UniqueQuestionList replacement) {
+    public void setQuestions(UniqueQuestionList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -89,10 +89,10 @@ public class UniqueQuestionList implements Iterable<Question> {
      * Replaces the contents of this list with {@code questions}.
      * {@code questions} must not contain duplicate questions.
      */
-    public void setPersons(List<Question> questions) {
+    public void setQuestions(List<Question> questions) {
         requireAllNonNull(questions);
-        if (!personsAreUnique(questions)) {
-            throw new DuplicatePersonException();
+        if (!questionsAreUnique(questions)) {
+            throw new DuplicateQuestionException();
         }
 
         internalList.setAll(questions);
@@ -125,10 +125,10 @@ public class UniqueQuestionList implements Iterable<Question> {
     /**
      * Returns true if {@code questions} contains only unique questions.
      */
-    private boolean personsAreUnique(List<Question> questions) {
+    private boolean questionsAreUnique(List<Question> questions) {
         for (int i = 0; i < questions.size() - 1; i++) {
             for (int j = i + 1; j < questions.size(); j++) {
-                if (questions.get(i).isSamePerson(questions.get(j))) {
+                if (questions.get(i).isSameQuestion(questions.get(j))) {
                     return false;
                 }
             }

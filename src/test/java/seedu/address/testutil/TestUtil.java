@@ -49,7 +49,7 @@ public class TestUtil {
     /**
      * Returns the question in the {@code model}'s question list at {@code index}.
      */
-    public static Question getPerson(Model model, Index index) {
+    public static Question getQuestion(Model model, Index index) {
         return model.getFilteredQuestionList().get(index.getZeroBased());
     }
 }

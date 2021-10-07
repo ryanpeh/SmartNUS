@@ -4,39 +4,40 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditCommand.EditQuestionDescriptor;
 import seedu.address.model.question.Importance;
 import seedu.address.model.question.Name;
 import seedu.address.model.question.Question;
 import seedu.address.model.tag.Tag;
 
 /**
- * A utility class to help with building EditPersonDescriptor objects.
+ * A utility class to help with building EditQuestionDescriptor objects.
  */
 public class EditQuestionDescriptorBuilder {
 
-    private EditPersonDescriptor descriptor;
+    private EditQuestionDescriptor descriptor;
 
     public EditQuestionDescriptorBuilder() {
-        descriptor = new EditPersonDescriptor();
+        descriptor = new EditQuestionDescriptor();
     }
 
-    public EditQuestionDescriptorBuilder(EditPersonDescriptor descriptor) {
-        this.descriptor = new EditPersonDescriptor(descriptor);
+    public EditQuestionDescriptorBuilder(EditCommand.EditQuestionDescriptor descriptor) {
+        this.descriptor = new EditQuestionDescriptor(descriptor);
     }
 
     /**
-     * Returns an {@code EditPersonDescriptor} with fields containing {@code question}'s details
+     * Returns an {@code EditQuestionDescriptor} with fields containing {@code question}'s details
      */
     public EditQuestionDescriptorBuilder(Question question) {
-        descriptor = new EditPersonDescriptor();
+        descriptor = new EditCommand.EditQuestionDescriptor();
         descriptor.setName(question.getName());
         descriptor.setImportance(question.getImportance());
         descriptor.setTags(question.getTags());
     }
 
     /**
-     * Sets the {@code Name} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Name} of the {@code EditQuestionDescriptor} that we are building.
      */
     public EditQuestionDescriptorBuilder withName(String name) {
         descriptor.setName(new Name(name));
@@ -44,7 +45,7 @@ public class EditQuestionDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Importance} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Importance} of the {@code EditQuestionDescriptor} that we are building.
      */
     public EditQuestionDescriptorBuilder withImportance(String importance) {
         descriptor.setImportance(new Importance(importance));
@@ -52,7 +53,7 @@ public class EditQuestionDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditQuestionDescriptor}
      * that we are building.
      */
     public EditQuestionDescriptorBuilder withTags(String... tags) {
@@ -61,7 +62,7 @@ public class EditQuestionDescriptorBuilder {
         return this;
     }
 
-    public EditPersonDescriptor build() {
+    public EditCommand.EditQuestionDescriptor build() {
         return descriptor;
     }
 }

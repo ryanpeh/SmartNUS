@@ -9,8 +9,8 @@ import seedu.address.model.question.Question;
 public interface ReadOnlyAddressBook {
 
     /**
-     * Returns an unmodifiable view of the persons list.
-     * This list will not contain any duplicate persons.
+     * Returns an unmodifiable view of the questions list.
+     * This list will not contain any duplicate questions.
      */
     ObservableList<Question> getQuestionList();
 

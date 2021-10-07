@@ -6,7 +6,7 @@ import seedu.address.model.question.Question;
 /**
  * A utility class to help with building Addressbook objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
+ *     {@code AddressBook ab = new AddressBookBuilder().withQuestion("John", "Doe").build();}
  */
 public class AddressBookBuilder {
 
@@ -23,7 +23,7 @@ public class AddressBookBuilder {
     /**
      * Adds a new {@code Question} to the {@code AddressBook} that we are building.
      */
-    public AddressBookBuilder withPerson(Question question) {
+    public AddressBookBuilder withQuestion(Question question) {
         addressBook.addQuestion(question);
         return this;
     }

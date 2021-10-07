@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalQuestions.ALICE;
+import static seedu.address.testutil.TypicalQuestions.BOB;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,8 +14,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.question.exceptions.DuplicatePersonException;
-import seedu.address.model.question.exceptions.PersonNotFoundException;
+import seedu.address.model.question.exceptions.DuplicateQuestionException;
+import seedu.address.model.question.exceptions.QuestionNotFoundException;
 import seedu.address.testutil.QuestionBuilder;
 
 public class UniqueQuestionListTest {
@@ -23,23 +23,23 @@ public class UniqueQuestionListTest {
     private final UniqueQuestionList uniqueQuestionList = new UniqueQuestionList();
 
     @Test
-    public void contains_nullPerson_throwsNullPointerException() {
+    public void contains_nullQuestion_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueQuestionList.contains(null));
     }
 
     @Test
-    public void contains_personNotInList_returnsFalse() {
+    public void contains_questionNotInList_returnsFalse() {
         assertFalse(uniqueQuestionList.contains(ALICE));
     }
 
     @Test
-    public void contains_personInList_returnsTrue() {
+    public void contains_questionInList_returnsTrue() {
         uniqueQuestionList.add(ALICE);
         assertTrue(uniqueQuestionList.contains(ALICE));
     }
 
     @Test
-    public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
+    public void contains_questionWithSameIdentityFieldsInList_returnsTrue() {
         uniqueQuestionList.add(ALICE);
         Question editedAlice = new QuestionBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
@@ -47,79 +47,79 @@ public class UniqueQuestionListTest {
     }
 
     @Test
-    public void add_nullPerson_throwsNullPointerException() {
+    public void add_nullQuestion_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueQuestionList.add(null));
     }
 
     @Test
-    public void add_duplicatePerson_throwsDuplicatePersonException() {
+    public void add_duplicateQuestion_throwsDuplicateQuestionException() {
         uniqueQuestionList.add(ALICE);
-        assertThrows(DuplicatePersonException.class, () -> uniqueQuestionList.add(ALICE));
+        assertThrows(DuplicateQuestionException.class, () -> uniqueQuestionList.add(ALICE));
     }
 
     @Test
-    public void setPerson_nullTargetPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueQuestionList.setPerson(null, ALICE));
+    public void setQuestion_nullTargetQuestion_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniqueQuestionList.setQuestion(null, ALICE));
     }
 
     @Test
-    public void setPerson_nullEditedPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueQuestionList.setPerson(ALICE, null));
+    public void setQuestion_nullEditedQuestion_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniqueQuestionList.setQuestion(ALICE, null));
     }
 
     @Test
-    public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
-        assertThrows(PersonNotFoundException.class, () -> uniqueQuestionList.setPerson(ALICE, ALICE));
+    public void setQuestion_targetQuestionNotInList_throwsQuestionNotFoundException() {
+        assertThrows(QuestionNotFoundException.class, () -> uniqueQuestionList.setQuestion(ALICE, ALICE));
     }
 
     @Test
-    public void setPerson_editedPersonIsSamePerson_success() {
+    public void setQuestion_editedQuestionIsSameQuestion_success() {
         uniqueQuestionList.add(ALICE);
-        uniqueQuestionList.setPerson(ALICE, ALICE);
+        uniqueQuestionList.setQuestion(ALICE, ALICE);
         UniqueQuestionList expectedUniqueQuestionList = new UniqueQuestionList();
         expectedUniqueQuestionList.add(ALICE);
         assertEquals(expectedUniqueQuestionList, uniqueQuestionList);
     }
 
     @Test
-    public void setPerson_editedPersonHasSameIdentity_success() {
+    public void setQuestion_editedQuestionHasSameIdentity_success() {
         uniqueQuestionList.add(ALICE);
         Question editedAlice = new QuestionBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
-        uniqueQuestionList.setPerson(ALICE, editedAlice);
+        uniqueQuestionList.setQuestion(ALICE, editedAlice);
         UniqueQuestionList expectedUniqueQuestionList = new UniqueQuestionList();
         expectedUniqueQuestionList.add(editedAlice);
         assertEquals(expectedUniqueQuestionList, uniqueQuestionList);
     }
 
     @Test
-    public void setPerson_editedPersonHasDifferentIdentity_success() {
+    public void setQuestion_editedQuestionHasDifferentIdentity_success() {
         uniqueQuestionList.add(ALICE);
-        uniqueQuestionList.setPerson(ALICE, BOB);
+        uniqueQuestionList.setQuestion(ALICE, BOB);
         UniqueQuestionList expectedUniqueQuestionList = new UniqueQuestionList();
         expectedUniqueQuestionList.add(BOB);
         assertEquals(expectedUniqueQuestionList, uniqueQuestionList);
     }
 
     @Test
-    public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
+    public void setQuestion_editedQuestionHasNonUniqueIdentity_throwsDuplicateQuestionException() {
         uniqueQuestionList.add(ALICE);
         uniqueQuestionList.add(BOB);
-        assertThrows(DuplicatePersonException.class, () -> uniqueQuestionList.setPerson(ALICE, BOB));
+        assertThrows(DuplicateQuestionException.class, () -> uniqueQuestionList.setQuestion(ALICE, BOB));
     }
 
     @Test
-    public void remove_nullPerson_throwsNullPointerException() {
+    public void remove_nullQuestion_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueQuestionList.remove(null));
     }
 
     @Test
-    public void remove_personDoesNotExist_throwsPersonNotFoundException() {
-        assertThrows(PersonNotFoundException.class, () -> uniqueQuestionList.remove(ALICE));
+    public void remove_questionDoesNotExist_throwsQuestionNotFoundException() {
+        assertThrows(QuestionNotFoundException.class, () -> uniqueQuestionList.remove(ALICE));
     }
 
     @Test
-    public void remove_existingPerson_removesPerson() {
+    public void remove_existingQuestion_removesQuestion() {
         uniqueQuestionList.add(ALICE);
         uniqueQuestionList.remove(ALICE);
         UniqueQuestionList expectedUniqueQuestionList = new UniqueQuestionList();
@@ -127,38 +127,39 @@ public class UniqueQuestionListTest {
     }
 
     @Test
-    public void setPersons_nullUniquePersonList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueQuestionList.setPersons((UniqueQuestionList) null));
+    public void setQuestions_nullUniqueQuestionList_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniqueQuestionList.setQuestions((UniqueQuestionList) null));
     }
 
     @Test
-    public void setPersons_uniquePersonList_replacesOwnListWithProvidedUniquePersonList() {
+    public void setQuestions_uniqueQuestionList_replacesOwnListWithProvidedUniqueQuestionList() {
         uniqueQuestionList.add(ALICE);
         UniqueQuestionList expectedUniqueQuestionList = new UniqueQuestionList();
         expectedUniqueQuestionList.add(BOB);
-        uniqueQuestionList.setPersons(expectedUniqueQuestionList);
+        uniqueQuestionList.setQuestions(expectedUniqueQuestionList);
         assertEquals(expectedUniqueQuestionList, uniqueQuestionList);
     }
 
     @Test
-    public void setPersons_nullList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueQuestionList.setPersons((List<Question>) null));
+    public void setQuestions_nullList_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniqueQuestionList.setQuestions((List<Question>) null));
     }
 
     @Test
-    public void setPersons_list_replacesOwnListWithProvidedList() {
+    public void setQuestions_list_replacesOwnListWithProvidedList() {
         uniqueQuestionList.add(ALICE);
         List<Question> questionList = Collections.singletonList(BOB);
-        uniqueQuestionList.setPersons(questionList);
+        uniqueQuestionList.setQuestions(questionList);
         UniqueQuestionList expectedUniqueQuestionList = new UniqueQuestionList();
         expectedUniqueQuestionList.add(BOB);
         assertEquals(expectedUniqueQuestionList, uniqueQuestionList);
     }
 
     @Test
-    public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
+    public void setQuestions_listWithDuplicateQuestions_throwsDuplicateQuestionException() {
         List<Question> listWithDuplicateQuestions = Arrays.asList(ALICE, ALICE);
-        assertThrows(DuplicatePersonException.class, () -> uniqueQuestionList.setPersons(listWithDuplicateQuestions));
+        assertThrows(DuplicateQuestionException.class, () -> uniqueQuestionList
+                .setQuestions(listWithDuplicateQuestions));
     }
 
     @Test

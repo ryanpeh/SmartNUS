@@ -8,8 +8,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_IMPORTANCE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalQuestions.ALICE;
+import static seedu.address.testutil.TypicalQuestions.BOB;
 
 import org.junit.jupiter.api.Test;
 
@@ -25,30 +25,30 @@ public class QuestionTest {
     }
 
     @Test
-    public void isSamePerson() {
+    public void isSameQuestion() {
         // same object -> returns true
-        assertTrue(ALICE.isSamePerson(ALICE));
+        assertTrue(ALICE.isSameQuestion(ALICE));
 
         // null -> returns false
-        assertFalse(ALICE.isSamePerson(null));
+        assertFalse(ALICE.isSameQuestion(null));
 
         // same name, all other attributes different -> returns true
         Question editedAlice = new QuestionBuilder(ALICE).withImportance(VALID_IMPORTANCE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
+        assertTrue(ALICE.isSameQuestion(editedAlice));
 
         // different name, all other attributes same -> returns false
         editedAlice = new QuestionBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSamePerson(editedAlice));
+        assertFalse(ALICE.isSameQuestion(editedAlice));
 
         // name differs in case, all other attributes same -> returns false
         Question editedBob = new QuestionBuilder(BOB).withName(VALID_NAME_BOB.toLowerCase()).build();
-        assertFalse(BOB.isSamePerson(editedBob));
+        assertFalse(BOB.isSameQuestion(editedBob));
 
         // name has trailing spaces, all other attributes same -> returns false
         String nameWithTrailingSpaces = VALID_NAME_BOB + " ";
         editedBob = new QuestionBuilder(BOB).withName(nameWithTrailingSpaces).build();
-        assertFalse(BOB.isSamePerson(editedBob));
+        assertFalse(BOB.isSameQuestion(editedBob));
     }
 
     @Test

@@ -1,9 +1,0 @@
-{
-  "persons": [ {
-    "name": "Valid Person",
-    "importance": "3"
-  }, {
-    "name": "Person With Invalid Importance Field",
-    "importance": "948asdf2424"
-  } ]
-}
