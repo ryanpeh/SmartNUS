@@ -47,7 +47,7 @@ public class PersonCard extends UiPart<Region> {
         this.question = question;
         id.setText(displayedIndex + ". ");
         name.setText(question.getName().fullName);
-        importance.setText(question.getImportance().value);
+        importance.setText("importance: " + question.getImportance().value);
         question.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
