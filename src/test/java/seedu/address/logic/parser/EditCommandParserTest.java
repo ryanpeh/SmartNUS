@@ -1,17 +1,17 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.IMPORTANCE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.IMPORTANCE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_IMPORTANCE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.IMPORTANCE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.IMPORTANCE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_IMPORTANCE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_IMPORTANCE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -70,15 +70,17 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, "11" + INVALID_IMPORTANCE_DESC, Importance.MESSAGE_CONSTRAINTS); // invalid importance
+        assertParseFailure(parser, "11" + INVALID_IMPORTANCE_DESC,
+                Importance.MESSAGE_CONSTRAINTS); // invalid importance
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
         // invalid importance followed by valid email
         assertParseFailure(parser, "11" + INVALID_IMPORTANCE_DESC, Importance.MESSAGE_CONSTRAINTS);
 
-        // valid importance followed by invalid importance. The test case for invalid importance followed by valid importance
-        // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, "1" + IMPORTANCE_DESC_BOB + INVALID_IMPORTANCE_DESC, Importance.MESSAGE_CONSTRAINTS);
+        // valid importance followed by invalid importance. The test case for invalid importance followed by
+        // valid importance is tested at {@code parse_invalidValueFollowedByValidValue_success()}
+        assertParseFailure(parser, "1" + IMPORTANCE_DESC_BOB + INVALID_IMPORTANCE_DESC,
+                Importance.MESSAGE_CONSTRAINTS);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Question} being edited,
         // parsing it together with a valid tag results in error
@@ -159,7 +161,8 @@ public class EditCommandParserTest {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + INVALID_IMPORTANCE_DESC + IMPORTANCE_DESC_BOB;
-        EditPersonDescriptor descriptor = new EditQuestionDescriptorBuilder().withImportance(VALID_IMPORTANCE_BOB).build();
+        EditPersonDescriptor descriptor = new EditQuestionDescriptorBuilder().withImportance(VALID_IMPORTANCE_BOB)
+                .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
