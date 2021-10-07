@@ -225,7 +225,7 @@ If you are stuck, check out the sample
 
 ## Add `Remark` to the model
 
-Now that we have all the information that we need, let’s lay the groundwork for propagating the remarks added into the in-memory storage of question data. We achieve that by working with the `Person` model. Each field in a Person is implemented as a separate class (e.g. a `Name` object represents the question’s name). That means we should add a `Remark` class so that we can use a `Remark` object to represent a remark given to a question.
+Now that we have all the information that we need, let’s lay the groundwork for propagating the remarks added into the in-memory storage of question data. We achieve that by working with the `Question` model. Each field in a Question is implemented as a separate class (e.g. a `Name` object represents the question’s name). That means we should add a `Remark` class so that we can use a `Remark` object to represent a remark given to a question.
 
 ### Add a new `Remark` class
 
@@ -242,9 +242,9 @@ Let’s change `RemarkCommand` and `RemarkCommandParser` to use the new `Remark`
 
 Without getting too deep into `fxml`, let’s go on a 5 minute adventure to get some placeholder text to show up for each question.
 
-Simply add the following to [`seedu.address.ui.PersonCard`](https://github.com/se-edu/addressbook-level3/commit/850b78879582f38accb05dd20c245963c65ea599#diff-0c6b6abcfac8c205e075294f25e851fe).
+Simply add the following to [`seedu.address.ui.QuestionCard`](https://github.com/se-edu/addressbook-level3/commit/850b78879582f38accb05dd20c245963c65ea599#diff-0c6b6abcfac8c205e075294f25e851fe).
 
-**`PersonCard.java`:**
+**`QuestionCard.java`:**
 
 ``` java
 @FXML
@@ -254,9 +254,9 @@ private Label remark;
 
 `@FXML` is an annotation that marks a private or protected field and makes it accessible to FXML. It might sound like Greek to you right now, don’t worry — we will get back to it later.
 
-Then insert the following into [`main/resources/view/PersonListCard.fxml`](https://github.com/se-edu/addressbook-level3/commit/850b78879582f38accb05dd20c245963c65ea599#diff-12580431f55d7880578aa4c16f249e71).
+Then insert the following into [`main/resources/view/QuestionListCard.fxml`](https://github.com/se-edu/addressbook-level3/commit/850b78879582f38accb05dd20c245963c65ea599#diff-12580431f55d7880578aa4c16f249e71).
 
-**`PersonListCard.fxml`:**
+**`QuestionListCard.fxml`:**
 
 ``` xml
 <Label fx:id="remark" styleClass="cell_small_label" text="\$remark" />
@@ -266,21 +266,21 @@ That’s it! Fire up the application again and you should see something like thi
 
 ![$remark shows up in each entry](../images/add-remark/$Remark.png)
 
-## Modify `Person` to support a `Remark` field
+## Modify `Question` to support a `Remark` field
 
-Since `PersonCard` displays data from a `Person`, we need to update `Person` to get our `Remark` displayed!
+Since `QuestionCard` displays data from a `Question`, we need to update `Question` to get our `Remark` displayed!
 
-### Modify `Person`
+### Modify `Question`
 
-We change the constructor of `Person` to take a `Remark`. We will also need to define new fields and accessors accordingly to store our new addition.
+We change the constructor of `Question` to take a `Remark`. We will also need to define new fields and accessors accordingly to store our new addition.
 
-### Update other usages of `Person`
+### Update other usages of `Question`
 
-Unfortunately, a change to `Person` will cause other commands to break, you will have to modify these commands to use the updated `Person`!
+Unfortunately, a change to `Question` will cause other commands to break, you will have to modify these commands to use the updated `Question`!
 
 <div markdown="span" class="alert alert-primary">
 
-:bulb: Use the `Find Usages` feature in IntelliJ IDEA on the `Person` class to find these commands.
+:bulb: Use the `Find Usages` feature in IntelliJ IDEA on the `Question` class to find these commands.
 
 </div>
 
@@ -289,7 +289,7 @@ Refer to [this commit](https://github.com/se-edu/addressbook-level3/commit/ce998
 
 ## Updating Storage
 
-AddressBook stores data by serializing `JsonAdaptedPerson` into `json` with the help of an external library — Jackson. Let’s update `JsonAdaptedPerson` to work with our new `Person`!
+AddressBook stores data by serializing `JsonAdaptedQuestion` into `json` with the help of an external library — Jackson. Let’s update `JsonAdaptedQuestion` to work with our new `Question`!
 
 While the changes to code may be minimal, the test data will have to be updated as well.
 
@@ -304,14 +304,14 @@ to see what the changes entail.
 
 ## Finalizing the UI
 
-Now that we have finalized the `Person` class and its dependencies, we can now bind the `Remark` field to the UI.
+Now that we have finalized the `Question` class and its dependencies, we can now bind the `Remark` field to the UI.
 
 Just add [this one line of code!](https://github.com/se-edu/addressbook-level3/commit/5b98fee11b6b3f5749b6b943c4f3bd3aa049b692)
 
-**`PersonCard.java`:**
+**`QuestionCard.java`:**
 
 ``` java
-public PersonCard(Person question, int displayedIndex) {
+public QuestionCard(Question question, int displayedIndex) {
     //...
     remark.setText(question.getRemark().value);
 }
@@ -325,31 +325,30 @@ After the previous step, we notice a peculiar regression — we went from di
 
 ### Update `RemarkCommand` and `RemarkCommandParser`
 
-In this last step, we modify `RemarkCommand#execute()` to change the `Remark` of a `Person`. Since all fields in a `Person` are immutable, we create a new instance of a `Person` with the values that we want and
-save it with `Model#setPerson()`.
+In this last step, we modify `RemarkCommand#execute()` to change the `Remark` of a `Question`. Since all fields in a `Question` are immutable, we create a new instance of a `Question` with the values that we want and
+save it with `Model#setQuestion()`.
 
 **`RemarkCommand.java`:**
 
 ``` java
 //...
-    public static final String MESSAGE_ADD_REMARK_SUCCESS = "Added remark to Person: %1$s";
-    public static final String MESSAGE_DELETE_REMARK_SUCCESS = "Removed remark from Person: %1$s";
+    public static final String MESSAGE_ADD_REMARK_SUCCESS = "Added remark to Question: %1$s";
+    public static final String MESSAGE_DELETE_REMARK_SUCCESS = "Removed remark from Question: %1$s";
 //...
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Question> lastShownList = model.getFilteredQuestionList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX);
         }
 
-        Person questionToEdit = lastShownList.get(index.getZeroBased());
-        Person editedQuestion = new Person(
-                questionToEdit.getName(), questionToEdit.getPhone(), questionToEdit.getEmail(),
-                questionToEdit.getAddress(), remark, questionToEdit.getTags());
+        Question questionToEdit = lastShownList.get(index.getZeroBased());
+        Question editedQuestion = new Question(
+                questionToEdit.getName(), questionToEdit.getImportance(), remark, questionToEdit.getTags());
 
-        model.setPerson(questionToEdit, editedQuestion);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.setQuestion(questionToEdit, editedQuestion);
+        model.updateFilteredQuestionList(PREDICATE_SHOW_ALL_QUESTIONS);
 
         return new CommandResult(generateSuccessMessage(editedQuestion));
     }
@@ -359,7 +358,7 @@ save it with `Model#setPerson()`.
      * the remark is added to or removed from
      * {@code questionToEdit}.
      */
-    private String generateSuccessMessage(Person questionToEdit) {
+    private String generateSuccessMessage(Question questionToEdit) {
         String message = !remark.value.isEmpty() ? MESSAGE_ADD_REMARK_SUCCESS : MESSAGE_DELETE_REMARK_SUCCESS;
         return String.format(message, questionToEdit);
     }
