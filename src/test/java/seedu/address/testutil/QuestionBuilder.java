@@ -17,7 +17,7 @@ import seedu.address.model.util.SampleDataUtil;
 public class QuestionBuilder {
 
     public static final String DEFAULT_NAME = "Amy Bee";
-    public static final String DEFAULT_IMPORTANCE = "85355255";
+    public static final String DEFAULT_IMPORTANCE = "1";
     public static final Choice DEFAULT_CHOICE = new Choice("option 1", true);
 
     private Name name;

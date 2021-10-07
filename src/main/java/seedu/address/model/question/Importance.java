@@ -12,7 +12,7 @@ public class Importance {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Importance should only be an integer from 1-3 inclusive";
-    public static final String VALIDATION_REGEX = "\\d{3,}";
+    public static final String VALIDATION_REGEX = "[1-3]";
     public final String value;
 
     /**

@@ -27,14 +27,17 @@ public class ImportanceTest {
         // invalid importance numbers
         assertFalse(Importance.isValidImportance("")); // empty string
         assertFalse(Importance.isValidImportance(" ")); // spaces only
-        assertFalse(Importance.isValidImportance("91")); // less than 3 numbers
+        assertFalse(Importance.isValidImportance("91")); // more than 1 digit
         assertFalse(Importance.isValidImportance("importance")); // non-numeric
-        assertFalse(Importance.isValidImportance("9011p041")); // alphabets within digits
-        assertFalse(Importance.isValidImportance("9312 1534")); // spaces within digits
+        assertFalse(Importance.isValidImportance("1p")); // alphabets within digits
+        assertFalse(Importance.isValidImportance("p1")); // alphabets within digits
+        assertFalse(Importance.isValidImportance("2 2")); // spaces within digits
+        assertFalse(Importance.isValidImportance("0")); // not within range of 1-3
+        assertFalse(Importance.isValidImportance("4")); // not within range of 1-3
 
         // valid importance numbers
-        assertTrue(Importance.isValidImportance("911")); // exactly 3 numbers
-        assertTrue(Importance.isValidImportance("93121534"));
-        assertTrue(Importance.isValidImportance("124293842033123")); // long importance numbers
+        assertTrue(Importance.isValidImportance("1")); // exactly 1 number
+        assertTrue(Importance.isValidImportance("2")); // exactly 1 number
+        assertTrue(Importance.isValidImportance("3")); // exactly 1 number
     }
 }

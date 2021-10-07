@@ -20,32 +20,34 @@ import seedu.address.model.question.Question;
 public class TypicalPersons {
 
     public static final Question ALICE = new QuestionBuilder().withName("Alice Pauline")
-            .withImportance("94351253")
+            .withImportance("1")
             .withTags("friends").build();
     public static final Question BENSON = new QuestionBuilder().withName("Benson Meier")
-            .withImportance("98765432")
+            .withImportance("2")
             .withTags("owesMoney", "friends").build();
-    public static final Question CARL = new QuestionBuilder().withName("Carl Kurz").withImportance("95352563")
+    public static final Question CARL = new QuestionBuilder().withName("Carl Kurz").withImportance("3")
             .build();
-    public static final Question DANIEL = new QuestionBuilder().withName("Daniel Meier").withImportance("87652533")
+    public static final Question DANIEL = new QuestionBuilder().withName("Daniel Meier").withImportance("1")
             .withTags("friends").build();
-    public static final Question ELLE = new QuestionBuilder().withName("Elle Meyer").withImportance("9482224")
+    public static final Question ELLE = new QuestionBuilder().withName("Elle Meyer").withImportance("2")
             .build();
-    public static final Question FIONA = new QuestionBuilder().withName("Fiona Kunz").withImportance("9482427")
+    public static final Question FIONA = new QuestionBuilder().withName("Fiona Kunz").withImportance("3")
             .build();
-    public static final Question GEORGE = new QuestionBuilder().withName("George Best").withImportance("9482442")
+    public static final Question GEORGE = new QuestionBuilder().withName("George Best").withImportance("1")
             .build();
 
     // Manually added
-    public static final Question HOON = new QuestionBuilder().withName("Hoon Meier").withImportance("8482424")
+    public static final Question HOON = new QuestionBuilder().withName("Hoon Meier").withImportance("2")
             .build();
-    public static final Question IDA = new QuestionBuilder().withName("Ida Mueller").withImportance("8482131")
+    public static final Question IDA = new QuestionBuilder().withName("Ida Mueller").withImportance("3")
             .build();
 
     // Manually added - Question's details found in {@code CommandTestUtil}
-    public static final Question AMY = new QuestionBuilder().withName(VALID_NAME_AMY).withImportance(VALID_IMPORTANCE_AMY)
+    public static final Question AMY = new QuestionBuilder().withName(VALID_NAME_AMY)
+            .withImportance(VALID_IMPORTANCE_AMY)
             .withTags(VALID_TAG_FRIEND).build();
-    public static final Question BOB = new QuestionBuilder().withName(VALID_NAME_BOB).withImportance(VALID_IMPORTANCE_BOB)
+    public static final Question BOB = new QuestionBuilder().withName(VALID_NAME_BOB)
+            .withImportance(VALID_IMPORTANCE_BOB)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 

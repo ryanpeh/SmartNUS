@@ -26,8 +26,8 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_IMPORTANCE_AMY = "11111111";
-    public static final String VALID_IMPORTANCE_BOB = "22222222";
+    public static final String VALID_IMPORTANCE_AMY = "1";
+    public static final String VALID_IMPORTANCE_BOB = "2";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
@@ -39,7 +39,7 @@ public class CommandTestUtil {
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + " "; // empty string not allowed for names
-    public static final String INVALID_IMPORTANCE_DESC = " " + PREFIX_IMPORTANCE + "911a"; // 'a' not allowed in importance numbers
+    public static final String INVALID_IMPORTANCE_DESC = " " + PREFIX_IMPORTANCE + "1a"; // 'a' not allowed in importance numbers
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";

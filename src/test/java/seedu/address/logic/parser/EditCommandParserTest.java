@@ -70,11 +70,11 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, "1" + INVALID_IMPORTANCE_DESC, Importance.MESSAGE_CONSTRAINTS); // invalid importance
+        assertParseFailure(parser, "11" + INVALID_IMPORTANCE_DESC, Importance.MESSAGE_CONSTRAINTS); // invalid importance
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
         // invalid importance followed by valid email
-        assertParseFailure(parser, "1" + INVALID_IMPORTANCE_DESC, Importance.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "11" + INVALID_IMPORTANCE_DESC, Importance.MESSAGE_CONSTRAINTS);
 
         // valid importance followed by invalid importance. The test case for invalid importance followed by valid importance
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
