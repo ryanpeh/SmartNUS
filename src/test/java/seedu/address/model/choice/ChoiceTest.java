@@ -1,5 +1,6 @@
 package seedu.address.model.choice;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -50,5 +51,14 @@ public class ChoiceTest {
         assertFalse(choiceBCorrect.equals(choiceACorrect));
 
         assertTrue(choiceACorrect.equals(new Choice("choice A", true)));
+    }
+
+    @Test
+    public void toString_test() {
+        Choice wrongChoice = new Choice("wrong", false);
+        Choice correctChoice = new Choice("correct", true);
+
+        assertEquals(wrongChoice.toString(), "wrong");
+        assertEquals(correctChoice.toString(), "correct (answer)");
     }
 }
