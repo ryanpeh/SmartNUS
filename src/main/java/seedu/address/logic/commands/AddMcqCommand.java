@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.commands.AddCommand.MESSAGE_DUPLICATE_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_IMPORTANCE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 
@@ -24,12 +25,14 @@ public class AddMcqCommand extends Command {
             + PREFIX_OPTION + "OPTION "
             + PREFIX_OPTION + "OPTION "
             + PREFIX_ANSWER + "ANSWER "
+            + PREFIX_IMPORTANCE + "IMPORTANCE "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_QUESTION + "What is 1+1? "
             + PREFIX_OPTION + "3 "
             + PREFIX_OPTION + "4 "
             + PREFIX_OPTION + "5 "
-            + PREFIX_ANSWER + "2 ";
+            + PREFIX_ANSWER + "2 "
+            + PREFIX_IMPORTANCE + "1 ";
 
     private final Question toAdd;
 
