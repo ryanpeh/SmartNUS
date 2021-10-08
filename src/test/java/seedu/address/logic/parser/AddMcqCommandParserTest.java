@@ -75,10 +75,6 @@ class AddMcqCommandParserTest {
         assertParseSuccess(parser,
                 QUESTION_DESC_1 + ANSWER_DESC_2 + OPTIONS_DESC_1 + IMPORTANCE_DESC_1 + ANSWER_DESC_1,
                 expectedCommand);
-
-        // accept only first 3 arguments for options
-        assertParseSuccess(parser, QUESTION_DESC_1 + ANSWER_DESC_1 + IMPORTANCE_DESC_1 + OPTIONS_DESC_2,
-                expectedCommand);
     }
 
     @Test
@@ -112,12 +108,15 @@ class AddMcqCommandParserTest {
         assertParseFailure(parser, QUESTION_DESC_1 + OPTIONS_DESC_1 + INVALID_ANSWER_DESC + IMPORTANCE_DESC_1,
                 Choice.MESSAGE_CONSTRAINTS);
         // 1 invalid option with 2 valid
-        assertParseFailure(parser, QUESTION_DESC_1 + OPTION_DESC_1 + INVALID_OPTION_DESC + OPTIONS_DESC_2
+        assertParseFailure(parser, QUESTION_DESC_1 + OPTION_DESC_1 + INVALID_OPTION_DESC + OPTION_DESC_3
                 + ANSWER_DESC_1 + IMPORTANCE_DESC_1, Choice.MESSAGE_CONSTRAINTS);
         // not enough options
         assertParseFailure(parser,
                 QUESTION_DESC_1 + OPTION_DESC_1 + OPTION_DESC_3 + ANSWER_DESC_1 + IMPORTANCE_DESC_1,
-                MultipleChoiceQuestion.MESSAGE_INSUFFICIENT_CHOICES);
+                MultipleChoiceQuestion.MESSAGE_INCORRECT_NUMBER_OF_CHOICES);
+        // too many options
+        assertParseFailure(parser, QUESTION_DESC_1 + ANSWER_DESC_1 + IMPORTANCE_DESC_1 + OPTIONS_DESC_2,
+                MultipleChoiceQuestion.MESSAGE_INCORRECT_NUMBER_OF_CHOICES);
         // invalid question
         assertParseFailure(parser, INVALID_QUESTION_DESC + OPTIONS_DESC_1 + ANSWER_DESC_1 + IMPORTANCE_DESC_1,
                 Name.MESSAGE_CONSTRAINTS);

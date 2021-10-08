@@ -122,12 +122,19 @@ public class ParserUtil {
      */
     public static Set<Choice> parseChoices(List<String> choices, String answer) throws ParseException {
         requireAllNonNull(choices, answer);
-        if (choices.size() < NUMBER_OF_INCORRECT_CHOICES) {
-            throw new ParseException(MultipleChoiceQuestion.MESSAGE_INSUFFICIENT_CHOICES);
+        if (choices.size() != NUMBER_OF_INCORRECT_CHOICES) {
+            throw new ParseException(MultipleChoiceQuestion.MESSAGE_INCORRECT_NUMBER_OF_CHOICES);
         }
         Set<Choice> choiceSet = new HashSet<>();
         for (int i = 0; i < NUMBER_OF_INCORRECT_CHOICES; i++) {
-            choiceSet.add(parseChoice(choices.get(i), false));
+            String choice = choices.get(i);
+            if (choice.equals(answer)) {
+                throw new ParseException(MultipleChoiceQuestion.MESSAGE_DUPLICATE_CHOICES);
+            }
+            choiceSet.add(parseChoice(choice, false));
+        }
+        if (choiceSet.size() != NUMBER_OF_INCORRECT_CHOICES) {
+            throw new ParseException(MultipleChoiceQuestion.MESSAGE_DUPLICATE_CHOICES);
         }
         choiceSet.add(parseChoice(answer, true));
         return choiceSet;

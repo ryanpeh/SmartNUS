@@ -68,8 +68,6 @@ public class CommandTestUtil {
     public static final String INVALID_QUESTION_DESC = " " + PREFIX_QUESTION; // empty string not allowed for question
     public static final String INVALID_ANSWER_DESC = " " + PREFIX_ANSWER; // empty string not allowed for answer
     public static final String INVALID_OPTION_DESC = " " + PREFIX_OPTION; // empty string not allowed for option
-    // 1 invalid option in the first 3 options argument is not allowed
-    public static final String INVALID_OPTIONS_DESC = " " + OPTIONS_DESC_1 + INVALID_OPTION_DESC;
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
