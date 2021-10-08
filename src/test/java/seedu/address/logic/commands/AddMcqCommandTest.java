@@ -26,7 +26,7 @@ import seedu.address.testutil.QuestionBuilder;
 class AddMcqCommandTest {
     @Test
     public void constructor_nullQuestion_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+        assertThrows(NullPointerException.class, () -> new AddMcqCommand(null));
     }
 
     @Test
@@ -35,7 +35,7 @@ class AddMcqCommandTest {
                 new AddMcqCommandTest.ModelStubAcceptingQuestionAdded();
         Question validQuestion = new QuestionBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validQuestion).execute(modelStub);
+        CommandResult commandResult = new AddMcqCommand(validQuestion).execute(modelStub);
 
         assertEquals(String.format(AddMcqCommand.MESSAGE_SUCCESS, validQuestion), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validQuestion), modelStub.questionsAdded);
@@ -73,14 +73,14 @@ class AddMcqCommandTest {
     public void equals() {
         Question alice = new QuestionBuilder().withName("Alice").build();
         Question bob = new QuestionBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        AddMcqCommand addAliceCommand = new AddMcqCommand(alice);
+        AddMcqCommand addBobCommand = new AddMcqCommand(bob);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
+        AddMcqCommand addAliceCommandCopy = new AddMcqCommand(alice);
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false

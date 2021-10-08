@@ -40,6 +40,7 @@ public class AddMcqCommand extends Command {
      * Temporary constructor
      */
     public AddMcqCommand(Question question) {
+        requireNonNull(question);
         this.toAdd = question;
     }
 
