@@ -17,7 +17,7 @@ import seedu.address.model.question.Question;
 public class AddMcqCommand extends Command {
 
     public static final String COMMAND_WORD = "mcq";
-    public static final String MESSAGE_SUCCESS = "New question added: question: %s";
+    public static final String MESSAGE_SUCCESS = "New question added: %s";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a question to SmartNUS. "
             + "Parameters: "
             + PREFIX_QUESTION + "QUESTION "
