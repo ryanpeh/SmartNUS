@@ -73,7 +73,7 @@ The **API** of this component is specified in [`Ui.java`](https://github.com/se-
 
 ![Structure of the UI Component](images/UiClassDiagram.png)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `QuestionListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
 The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
 
@@ -82,7 +82,7 @@ The `UI` component,
 * executes user commands using the `Logic` component.
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
-* depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
+* depends on some classes in the `Model` component, as it displays `Question` object residing in the `Model`.
 
 ### Logic component
 
@@ -95,7 +95,7 @@ Here's a (partial) class diagram of the `Logic` component:
 How the `Logic` component works:
 1. When `Logic` is called upon to execute a command, it uses the `AddressBookParser` class to parse the user command.
 1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddCommand`) which is executed by the `LogicManager`.
-1. The command can communicate with the `Model` when it is executed (e.g. to add a person).
+1. The command can communicate with the `Model` when it is executed (e.g. to add a question).
 1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
 The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("delete 1")` API call.
@@ -121,12 +121,12 @@ How the parsing works:
 
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the address book data i.e., all `Question` objects (which are contained in a `UniqueQuestionList` object).
+* stores the currently 'selected' `Question` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Question>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
+<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Question` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Question` needing their own `Tag` objects.<br>
 
 <img src="images/BetterModelClassDiagram.png" width="450" />
 
@@ -172,11 +172,11 @@ Step 1. The user launches the application for the first time. The `VersionedAddr
 
 ![UndoRedoState0](images/UndoRedoState0.png)
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th question in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 ![UndoRedoState1](images/UndoRedoState1.png)
 
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David …​` to add a new question. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 ![UndoRedoState2](images/UndoRedoState2.png)
 
@@ -184,7 +184,7 @@ Step 3. The user executes `add n/David …​` to add a new person. The `add` co
 
 </div>
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the question was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 ![UndoRedoState3](images/UndoRedoState3.png)
 
@@ -229,7 +229,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 * **Alternative 2:** Individual command knows how to undo/redo by
   itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+  * Pros: Will use less memory (e.g. for `delete`, just save the question being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
 _{more aspects and alternatives to be added}_
@@ -257,13 +257,14 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
+* needs to organise and revise materials for many modules
+* wants to note down important information in the form of questions and answers that they can quiz themselves on
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: organise and revise information faster than a typical mouse/GUI driven app
 
 
 ### User stories
@@ -272,56 +273,195 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 | Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
 | -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| `* * *`  | NUS Student | add a multiple choice question to the topic         | review the question in MCQ style|
+| `* * *`  | NUS Student | add an answer to the multiple choice question       | see the correct answer during the review                                                                        |
+| `* * *`  | NUS Student | delete the question and at the same time delete all answers belonging to that question | remove questions and answer that are not needed|
+| `* * *`  | NUS Student | do a quiz containing only questions from a certain tag       | revise questions for the specific tag|
+| `* * *`  | NUS Student | specify the number of questions to be included in any quiz| revise the number of questions taking into account time constraints or the importance I place on that module/topic, rather than having to go through all questions|
+| `* * *`  | NUS Student | see the list of all commands | know what commands to use to perform a specific task that I want|
+| `* * *`  | NUS Student | specify the number of questions to be included in any quiz| revise the number of questions taking into account time constraints or the importance I place on that module/topic, rather than having to go through all questions|
+| `* * *`  | NUS Student | add tags | tag questions to categorise them and search through them easily|
+| `* * *`  | NUS Student | delete existing tag | delete unneeded tags|
+| `* * *`  | NUS Student | add a True or False question to the topic | review the question in T/F style|
+| `* * *`  | NUS Student | add an open ended question to the topic | review the question open endedly|
+| `* * *`  | NUS Student | add an answer to the True or False question | see the correct answer during the review|
+| `* * *`  | NUS Student | add an answer to the open ended question | see the correct answer during the review|
+| `* * *`  | NUS Student | tag questions with custom tags (e.g. midterm, quiz, finals) | mark questions (add a note)|
+| `* *`    | NUS Student | end the quiz mid way | end the quiz without finishing it, and return to question list|
+| `* * `   | NUS Student | search questions by tag | filter out questions based on the specific tags|
+| `* * `   | NUS Student | search questions by keyword | filter out questions based on the specific keyword|
+| `* *`    | NUS Student | update existing tag | change a tag if there is a typo|
+| `* *`    | NUS Student | edit the multiple choice question | amend the question just in case I made a mistake |
+| `* *`    | NUS Student | edit the True or False question | amend the question just in case I made a mistake |
+| `* *`    | NUS Student | edit the open ended question | amend the question just in case I made a mistake |
+| `* *`    | NUS Student | edit the multiple choice answer | amend the answer just in case I made a mistake |
+| `* *`    | NUS Student | edit the True or False answer | amend the answer just in case I made a mistake |
+| `* *`    | NUS Student | edit the open ended answer | amend the answer just in case I made a mistake |
+| `* *`    | NUS Student | mark a review as correct | track which questions I answered correctly |
+| `* *`    | NUS Student | mark a review as incorrect | track which questions I need to review again |
+| `*`      | NUS Student | undo a command | undo something that I did carelessly |
+| `*`      | NUS Student | add an exam date to a tag | prioritize which modules to study for |
+| `*`      | NUS Student | view how many times I have answered any question correctly and incorrectly | identify areas of improvement to focus on during revision|
+| `*`      | NUS Student | view how many times I have answered questions from a particular topic correctly and incorrectly| identify areas of improvement to focus on during revision|
+| `*`      | NUS Student | have Demo data already in the application [modules, QnA, tags]| see how the application works and try it out easily|
+| `*`      | NUS Student | create a deadline (date) for the selected topic| manage my time to review topics|
+| `*`      | NUS Student | view deleted questions | still see the questions I might need but have deleted|
+| `*`      | NUS Student | restore deleted questions | to restore questions that I deleted but need again|
+| `*`      | NUS Student | delete everything and start fresh | get rid of all data I have entered so far|
+| `*`      | NUS Student | go back or forward in the question list | review again the questions I have answered |
 
-*{More to be added}*
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `SmartNUS` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+
+**Use case: Add Multiple Choice question and options**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to add an MCQ question and its options, indicating the correct answer.
+2.  SmartNUS saves the question, its options and the correct answer.
 
+**Extensions**
+
+* 1a. User does not specify any options.
+* SmartNUS shows error message.
+
+  Use case ends.
+
+* 1b. User does not specify the correct answer.
+* SmartNUS shows error message.
+  
+  Use case ends.
+
+* 1c. User specifies more than one correct answer.
+* SmartNUS shows error message.
+
+  Use case ends.
+
+
+**Use case: Add True/False question**
+
+**MSS**
+
+1.  User requests to add a True/False question, indicating the correct answer.
+2.  SmartNUS saves the question and the correct answer.
+
+**Extensions**
+
+* 1a. User does not specify the correct answer.
+    * 1a1. SmartNUS shows error message.
+
+      Use case ends.
+
+* 1b. User specifies more than one correct answer.
+    * 1b1. SmartNUS shows error message.
+
+      Use case ends.
+
+
+**Use case: Delete a question**
+
+**MSS**
+
+1. User requests to list questions.
+2. SmartNUS shows a list of all questions.
+3. User requests to delete a specific question in the list.
+4. SmartNUS deletes the question.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+    * 2a1. SmartNUS shows message that there are no questions.
+
+      Use case ends.
+
+* 3a. The given index is invalid.
+    * 3a1. SmartNUS shows an error message.
+
+      Use case resumes at Step 2.
+
+
+**Use case: Tag a question**
+
+**MSS**
+
+1.  User requests to list questions.
+2.  SmartNUS shows a list of all questions.
+3.  User requests to tag a specific question in the list with specific tag(s).
+4.  SmartNUS tags the question with the specified tags.  
     Use case ends.
 
 **Extensions**
 
 * 2a. The list is empty.
+    * 2a1. SmartNUS shows message that there are no questions.
 
-  Use case ends.
+      Use case ends.
 
 * 3a. The given index is invalid.
+    * 3a1. SmartNUS shows an error message.
 
-    * 3a1. AddressBook shows an error message.
+      Use case resumes at Step 2.
 
-      Use case resumes at step 2.
+* 3b. At least one specified tag does not exist.
+    * 3b1. SmartNUS creates tags that do not exist.
 
-*{More to be added}*
+      Use case resumes at Step 4.
+
+
+**Use case: Start a quiz**
+
+**MSS**
+
+1.  User requests to start a quiz, specifying number of questions and tags.
+2.  SmartNUS shows a question from one of the specified tags and its options.
+3.  User chooses one option.
+4.  SmartNUS shows the correct option (answer).
+5.  Steps 2 to 4 are repeated until the user has answered the number of questions he/she specified when starting the quiz.
+6.  SmartNUS shows the user’s score (number of questions correct and total number of questions answered).
+
+**Extensions**
+
+* 1a. Number of questions is invalid (negative or more than total number of questions).
+    * 1a1. SmartNUS shows error message.
+
+      Use case ends.
+
+* 1b. At least one tag does not exist.
+    * 1b1. SmartNUS shows an error message.
+
+      Use case ends.
+
+* 2a. User did not specify any tags.
+    * 2a1. SmartNUS shows any question (that has not yet been shown in the quiz) and its options.
+
+      Use case resumes at Step 3.
+
+* 5a. User did not specify number of questions.
+    * 5a1. Steps 2 to 4 are repeated until all questions from the specified tags have been shown.
+
+      Use case resumes at Step 6.
+
+
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-*{More to be added}*
+1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
+2. Should be able to hold up to 1000 questions without a noticeable sluggishness in performance for typical usage.
+3. A student with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+4. The data should be stored locally and should be in an editable json file.
+5. The product should be for a single user at a time.
+6. The final product should be a result of morphing the given AB3 code base.
+7. The final product should be self-contained i.e should not prompt the user to open any links.
+8. The final product should be fully functional without the internet.
 
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
-* **Private contact detail**: A contact detail that is not meant to be shared with others
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -351,17 +491,17 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
-### Deleting a person
+### Deleting a question
 
-1. Deleting a person while all persons are being shown
+1. Deleting a question while all questions are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   1. Prerequisites: List all questions using the `list` command. Multiple questions in the list.
 
    1. Test case: `delete 1`<br>
       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
    1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+      Expected: No question is deleted. Error details shown in the status message. Status bar remains the same.
 
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
