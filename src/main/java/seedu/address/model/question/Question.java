@@ -101,22 +101,40 @@ public abstract class Question {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
+
+        appendImportance(builder);
+        appendTags(builder);
+        appendChoices(builder);
+
+        return builder.toString();
+    }
+
+    private StringBuilder appendImportance(StringBuilder builder) {
         builder.append(getName())
                 .append("; Importance: ")
                 .append(getImportance());
+        return builder;
+    }
 
+    private StringBuilder appendTags(StringBuilder builder) {
         Set<Tag> tags = getTags();
         if (!tags.isEmpty()) {
             builder.append("; Tags: ");
             tags.forEach(builder::append);
         }
+        return builder;
+    }
 
+    private StringBuilder appendChoices(StringBuilder builder) {
         Set<Choice> choices = getChoices();
         if (!choices.isEmpty()) { // may be empty for open-ended questions
             builder.append("; Choices: ");
-            choices.forEach(builder::append);
+            for (Choice choice: choices) {
+                builder.append(choice).append(", ");
+            }
+            builder.setLength(builder.length() - 2); //remove ", " after last choice
         }
-        return builder.toString();
+        return builder;
     }
 
 }

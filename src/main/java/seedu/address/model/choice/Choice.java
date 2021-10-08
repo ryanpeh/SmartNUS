@@ -46,7 +46,7 @@ public class Choice {
 
     @Override
     public String toString() {
-        return title;
+        return title + (isCorrect ? " (answer)" : "");
     }
 
     @Override
