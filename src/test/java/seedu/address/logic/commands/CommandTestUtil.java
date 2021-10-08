@@ -33,6 +33,7 @@ public class CommandTestUtil {
     public static final String VALID_IMPORTANCE_BOB = "2";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_IMPORTANCE_1 = "1";
     public static final String VALID_QUESTION_1 = "What is 1+1?";
     public static final String VALID_QUESTION_2 = "What is 2+2?";
     public static final String VALID_ANSWER_1 = "2";
@@ -48,6 +49,7 @@ public class CommandTestUtil {
     public static final String IMPORTANCE_DESC_BOB = " " + PREFIX_IMPORTANCE + VALID_IMPORTANCE_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String IMPORTANCE_DESC_1 = " " + PREFIX_IMPORTANCE + VALID_IMPORTANCE_1;
     public static final String QUESTION_DESC_1 = " " + PREFIX_QUESTION + VALID_QUESTION_1;
     public static final String QUESTION_DESC_2 = " " + PREFIX_QUESTION + VALID_QUESTION_2;
     public static final String ANSWER_DESC_1 = " " + PREFIX_ANSWER + VALID_ANSWER_1;
@@ -66,7 +68,7 @@ public class CommandTestUtil {
     public static final String INVALID_QUESTION_DESC = " " + PREFIX_QUESTION; // empty string not allowed for question
     public static final String INVALID_ANSWER_DESC = " " + PREFIX_ANSWER; // empty string not allowed for answer
     public static final String INVALID_OPTION_DESC = " " + PREFIX_OPTION; // empty string not allowed for option
-    // 1 invalid option in the last 3 options argument is not allowed
+    // 1 invalid option in the first 3 options argument is not allowed
     public static final String INVALID_OPTIONS_DESC = " " + OPTIONS_DESC_1 + INVALID_OPTION_DESC;
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
