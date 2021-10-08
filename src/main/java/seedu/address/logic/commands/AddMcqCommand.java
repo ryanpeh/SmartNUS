@@ -1,21 +1,22 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.AddCommand.MESSAGE_DUPLICATE_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 
-import java.util.Arrays;
-
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.question.Question;
 
 /**
  * Adds an MCQ question
  */
 public class AddMcqCommand extends Command {
 
-    public static final String COMMAND_WORD = "/mcq";
-    public static final String MESSAGE_SUCCESS = "New question added: question: %s options: %s answer: %s";
+    public static final String COMMAND_WORD = "mcq";
+    public static final String MESSAGE_SUCCESS = "New question added: question: %s";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a question to SmartNUS. "
             + "Parameters: "
             + PREFIX_QUESTION + "QUESTION "
@@ -30,32 +31,32 @@ public class AddMcqCommand extends Command {
             + PREFIX_OPTION + "5 "
             + PREFIX_ANSWER + "2 ";
 
-    // Temp attributes before implementation of Question Object
-    private final String question;
-    private final String[] options;
-    private final String answer;
+    private final Question toAdd;
 
     /**
      * Temporary constructor
      */
-    public AddMcqCommand(String question, String[] options, String answer) {
-        this.question = question;
-        this.options = options;
-        this.answer = answer;
+    public AddMcqCommand(Question question) {
+        this.toAdd = question;
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, question, Arrays.toString(options), answer));
+
+        if (model.hasQuestion(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_QUESTION);
+        }
+
+        model.addQuestion(toAdd);
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toString()));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddMcqCommand // instanceof handles nulls
-                && question.equals(((AddMcqCommand) other).question) // check if the attributes are the same
-                && Arrays.equals(options, ((AddMcqCommand) other).options)
-                && answer.equals(((AddMcqCommand) other).answer));
+                && toAdd.equals(((AddMcqCommand) other).toAdd)); // check if the question to add are the same
     }
 }

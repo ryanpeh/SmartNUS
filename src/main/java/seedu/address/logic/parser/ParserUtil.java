@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.question.MultipleChoiceQuestion.NUMBER_OF_INCORRECT_CHOICES;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -11,7 +13,9 @@ import java.util.stream.Stream;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.choice.Choice;
 import seedu.address.model.question.Importance;
+import seedu.address.model.question.MultipleChoiceQuestion;
 import seedu.address.model.question.Name;
 import seedu.address.model.tag.Tag;
 
@@ -21,12 +25,6 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-
-    // TODO: Move these messages to their classes once created
-    public static final String MESSAGE_INVALID_QUESTION = "Question cannot be blank.";
-    public static final String MESSAGE_INVALID_ANSWER = "Answer cannot be blank.";
-    public static final String MESSAGE_INVALID_OPTION = "Option cannot be blank.";
-    public static final String MESSAGE_INSUFFICIENT_OPTIONS = "Must have 3 options!";
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
@@ -108,69 +106,30 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code String question} into a {@code String}.
-     * TODO: Change this to return Question Object instead
+     * Parses {@code String choice} into a {@code Choice choice}.
      */
-    public static String parseQuestion(String question) throws ParseException {
-        requireNonNull(question);
-        String trimmedQuestion = question.trim();
-        // TODO: Refactor this when the Question class is created:
-        //  Parse exception string should be in Question class, as well as the validation logic
-        //  (predicate in if statement)
-        if (trimmedQuestion.equals("")) {
-            throw new ParseException(MESSAGE_INVALID_QUESTION);
+    public static Choice parseChoice(String choice, boolean isCorrect) throws ParseException {
+        requireNonNull(choice);
+        String trimmedChoice = choice.trim();
+        if (!Choice.isValidChoiceTitle(trimmedChoice)) {
+            throw new ParseException(Choice.MESSAGE_CONSTRAINTS);
         }
-        return trimmedQuestion;
+        return new Choice(trimmedChoice, isCorrect);
     }
 
     /**
-     * Parses {@code String answer} into a {@code String}.
-     * TODO: Change this to return Answer/Option Object instead
+     * Parses {@code List<String> choices, String answer} into a {@code Set<Choice> choice}.
      */
-    public static String parseAnswer(String answer) throws ParseException {
-        requireNonNull(answer);
-        String trimmedAnswer = answer.trim();
-        // TODO: Refactor this when the Answer/Options class is created:
-        //  Parse exception string should be in Answer/Options class, as well as the validation logic
-        //  (predicate in if statement)
-        if (trimmedAnswer.equals("")) {
-            throw new ParseException(MESSAGE_INVALID_ANSWER);
+    public static Set<Choice> parseChoices(List<String> choices, String answer) throws ParseException {
+        requireAllNonNull(choices, answer);
+        if (choices.size() < NUMBER_OF_INCORRECT_CHOICES) {
+            throw new ParseException(MultipleChoiceQuestion.MESSAGE_INSUFFICIENT_CHOICES);
         }
-        return trimmedAnswer;
-    }
-
-    /**
-     * Parses {@code String options} into a {@code String}.
-     * TODO: Change this to return Option Object instead
-     */
-    public static String parseOption(String option) throws ParseException {
-        requireNonNull(option);
-        String trimmedOption = option.trim();
-        // TODO: Refactor this when the Option class is created:
-        //  Parse exception string should be in Option class, as well as the validation logic
-        //  (predicate in if statement)
-        if (trimmedOption.equals("")) {
-            throw new ParseException(MESSAGE_INVALID_OPTION);
+        Set<Choice> choiceSet = new HashSet<>();
+        for (int i = 0; i < NUMBER_OF_INCORRECT_CHOICES; i++) {
+            choiceSet.add(parseChoice(choices.get(i), false));
         }
-        return trimmedOption;
-    }
-
-    /**
-     * Parses {@code List<String> options} into a {@code String[]}.
-     * TODO: Change this to return Options Object instead
-     */
-    public static String[] parseOptions(List<String> options) throws ParseException {
-        requireNonNull(options);
-        // TODO: Refactor this when the Options class is created:
-        //  Parse exception string should be in Options class, as well as the validation logic
-        //  (predicate in if statement + cannot have duplicate options)
-        if (options.size() < 3) {
-            throw new ParseException(MESSAGE_INSUFFICIENT_OPTIONS);
-        }
-        String[] optionsArr = options.stream().limit(3).toArray(String[]::new);
-        for (int i = 0; i < optionsArr.length; i++) {
-            optionsArr[i] = parseOption(optionsArr[i]);
-        }
-        return optionsArr;
+        choiceSet.add(parseChoice(answer, true));
+        return choiceSet;
     }
 }
