@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.QuizCommand;
+import seedu.address.logic.commands.quiz.QuizCommand;
 
 class QuizCommandParserTest {
 
