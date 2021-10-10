@@ -1,11 +1,11 @@
 package seedu.address.model.quiz;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.ModelManager;
+
+import java.util.List;
+
 import seedu.address.model.question.Question;
 import seedu.address.model.quiz.exceptions.QuizOutOfBoundException;
 
-import java.util.List;
 
 
 /**
@@ -43,7 +43,7 @@ public class QuizManager implements Quiz {
     }
 
     @Override
-    public Question prevQuestion() throws QuizOutOfBoundException{
+    public Question prevQuestion() throws QuizOutOfBoundException {
         int index = currentIndex - 1;
         if (isValidIndex(index)) {
             currentIndex--;

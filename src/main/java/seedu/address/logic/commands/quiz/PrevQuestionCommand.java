@@ -1,10 +1,11 @@
 package seedu.address.logic.commands.quiz;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 
-import static java.util.Objects.requireNonNull;
 
 public class PrevQuestionCommand extends Command {
     public static final String COMMAND_WORD = "prev";
