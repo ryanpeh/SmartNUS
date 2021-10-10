@@ -30,12 +30,16 @@ public class QuizBuilder {
 
     /**
      * Initializes the QuestionBuilder with the data of {@code questions}
-     * @param questions
+     * @param questions The list of questions.
      */
     public QuizBuilder(List<Question> questions) {
         this.questions = questions;
     }
 
+    /**
+     * Builds the {@code Quiz} that we are building.
+     * @return A Quiz object.
+     */
     public Quiz build() {
         // TODO: edit when more Quiz types are supported
         return new QuizManager(questions);

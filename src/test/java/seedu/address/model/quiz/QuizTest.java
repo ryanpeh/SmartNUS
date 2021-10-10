@@ -3,14 +3,14 @@ package seedu.address.model.quiz;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import static seedu.address.testutil.TypicalQuestions.ALICE;
 import static seedu.address.testutil.TypicalQuestions.BENSON;
 import static seedu.address.testutil.TypicalQuestions.CARL;
-import static seedu.address.testutil.TypicalQuiz.SEVEN_QUESTIONS_QUIZ;
 import static seedu.address.testutil.TypicalQuiz.FIVE_QUESTIONS_QUIZ;
+import static seedu.address.testutil.TypicalQuiz.SEVEN_QUESTIONS_QUIZ;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.model.quiz.exceptions.QuizOutOfBoundException;
 
 public class QuizTest {
