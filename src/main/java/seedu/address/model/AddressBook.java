@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -117,5 +118,19 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public int hashCode() {
         return questions.hashCode();
+    }
+
+    /// getter methods
+
+    /**
+     * Returns all the questions as a List.
+     * @return A List of all the Questions.
+     */
+    public List<Question> getQuestionsAsList() {
+        List<Question> allQuestions = new ArrayList<>();
+        for (Question q : questions) {
+            questions.add(q);
+        }
+        return allQuestions;
     }
 }

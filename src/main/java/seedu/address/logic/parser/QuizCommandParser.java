@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import seedu.address.logic.commands.QuizCommand;
+import seedu.address.logic.commands.quiz.QuizCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 public class QuizCommandParser implements Parser<QuizCommand> {

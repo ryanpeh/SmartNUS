@@ -1,8 +1,10 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.quiz;
 
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 
 /**
@@ -10,7 +12,7 @@ import seedu.address.model.Model;
  */
 public class QuizCommand extends Command {
 
-    public static final String COMMAND_WORD = "/quiz";
+    public static final String COMMAND_WORD = "quiz";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Starts a quiz, takes no arguments";
 

@@ -19,22 +19,22 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
     public static Question[] getSampleQuestions() {
         return new Question[] {
-            new MultipleChoiceQuestion(new Name("Alex Yeoh"), new Importance("87438807"),
+            new MultipleChoiceQuestion(new Name("Alex Yeoh"), new Importance("1"),
                 getTagSet("friends"), getChoiceSet(new Choice("first choice", true),
                     new Choice("second choice", false))),
-            new MultipleChoiceQuestion(new Name("Bernice Yu"), new Importance("99272758"),
+            new MultipleChoiceQuestion(new Name("Bernice Yu"), new Importance("2"),
                 getTagSet("colleagues", "friends"), getChoiceSet(new Choice("first choice", true),
                     new Choice("second choice", false))),
-            new MultipleChoiceQuestion(new Name("Charlotte Oliveiro"), new Importance("93210283"),
+            new MultipleChoiceQuestion(new Name("Charlotte Oliveiro"), new Importance("3"),
                 getTagSet("neighbours"), getChoiceSet(new Choice("first choice", true),
                     new Choice("second choice", false))),
-            new MultipleChoiceQuestion(new Name("David Li"), new Importance("91031282"),
+            new MultipleChoiceQuestion(new Name("David Li"), new Importance("1"),
                 getTagSet("family"), getChoiceSet(new Choice("first choice", true),
                     new Choice("second choice", false))),
-            new MultipleChoiceQuestion(new Name("Irfan Ibrahim"), new Importance("92492021"),
+            new MultipleChoiceQuestion(new Name("Irfan Ibrahim"), new Importance("2"),
                 getTagSet("classmates"), getChoiceSet(new Choice("first choice", true),
                     new Choice("second choice", false))),
-            new MultipleChoiceQuestion(new Name("Roy Balakrishnan"), new Importance("92624417"),
+            new MultipleChoiceQuestion(new Name("Roy Balakrishnan"), new Importance("3"),
                 getTagSet("colleagues"), getChoiceSet(new Choice("first choice", true),
                     new Choice("second choice", false)))
         };
