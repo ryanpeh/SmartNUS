@@ -28,8 +28,8 @@ public class JsonAdaptedQuestionTest {
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
     private static final List<JsonAdaptedChoice> VALID_CHOICES = BENSON.getChoices().stream()
-            .map(JsonAdaptedChoice::new).
-            collect(Collectors.toList());
+            .map(JsonAdaptedChoice::new)
+            .collect(Collectors.toList());
 
     @Test
     public void toModelType_validQuestionDetails_returnsQuestion() throws Exception {
@@ -79,7 +79,7 @@ public class JsonAdaptedQuestionTest {
     @Test
     public void toModelType_invalidChoices_throwsIllegalValueException() {
         List<JsonAdaptedChoice> invalidChoices = new ArrayList<>();
-        assertThrows(IllegalArgumentException.class,
-                () -> invalidChoices.add(new JsonAdaptedChoice(new Choice(INVALID_CHOICE, true))));
+        assertThrows(IllegalArgumentException.class, () -> invalidChoices
+            .add(new JsonAdaptedChoice(new Choice(INVALID_CHOICE, true))));
     }
 }
