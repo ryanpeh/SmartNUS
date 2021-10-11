@@ -27,17 +27,22 @@ class JsonAdaptedQuestion {
     private final String name;
     private final String importance;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final List<JsonAdaptedChoice> choices = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedQuestion} with the given question details.
      */
     @JsonCreator
     public JsonAdaptedQuestion(@JsonProperty("name") String name, @JsonProperty("importance") String importance,
-                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+                               @JsonProperty("choices") List<JsonAdaptedChoice> choices) {
         this.name = name;
         this.importance = importance;
         if (tagged != null) {
             this.tagged.addAll(tagged);
+        }
+        if (choices != null) {
+            this.choices.addAll(choices);
         }
     }
 
@@ -50,6 +55,9 @@ class JsonAdaptedQuestion {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        choices.addAll(source.getChoices().stream()
+                .map(JsonAdaptedChoice::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -59,12 +67,14 @@ class JsonAdaptedQuestion {
      */
     public Question toModelType() throws IllegalValueException {
         final List<Tag> questionTags = new ArrayList<>();
+        final List<Choice> questionChoices = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
             questionTags.add(tag.toModelType());
         }
 
-        // TODO: Implement loading functionality for choices
-        final List<Choice> questionChoices = new ArrayList<>();
+        for (JsonAdaptedChoice choice : choices) {
+            questionChoices.add(choice.toModelType());
+        }
 
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
@@ -81,6 +91,7 @@ class JsonAdaptedQuestion {
         if (!Importance.isValidImportance(importance)) {
             throw new IllegalValueException(Importance.MESSAGE_CONSTRAINTS);
         }
+
         final Importance modelImportance = new Importance(importance);
 
         final Set<Tag> modelTags = new HashSet<>(questionTags);
