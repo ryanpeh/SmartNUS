@@ -10,14 +10,15 @@ import seedu.address.model.Model;
 /**
  * Starts a quiz
  */
-public class QuizCommand extends Command {
+public class AnswerMcqCommand extends Command {
 
     public static final String COMMAND_WORD = "quiz";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Starts a quiz, takes no arguments";
 
     public static final String MESSAGE_SUCCESS = "Quiz started!";
-    public QuizCommand() {}
+
+    public AnswerMcqCommand() {}
 
     @Override
     public CommandResult execute(Model model) {

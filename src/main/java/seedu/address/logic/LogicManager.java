@@ -11,6 +11,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.QuizInputParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -27,6 +28,7 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
+    private final QuizInputParser quizInputParser;
 
     /**
      * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
@@ -35,6 +37,7 @@ public class LogicManager implements Logic {
         this.model = model;
         this.storage = storage;
         addressBookParser = new AddressBookParser();
+        quizInputParser = new QuizInputParser();
     }
 
     @Override
@@ -44,6 +47,20 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
+
+        try {
+            storage.saveAddressBook(model.getAddressBook());
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
+
+        return commandResult;
+    }
+
+    public CommandResult execute(String commandText, Question question) throws CommandException, ParseException {
+        logger.info("----------------[USER QUIZ COMMAND][" + commandText + "]");
+        Command command = quizInputParser.parseCommand(commandText);
+        CommandResult commandResult = command.execute(model);
 
         try {
             storage.saveAddressBook(model.getAddressBook());
