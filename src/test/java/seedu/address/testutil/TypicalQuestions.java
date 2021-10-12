@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.choice.Choice;
 import seedu.address.model.question.Question;
 
 /**
@@ -24,7 +25,8 @@ public class TypicalQuestions {
             .withTags("friends").build();
     public static final Question BENSON = new QuestionBuilder().withName("Benson Meier")
             .withImportance("2")
-            .withTags("owesMoney", "friends").build();
+            .withTags("owesMoney", "friends")
+            .withChoices(new Choice("good guy", true)).build();
     public static final Question CARL = new QuestionBuilder().withName("Carl Kurz").withImportance("3")
             .build();
     public static final Question DANIEL = new QuestionBuilder().withName("Daniel Meier").withImportance("1")
