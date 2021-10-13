@@ -1,7 +1,14 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.*;
-import seedu.address.logic.commands.quiz.AnswerMcqCommand;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.quiz.NextQuestionCommand;
 import seedu.address.logic.commands.quiz.PrevQuestionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -9,11 +16,8 @@ import seedu.address.logic.parser.quiz.AnswerMcqCommandParser;
 import seedu.address.model.question.MultipleChoiceQuestion;
 import seedu.address.model.quiz.QuizManager;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+
 
 /**
  * Parses user input during a quiz.
@@ -53,6 +57,8 @@ public class QuizInputParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        default:
 
         }
         if (quizManager.currQuestion() instanceof MultipleChoiceQuestion) {

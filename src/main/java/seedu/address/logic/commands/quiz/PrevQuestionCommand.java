@@ -11,7 +11,7 @@ import seedu.address.model.quiz.QuizManager;
 public class PrevQuestionCommand extends Command {
     public static final String COMMAND_WORD = "prev";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Quizes the previous question, takes no arguments";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Quizzes the previous question, takes no arguments";
 
     public static final String MESSAGE_SUCCESS = "Got Previous Quiz!";
     private final QuizManager quizManager;

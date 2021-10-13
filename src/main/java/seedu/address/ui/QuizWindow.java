@@ -1,5 +1,8 @@
 package seedu.address.ui;
 
+import java.nio.file.Path;
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,22 +12,15 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import seedu.address.Main;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.choice.Choice;
-import seedu.address.model.question.MultipleChoiceQuestion;
 import seedu.address.model.question.Question;
-import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizManager;
 
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.logging.Logger;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -210,8 +206,6 @@ public class QuizWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
-
-
 
             return commandResult;
         } catch (CommandException | ParseException e) {

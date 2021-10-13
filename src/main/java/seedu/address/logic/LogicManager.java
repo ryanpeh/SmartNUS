@@ -58,6 +58,7 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
+    @Override
     public CommandResult execute(String commandText, QuizManager quizManager) throws CommandException, ParseException {
         logger.info("----------------[USER QUIZ COMMAND][" + commandText + "]");
         Command command = quizInputParser.parseCommand(commandText, quizManager);
