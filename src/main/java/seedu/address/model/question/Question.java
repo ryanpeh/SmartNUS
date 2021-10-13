@@ -66,6 +66,15 @@ public abstract class Question {
         return randomisedChoices;
     }
 
+    public Choice getCorrectChoice() {
+        for (Choice choice : choices) {
+            if (choice.getIsCorrect()) {
+                return choice;
+            }
+        }
+        return null;
+    }
+
     /**
      * Returns true if both questions have the same name.
      * This defines a weaker notion of equality between two questions.
@@ -105,6 +114,9 @@ public abstract class Question {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(name, importance, tags);
     }
+
+    // TODO: Remove maybe when UI is implemented
+    public abstract String getQuestionAndOptions();
 
     @Override
     public String toString() {

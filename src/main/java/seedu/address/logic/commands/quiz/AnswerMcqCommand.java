@@ -6,6 +6,12 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
+import seedu.address.model.choice.Choice;
+import seedu.address.model.question.Question;
+import seedu.address.model.quiz.QuizManager;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 /**
  * Starts a quiz
@@ -18,15 +24,52 @@ public class AnswerMcqCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Quiz started!";
 
-    public AnswerMcqCommand() {}
+    private final String input;
+    private final Question curQuestion;
+
+
+    public AnswerMcqCommand(String input, QuizManager quizManager) {
+        this.input = input;
+        this.curQuestion = quizManager.currQuestion();
+    }
 
     @Override
     public CommandResult execute(Model model) {
+        // TODO: Some additional logic here for the UI
         requireNonNull(model);
-        // TODO: Update state (model) with Quiz object?
-        // TODO: Find some other way of doing this? Making the constructor so long isn't that good as well
-        //       Maybe explore overloading or something I'm not sure
-        return new CommandResult(MESSAGE_SUCCESS, false, false, true);
+
+        ArrayList<Choice> choices = curQuestion.getRandomisedChoices();
+        Choice choice = null;
+        switch (input){
+
+        case "a":
+        case "A":
+            choice = choices.get(0);
+            break;
+
+        case "b":
+        case "B":
+            choice = choices.get(1);
+            break;
+
+        case "c":
+        case "C":
+            choice = choices.get(2);
+            break;
+
+        case "d":
+        case "D":
+            choice = choices.get(3);
+            break;
+
+        }
+
+        if (choice.getIsCorrect()) {
+            return new CommandResult("Correct!");
+        } else {
+            return new CommandResult("Incorrect. The correct answer is: " +
+                    curQuestion.getCorrectChoice().getTitle());
+        }
     }
 
     @Override

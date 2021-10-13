@@ -1,8 +1,13 @@
 package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.*;
-import seedu.address.logic.commands.quiz.QuizCommand;
+import seedu.address.logic.commands.quiz.AnswerMcqCommand;
+import seedu.address.logic.commands.quiz.NextQuestionCommand;
+import seedu.address.logic.commands.quiz.PrevQuestionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.quiz.AnswerMcqCommandParser;
+import seedu.address.model.question.MultipleChoiceQuestion;
+import seedu.address.model.quiz.QuizManager;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -11,7 +16,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 /**
- * Parses user input.
+ * Parses user input during a quiz.
  */
 public class QuizInputParser {
 
@@ -27,7 +32,7 @@ public class QuizInputParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput) throws ParseException {
+    public Command parseCommand(String userInput, QuizManager quizManager) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -37,28 +42,11 @@ public class QuizInputParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+        case NextQuestionCommand.COMMAND_WORD:
+            return new NextQuestionCommand(quizManager);
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
-
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
-
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
-
-        case FindCommand.COMMAND_WORD:            return new FindCommandParser().parse(arguments);
-
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
-
-        case AddMcqCommand.COMMAND_WORD:
-            return new AddMcqCommandParser().parse(arguments);
-
-        case QuizCommand.COMMAND_WORD:
-            return new QuizCommandParser().parse(arguments);
+        case PrevQuestionCommand.COMMAND_WORD:
+            return new PrevQuestionCommand(quizManager);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -66,7 +54,10 @@ public class QuizInputParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        default:
+        }
+        if (quizManager.currQuestion() instanceof MultipleChoiceQuestion) {
+            return new AnswerMcqCommandParser().parse(userInput, quizManager);
+        } else {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }

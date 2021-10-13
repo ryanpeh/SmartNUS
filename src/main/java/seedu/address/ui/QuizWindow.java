@@ -20,6 +20,7 @@ import seedu.address.model.choice.Choice;
 import seedu.address.model.question.MultipleChoiceQuestion;
 import seedu.address.model.question.Question;
 import seedu.address.model.quiz.Quiz;
+import seedu.address.model.quiz.QuizManager;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class QuizWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
     private ObservableList<Question> questionList;
-    private Integer currentQuestionIndex;
+    private QuizManager quizManager;
 
     // Independent Ui parts residing in this Ui container
     private QuestionListPanel questionListPanel;
@@ -71,7 +72,7 @@ public class QuizWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.logic = logic;
         questionList = logic.getFilteredQuestionList();
-        currentQuestionIndex = 0;
+        quizManager = new QuizManager(logic.getFilteredQuestionList());
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -143,25 +144,10 @@ public class QuizWindow extends UiPart<Stage> {
      */
     void loadQuiz() {
         String display = "Quiz Started!\n";
-        Question currentQuestion = questionList.get(currentQuestionIndex);
-        currentQuestion.getName();
-        resultDisplay.setFeedbackToUser(display + getQuestionDetails(currentQuestion));
+        Question currentQuestion = quizManager.currQuestion();
+        resultDisplay.setFeedbackToUser(display + currentQuestion.getQuestionAndOptions());
     }
 
-    /**
-     * Gets the question details and choices. Note: To change once UI is made
-     */
-    private String getQuestionDetails(Question question) {
-        String details = question.getName().toString() + "\n";
-        ArrayList<Choice> choices = question.getRandomisedChoices();
-        if (question instanceof MultipleChoiceQuestion) {
-            details += "a. " + choices.get(0).getTitle() + "\n" +
-                    "b. " + choices.get(1).getTitle() + "\n" +
-                    "c. " + choices.get(2).getTitle() + "\n" +
-                    "d. " + choices.get(3).getTitle() + "\n";
-        }
-        return details;
-    }
 
     /**
      * Sets the default size based on {@code guiSettings}.
@@ -213,7 +199,7 @@ public class QuizWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            CommandResult commandResult = logic.execute(commandText);
+            CommandResult commandResult = logic.execute(commandText, quizManager);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 

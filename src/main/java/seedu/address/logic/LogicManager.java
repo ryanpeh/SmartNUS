@@ -16,6 +16,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.question.Question;
+import seedu.address.model.quiz.QuizManager;
 import seedu.address.storage.Storage;
 
 /**
@@ -57,9 +58,9 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
-    public CommandResult execute(String commandText, Question question) throws CommandException, ParseException {
+    public CommandResult execute(String commandText, QuizManager quizManager) throws CommandException, ParseException {
         logger.info("----------------[USER QUIZ COMMAND][" + commandText + "]");
-        Command command = quizInputParser.parseCommand(commandText);
+        Command command = quizInputParser.parseCommand(commandText, quizManager);
         CommandResult commandResult = command.execute(model);
 
         try {

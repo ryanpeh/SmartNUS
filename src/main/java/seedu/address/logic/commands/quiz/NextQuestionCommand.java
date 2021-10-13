@@ -5,23 +5,30 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
+import seedu.address.model.quiz.Quiz;
+import seedu.address.model.quiz.QuizManager;
 
 /**
  * Command to go to the next question
  */
 public class NextQuestionCommand extends Command {
     public static final String COMMAND_WORD = "next";
-
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Quizes the next question, takes no arguments";
+    public static final String MESSAGE_SUCCESS = "Got Next Question!";
 
-    public static final String MESSAGE_SUCCESS = "Got Next Quiz!";
-    public NextQuestionCommand() {}
+    private final QuizManager quizManager;
+
+    public NextQuestionCommand(QuizManager quizManager) {
+        this.quizManager = quizManager;
+    }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        // TODO: use the QuizManager.nextQuestion() method
-        return new CommandResult(MESSAGE_SUCCESS);
+        quizManager.nextQuestion();
+        // TODO: Change the displayed message once UI is done.
+        //return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(quizManager.currQuestion().getQuestionAndOptions());
     }
 
     @Override
