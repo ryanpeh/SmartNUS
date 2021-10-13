@@ -65,10 +65,12 @@ public class AnswerMcqCommand extends Command {
         }
 
         if (choice.getIsCorrect()) {
-            return new CommandResult("Correct!");
+            return new CommandResult("Correct!\nEnter 'next' to proceed with the next question, " +
+                    "or 'exit' to exit the quiz");
         } else {
             return new CommandResult("Incorrect. The correct answer is: " +
-                    curQuestion.getCorrectChoice().getTitle());
+                    curQuestion.getCorrectChoice().getTitle() + "\nEnter 'next' to proceed with the next question" +
+                    "or 'exit' to exit the quiz");
         }
     }
 

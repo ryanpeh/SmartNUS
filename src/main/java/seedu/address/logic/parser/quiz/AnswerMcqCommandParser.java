@@ -27,8 +27,8 @@ public class AnswerMcqCommandParser implements QuizParser<AnswerMcqCommand> {
         if (args.matches(MCQ_REGEX)) {
             return new AnswerMcqCommand(args, quizManager);
         } else {
-            //throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-            throw new ParseException("Bleh");
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    "Acceptable answers are 'a', 'b', 'c', 'd'"));
         }
     }
 
