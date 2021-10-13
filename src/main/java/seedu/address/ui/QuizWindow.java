@@ -16,10 +16,13 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.choice.Choice;
+import seedu.address.model.question.MultipleChoiceQuestion;
 import seedu.address.model.question.Question;
 import seedu.address.model.quiz.Quiz;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 /**
@@ -136,6 +139,31 @@ public class QuizWindow extends UiPart<Stage> {
     }
 
     /**
+     * Loads the first question from the list of questions
+     */
+    void loadQuiz() {
+        String display = "Quiz Started!\n";
+        Question currentQuestion = questionList.get(currentQuestionIndex);
+        currentQuestion.getName();
+        resultDisplay.setFeedbackToUser(display + getQuestionDetails(currentQuestion));
+    }
+
+    /**
+     * Gets the question details and choices. Note: To change once UI is made
+     */
+    private String getQuestionDetails(Question question) {
+        String details = question.getName().toString() + "\n";
+        ArrayList<Choice> choices = question.getRandomisedChoices();
+        if (question instanceof MultipleChoiceQuestion) {
+            details += "a. " + choices.get(0).getTitle() + "\n" +
+                    "b. " + choices.get(1).getTitle() + "\n" +
+                    "c. " + choices.get(2).getTitle() + "\n" +
+                    "d. " + choices.get(3).getTitle() + "\n";
+        }
+        return details;
+    }
+
+    /**
      * Sets the default size based on {@code guiSettings}.
      */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
@@ -196,6 +224,8 @@ public class QuizWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
+
+
 
             return commandResult;
         } catch (CommandException | ParseException e) {

@@ -2,11 +2,9 @@ package seedu.address.model.question;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
+import javafx.collections.ObservableList;
 import seedu.address.model.choice.Choice;
 import seedu.address.model.tag.Tag;
 
@@ -22,6 +20,7 @@ public abstract class Question {
 
     private final Set<Tag> tags = new HashSet<>();
     private final Set<Choice> choices = new HashSet<>();
+    private final ArrayList<Choice> randomisedChoices = new ArrayList<>();
 
     /**
      * Every field must be present and not null.
@@ -32,6 +31,8 @@ public abstract class Question {
         this.importance = importance;
         this.tags.addAll(tags);
         this.choices.addAll(choices);
+        this.randomisedChoices.addAll(choices);
+        Collections.shuffle(randomisedChoices);
     }
 
     public Name getName() {
@@ -56,6 +57,13 @@ public abstract class Question {
      */
     public Set<Choice> getChoices() {
         return Collections.unmodifiableSet(choices);
+    }
+
+    /**
+     * Returns a randomised ArrayList of choices.
+     */
+    public ArrayList<Choice> getRandomisedChoices() {
+        return randomisedChoices;
     }
 
     /**

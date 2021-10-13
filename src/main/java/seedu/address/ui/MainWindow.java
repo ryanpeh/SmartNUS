@@ -172,6 +172,7 @@ public class MainWindow extends UiPart<Stage> {
         QuizWindow quizWindow = new QuizWindow(primaryStage, logic);
         quizWindow.show();
         quizWindow.fillInnerParts();
+        quizWindow.loadQuiz();
     }
 
     public QuestionListPanel getQuestionListPanel() {
