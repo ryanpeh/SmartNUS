@@ -23,7 +23,7 @@ public abstract class Question {
 
     private final Set<Tag> tags = new HashSet<>();
     private final Set<Choice> choices = new HashSet<>();
-    private final ArrayList<Choice> randomisedChoices = new ArrayList<>();
+    private final ArrayList<Choice> orderedChoices = new ArrayList<>();
 
     /**
      * Every field must be present and not null.
@@ -34,8 +34,8 @@ public abstract class Question {
         this.importance = importance;
         this.tags.addAll(tags);
         this.choices.addAll(choices);
-        this.randomisedChoices.addAll(choices);
-        Collections.shuffle(randomisedChoices);
+        this.orderedChoices.addAll(choices);
+        Collections.shuffle(orderedChoices);
     }
 
     public Name getName() {
@@ -65,8 +65,15 @@ public abstract class Question {
     /**
      * Returns a randomised ArrayList of choices.
      */
-    public ArrayList<Choice> getRandomisedChoices() {
-        return randomisedChoices;
+    public ArrayList<Choice> getOrderedChoices() {
+        return orderedChoices;
+    }
+
+    /**
+     * Shuffles the order of the choices for the question.
+     */
+    public void shuffleChoices() {
+        Collections.shuffle(orderedChoices);
     }
 
     public Choice getCorrectChoice() {

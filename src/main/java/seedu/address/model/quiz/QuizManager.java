@@ -1,6 +1,8 @@
 package seedu.address.model.quiz;
 
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import seedu.address.model.question.Question;
@@ -25,6 +27,7 @@ public class QuizManager implements Quiz {
         this.questions = questions;
         this.currentIndex = 0;
         this.totalQuestions = questions.size();
+        this.shuffleQuestionChoices();
     }
 
     @Override
@@ -50,6 +53,15 @@ public class QuizManager implements Quiz {
             return currQuestion();
         }
         throw new QuizOutOfBoundException();
+    }
+
+    /**
+     * Shuffles the order of the choices in each question.
+     */
+    private void shuffleQuestionChoices() {
+        for (Question question : questions) {
+            question.shuffleChoices();
+        }
     }
 
     private boolean isValidIndex(int index) {

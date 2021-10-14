@@ -19,11 +19,11 @@ public class MultipleChoiceQuestion extends Question {
     @Override
     public String getQuestionAndOptions() {
         String title = this.getName().toString();
-        ArrayList<Choice> randomisedChoices = this.getRandomisedChoices();
-        String options = "\na. " + randomisedChoices.get(0).getTitle()
-                + "  b. " + randomisedChoices.get(1).getTitle()
-                + "  c. " + randomisedChoices.get(2).getTitle()
-                + "  d. " + randomisedChoices.get(3).getTitle();
+        ArrayList<Choice> choices = this.getOrderedChoices();
+        String options = "\na. " + choices.get(0).getTitle()
+                + "  b. " + choices.get(1).getTitle()
+                + "  c. " + choices.get(2).getTitle()
+                + "  d. " + choices.get(3).getTitle();
         return title + options;
     }
 

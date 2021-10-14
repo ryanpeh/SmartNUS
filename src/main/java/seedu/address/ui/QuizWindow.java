@@ -3,7 +3,6 @@ package seedu.address.ui;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -35,7 +34,6 @@ public class QuizWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
-    private ObservableList<Question> questionList;
     private QuizManager quizManager;
 
     // Independent Ui parts residing in this Ui container
@@ -67,7 +65,6 @@ public class QuizWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
-        questionList = logic.getFilteredQuestionList();
         quizManager = new QuizManager(logic.getFilteredQuestionList());
 
         // Configure the UI

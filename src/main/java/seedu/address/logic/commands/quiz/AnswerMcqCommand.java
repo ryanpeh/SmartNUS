@@ -40,7 +40,7 @@ public class AnswerMcqCommand extends Command {
         // TODO: Some additional logic here for the UI
         requireNonNull(model);
 
-        ArrayList<Choice> choices = currentQuestion.getRandomisedChoices();
+        ArrayList<Choice> choices = currentQuestion.getOrderedChoices();
         Choice choice = null;
         switch (input) {
 
