@@ -38,6 +38,8 @@ public abstract class Question {
         Collections.shuffle(orderedChoices);
     }
 
+    public abstract boolean isValidQuestion();
+
     public Name getName() {
         return name;
     }

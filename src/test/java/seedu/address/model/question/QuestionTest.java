@@ -13,6 +13,7 @@ import static seedu.address.testutil.TypicalQuestions.BOB;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.choice.Choice;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.QuestionBuilder;
 
@@ -101,5 +102,31 @@ public class QuestionTest {
         // different tags -> returns false
         editedAlice = new QuestionBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertNotEquals(aliceQuestion.hashCode(), editedAlice.hashCode());
+    }
+
+    @Test
+    public void isValidQuestion_lessThanThreeIncorrectOptionsMcq_false() {
+        Question invalidMcq = new QuestionBuilder().withChoices(
+                new Choice("answer", true), new Choice("option 1", false)
+        ).build();
+        assertFalse(invalidMcq.isValidQuestion());
+    }
+
+    @Test
+    public void isValidQuestion_noCorrectOption_false() {
+        Question invalidMcq = new QuestionBuilder().withChoices(
+                new Choice("option 2", false), new Choice("option 1", false),
+                new Choice("option 3", false), new Choice("option 4", false)
+        ).build();
+        assertFalse(invalidMcq.isValidQuestion());
+    }
+
+    @Test
+    public void isValidQuestion_validMcq_true() {
+        Question validMcq = new QuestionBuilder().withChoices(
+                new Choice("option 2", true), new Choice("option 1", false),
+                new Choice("option 3", false), new Choice("option 4", false)
+        ).build();
+        assertTrue(validMcq.isValidQuestion());
     }
 }

@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.choice.Choice;
 import seedu.address.model.question.Question;
 
 /**
@@ -52,7 +53,19 @@ public class QuestionCard extends UiPart<Region> {
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         question.getChoices().stream()
-                .forEach(choice -> choices.getChildren().add(new Label(choice.getTitle())));
+                .forEach(choice -> setChoiceLabel(choice));
+    }
+
+    // TODO: update choice background colours when we change gui display for quiz
+    // If not, during quiz, users can see the correct answers
+    private void setChoiceLabel(Choice choice) {
+        Label choiceLabel = new Label(choice.getTitle());
+        if (choice.getIsCorrect()) {
+            choiceLabel.getStyleClass().add("correct-choice-bg");
+        } else {
+            choiceLabel.getStyleClass().add("wrong-choice-bg");
+        }
+        choices.getChildren().add(choiceLabel);
     }
 
     @Override
