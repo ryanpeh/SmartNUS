@@ -55,7 +55,7 @@ public class QuestionCard extends UiPart<Region> {
         question.getChoices().stream()
                 .forEach(choice -> setChoiceLabel(choice));
     }
-    
+
     private void setChoiceLabel(Choice choice) {
         Label choiceLabel = new Label(choice.getTitle());
         if (choice.getIsCorrect()) {
