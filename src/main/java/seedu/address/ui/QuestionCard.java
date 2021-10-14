@@ -56,6 +56,8 @@ public class QuestionCard extends UiPart<Region> {
                 .forEach(choice -> setChoiceLabel(choice));
     }
 
+    // TODO: update choice background colours when we change gui display for quiz
+    // If not, during quiz, users can see the correct answers
     private void setChoiceLabel(Choice choice) {
         Label choiceLabel = new Label(choice.getTitle());
         if (choice.getIsCorrect()) {
