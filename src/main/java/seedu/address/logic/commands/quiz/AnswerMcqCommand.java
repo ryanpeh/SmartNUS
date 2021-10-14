@@ -65,6 +65,7 @@ public class AnswerMcqCommand extends Command {
             break;
 
         default:
+            break;
 
         }
 
