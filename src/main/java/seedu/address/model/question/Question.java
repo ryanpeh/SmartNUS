@@ -2,6 +2,7 @@ package seedu.address.model.question;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -22,6 +23,7 @@ public abstract class Question {
 
     private final Set<Tag> tags = new HashSet<>();
     private final Set<Choice> choices = new HashSet<>();
+    private final ArrayList<Choice> orderedChoices = new ArrayList<>();
 
     /**
      * Every field must be present and not null.
@@ -32,6 +34,8 @@ public abstract class Question {
         this.importance = importance;
         this.tags.addAll(tags);
         this.choices.addAll(choices);
+        this.orderedChoices.addAll(choices);
+        Collections.shuffle(orderedChoices);
     }
 
     public Name getName() {
@@ -56,6 +60,29 @@ public abstract class Question {
      */
     public Set<Choice> getChoices() {
         return Collections.unmodifiableSet(choices);
+    }
+
+    /**
+     * Returns a randomised ArrayList of choices.
+     */
+    public ArrayList<Choice> getOrderedChoices() {
+        return orderedChoices;
+    }
+
+    /**
+     * Shuffles the order of the choices for the question.
+     */
+    public void shuffleChoices() {
+        Collections.shuffle(orderedChoices);
+    }
+
+    public Choice getCorrectChoice() {
+        for (Choice choice : choices) {
+            if (choice.getIsCorrect()) {
+                return choice;
+            }
+        }
+        return null;
     }
 
     /**
@@ -97,6 +124,9 @@ public abstract class Question {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(name, importance, tags);
     }
+
+    // TODO: Remove maybe when UI is implemented
+    public abstract String getQuestionAndOptions();
 
     @Override
     public String toString() {

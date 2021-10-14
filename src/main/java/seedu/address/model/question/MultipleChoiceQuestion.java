@@ -1,5 +1,6 @@
 package seedu.address.model.question;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 import seedu.address.model.choice.Choice;
@@ -13,6 +14,17 @@ public class MultipleChoiceQuestion extends Question {
     public MultipleChoiceQuestion(Name name, Importance importance, Set<Tag> tags,
                                   Set<Choice> choices) {
         super(name, importance, tags, choices);
+    }
+
+    @Override
+    public String getQuestionAndOptions() {
+        String title = this.getName().toString();
+        ArrayList<Choice> choices = this.getOrderedChoices();
+        String options = "\na. " + choices.get(0).getTitle()
+                + "  b. " + choices.get(1).getTitle()
+                + "  c. " + choices.get(2).getTitle()
+                + "  d. " + choices.get(3).getTitle();
+        return title + options;
     }
 
     @Override

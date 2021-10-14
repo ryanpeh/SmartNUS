@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -16,19 +17,24 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.question.Question;
+import seedu.address.model.quiz.QuizManager;
+
 
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class MainWindow extends UiPart<Stage> {
+public class QuizWindow extends UiPart<Stage> {
 
+    // TODO: Create new fxml for QuizWindow
     private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
     private Logic logic;
+    private QuizManager quizManager;
 
     // Independent Ui parts residing in this Ui container
     private QuestionListPanel questionListPanel;
@@ -53,12 +59,13 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
      */
-    public MainWindow(Stage primaryStage, Logic logic) {
+    public QuizWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
+        quizManager = new QuizManager(logic.getFilteredQuestionList());
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -116,12 +123,24 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        // TODO: Change this back
+        //StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(Path.of("This is the quiz window"));
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
+
+    /**
+     * Loads the first question from the list of questions
+     */
+    void loadQuiz() {
+        String display = "Quiz Started!\n";
+        Question currentQuestion = quizManager.currQuestion();
+        resultDisplay.setFeedbackToUser(display + currentQuestion.getQuestionAndOptions());
+    }
+
 
     /**
      * Sets the default size based on {@code guiSettings}.
@@ -156,23 +175,10 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleExit() {
-        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
-        logic.setGuiSettings(guiSettings);
-        helpWindow.hide();
-        primaryStage.hide();
-    }
-
-    /**
-     * Starts the quiz.
-     */
-    @FXML
-    private void handleQuizStart() {
-        // TODO: Check if quiz has any questions, throw error if doesn't
-        QuizWindow quizWindow = new QuizWindow(primaryStage, logic);
-        quizWindow.show();
-        quizWindow.fillInnerParts();
-        quizWindow.loadQuiz();
+        // TODO: Currently creates a new MainWindow, can explore reusing the original MainWindow in the future
+        MainWindow mainWindow = new MainWindow(primaryStage, logic);
+        mainWindow.show();
+        mainWindow.fillInnerParts();
     }
 
     public QuestionListPanel getQuestionListPanel() {
@@ -182,11 +188,11 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Executes the command and returns the result.
      *
-     * @see seedu.address.logic.Logic#execute(String)
+     * @see Logic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            CommandResult commandResult = logic.execute(commandText);
+            CommandResult commandResult = logic.execute(commandText, quizManager);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
@@ -196,10 +202,6 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
-            }
-
-            if (commandResult.isQuizStart()) {
-                handleQuizStart();
             }
 
             return commandResult;
