@@ -75,7 +75,7 @@ public class AnswerMcqCommand extends Command {
             return new CommandResult("Correct!\n" + CONTINUE_QUIZ_MESSAGE);
         } else {
             return new CommandResult("Incorrect. The correct answer is: "
-                    + currentQuestion.getCorrectChoice().getTitle() + CONTINUE_QUIZ_MESSAGE);
+                    + currentQuestion.getCorrectChoice().getTitle() + "\n" + CONTINUE_QUIZ_MESSAGE);
         }
     }
 
