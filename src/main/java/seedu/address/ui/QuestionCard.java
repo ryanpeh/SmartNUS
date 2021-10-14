@@ -53,10 +53,10 @@ public class QuestionCard extends UiPart<Region> {
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         question.getChoices().stream()
-                .forEach(choice -> getChoiceLabel(choice));
+                .forEach(choice -> setChoiceLabel(choice));
     }
     
-    private void getChoiceLabel(Choice choice) {
+    private void setChoiceLabel(Choice choice) {
         Label choiceLabel = new Label(choice.getTitle());
         if (choice.getIsCorrect()) {
             choiceLabel.getStyleClass().add("correct-choice-bg");

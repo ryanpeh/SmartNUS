@@ -20,8 +20,8 @@ public class SampleDataUtil {
     public static Question[] getSampleQuestions() {
         return new Question[] {
             new MultipleChoiceQuestion(
-                    new Name("The mean and variance of a random variable X are 5 and 8. What is E(X)?"), 
-                    new Importance("2"), getTagSet("ST2334"), 
+                    new Name("The mean and variance of a random variable X are 5 and 8. What is E(X)?"),
+                    new Importance("2"), getTagSet("ST2334"),
                     getChoiceSet(new Choice("5", true), new Choice("4", false),
                             new Choice("7", false), new Choice("8", false))
             ),
@@ -32,28 +32,28 @@ public class SampleDataUtil {
                             new Choice("100", false), new Choice("130", false))
             ),
             new MultipleChoiceQuestion(
-                    new Name("The mean of a random variable X is 10 and E(X^2) = 20. " +
-                            "What is the standard deviation of X?"),
+                    new Name("The mean of a random variable X is 10 and E(X^2) = 20. "
+                            + "What is the standard deviation of X?"),
                     new Importance("2"), getTagSet("ST2334"),
                     getChoiceSet(new Choice("8.94", true), new Choice("80.0", false),
                             new Choice("60.0", false), new Choice("7.78", false))
             ),
-            new MultipleChoiceQuestion(new Name("Which of the following logic gates is a universal gate?"), 
-                    new Importance("1"), getTagSet("CS2100"), 
+            new MultipleChoiceQuestion(new Name("Which of the following logic gates is a universal gate?"),
+                    new Importance("1"), getTagSet("CS2100"),
                     getChoiceSet(new Choice("NAND", true), new Choice("OR", false),
                             new Choice("XOR", false), new Choice("AND", false))
             ),
-            new MultipleChoiceQuestion(new Name("Convert the following MIPS instruction into hexadecimal: " +
-                    "lw $t9, 0($t7)"),
-                    new Importance("3"), getTagSet("CS2100", "MIPS"), 
+            new MultipleChoiceQuestion(new Name("Convert the following MIPS instruction into hexadecimal: "
+                    + "lw $t9, 0($t7)"),
+                    new Importance("3"), getTagSet("CS2100", "MIPS"),
                     getChoiceSet(new Choice("0x8df90000", true), new Choice("0x8ed90000", false),
                             new Choice("0x8df80000", false), new Choice("0x8de90000", false))
             ),
             new MultipleChoiceQuestion(
-                    new Name("What are class diagrams that are used to model the problem domain called?"), 
-                    new Importance("3"), getTagSet("CS2103T"), 
-                    getChoiceSet(new Choice("Object oriented domain models", true), 
-                            new Choice("Object diagrams", false), new Choice("Sequence diagrams", false), 
+                    new Name("What are class diagrams that are used to model the problem domain called?"),
+                    new Importance("3"), getTagSet("CS2103T"),
+                    getChoiceSet(new Choice("Object oriented domain models", true),
+                            new Choice("Object diagrams", false), new Choice("Sequence diagrams", false),
                             new Choice("Problem domain diagrams", false))
             )
         };
