@@ -1,0 +1,60 @@
+package seedu.smartnus.logic;
+
+import java.nio.file.Path;
+
+import javafx.collections.ObservableList;
+import seedu.smartnus.commons.core.GuiSettings;
+import seedu.smartnus.logic.commands.CommandResult;
+import seedu.smartnus.logic.commands.exceptions.CommandException;
+import seedu.smartnus.logic.parser.exceptions.ParseException;
+import seedu.smartnus.model.ReadOnlyAddressBook;
+import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.quiz.QuizManager;
+
+/**
+ * API of the Logic component
+ */
+public interface Logic {
+    /**
+     * Executes the command and returns the result.
+     * @param commandText The command as entered by the user.
+     * @return the result of the command execution.
+     * @throws CommandException If an error occurs during command execution.
+     * @throws ParseException If an error occurs during parsing.
+     */
+    CommandResult execute(String commandText) throws CommandException, ParseException;
+
+    /**
+     * Executes the command during a quiz and returns the result.
+     * @param commandText The command as entered by the user.
+     * @return the result of the command execution.
+     * @throws CommandException If an error occurs during command execution.
+     * @throws ParseException If an error occurs during parsing.
+     */
+    CommandResult execute(String commandText, QuizManager quizManager) throws CommandException, ParseException;
+
+    /**
+     * Returns the AddressBook.
+     *
+     * @see seedu.smartnus.model.Model#getAddressBook()
+     */
+    ReadOnlyAddressBook getAddressBook();
+
+    /** Returns an unmodifiable view of the filtered list of questions */
+    ObservableList<Question> getFilteredQuestionList();
+
+    /**
+     * Returns the user prefs' address book file path.
+     */
+    Path getAddressBookFilePath();
+
+    /**
+     * Returns the user prefs' GUI settings.
+     */
+    GuiSettings getGuiSettings();
+
+    /**
+     * Set the user prefs' GUI settings.
+     */
+    void setGuiSettings(GuiSettings guiSettings);
+}

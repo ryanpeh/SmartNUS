@@ -1,0 +1,39 @@
+package seedu.smartnus.logic.commands;
+
+import static seedu.smartnus.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.smartnus.logic.commands.CommandTestUtil.showQuestionAtIndex;
+import static seedu.smartnus.testutil.TypicalIndexes.INDEX_FIRST_QUESTION;
+import static seedu.smartnus.testutil.TypicalQuestions.getTypicalAddressBook;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import seedu.smartnus.model.Model;
+import seedu.smartnus.model.ModelManager;
+import seedu.smartnus.model.UserPrefs;
+
+/**
+ * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
+ */
+public class ListCommandTest {
+
+    private Model model;
+    private Model expectedModel;
+
+    @BeforeEach
+    public void setUp() {
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+    }
+
+    @Test
+    public void execute_listIsNotFiltered_showsSameList() {
+        assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void execute_listIsFiltered_showsEverything() {
+        showQuestionAtIndex(model, INDEX_FIRST_QUESTION);
+        assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+}
