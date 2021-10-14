@@ -34,6 +34,8 @@ public abstract class Question {
         this.choices.addAll(choices);
     }
 
+    public abstract boolean isValidQuestion();
+
     public Name getName() {
         return name;
     }
