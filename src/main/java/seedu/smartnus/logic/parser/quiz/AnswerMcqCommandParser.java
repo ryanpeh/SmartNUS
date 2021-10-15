@@ -1,6 +1,6 @@
 package seedu.smartnus.logic.parser.quiz;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MCQ_ANSWER_FORMAT;
+import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_MCQ_ANSWER_FORMAT;
 
 import seedu.smartnus.logic.commands.quiz.AnswerMcqCommand;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
