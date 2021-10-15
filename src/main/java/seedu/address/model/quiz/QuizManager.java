@@ -65,4 +65,12 @@ public class QuizManager implements Quiz {
         return index >= 0 && index < totalQuestions;
     }
 
+    public int getTotalQuestions() {
+        return totalQuestions;
+    }
+
+    public int getCurrentIndex() {
+        return currentIndex;
+    }
+
 }

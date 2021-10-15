@@ -123,13 +123,19 @@ public class QuizWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        // TODO: Change this back
-        //StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
-        StatusBarFooter statusBarFooter = new StatusBarFooter(Path.of("This is the quiz window"));
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+        updateStatusBar();
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Updates the status bar with the current question number.
+     */
+    private void updateStatusBar() {
+        StatusBarFooter statusBarFooter = new StatusBarFooter(String.format("Question %d of %d",
+                quizManager.getCurrentIndex() + 1, quizManager.getTotalQuestions()));
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
     }
 
     /**
@@ -195,6 +201,7 @@ public class QuizWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText, quizManager);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            updateStatusBar();
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
