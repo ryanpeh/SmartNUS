@@ -16,8 +16,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.smartnus.commons.exceptions.DataConversionException;
-import seedu.smartnus.model.SmartNus;
 import seedu.smartnus.model.ReadOnlySmartNus;
+import seedu.smartnus.model.SmartNus;
 
 public class JsonSmartNusStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSmartNusStorageTest");
@@ -26,11 +26,11 @@ public class JsonSmartNusStorageTest {
     public Path testFolder;
 
     @Test
-    public void readAddressBook_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> readAddressBook(null));
+    public void readSmartNus_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> readSmartNus(null));
     }
 
-    private java.util.Optional<ReadOnlySmartNus> readAddressBook(String filePath) throws Exception {
+    private java.util.Optional<ReadOnlySmartNus> readSmartNus(String filePath) throws Exception {
         return new JsonSmartNusStorage(Paths.get(filePath)).readSmartNus(addToTestDataPathIfNotNull(filePath));
     }
 
@@ -42,70 +42,70 @@ public class JsonSmartNusStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.json").isPresent());
+        assertFalse(readSmartNus("NonExistentFile.json").isPresent());
     }
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("notJsonFormatAddressBook.json"));
+        assertThrows(DataConversionException.class, () -> readSmartNus("notJsonFormatSmartNus.json"));
     }
 
     @Test
-    public void readAddressBook_invalidQuestionAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("invalidQuestionAddressBook.json"));
+    public void readSmartNus_invalidQuestionSmartNus_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readSmartNus("invalidQuestionSmartNus.json"));
     }
 
     @Test
-    public void readAddressBook_invalidAndValidQuestionAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAddressBook(
-                "invalidAndValidQuestionAddressBook.json"));
+    public void readSmartNus_invalidAndValidQuestionSmartNus_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readSmartNus(
+                "invalidAndValidQuestionSmartNus.json"));
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
-        Path filePath = testFolder.resolve("TempAddressBook.json");
+    public void readAndSaveSmartNus_allInOrder_success() throws Exception {
+        Path filePath = testFolder.resolve("TempSmartNus.json");
         SmartNus original = getTypicalSmartNus();
-        JsonSmartNusStorage jsonAddressBookStorage = new JsonSmartNusStorage(filePath);
+        JsonSmartNusStorage jsonSmartNusStorage = new JsonSmartNusStorage(filePath);
 
         // Save in new file and read back
-        jsonAddressBookStorage.saveSmartNus(original, filePath);
-        ReadOnlySmartNus readBack = jsonAddressBookStorage.readSmartNus(filePath).get();
+        jsonSmartNusStorage.saveSmartNus(original, filePath);
+        ReadOnlySmartNus readBack = jsonSmartNusStorage.readSmartNus(filePath).get();
         assertEquals(original, new SmartNus(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addQuestion(HOON);
         original.removeQuestion(ALICE);
-        jsonAddressBookStorage.saveSmartNus(original, filePath);
-        readBack = jsonAddressBookStorage.readSmartNus(filePath).get();
+        jsonSmartNusStorage.saveSmartNus(original, filePath);
+        readBack = jsonSmartNusStorage.readSmartNus(filePath).get();
         assertEquals(original, new SmartNus(readBack));
 
         // Save and read without specifying file path
         original.addQuestion(IDA);
-        jsonAddressBookStorage.saveSmartNus(original); // file path not specified
-        readBack = jsonAddressBookStorage.readSmartNus().get(); // file path not specified
+        jsonSmartNusStorage.saveSmartNus(original); // file path not specified
+        readBack = jsonSmartNusStorage.readSmartNus().get(); // file path not specified
         assertEquals(original, new SmartNus(readBack));
 
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(null, "SomeFile.json"));
+    public void saveSmartNus_nullSmartNus_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveSmartNus(null, "SomeFile.json"));
     }
 
     /**
-     * Saves {@code addressBook} at the specified {@code filePath}.
+     * Saves {@code smartNus} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlySmartNus addressBook, String filePath) {
+    private void saveSmartNus(ReadOnlySmartNus smartNus, String filePath) {
         try {
             new JsonSmartNusStorage(Paths.get(filePath))
-                    .saveSmartNus(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveSmartNus(smartNus, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(new SmartNus(), null));
+    public void saveSmartNus_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveSmartNus(new SmartNus(), null));
     }
 }

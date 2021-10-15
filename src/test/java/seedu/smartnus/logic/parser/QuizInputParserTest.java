@@ -37,7 +37,7 @@ public class QuizInputParserTest {
     @BeforeEach
     public void setUp() {
         JsonSmartNusStorage smartNusStorage =
-                new JsonSmartNusStorage(temporaryFolder.resolve("typicalQuestionsAddressBook.json"));
+                new JsonSmartNusStorage(temporaryFolder.resolve("typicalQuestionsSmartNus.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder
                 .resolve("TypicalUserPref.json"));
         StorageManager storage = new StorageManager(smartNusStorage, userPrefsStorage);

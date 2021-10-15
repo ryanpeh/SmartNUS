@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.smartnus.model.SmartNus;
 import seedu.smartnus.model.ReadOnlySmartNus;
+import seedu.smartnus.model.SmartNus;
 import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.question.Importance;
 import seedu.smartnus.model.question.MultipleChoiceQuestion;

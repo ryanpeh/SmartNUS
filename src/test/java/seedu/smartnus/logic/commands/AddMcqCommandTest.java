@@ -18,8 +18,8 @@ import seedu.smartnus.commons.core.GuiSettings;
 import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.ReadOnlySmartNus;
-import seedu.smartnus.model.SmartNus;
 import seedu.smartnus.model.ReadOnlyUserPrefs;
+import seedu.smartnus.model.SmartNus;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.testutil.QuestionBuilder;
 

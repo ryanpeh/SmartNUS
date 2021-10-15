@@ -11,9 +11,9 @@ import seedu.smartnus.model.question.Question;
 
 public class SampleDataUtilTest {
     @Test
-    public void getSampleAddressBookTest() {
-        ReadOnlySmartNus sampleAddressBook = getSampleSmartNus();
-        for (Question question : sampleAddressBook.getQuestionList()) {
+    public void getSampleSmartNusTest() {
+        ReadOnlySmartNus sampleSmartNus = getSampleSmartNus();
+        for (Question question : sampleSmartNus.getQuestionList()) {
             assertTrue(question.isValidQuestion());
         }
     }

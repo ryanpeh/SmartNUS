@@ -118,16 +118,16 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        SmartNus expectedAddressBook = new SmartNus(actualModel.getSmartNus());
+        SmartNus expectedSmartNus = new SmartNus(actualModel.getSmartNus());
         List<Question> expectedFilteredList = new ArrayList<>(actualModel.getFilteredQuestionList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getSmartNus());
+        assertEquals(expectedSmartNus, actualModel.getSmartNus());
         assertEquals(expectedFilteredList, actualModel.getFilteredQuestionList());
     }
     /**
      * Updates {@code model}'s filtered list to show only the question at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s list of questions.
      */
     public static void showQuestionAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredQuestionList().size());

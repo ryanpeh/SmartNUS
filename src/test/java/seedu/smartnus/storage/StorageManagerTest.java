@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.smartnus.commons.core.GuiSettings;
-import seedu.smartnus.model.SmartNus;
 import seedu.smartnus.model.ReadOnlySmartNus;
+import seedu.smartnus.model.SmartNus;
 import seedu.smartnus.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -24,9 +24,9 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonSmartNusStorage addressBookStorage = new JsonSmartNusStorage(getTempFilePath("ab"));
+        JsonSmartNusStorage smartNusStorage = new JsonSmartNusStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(smartNusStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -48,7 +48,7 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void smartNusReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonSmartNusStorage} class.

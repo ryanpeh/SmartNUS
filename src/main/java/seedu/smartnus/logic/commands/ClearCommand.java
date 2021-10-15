@@ -2,8 +2,8 @@ package seedu.smartnus.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.smartnus.model.SmartNus;
 import seedu.smartnus.model.Model;
+import seedu.smartnus.model.SmartNus;
 
 /**
  * Clears SmartNUS.

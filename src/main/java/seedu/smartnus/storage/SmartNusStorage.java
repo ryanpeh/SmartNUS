@@ -5,8 +5,8 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.smartnus.commons.exceptions.DataConversionException;
-import seedu.smartnus.model.SmartNus;
 import seedu.smartnus.model.ReadOnlySmartNus;
+import seedu.smartnus.model.SmartNus;
 
 /**
  * Represents a storage for {@link SmartNus}.

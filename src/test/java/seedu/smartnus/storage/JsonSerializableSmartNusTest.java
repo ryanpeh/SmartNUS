@@ -16,17 +16,17 @@ import seedu.smartnus.testutil.TypicalQuestions;
 public class JsonSerializableSmartNusTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableSmartNusTest");
-    private static final Path TYPICAL_QUESTIONS_FILE = TEST_DATA_FOLDER.resolve("typicalQuestionsAddressBook.json");
-    private static final Path INVALID_QUESTION_FILE = TEST_DATA_FOLDER.resolve("invalidQuestionAddressBook.json");
-    private static final Path DUPLICATE_QUESTION_FILE = TEST_DATA_FOLDER.resolve("duplicateQuestionAddressBook.json");
+    private static final Path TYPICAL_QUESTIONS_FILE = TEST_DATA_FOLDER.resolve("typicalQuestionsSmartNus.json");
+    private static final Path INVALID_QUESTION_FILE = TEST_DATA_FOLDER.resolve("invalidQuestionSmartNus.json");
+    private static final Path DUPLICATE_QUESTION_FILE = TEST_DATA_FOLDER.resolve("duplicateQuestionSmartNus.json");
 
     @Test
     public void toModelType_typicalQuestionsFile_success() throws Exception {
         JsonSerializableSmartNus dataFromFile = JsonUtil.readJsonFile(TYPICAL_QUESTIONS_FILE,
                 JsonSerializableSmartNus.class).get();
-        SmartNus addressBookFromFile = dataFromFile.toModelType();
-        SmartNus typicalQuestionsAddressBook = TypicalQuestions.getTypicalSmartNus();
-        assertEquals(addressBookFromFile, typicalQuestionsAddressBook);
+        SmartNus smartNusFromFile = dataFromFile.toModelType();
+        SmartNus typicalQuestionsSmartNus = TypicalQuestions.getTypicalSmartNus();
+        assertEquals(smartNusFromFile, typicalQuestionsSmartNus);
     }
 
     @Test

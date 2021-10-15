@@ -36,7 +36,7 @@ public class SmartNusTest {
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
+    public void resetData_withValidReadOnlySmartNus_replacesData() {
         SmartNus newData = getTypicalSmartNus();
         smartNus.resetData(newData);
         assertEquals(newData, smartNus);
@@ -59,18 +59,18 @@ public class SmartNusTest {
     }
 
     @Test
-    public void hasQuestion_questionNotInAddressBook_returnsFalse() {
+    public void hasQuestion_questionNotInSmartNus_returnsFalse() {
         assertFalse(smartNus.hasQuestion(ALICE));
     }
 
     @Test
-    public void hasQuestion_questionInAddressBook_returnsTrue() {
+    public void hasQuestion_questionInSmartNus_returnsTrue() {
         smartNus.addQuestion(ALICE);
         assertTrue(smartNus.hasQuestion(ALICE));
     }
 
     @Test
-    public void hasQuestion_questionWithSameIdentityFieldsInAddressBook_returnsTrue() {
+    public void hasQuestion_questionWithSameIdentityFieldsInSmartNus_returnsTrue() {
         smartNus.addQuestion(ALICE);
         Question editedAlice = new QuestionBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
