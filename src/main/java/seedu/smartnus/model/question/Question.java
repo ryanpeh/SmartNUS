@@ -38,6 +38,11 @@ public abstract class Question {
         Collections.shuffle(orderedChoices);
     }
 
+    /**
+     * Checks if a {@code Question} is valid. Conditions for validity depend on the type of {@code Question}.
+     * 
+     * @return True if Question is valid, else false.
+     */
     public abstract boolean isValidQuestion();
 
     public Name getName() {

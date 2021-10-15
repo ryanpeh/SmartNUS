@@ -8,6 +8,10 @@ import org.junit.jupiter.api.Test;
 
 import seedu.smartnus.logic.commands.quiz.QuizCommand;
 import seedu.smartnus.logic.parser.quiz.QuizCommandParser;
+import seedu.smartnus.model.question.ShowAllQuestionsPredicate;
+import seedu.smartnus.model.question.TagsContainKeywordsPredicate;
+
+import java.util.List;
 
 class QuizCommandParserTest {
 
@@ -24,6 +28,8 @@ class QuizCommandParserTest {
     @Test
     void parse_withValidArgs_success() {
         assertParseSuccess(parser, "      ", new QuizCommand());
-        assertParseSuccess(parser, "", new QuizCommand());
+        assertParseSuccess(parser, "", new QuizCommand(new ShowAllQuestionsPredicate()));
+        assertParseSuccess(parser, " t/ST2334 t/CS2103T",
+                new QuizCommand(new TagsContainKeywordsPredicate(List.of("ST2334", "CS2103T"))));
     }
 }

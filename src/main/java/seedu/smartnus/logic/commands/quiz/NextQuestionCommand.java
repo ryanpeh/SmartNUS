@@ -14,7 +14,7 @@ import seedu.smartnus.model.quiz.exceptions.QuizOutOfBoundException;
  */
 public class NextQuestionCommand extends Command {
     public static final String COMMAND_WORD = "next";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Quizes the next question, takes no arguments";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Quizzes the next question, takes no arguments";
     public static final String MESSAGE_SUCCESS = "Got Next Question!";
     public static final String MESSAGE_END_OF_QUIZ = "You have reached the end of the quiz, enter '"
             + ExitCommand.COMMAND_WORD + "' to exit the quiz.";
