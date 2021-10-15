@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
