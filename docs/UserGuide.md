@@ -19,7 +19,7 @@ SmartNUS is a **desktop app for students to revise for their exams, optimized fo
 1. Copy the file to the folder you want to use as the _home folder_ for your SmartNUS app.
 
 1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+   ![Ui](images/UiMainWindow.png)
 
 <!-- 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
@@ -45,7 +45,7 @@ SmartNUS is a **desktop app for students to revise for their exams, optimized fo
 **:information_source: Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `/mcq QUESTION /ans ANSWER /opt OPTION1`, `QUESTION`, `ANSWER`, `OPTION1` is a parameter which can be used as `/mcq Which of the following is an amphibian? /opt Giraffe /ans Frog`.
+  e.g. in `mcq qn/QUESTION ans/ANSWER opt/OPTION1 i/IMPORTANCE`, `QUESTION`, `ANSWER`, `OPTION1`, `IMPORTANCE` is a parameter which can be used as `mcq qn/what is 1 + 1? opt/3 opt/1 opt/0 ans/2 i/1`.
 
 <!-- * Items in square brackets are optional.<br>
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
@@ -64,28 +64,29 @@ SmartNUS is a **desktop app for students to revise for their exams, optimized fo
 
 </div>
 
-<!-- ### Viewing help : `help`
+## Main Window Commands
+
+### Viewing help : `help`
 
 Shows a message explaning how to access the help page.
 
 ![help message](images/helpMessage.png)
 
-Format: `help` -->
+Format: `help`
 
 
-### Add a Multiple Chocie Question: `/mcq`
+### Add a Multiple Chocie Question: `mcq`
 
 Adds a multipe choice question to the question bank.
 
-Format: `/mcq QUESTION /ans ANSWER /opt OPTION1...​`
+Format: `mcq qn/QUESTION opt/OPTION1 opt/OPTION2 opt/OPTION3 ans/ANSWER i/IMPORTANCE`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A multiple choice question can have any number of options (except 0)
+A multiple choice question can have exactly 4 options (1 of the option is an answer)
 </div>
 
 Examples:
-* `/mcq Which of the following is an amphibian? /opt giraffe /ans frog /opt ant /opt spider`
-* `/mcq What is 1 + 1? /ans 2 /opt 3 /opt 5`
+* `mcq qn/what is 1 + 1? opt/3 opt/1 opt/0 ans/2 i/1`
 
 <!-- ### Listing all persons : `list`
 
@@ -93,31 +94,62 @@ Shows a list of all questions in the address book.
 
 Format: `list` -->
 
-### Deleting a Question and Answer: `/delete`
+### Deleting a Question and Answer: `delete`
 
 Deletes an existing question and answer in the question bank.
 
-Format: `/delete QUESTION_ID`
+Format: `delete QUESTION_ID`
 
 * Deletes the question and answer with the specified `QUESTION_ID`.
-<!-- * The question id refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​ -->
+* The question id refers to the index number shown in the displayed question list. The index **must be a positive integer** 1, 2, 3, …​ -->
 
+### Start a Quiz: `quiz`
+
+Starts a quiz session using all the questions in the question list.
+
+Format: `quiz`
+
+* Opens a new window for the quiz.
 
 Examples:
-*  `/delete 3` Deletes the question with an ID of 3. The answer will also be deleted.
+*  `quiz` Opens a new quiz window and only [quiz commands](#quiz_window_commands) can be used.
 
-
-<!-- ### Clearing all entries : `clear`
+### Clearing all entries : `clear`
 
 Clears all entries from the question bank.
 
-Format: `clear` -->
+Format: `clear`
 
-### Exiting the program : `/exit`
+### Exiting the program : `exit`
 
 Exits the program.
 
-Format: `/exit`
+Format: `exit`
+
+## <a name="quiz_window_commands"></a>Quiz Window Commands
+
+### Answering a multiple choice question: `a` `b` `c` `d`
+Answers the multiple choice question with the options.
+
+Possible options are: `a` `b` `c` or `d`
+
+### Go to the next question: `next`
+Navigate to the next question.
+
+Format: `next`
+
+### Go to the previous question: `prev`
+Navigate to the previous question.
+
+Format `prev`
+
+
+### Exit the quiz: `exit`
+Exits the quiz.
+
+Format: `exit`
+
+## Data File
 
 ### Saving the data
 
@@ -144,10 +176,24 @@ _Details coming soon ..._ -->
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Command summary
+## Main Window Command summary
 
 Action | Format, Examples
 --------|------------------
-**MCQ** | `/mcq QUESTION /ans ANSWER /opt OPTION...` <br> e.g., `/mcq What is 1 + 1? /ans 2 /opt 3 /opt 5`
-**Delete** | `/delete INDEX`<br> e.g., `delete 3`
-**Exit** | `/exit` <br>
+**MCQ** | `mcq qn/QUESTION opt/OPTION1 opt/OPTION2 opt/OPTION3 ans/ANSWER i/IMPORTANCE` <br> e.g., `mcq qn/what is 1 + 1? opt/3 opt/1 opt/0 ans/2 i/1`
+**Delete** | `delete INDEX`<br> e.g., `delete 3`
+**Quiz** | `quiz` <br>
+**Exit** | `exit` <br>
+**Help** | `help` <br>
+
+## Quiz Window Command Summary
+
+Action | Format, Examples
+--------|------------------
+**Option a** | `a` <br>
+**Option b** | `b` <br>
+**Option c** | `c` <br>
+**Option d** | `d` <br>
+**Next** | `next` <br>
+**Prev** | `prev` <br>
+**Exit** | `exit` <br>
