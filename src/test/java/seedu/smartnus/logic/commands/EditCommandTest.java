@@ -12,16 +12,16 @@ import static seedu.smartnus.logic.commands.CommandTestUtil.assertCommandSuccess
 import static seedu.smartnus.logic.commands.CommandTestUtil.showQuestionAtIndex;
 import static seedu.smartnus.testutil.TypicalIndexes.INDEX_FIRST_QUESTION;
 import static seedu.smartnus.testutil.TypicalIndexes.INDEX_SECOND_QUESTION;
-import static seedu.smartnus.testutil.TypicalQuestions.getTypicalAddressBook;
+import static seedu.smartnus.testutil.TypicalQuestions.getTypicalSmartNus;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.smartnus.commons.core.Messages;
 import seedu.smartnus.commons.core.index.Index;
 import seedu.smartnus.logic.commands.EditCommand.EditQuestionDescriptor;
-import seedu.smartnus.model.AddressBook;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.ModelManager;
+import seedu.smartnus.model.SmartNus;
 import seedu.smartnus.model.UserPrefs;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.testutil.EditQuestionDescriptorBuilder;
@@ -32,7 +32,7 @@ import seedu.smartnus.testutil.QuestionBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalSmartNus(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -42,7 +42,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_QUESTION_SUCCESS, editedQuestion);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new SmartNus(model.getSmartNus()), new UserPrefs());
         expectedModel.setQuestion(model.getFilteredQuestionList().get(0), editedQuestion);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -63,7 +63,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_QUESTION_SUCCESS, editedQuestion);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new SmartNus(model.getSmartNus()), new UserPrefs());
         expectedModel.setQuestion(lastQuestion, editedQuestion);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -76,7 +76,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_QUESTION_SUCCESS, editedQuestion);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new SmartNus(model.getSmartNus()), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -92,7 +92,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_QUESTION_SUCCESS, editedQuestion);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new SmartNus(model.getSmartNus()), new UserPrefs());
         expectedModel.setQuestion(model.getFilteredQuestionList().get(0), editedQuestion);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -111,8 +111,8 @@ public class EditCommandTest {
     public void execute_duplicateQuestionFilteredList_failure() {
         showQuestionAtIndex(model, INDEX_FIRST_QUESTION);
 
-        // edit question in filtered list into a duplicate in address book
-        Question questionInList = model.getAddressBook().getQuestionList().get(INDEX_SECOND_QUESTION.getZeroBased());
+        // edit question in filtered list into a duplicate in SmartNus
+        Question questionInList = model.getSmartNus().getQuestionList().get(INDEX_SECOND_QUESTION.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_QUESTION,
                 new EditQuestionDescriptorBuilder(questionInList).build());
 
@@ -130,14 +130,14 @@ public class EditCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of address book
+     * but smaller than size of the {@code SmartNus} question list
      */
     @Test
     public void execute_invalidQuestionIndexFilteredList_failure() {
         showQuestionAtIndex(model, INDEX_FIRST_QUESTION);
         Index outOfBoundIndex = INDEX_SECOND_QUESTION;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getQuestionList().size());
+        // ensures that outOfBoundIndex is still in bounds of SmartNus list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getSmartNus().getQuestionList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditQuestionDescriptorBuilder().withName(VALID_NAME_BOB).build());

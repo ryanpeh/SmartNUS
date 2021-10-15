@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.smartnus.commons.core.GuiSettings;
 import seedu.smartnus.model.question.NameContainsKeywordsPredicate;
-import seedu.smartnus.testutil.AddressBookBuilder;
+import seedu.smartnus.testutil.SmartNusBuilder;
 
 public class ModelManagerTest {
 
@@ -26,7 +26,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
+        assertEquals(new SmartNus(), new SmartNus(modelManager.getSmartNus()));
     }
 
     @Test
@@ -37,14 +37,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setAddressBookFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setSmartNusFilePath(Paths.get("smart/nus/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setAddressBookFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setSmartNusFilePath(Paths.get("new/smart/nus/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -61,15 +61,15 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setAddressBookFilePath(null));
+    public void setSmartNusFilePath_nullPath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setSmartNusFilePath(null));
     }
 
     @Test
-    public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
-        Path path = Paths.get("address/book/file/path");
-        modelManager.setAddressBookFilePath(path);
-        assertEquals(path, modelManager.getAddressBookFilePath());
+    public void setSmartNusFilePath_validPath_setsSmartNusFilePath() {
+        Path path = Paths.get("smart/nus/file/path");
+        modelManager.setSmartNusFilePath(path);
+        assertEquals(path, modelManager.getSmartNusFilePath());
     }
 
     @Test
@@ -78,12 +78,12 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasQuestion_questionNotInAddressBook_returnsFalse() {
+    public void hasQuestion_questionNotInSmartNus_returnsFalse() {
         assertFalse(modelManager.hasQuestion(ALICE));
     }
 
     @Test
-    public void hasQuestion_questionInAddressBook_returnsTrue() {
+    public void hasQuestion_questionInSmartNus_returnsTrue() {
         modelManager.addQuestion(ALICE);
         assertTrue(modelManager.hasQuestion(ALICE));
     }
@@ -95,13 +95,13 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withQuestion(ALICE).withQuestion(BENSON).build();
-        AddressBook differentAddressBook = new AddressBook();
+        SmartNus smartNus = new SmartNusBuilder().withQuestion(ALICE).withQuestion(BENSON).build();
+        SmartNus differentSmartNus = new SmartNus();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
+        modelManager = new ModelManager(smartNus, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(smartNus, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -113,20 +113,20 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+        // different smartNus -> returns false
+        assertFalse(modelManager.equals(new ModelManager(differentSmartNus, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredQuestionList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(smartNus, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredQuestionList(PREDICATE_SHOW_ALL_QUESTIONS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        differentUserPrefs.setSmartNusFilePath(Paths.get("differentFilePath"));
+        assertFalse(modelManager.equals(new ModelManager(smartNus, differentUserPrefs)));
     }
 }

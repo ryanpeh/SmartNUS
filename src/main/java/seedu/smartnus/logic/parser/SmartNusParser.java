@@ -23,7 +23,7 @@ import seedu.smartnus.logic.parser.quiz.QuizCommandParser;
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class SmartNusParser {
 
     /**
      * Used for initial separation of command word and args.

@@ -12,10 +12,10 @@ import seedu.smartnus.commons.exceptions.DataConversionException;
 import seedu.smartnus.commons.exceptions.IllegalValueException;
 import seedu.smartnus.commons.util.FileUtil;
 import seedu.smartnus.commons.util.JsonUtil;
-import seedu.smartnus.model.ReadOnlyAddressBook;
+import seedu.smartnus.model.ReadOnlySmartNus;
 
 /**
- * A class to access AddressBook data stored as a json file on the hard disk.
+ * A class to access SmartNus data stored as a json file on the hard disk.
  */
 public class JsonSmartNusStorage implements SmartNusStorage {
 
@@ -27,32 +27,32 @@ public class JsonSmartNusStorage implements SmartNusStorage {
         this.filePath = filePath;
     }
 
-    public Path getAddressBookFilePath() {
+    public Path getSmartNusFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlySmartNus> readSmartNus() throws DataConversionException {
+        return readSmartNus(filePath);
     }
 
     /**
-     * Similar to {@link #readAddressBook()}.
+     * Similar to {@link #readSmartNus()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlySmartNus> readSmartNus(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableSmartNus> jsonAddressBook = JsonUtil.readJsonFile(
+        Optional<JsonSerializableSmartNus> jsonSmartNus = JsonUtil.readJsonFile(
                 filePath, JsonSerializableSmartNus.class);
-        if (!jsonAddressBook.isPresent()) {
+        if (!jsonSmartNus.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonAddressBook.get().toModelType());
+            return Optional.of(jsonSmartNus.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -60,21 +60,21 @@ public class JsonSmartNusStorage implements SmartNusStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveSmartNus(ReadOnlySmartNus smartNus) throws IOException {
+        saveSmartNus(smartNus, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyAddressBook)}.
+     * Similar to {@link #saveSmartNus(ReadOnlySmartNus)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveSmartNus(ReadOnlySmartNus smartNus, Path filePath) throws IOException {
+        requireNonNull(smartNus);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableSmartNus(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableSmartNus(smartNus), filePath);
     }
 
 }

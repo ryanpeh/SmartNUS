@@ -7,7 +7,7 @@ import static seedu.smartnus.logic.commands.CommandTestUtil.assertCommandSuccess
 import static seedu.smartnus.logic.commands.CommandTestUtil.showQuestionAtIndex;
 import static seedu.smartnus.testutil.TypicalIndexes.INDEX_FIRST_QUESTION;
 import static seedu.smartnus.testutil.TypicalIndexes.INDEX_SECOND_QUESTION;
-import static seedu.smartnus.testutil.TypicalQuestions.getTypicalAddressBook;
+import static seedu.smartnus.testutil.TypicalQuestions.getTypicalSmartNus;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,7 +24,7 @@ import seedu.smartnus.model.question.Question;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalSmartNus(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -33,7 +33,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_QUESTION_SUCCESS, questionToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getSmartNus(), new UserPrefs());
         expectedModel.deleteQuestion(questionToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -56,7 +56,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_QUESTION_SUCCESS, questionToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getSmartNus(), new UserPrefs());
         expectedModel.deleteQuestion(questionToDelete);
         showNoQuestion(expectedModel);
 
@@ -68,8 +68,8 @@ public class DeleteCommandTest {
         showQuestionAtIndex(model, INDEX_FIRST_QUESTION);
 
         Index outOfBoundIndex = INDEX_SECOND_QUESTION;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getQuestionList().size());
+        // ensures that outOfBoundIndex is still in bounds of the SmartNus's question list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getSmartNus().getQuestionList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 

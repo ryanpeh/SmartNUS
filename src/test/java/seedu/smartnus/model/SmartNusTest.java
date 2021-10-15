@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.smartnus.testutil.Assert.assertThrows;
 import static seedu.smartnus.testutil.TypicalQuestions.ALICE;
-import static seedu.smartnus.testutil.TypicalQuestions.getTypicalAddressBook;
+import static seedu.smartnus.testutil.TypicalQuestions.getTypicalSmartNus;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -21,25 +21,25 @@ import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.question.exceptions.DuplicateQuestionException;
 import seedu.smartnus.testutil.QuestionBuilder;
 
-public class AddressBookTest {
+public class SmartNusTest {
 
-    private final SmartNus addressBook = new SmartNus();
+    private final SmartNus smartNus = new SmartNus();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getQuestionList());
+        assertEquals(Collections.emptyList(), smartNus.getQuestionList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.resetData(null));
+        assertThrows(NullPointerException.class, () -> smartNus.resetData(null));
     }
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        SmartNus newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+        SmartNus newData = getTypicalSmartNus();
+        smartNus.resetData(newData);
+        assertEquals(newData, smartNus);
     }
 
     @Test
@@ -50,36 +50,36 @@ public class AddressBookTest {
         List<Question> newQuestions = Arrays.asList(ALICE, editedAlice);
         SmartNusStub newData = new SmartNusStub(newQuestions);
 
-        assertThrows(DuplicateQuestionException.class, () -> addressBook.resetData(newData));
+        assertThrows(DuplicateQuestionException.class, () -> smartNus.resetData(newData));
     }
 
     @Test
     public void hasQuestion_nullQuestion_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasQuestion(null));
+        assertThrows(NullPointerException.class, () -> smartNus.hasQuestion(null));
     }
 
     @Test
     public void hasQuestion_questionNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasQuestion(ALICE));
+        assertFalse(smartNus.hasQuestion(ALICE));
     }
 
     @Test
     public void hasQuestion_questionInAddressBook_returnsTrue() {
-        addressBook.addQuestion(ALICE);
-        assertTrue(addressBook.hasQuestion(ALICE));
+        smartNus.addQuestion(ALICE);
+        assertTrue(smartNus.hasQuestion(ALICE));
     }
 
     @Test
     public void hasQuestion_questionWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addQuestion(ALICE);
+        smartNus.addQuestion(ALICE);
         Question editedAlice = new QuestionBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasQuestion(editedAlice));
+        assertTrue(smartNus.hasQuestion(editedAlice));
     }
 
     @Test
     public void getQuestionList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getQuestionList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> smartNus.getQuestionList().remove(0));
     }
 
     /**

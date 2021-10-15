@@ -6,7 +6,7 @@ import static seedu.smartnus.model.Model.PREDICATE_SHOW_ALL_QUESTIONS;
 import seedu.smartnus.model.Model;
 
 /**
- * Lists all questions in the address book to the user.
+ * Lists all questions in SmartNus to the user.
  */
 public class ListCommand extends Command {
 

@@ -10,11 +10,11 @@ import seedu.smartnus.commons.core.LogsCenter;
 import seedu.smartnus.logic.commands.Command;
 import seedu.smartnus.logic.commands.CommandResult;
 import seedu.smartnus.logic.commands.exceptions.CommandException;
-import seedu.smartnus.logic.parser.AddressBookParser;
+import seedu.smartnus.logic.parser.SmartNusParser;
 import seedu.smartnus.logic.parser.QuizInputParser;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
 import seedu.smartnus.model.Model;
-import seedu.smartnus.model.ReadOnlyAddressBook;
+import seedu.smartnus.model.ReadOnlySmartNus;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.quiz.QuizManager;
 import seedu.smartnus.storage.Storage;
@@ -28,7 +28,7 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final SmartNusParser smartNusParser;
     private final QuizInputParser quizInputParser;
 
     /**
@@ -37,7 +37,7 @@ public class LogicManager implements Logic {
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        smartNusParser = new SmartNusParser();
         quizInputParser = new QuizInputParser();
     }
 
@@ -46,11 +46,11 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = smartNusParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveSmartNus(model.getSmartNus());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -65,7 +65,7 @@ public class LogicManager implements Logic {
         CommandResult commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveSmartNus(model.getSmartNus());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -74,8 +74,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlySmartNus getSmartNus() {
+        return model.getSmartNus();
     }
 
     @Override
@@ -84,8 +84,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getSmartNusFilePath() {
+        return model.getSmartNusFilePath();
     }
 
     @Override

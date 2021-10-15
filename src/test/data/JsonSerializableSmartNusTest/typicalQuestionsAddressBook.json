@@ -1,5 +1,5 @@
 {
-  "_comment": "AddressBook save file which contains the same Question values as in TypicalQuestions#getTypicalAddressBook()",
+  "_comment": "SmartNus save file which contains the same Question values as in TypicalQuestions#getTypicalSmartNus()",
   "questions" : [ {
     "name" : "Alice Pauline",
     "importance" : "1",

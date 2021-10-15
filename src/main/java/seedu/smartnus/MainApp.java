@@ -15,10 +15,10 @@ import seedu.smartnus.commons.util.ConfigUtil;
 import seedu.smartnus.commons.util.StringUtil;
 import seedu.smartnus.logic.Logic;
 import seedu.smartnus.logic.LogicManager;
-import seedu.smartnus.model.AddressBook;
+import seedu.smartnus.model.SmartNus;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.ModelManager;
-import seedu.smartnus.model.ReadOnlyAddressBook;
+import seedu.smartnus.model.ReadOnlySmartNus;
 import seedu.smartnus.model.ReadOnlyUserPrefs;
 import seedu.smartnus.model.UserPrefs;
 import seedu.smartnus.model.util.SampleDataUtil;
@@ -48,7 +48,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing SmartNus ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -56,7 +56,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        SmartNusStorage smartNusStorage = new JsonSmartNusStorage(userPrefs.getAddressBookFilePath());
+        SmartNusStorage smartNusStorage = new JsonSmartNusStorage(userPrefs.getSmartNusFilePath());
         storage = new StorageManager(smartNusStorage, userPrefsStorage);
 
         initLogging(config);
@@ -69,25 +69,25 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s SmartNus and {@code userPrefs}. <br>
+     * The data from the sample SmartNus will be used instead if {@code storage}'s SmartNus is not found,
+     * or an empty SmartNus will be used instead if errors occur when reading {@code storage}'s SmartNus.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlySmartNus> smartNusOptional;
+        ReadOnlySmartNus initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            smartNusOptional = storage.readSmartNus();
+            if (!smartNusOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample SmartNus");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleSmartNus);
+            initialData = smartNusOptional.orElseGet(SampleDataUtil::getSampleSmartNus);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Data file not in the correct format. Will be starting with an empty SmartNus");
+            initialData = new SmartNus();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Problem while reading from the file. Will be starting with an empty SmartNus");
+            initialData = new SmartNus();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -151,7 +151,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty SmartNus");
             initializedPrefs = new UserPrefs();
         }
 
@@ -167,13 +167,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting SmartNus " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping SmartNus ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

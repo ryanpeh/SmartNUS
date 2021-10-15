@@ -28,9 +28,9 @@ import seedu.smartnus.testutil.EditQuestionDescriptorBuilder;
 import seedu.smartnus.testutil.QuestionBuilder;
 import seedu.smartnus.testutil.QuestionUtil;
 
-public class AddressBookParserTest {
+public class SmartNusParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final SmartNusParser parser = new SmartNusParser();
 
     @Test
     public void parseCommand_add() throws Exception {

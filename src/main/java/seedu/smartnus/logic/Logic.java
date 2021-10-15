@@ -7,7 +7,7 @@ import seedu.smartnus.commons.core.GuiSettings;
 import seedu.smartnus.logic.commands.CommandResult;
 import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
-import seedu.smartnus.model.ReadOnlyAddressBook;
+import seedu.smartnus.model.ReadOnlySmartNus;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.quiz.QuizManager;
 
@@ -34,19 +34,19 @@ public interface Logic {
     CommandResult execute(String commandText, QuizManager quizManager) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the SmartNus.
      *
-     * @see seedu.smartnus.model.Model#getAddressBook()
+     * @see seedu.smartnus.model.Model#getSmartNus()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlySmartNus getSmartNus();
 
     /** Returns an unmodifiable view of the filtered list of questions */
     ObservableList<Question> getFilteredQuestionList();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' SmartNUS file path.
      */
-    Path getAddressBookFilePath();
+    Path getSmartNusFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

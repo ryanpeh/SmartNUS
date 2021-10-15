@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.smartnus.model.AddressBook;
+import seedu.smartnus.model.SmartNus;
 import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.question.Question;
 
@@ -58,10 +58,10 @@ public class TypicalQuestions {
     private TypicalQuestions() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical questions.
+     * Returns an {@code SmartNus} with all the typical questions.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static SmartNus getTypicalSmartNus() {
+        SmartNus ab = new SmartNus();
         for (Question question : getTypicalQuestions()) {
             ab.addQuestion(question);
         }

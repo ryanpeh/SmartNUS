@@ -11,7 +11,7 @@ import seedu.smartnus.model.Model;
 import seedu.smartnus.model.question.Question;
 
 /**
- * Deletes a question identified using it's displayed index from the address book.
+ * Deletes a question identified using it's displayed index from SmartNus.
  */
 public class DeleteCommand extends Command {
 

@@ -4,31 +4,31 @@ import seedu.smartnus.model.SmartNus;
 import seedu.smartnus.model.question.Question;
 
 /**
- * A utility class to help with building Addressbook objects.
+ * A utility class to help with building SmartNus objects.
  * Example usage: <br>
- *     {@code SmartNus ab = new AddressBookBuilder().withQuestion("John", "Doe").build();}
+ *     {@code SmartNus smartNus = new SmartNusBuilder().build();}
  */
-public class AddressBookBuilder {
+public class SmartNusBuilder {
 
-    private SmartNus addressBook;
+    private SmartNus smartNus;
 
-    public AddressBookBuilder() {
-        addressBook = new SmartNus();
+    public SmartNusBuilder() {
+        smartNus = new SmartNus();
     }
 
-    public AddressBookBuilder(SmartNus addressBook) {
-        this.addressBook = addressBook;
+    public SmartNusBuilder(SmartNus smartNus) {
+        this.smartNus = smartNus;
     }
 
     /**
      * Adds a new {@code Question} to the {@code SmartNus} that we are building.
      */
-    public AddressBookBuilder withQuestion(Question question) {
-        addressBook.addQuestion(question);
+    public SmartNusBuilder withQuestion(Question question) {
+        smartNus.addQuestion(question);
         return this;
     }
 
     public SmartNus build() {
-        return addressBook;
+        return smartNus;
     }
 }

@@ -10,10 +10,10 @@ import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.question.UniqueQuestionList;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the SmartNus level
  * Duplicates are not allowed (by .isSameQuestion comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class SmartNus implements ReadOnlySmartNus {
 
     private final UniqueQuestionList questions;
 
@@ -28,12 +28,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         questions = new UniqueQuestionList();
     }
 
-    public AddressBook() {}
+    public SmartNus() {}
 
     /**
-     * Creates an AddressBook using the Questions in the {@code toBeCopied}
+     * Creates a SmartNus using the Questions in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public SmartNus(ReadOnlySmartNus toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -49,9 +49,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code SmartNus} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlySmartNus newData) {
         requireNonNull(newData);
 
         setQuestions(newData.getQuestionList());
@@ -60,7 +60,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// question-level operations
 
     /**
-     * Returns true if a question with the same identity as {@code question} exists in the address book.
+     * Returns true if a question with the same identity as {@code question} exists in the SmarNus.
      */
     public boolean hasQuestion(Question question) {
         requireNonNull(question);
@@ -68,8 +68,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a question to the address book.
-     * The question must not already exist in the address book.
+     * Adds a question to {@code SmartNus}.
+     * The question must not already exist in {@code SmartNus}.
      */
     public void addQuestion(Question p) {
         questions.add(p);
@@ -77,9 +77,9 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Replaces the given question {@code target} in the list with {@code editedQuestion}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the {@code SmartNus}.
      * The question identity of {@code editedQuestion} must not be the same as another existing question
-     * in the address book.
+     * in the {@code SmartNus}.
      */
     public void setQuestion(Question target, Question editedQuestion) {
         requireNonNull(editedQuestion);
@@ -88,8 +88,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code SmartNus}.
+     * {@code key} must exist in the {@code SmartNus}.
      */
     public void removeQuestion(Question key) {
         questions.remove(key);
@@ -111,8 +111,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && questions.equals(((AddressBook) other).questions));
+                || (other instanceof SmartNus // instanceof handles nulls
+                && questions.equals(((SmartNus) other).questions));
     }
 
     @Override

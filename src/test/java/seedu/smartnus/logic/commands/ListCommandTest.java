@@ -3,7 +3,7 @@ package seedu.smartnus.logic.commands;
 import static seedu.smartnus.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.smartnus.logic.commands.CommandTestUtil.showQuestionAtIndex;
 import static seedu.smartnus.testutil.TypicalIndexes.INDEX_FIRST_QUESTION;
-import static seedu.smartnus.testutil.TypicalQuestions.getTypicalAddressBook;
+import static seedu.smartnus.testutil.TypicalQuestions.getTypicalSmartNus;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,8 +22,8 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalSmartNus(), new UserPrefs());
+        expectedModel = new ModelManager(model.getSmartNus(), new UserPrefs());
     }
 
     @Test

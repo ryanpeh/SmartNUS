@@ -8,7 +8,7 @@ import static seedu.smartnus.logic.commands.CommandTestUtil.assertCommandSuccess
 import static seedu.smartnus.testutil.TypicalQuestions.CARL;
 import static seedu.smartnus.testutil.TypicalQuestions.ELLE;
 import static seedu.smartnus.testutil.TypicalQuestions.FIONA;
-import static seedu.smartnus.testutil.TypicalQuestions.getTypicalAddressBook;
+import static seedu.smartnus.testutil.TypicalQuestions.getTypicalSmartNus;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -24,8 +24,8 @@ import seedu.smartnus.model.question.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalSmartNus(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalSmartNus(), new UserPrefs());
 
     @Test
     public void equals() {

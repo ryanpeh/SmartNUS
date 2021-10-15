@@ -7,12 +7,12 @@ import java.util.logging.Logger;
 
 import seedu.smartnus.commons.core.LogsCenter;
 import seedu.smartnus.commons.exceptions.DataConversionException;
-import seedu.smartnus.model.ReadOnlyAddressBook;
+import seedu.smartnus.model.ReadOnlySmartNus;
 import seedu.smartnus.model.ReadOnlyUserPrefs;
 import seedu.smartnus.model.UserPrefs;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of SmartNus data in local storage.
  */
 public class StorageManager implements Storage {
 
@@ -47,33 +47,33 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ SmartNus methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return smartNusStorage.getAddressBookFilePath();
+    public Path getSmartNusFilePath() {
+        return smartNusStorage.getSmartNusFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(smartNusStorage.getAddressBookFilePath());
+    public Optional<ReadOnlySmartNus> readSmartNus() throws DataConversionException, IOException {
+        return readSmartNus(smartNusStorage.getSmartNusFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlySmartNus> readSmartNus(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return smartNusStorage.readAddressBook(filePath);
+        return smartNusStorage.readSmartNus(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, smartNusStorage.getAddressBookFilePath());
+    public void saveSmartNus(ReadOnlySmartNus smartNus) throws IOException {
+        saveSmartNus(smartNus, smartNusStorage.getSmartNusFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveSmartNus(ReadOnlySmartNus smartNus, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        smartNusStorage.saveAddressBook(addressBook, filePath);
+        smartNusStorage.saveSmartNus(smartNus, filePath);
     }
 
 }

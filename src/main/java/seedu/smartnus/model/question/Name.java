@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.smartnus.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Question's name in the address book.
+ * Represents a Question's name in SmartNus.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {

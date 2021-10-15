@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.smartnus.commons.exceptions.DataConversionException;
-import seedu.smartnus.model.ReadOnlyAddressBook;
+import seedu.smartnus.model.ReadOnlySmartNus;
 import seedu.smartnus.model.ReadOnlyUserPrefs;
 import seedu.smartnus.model.UserPrefs;
 
@@ -21,12 +21,12 @@ public interface Storage extends SmartNusStorage, UserPrefsStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    Path getSmartNusFilePath();
 
     @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlySmartNus> readSmartNus() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveSmartNus(ReadOnlySmartNus smartNus) throws IOException;
 
 }

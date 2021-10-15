@@ -12,7 +12,7 @@ import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.tag.Tag;
 
 /**
- * Represents a Question in the address book.
+ * Represents a Question in SmartNus.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public abstract class Question {

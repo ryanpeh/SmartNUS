@@ -22,7 +22,7 @@ import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.ModelManager;
-import seedu.smartnus.model.ReadOnlyAddressBook;
+import seedu.smartnus.model.ReadOnlySmartNus;
 import seedu.smartnus.model.UserPrefs;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.storage.JsonSmartNusStorage;
@@ -41,10 +41,10 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonSmartNusStorage addressBookStorage =
-                new JsonSmartNusStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonSmartNusStorage smartNusStorage =
+                new JsonSmartNusStorage(temporaryFolder.resolve("smartNus.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(smartNusStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -69,11 +69,11 @@ public class LogicManagerTest {
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonSmartNusIoExceptionThrowingStub
-        JsonSmartNusStorage addressBookStorage =
-                new JsonSmartNusIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+        JsonSmartNusStorage smartNusStorage =
+                new JsonSmartNusIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionSmartNus.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(smartNusStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -126,7 +126,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getSmartNus(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -152,7 +152,7 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+        public void saveSmartNus(ReadOnlySmartNus smartNus, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

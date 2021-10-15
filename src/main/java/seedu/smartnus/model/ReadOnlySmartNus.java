@@ -4,9 +4,9 @@ import javafx.collections.ObservableList;
 import seedu.smartnus.model.question.Question;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of a SmartNus
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlySmartNus {
 
     /**
      * Returns an unmodifiable view of the questions list.

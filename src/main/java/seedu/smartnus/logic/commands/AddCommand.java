@@ -10,13 +10,13 @@ import seedu.smartnus.model.Model;
 import seedu.smartnus.model.question.Question;
 
 /**
- * Adds a question to the address book.
+ * Adds a question to SmartNUS.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a question to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a question to SmartNUS. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_IMPORTANCE + "IMPORTANCE "
@@ -28,7 +28,7 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New question added: %1$s";
-    public static final String MESSAGE_DUPLICATE_QUESTION = "This question already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_QUESTION = "This question already exists in SmartNUS";
 
     private final Question toAdd;
 

@@ -2,7 +2,7 @@ package seedu.smartnus.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.smartnus.testutil.TypicalQuestions.getTypicalAddressBook;
+import static seedu.smartnus.testutil.TypicalQuestions.getTypicalSmartNus;
 
 import java.nio.file.Path;
 
@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.smartnus.commons.core.GuiSettings;
-import seedu.smartnus.model.AddressBook;
-import seedu.smartnus.model.ReadOnlyAddressBook;
+import seedu.smartnus.model.SmartNus;
+import seedu.smartnus.model.ReadOnlySmartNus;
 import seedu.smartnus.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -54,15 +54,15 @@ public class StorageManagerTest {
          * {@link JsonSmartNusStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonSmartNusStorageTest} class.
          */
-        AddressBook original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+        SmartNus original = getTypicalSmartNus();
+        storageManager.saveSmartNus(original);
+        ReadOnlySmartNus retrieved = storageManager.readSmartNus().get();
+        assertEquals(original, new SmartNus(retrieved));
     }
 
     @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+    public void getSmartNusFilePath() {
+        assertNotNull(storageManager.getSmartNusFilePath());
     }
 
 }

@@ -124,7 +124,7 @@ public class QuizWindow extends UiPart<Stage> {
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         // TODO: Change this back
-        //StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        //StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getSmartNusFilePath());
         StatusBarFooter statusBarFooter = new StatusBarFooter(Path.of("This is the quiz window"));
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 

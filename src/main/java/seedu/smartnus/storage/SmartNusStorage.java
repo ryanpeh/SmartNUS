@@ -5,41 +5,42 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.smartnus.commons.exceptions.DataConversionException;
-import seedu.smartnus.model.ReadOnlyAddressBook;
+import seedu.smartnus.model.SmartNus;
+import seedu.smartnus.model.ReadOnlySmartNus;
 
 /**
- * Represents a storage for {@link seedu.smartnus.model.AddressBook}.
+ * Represents a storage for {@link SmartNus}.
  */
 public interface SmartNusStorage {
 
     /**
      * Returns the file path of the data file.
      */
-    Path getAddressBookFilePath();
+    Path getSmartNusFilePath();
 
     /**
-     * Returns AddressBook data as a {@link ReadOnlyAddressBook}.
+     * Returns SmartNus data as a {@link ReadOnlySmartNus}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlySmartNus> readSmartNus() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getSmartNusFilePath()
      */
-    Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlySmartNus> readSmartNus(Path filePath) throws DataConversionException, IOException;
 
     /**
-     * Saves the given {@link ReadOnlyAddressBook} to the storage.
-     * @param addressBook cannot be null.
+     * Saves the given {@link ReadOnlySmartNus} to the storage.
+     * @param smartNus cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveSmartNus(ReadOnlySmartNus smartNus) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyAddressBook)
+     * @see #saveSmartNus(ReadOnlySmartNus)
      */
-    void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException;
+    void saveSmartNus(ReadOnlySmartNus smartNus, Path filePath) throws IOException;
 
 }

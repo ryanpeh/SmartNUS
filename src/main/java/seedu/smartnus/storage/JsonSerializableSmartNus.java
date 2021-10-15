@@ -9,14 +9,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.smartnus.commons.exceptions.IllegalValueException;
-import seedu.smartnus.model.AddressBook;
-import seedu.smartnus.model.ReadOnlyAddressBook;
+import seedu.smartnus.model.ReadOnlySmartNus;
+import seedu.smartnus.model.SmartNus;
 import seedu.smartnus.model.question.Question;
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable SmartNus that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
+@JsonRootName(value = "smartnus")
 class JsonSerializableSmartNus {
 
     public static final String MESSAGE_DUPLICATE_QUESTION = "Questions list contains duplicate question(s).";
@@ -32,29 +32,29 @@ class JsonSerializableSmartNus {
     }
 
     /**
-     * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlySmartNus} into this class for Jackson use.
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableSmartNus}.
      */
-    public JsonSerializableSmartNus(ReadOnlyAddressBook source) {
+    public JsonSerializableSmartNus(ReadOnlySmartNus source) {
         questions.addAll(source.getQuestionList().stream().map(JsonAdaptedQuestion::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this address book into the model's {@code AddressBook} object.
+     * Converts this {@code JsonSerializableSmartNus} into the model's {@code SmartNus} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public AddressBook toModelType() throws IllegalValueException {
-        AddressBook addressBook = new AddressBook();
+    public SmartNus toModelType() throws IllegalValueException {
+        SmartNus smartNus = new SmartNus();
         for (JsonAdaptedQuestion jsonAdaptedQuestion : questions) {
             Question question = jsonAdaptedQuestion.toModelType();
-            if (addressBook.hasQuestion(question)) {
+            if (smartNus.hasQuestion(question)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_QUESTION);
             }
-            addressBook.addQuestion(question);
+            smartNus.addQuestion(question);
         }
-        return addressBook;
+        return smartNus;
     }
 
 }

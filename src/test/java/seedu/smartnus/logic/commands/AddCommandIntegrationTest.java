@@ -2,7 +2,7 @@ package seedu.smartnus.logic.commands;
 
 import static seedu.smartnus.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.smartnus.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.smartnus.testutil.TypicalQuestions.getTypicalAddressBook;
+import static seedu.smartnus.testutil.TypicalQuestions.getTypicalSmartNus;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,14 +22,14 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalSmartNus(), new UserPrefs());
     }
 
     @Test
     public void execute_newQuestion_success() {
         Question validQuestion = new QuestionBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getSmartNus(), new UserPrefs());
         expectedModel.addQuestion(validQuestion);
 
         assertCommandSuccess(new AddCommand(validQuestion), model,
@@ -38,7 +38,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicateQuestion_throwsCommandException() {
-        Question questionInList = model.getAddressBook().getQuestionList().get(0);
+        Question questionInList = model.getSmartNus().getQuestionList().get(0);
         assertCommandFailure(new AddCommand(questionInList), model, AddCommand.MESSAGE_DUPLICATE_QUESTION);
     }
 

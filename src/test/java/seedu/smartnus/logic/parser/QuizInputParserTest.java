@@ -36,11 +36,11 @@ public class QuizInputParserTest {
 
     @BeforeEach
     public void setUp() {
-        JsonSmartNusStorage addressBookStorage =
+        JsonSmartNusStorage smartNusStorage =
                 new JsonSmartNusStorage(temporaryFolder.resolve("typicalQuestionsAddressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder
                 .resolve("TypicalUserPref.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(smartNusStorage, userPrefsStorage);
         Logic logic = new LogicManager(new ModelManager(), storage);
         quizManager = new QuizManager(logic.getFilteredQuestionList());
     }

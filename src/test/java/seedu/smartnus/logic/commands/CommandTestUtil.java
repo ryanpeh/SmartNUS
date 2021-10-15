@@ -16,8 +16,8 @@ import java.util.List;
 
 import seedu.smartnus.commons.core.index.Index;
 import seedu.smartnus.logic.commands.exceptions.CommandException;
-import seedu.smartnus.model.AddressBook;
 import seedu.smartnus.model.Model;
+import seedu.smartnus.model.SmartNus;
 import seedu.smartnus.model.question.NameContainsKeywordsPredicate;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.testutil.EditQuestionDescriptorBuilder;
@@ -113,16 +113,16 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered question list and selected question in {@code actualModel} remain unchanged
+     * - the {@code SmartNus}, filtered question list and selected question in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        SmartNus expectedAddressBook = new SmartNus(actualModel.getSmartNus());
         List<Question> expectedFilteredList = new ArrayList<>(actualModel.getFilteredQuestionList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
+        assertEquals(expectedAddressBook, actualModel.getSmartNus());
         assertEquals(expectedFilteredList, actualModel.getFilteredQuestionList());
     }
     /**

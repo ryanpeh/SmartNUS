@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.smartnus.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Question's importance in the address book.
+ * Represents a Question's importance in SmartNus.
  * Guarantees: immutable; is valid as declared in {@link #isValidImportance(String)}
  */
 public class Importance {
