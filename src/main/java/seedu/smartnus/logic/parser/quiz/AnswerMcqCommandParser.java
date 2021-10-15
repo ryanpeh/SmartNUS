@@ -1,10 +1,11 @@
 package seedu.smartnus.logic.parser.quiz;
 
-import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MCQ_ANSWER_FORMAT;
 
 import seedu.smartnus.logic.commands.quiz.AnswerMcqCommand;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
 import seedu.smartnus.model.quiz.QuizManager;
+
 
 /**
  * Parses input arguments and creates a new DeleteCommand object
@@ -22,8 +23,8 @@ public class AnswerMcqCommandParser implements QuizParser<AnswerMcqCommand> {
         if (args.matches(MCQ_REGEX)) {
             return new AnswerMcqCommand(args, quizManager);
         } else {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    "Acceptable answers are 'a', 'b', 'c', 'd'"));
+            throw new ParseException(MESSAGE_INVALID_MCQ_ANSWER_FORMAT
+                    + quizManager.currQuestion().getQuestionAndOptions());
         }
     }
 
