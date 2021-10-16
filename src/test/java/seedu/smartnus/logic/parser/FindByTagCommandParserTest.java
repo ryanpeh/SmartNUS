@@ -1,15 +1,16 @@
-package seedu.address.logic.parser;
+package seedu.smartnus.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.smartnus.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.smartnus.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.FindByTagCommand;
-import seedu.address.model.question.TagsContainKeywordsPredicate;
+import seedu.smartnus.logic.commands.FindByTagCommand;
+import seedu.smartnus.logic.parser.FindByTagCommandParser;
+import seedu.smartnus.model.question.TagsContainKeywordsPredicate;
 
 public class FindByTagCommandParserTest {
 

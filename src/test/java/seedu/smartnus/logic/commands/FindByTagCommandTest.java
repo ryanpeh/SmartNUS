@@ -1,31 +1,31 @@
-package seedu.address.logic.commands;
+package seedu.smartnus.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_QUESTIONS_LISTED_OVERVIEW;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalQuestions.ALICE;
-import static seedu.address.testutil.TypicalQuestions.BENSON;
-import static seedu.address.testutil.TypicalQuestions.DANIEL;
-import static seedu.address.testutil.TypicalQuestions.getTypicalAddressBook;
+import static seedu.smartnus.commons.core.Messages.MESSAGE_QUESTIONS_LISTED_OVERVIEW;
+import static seedu.smartnus.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.smartnus.testutil.TypicalQuestions.ALICE;
+import static seedu.smartnus.testutil.TypicalQuestions.BENSON;
+import static seedu.smartnus.testutil.TypicalQuestions.DANIEL;
+import static seedu.smartnus.testutil.TypicalQuestions.getTypicalSmartNus;
 
 import java.util.Arrays;
 import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.question.TagsContainKeywordsPredicate;
+import seedu.smartnus.model.Model;
+import seedu.smartnus.model.ModelManager;
+import seedu.smartnus.model.UserPrefs;
+import seedu.smartnus.model.question.TagsContainKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindByTagCommand}.
  */
 public class FindByTagCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalSmartNus(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalSmartNus(), new UserPrefs());
 
     @Test
     public void equals() {

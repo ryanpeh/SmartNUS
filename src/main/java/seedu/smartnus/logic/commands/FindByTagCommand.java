@@ -1,10 +1,10 @@
-package seedu.address.logic.commands;
+package seedu.smartnus.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.model.Model;
-import seedu.address.model.question.TagsContainKeywordsPredicate;
+import seedu.smartnus.commons.core.Messages;
+import seedu.smartnus.model.Model;
+import seedu.smartnus.model.question.TagsContainKeywordsPredicate;
 
 /**
  * Finds and lists all questions in address book whose name contains any of the argument keywords.

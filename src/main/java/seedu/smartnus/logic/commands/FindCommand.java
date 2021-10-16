@@ -6,7 +6,7 @@ import seedu.smartnus.commons.core.Messages;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.question.NameContainsKeywordsPredicate;
 
-/**
+public class FindCommand extends Command{
 
     public static final String COMMAND_WORD = "find";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all questions whose names contain any of "

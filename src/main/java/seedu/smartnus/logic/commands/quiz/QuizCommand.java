@@ -2,7 +2,7 @@ package seedu.smartnus.logic.commands.quiz;
 
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.smartnus.logic.commands.Command;
 import seedu.smartnus.logic.commands.CommandResult;

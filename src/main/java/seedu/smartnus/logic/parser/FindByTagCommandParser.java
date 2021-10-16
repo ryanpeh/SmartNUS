@@ -1,12 +1,12 @@
-package seedu.address.logic.parser;
+package seedu.smartnus.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Arrays;
 
-import seedu.address.logic.commands.FindByTagCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.question.TagsContainKeywordsPredicate;
+import seedu.smartnus.logic.commands.FindByTagCommand;
+import seedu.smartnus.logic.parser.exceptions.ParseException;
+import seedu.smartnus.model.question.TagsContainKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindByTagCommand object

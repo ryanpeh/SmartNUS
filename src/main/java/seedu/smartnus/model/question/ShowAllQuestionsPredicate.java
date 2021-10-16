@@ -1,4 +1,4 @@
-package seedu.address.model.question;
+package seedu.smartnus.model.question;
 
 import java.util.function.Predicate;
 

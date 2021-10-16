@@ -1,11 +1,11 @@
-package seedu.address.model.question;
+package seedu.smartnus.model.question;
 
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import seedu.address.commons.util.StringUtil;
-import seedu.address.model.tag.Tag;
+import seedu.smartnus.commons.util.StringUtil;
+import seedu.smartnus.model.tag.Tag;
 
 /**
  * Tests that any of a {@code Question}'s {@code Tag}s match any of the keywords given.

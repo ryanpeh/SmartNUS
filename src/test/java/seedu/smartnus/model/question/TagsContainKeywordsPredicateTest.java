@@ -1,4 +1,4 @@
-package seedu.address.model.question;
+package seedu.smartnus.model.question;
 
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -10,7 +10,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.testutil.QuestionBuilder;
+import seedu.smartnus.testutil.QuestionBuilder;
+import seedu.smartnus.model.question.TagsContainKeywordsPredicate;
 
 public class TagsContainKeywordsPredicateTest {
 
