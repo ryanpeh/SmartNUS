@@ -53,6 +53,11 @@ public class QuizCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS, false, false, true);
     }
 
+    /**
+     * Returns a single predicate that represents a logical AND of all predicates.
+     *
+     * @return A single predicate that represents a logical AND of all predicates.
+     */
     private Predicate<Question> combinePredicates() {
         Predicate<Question> combinedPredicates = new ShowAllQuestionsPredicate();
         for (Predicate<Question> predicate : predicates) {
