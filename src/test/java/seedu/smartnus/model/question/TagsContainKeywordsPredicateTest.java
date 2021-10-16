@@ -11,7 +11,6 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import seedu.smartnus.testutil.QuestionBuilder;
-import seedu.smartnus.model.question.TagsContainKeywordsPredicate;
 
 public class TagsContainKeywordsPredicateTest {
 
@@ -27,8 +26,8 @@ public class TagsContainKeywordsPredicateTest {
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same list of keywords -> returns true
-        TagsContainKeywordsPredicate secondPredicateCopy
-                = new TagsContainKeywordsPredicate(secondPredicateKeywordList);
+        TagsContainKeywordsPredicate secondPredicateCopy =
+                new TagsContainKeywordsPredicate(secondPredicateKeywordList);
         assertTrue(secondPredicate.equals(secondPredicateCopy));
 
         // different types -> returns false
