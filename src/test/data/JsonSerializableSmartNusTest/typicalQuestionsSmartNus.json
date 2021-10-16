@@ -1,0 +1,32 @@
+{
+  "_comment": "SmartNus save file which contains the same Question values as in TypicalQuestions#getTypicalSmartNus()",
+  "questions" : [ {
+    "name" : "Alice Pauline",
+    "importance" : "1",
+    "tagged" : [ "friends" ]
+  }, {
+    "name" : "Benson Meier",
+    "importance" : "2",
+    "tagged" : [ "owesMoney", "friends" ]
+  }, {
+    "name" : "Carl Kurz",
+    "importance" : "3",
+    "tagged" : [ ]
+  }, {
+    "name" : "Daniel Meier",
+    "importance" : "1",
+    "tagged" : [ "friends" ]
+  }, {
+    "name" : "Elle Meyer",
+    "importance" : "2",
+    "tagged" : [ ]
+  }, {
+    "name" : "Fiona Kunz",
+    "importance" : "3",
+    "tagged" : [ ]
+  }, {
+    "name" : "George Best",
+    "importance" : "1",
+    "tagged" : [ ]
+  } ]
+}
