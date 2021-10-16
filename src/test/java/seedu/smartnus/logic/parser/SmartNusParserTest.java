@@ -82,7 +82,7 @@ public class SmartNusParserTest {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
     }
-    
+
     @Test
     public void parseCommand_tag() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
