@@ -12,7 +12,7 @@ import seedu.smartnus.model.question.TagsContainKeywordsPredicate;
  */
 public class FindByTagCommand extends Command {
 
-    public static final String COMMAND_WORD = "ftag";
+    public static final String COMMAND_WORD = "tag";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all questions whose tags contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
