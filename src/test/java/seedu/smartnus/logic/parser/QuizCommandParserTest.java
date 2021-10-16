@@ -27,7 +27,7 @@ class QuizCommandParserTest {
 
     @Test
     void parse_withValidArgs_success() {
-        assertParseSuccess(parser, "      ", new QuizCommand());
+        assertParseSuccess(parser, "      ", new QuizCommand(new ShowAllQuestionsPredicate()));
         assertParseSuccess(parser, "", new QuizCommand(new ShowAllQuestionsPredicate()));
         assertParseSuccess(parser, " t/ST2334 t/CS2103T",
                 new QuizCommand(new TagsContainKeywordsPredicate(List.of("ST2334", "CS2103T"))));
