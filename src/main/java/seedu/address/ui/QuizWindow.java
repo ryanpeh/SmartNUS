@@ -132,8 +132,10 @@ public class QuizWindow extends UiPart<Stage> {
      * Updates the status bar with the current question number.
      */
     private void updateStatusBar() {
+        int currentQuestionNumber = quizManager.getCurrentIndex() + 1;
+        int totalQuestions = quizManager.getTotalQuestions();
         StatusBarFooter statusBarFooter = new StatusBarFooter(String.format("Question %d of %d",
-                quizManager.getCurrentIndex() + 1, quizManager.getTotalQuestions()));
+                currentQuestionNumber , totalQuestions));
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
     }
 
