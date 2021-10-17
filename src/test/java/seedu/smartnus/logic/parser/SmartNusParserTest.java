@@ -18,12 +18,14 @@ import seedu.smartnus.logic.commands.ClearCommand;
 import seedu.smartnus.logic.commands.DeleteCommand;
 import seedu.smartnus.logic.commands.EditCommand;
 import seedu.smartnus.logic.commands.ExitCommand;
+import seedu.smartnus.logic.commands.FindByTagCommand;
 import seedu.smartnus.logic.commands.FindCommand;
 import seedu.smartnus.logic.commands.HelpCommand;
 import seedu.smartnus.logic.commands.ListCommand;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
 import seedu.smartnus.model.question.NameContainsKeywordsPredicate;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.question.TagsContainKeywordsPredicate;
 import seedu.smartnus.testutil.EditQuestionDescriptorBuilder;
 import seedu.smartnus.testutil.QuestionBuilder;
 import seedu.smartnus.testutil.QuestionUtil;
@@ -79,6 +81,14 @@ public class SmartNusParserTest {
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
+    }
+
+    @Test
+    public void parseCommand_tag() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        FindByTagCommand command = (FindByTagCommand) parser.parseCommand(
+                FindByTagCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindByTagCommand(new TagsContainKeywordsPredicate(keywords)), command);
     }
 
     @Test

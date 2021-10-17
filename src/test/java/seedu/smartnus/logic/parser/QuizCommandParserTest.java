@@ -4,10 +4,15 @@ import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMA
 import static seedu.smartnus.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.smartnus.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.smartnus.logic.commands.quiz.QuizCommand;
 import seedu.smartnus.logic.parser.quiz.QuizCommandParser;
+import seedu.smartnus.model.question.ShowAllQuestionsPredicate;
+import seedu.smartnus.model.question.TagsContainKeywordsPredicate;
+
 
 class QuizCommandParserTest {
 
@@ -23,7 +28,9 @@ class QuizCommandParserTest {
 
     @Test
     void parse_withValidArgs_success() {
-        assertParseSuccess(parser, "      ", new QuizCommand());
-        assertParseSuccess(parser, "", new QuizCommand());
+        assertParseSuccess(parser, "      ", new QuizCommand(new ShowAllQuestionsPredicate()));
+        assertParseSuccess(parser, "", new QuizCommand(new ShowAllQuestionsPredicate()));
+        assertParseSuccess(parser, " t/ST2334 t/CS2103T",
+                new QuizCommand(new TagsContainKeywordsPredicate(List.of("ST2334", "CS2103T"))));
     }
 }

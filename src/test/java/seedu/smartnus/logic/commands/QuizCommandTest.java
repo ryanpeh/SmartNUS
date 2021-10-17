@@ -10,6 +10,7 @@ import seedu.smartnus.logic.commands.quiz.QuizCommand;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.ModelManager;
 import seedu.smartnus.model.UserPrefs;
+import seedu.smartnus.model.question.ShowAllQuestionsPredicate;
 
 
 class QuizCommandTest {
@@ -25,6 +26,7 @@ class QuizCommandTest {
 
     @Test
     void execute_startQuizWithoutArguments_success() {
-        assertCommandSuccess(new QuizCommand(), model, QuizCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new QuizCommand(new ShowAllQuestionsPredicate()), model,
+                QuizCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }
