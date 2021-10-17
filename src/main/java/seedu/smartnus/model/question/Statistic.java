@@ -94,7 +94,8 @@ public class Statistic {
 
     private StringBuilder appendPercentage(StringBuilder builder) {
         builder.append("; Performance: ")
-                .append(getCorrectPercentage());
+                .append(getCorrectPercentage())
+                .append("%");
         return builder;
     }
 }

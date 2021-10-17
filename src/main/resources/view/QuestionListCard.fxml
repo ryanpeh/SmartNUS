@@ -29,6 +29,7 @@
       </HBox>
       <FlowPane fx:id="tags" />
       <Label fx:id="importance" styleClass="cell_small_label" text="\$importance" />
+      <Label fx:id="statistic" styleClass="cell_small_label" text="\$statistic" />
       <FlowPane fx:id="choices" />
     </VBox>
   </GridPane>

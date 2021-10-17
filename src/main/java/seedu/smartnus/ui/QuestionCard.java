@@ -36,6 +36,8 @@ public class QuestionCard extends UiPart<Region> {
     @FXML
     private Label importance;
     @FXML
+    private Label statistic;
+    @FXML
     private FlowPane tags;
     @FXML
     private FlowPane choices;
@@ -54,6 +56,7 @@ public class QuestionCard extends UiPart<Region> {
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         question.getChoices().stream()
                 .forEach(choice -> setChoiceLabel(choice));
+        statistic.setText(question.getStatistic().toString());
     }
 
     // TODO: update choice background colours when we change gui display for quiz
