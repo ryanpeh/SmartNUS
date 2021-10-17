@@ -26,6 +26,7 @@ public class AnswerMcqCommand extends Command {
 
     private final String input;
     private final Question currentQuestion;
+    private final QuizManager quizManager;
 
     /**
      * Creates
@@ -33,6 +34,7 @@ public class AnswerMcqCommand extends Command {
     public AnswerMcqCommand(String input, QuizManager quizManager) {
         this.input = input;
         this.currentQuestion = quizManager.currQuestion();
+        this.quizManager = quizManager;
     }
 
     @Override
@@ -71,7 +73,7 @@ public class AnswerMcqCommand extends Command {
 
         assert choice != null : "Choice should not be null";
 
-        if (choice.getIsCorrect()) {
+        if (quizManager.attemptAndCheckAnswer(choice)) {
             return new CommandResult("Correct!\n" + CONTINUE_QUIZ_MESSAGE);
         } else {
             return new CommandResult("Incorrect. The correct answer is: "

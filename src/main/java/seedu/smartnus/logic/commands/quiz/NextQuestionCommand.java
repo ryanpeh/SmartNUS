@@ -31,7 +31,8 @@ public class NextQuestionCommand extends Command {
         try {
             quizManager.nextQuestion();
         } catch (QuizOutOfBoundException e) {
-            return new CommandResult(MESSAGE_END_OF_QUIZ);
+            return new CommandResult(MESSAGE_END_OF_QUIZ
+                    + "\n Here is the quiz statistic: " + quizManager.getStatistic());
         }
 
         // TODO: Change the displayed message once UI is done.

@@ -1,6 +1,8 @@
 package seedu.smartnus.model.quiz;
 
+import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.question.Statistic;
 import seedu.smartnus.model.quiz.exceptions.QuizOutOfBoundException;
 
 /**
@@ -26,4 +28,17 @@ public interface Quiz {
      * @throws QuizOutOfBoundException when navigation goes out of bound.
      */
     public Question prevQuestion() throws QuizOutOfBoundException;
+
+    /**
+     * Gets the statistic of the quiz.
+     * @return the Statistic of the quiz.
+     */
+    public Statistic getStatistic();
+
+    /**
+     * Attempts the current question.
+     * @param choice The choice to the question.
+     * @return True if the attempt is correct. False otherwise.
+     */
+    public boolean attemptAndCheckAnswer(Choice choice);
 }
