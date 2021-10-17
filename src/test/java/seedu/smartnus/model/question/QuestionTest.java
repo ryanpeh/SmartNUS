@@ -129,4 +129,32 @@ public class QuestionTest {
         ).build();
         assertTrue(validMcq.isValidQuestion());
     }
+
+    @Test
+    public void question_statistic_test() {
+
+        Choice correctChoice = new Choice("option 1", true);
+        Choice wrongChoice = new Choice("option 2", false);
+
+        Question validMcq = new QuestionBuilder().withChoices(
+                correctChoice, wrongChoice,
+                new Choice("option 3", false), new Choice("option 4", false)
+        ).build();
+
+        // test attempt count
+        assertEquals(0, validMcq.getStatistic().getAttemptCount());
+        // test correct count
+        assertEquals(0, validMcq.getStatistic().getCorrectCount());
+
+        // test give correct choice and update statistic
+        validMcq.attemptAndCheckAnswer(correctChoice);
+        assertEquals(1, validMcq.getStatistic().getAttemptCount());
+        assertEquals(1, validMcq.getStatistic().getCorrectCount());
+
+        // test give wrong choice and update statistic
+        validMcq.attemptAndCheckAnswer(wrongChoice);
+        assertEquals(2, validMcq.getStatistic().getAttemptCount());
+        assertEquals(1, validMcq.getStatistic().getCorrectCount());
+
+    }
 }
