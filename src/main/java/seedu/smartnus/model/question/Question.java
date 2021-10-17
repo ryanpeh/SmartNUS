@@ -25,6 +25,9 @@ public abstract class Question {
     private final Set<Choice> choices = new HashSet<>();
     private final ArrayList<Choice> orderedChoices = new ArrayList<>();
 
+    // Question statistic
+    private final Statistic statistic;
+
     /**
      * Every field must be present and not null.
      */
@@ -35,6 +38,26 @@ public abstract class Question {
         this.tags.addAll(tags);
         this.choices.addAll(choices);
         this.orderedChoices.addAll(choices);
+        this.statistic = new Statistic();
+        Collections.shuffle(orderedChoices);
+    }
+
+    /**
+     * Constructor for question with statistic counter.
+     * @param name The question
+     * @param importance The importance
+     * @param tags The tag
+     * @param choices The choice of answers
+     * @param statistic The statistic
+     */
+    public Question(Name name, Importance importance, Set<Tag> tags, Set<Choice> choices, Statistic statistic) {
+        requireAllNonNull(name, importance, tags);
+        this.name = name;
+        this.importance = importance;
+        this.tags.addAll(tags);
+        this.choices.addAll(choices);
+        this.orderedChoices.addAll(choices);
+        this.statistic = statistic;
         Collections.shuffle(orderedChoices);
     }
 
@@ -103,6 +126,28 @@ public abstract class Question {
 
         return otherQuestion != null
                 && otherQuestion.getName().equals(getName());
+    }
+
+    /**
+     * Updates the question statistic and returns True if the correct choice is given.
+     * @param choice The choice to be checked
+     * @return True if the choice is correct, false otherwise.
+     */
+    public boolean attemptAndCheckAnswer(Choice choice) {
+        statistic.addAttempt();
+        if (this.getCorrectChoice().equals(choice)) {
+            statistic.addCorrect();
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Returns this question's statistics.
+     * @return Statistic for this question.
+     */
+    public Statistic getStatistic() {
+        return statistic;
     }
 
     /**

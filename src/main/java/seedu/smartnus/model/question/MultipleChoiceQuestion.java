@@ -16,6 +16,11 @@ public class MultipleChoiceQuestion extends Question {
         super(name, importance, tags, choices);
     }
 
+    public MultipleChoiceQuestion(Name name, Importance importance, Set<Tag> tags,
+                                  Set<Choice> choices, Statistic statistic) {
+        super(name, importance, tags, choices, statistic);
+    }
+
     /**
      * Returns True if {@code MultipleChoiceQuestion} is valid, false otherwise.A {@code MultipleChoiceQuestion} is
      * valid if it has four choices and exactly one of the choices is correct.
