@@ -19,7 +19,7 @@ public class QuestionBuilder {
 
     public static final String DEFAULT_NAME = "Amy Bee";
     public static final String DEFAULT_IMPORTANCE = "1";
-    public static final Choice DEFAULT_CHOICE = new Choice("option 1", true);
+    public static final Choice DEFAULT_CHOICE = new Choice("option 1", false);
 
     private Name name;
     private Importance importance;

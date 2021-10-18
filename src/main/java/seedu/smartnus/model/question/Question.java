@@ -51,7 +51,7 @@ public abstract class Question {
      * @param statistic The statistic
      */
     public Question(Name name, Importance importance, Set<Tag> tags, Set<Choice> choices, Statistic statistic) {
-        requireAllNonNull(name, importance, tags);
+        requireAllNonNull(name, importance, tags, statistic);
         this.name = name;
         this.importance = importance;
         this.tags.addAll(tags);
