@@ -2,7 +2,9 @@ package seedu.smartnus.model.quiz;
 
 import java.util.List;
 
+import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.question.Statistic;
 import seedu.smartnus.model.quiz.exceptions.QuizOutOfBoundException;
 
 
@@ -15,6 +17,7 @@ public class QuizManager implements Quiz {
     private final List<Question> questions;
     private int currentIndex;
     private final int totalQuestions;
+    private final Statistic statistic;
 
     /**
      * Creates a quiz manager with a given list of questions.
@@ -24,6 +27,7 @@ public class QuizManager implements Quiz {
         this.questions = questions;
         this.currentIndex = 0;
         this.totalQuestions = questions.size();
+        this.statistic = new Statistic();
         this.shuffleQuestionChoices();
     }
 
@@ -50,6 +54,21 @@ public class QuizManager implements Quiz {
             return currQuestion();
         }
         throw new QuizOutOfBoundException();
+    }
+
+    @Override
+    public Statistic getStatistic() {
+        return statistic;
+    }
+
+    @Override
+    public boolean attemptAndCheckAnswer(Choice choice) {
+        statistic.addAttempt();
+        if (currQuestion().attemptAndCheckAnswer(choice)) {
+            statistic.addCorrect();
+            return true;
+        }
+        return false;
     }
 
     /**

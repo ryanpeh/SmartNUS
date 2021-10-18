@@ -2,6 +2,7 @@ package seedu.smartnus.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.smartnus.testutil.Assert.assertThrows;
@@ -67,6 +68,8 @@ public class SmartNusTest {
     public void hasQuestion_questionInSmartNus_returnsTrue() {
         smartNus.addQuestion(ALICE);
         assertTrue(smartNus.hasQuestion(ALICE));
+        assertNotEquals(null, smartNus.getQuestionsAsList());
+        assertNotEquals(0, smartNus.hashCode());
     }
 
     @Test

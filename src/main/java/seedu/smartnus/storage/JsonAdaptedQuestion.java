@@ -15,6 +15,7 @@ import seedu.smartnus.model.question.Importance;
 import seedu.smartnus.model.question.MultipleChoiceQuestion;
 import seedu.smartnus.model.question.Name;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.question.Statistic;
 import seedu.smartnus.model.tag.Tag;
 
 /**
@@ -28,6 +29,8 @@ class JsonAdaptedQuestion {
     private final String importance;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final List<JsonAdaptedChoice> choices = new ArrayList<>();
+    private int attemptCount = 0;
+    private int correctCount = 0;
 
     /**
      * Constructs a {@code JsonAdaptedQuestion} with the given question details.
@@ -35,7 +38,9 @@ class JsonAdaptedQuestion {
     @JsonCreator
     public JsonAdaptedQuestion(@JsonProperty("name") String name, @JsonProperty("importance") String importance,
                                @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-                               @JsonProperty("choices") List<JsonAdaptedChoice> choices) {
+                               @JsonProperty("choices") List<JsonAdaptedChoice> choices,
+                               @JsonProperty("attemptStat") int attemptCount,
+                               @JsonProperty("correctStat") int correctCount) {
         this.name = name;
         this.importance = importance;
         if (tagged != null) {
@@ -44,6 +49,8 @@ class JsonAdaptedQuestion {
         if (choices != null) {
             this.choices.addAll(choices);
         }
+        this.attemptCount = attemptCount;
+        this.correctCount = correctCount;
     }
 
     /**
@@ -58,6 +65,8 @@ class JsonAdaptedQuestion {
         choices.addAll(source.getChoices().stream()
                 .map(JsonAdaptedChoice::new)
                 .collect(Collectors.toList()));
+        attemptCount = source.getStatistic().getAttemptCount();
+        correctCount = source.getStatistic().getCorrectCount();
     }
 
     /**
@@ -98,8 +107,10 @@ class JsonAdaptedQuestion {
 
         final Set<Choice> modelChoices = new HashSet<>(questionChoices);
 
+        final Statistic statistic = new Statistic(attemptCount, correctCount);
+
         // TODO: save question type in json and instantiate correct Question type when more types are supported
-        return new MultipleChoiceQuestion(modelName, modelImportance, modelTags, modelChoices);
+        return new MultipleChoiceQuestion(modelName, modelImportance, modelTags, modelChoices, statistic);
     }
 
 }

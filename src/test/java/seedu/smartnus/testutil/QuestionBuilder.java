@@ -8,6 +8,7 @@ import seedu.smartnus.model.question.Importance;
 import seedu.smartnus.model.question.MultipleChoiceQuestion;
 import seedu.smartnus.model.question.Name;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.question.Statistic;
 import seedu.smartnus.model.tag.Tag;
 import seedu.smartnus.model.util.SampleDataUtil;
 
@@ -18,12 +19,13 @@ public class QuestionBuilder {
 
     public static final String DEFAULT_NAME = "Amy Bee";
     public static final String DEFAULT_IMPORTANCE = "1";
-    public static final Choice DEFAULT_CHOICE = new Choice("option 1", true);
+    public static final Choice DEFAULT_CHOICE = new Choice("option 1", false);
 
     private Name name;
     private Importance importance;
     private Set<Tag> tags;
     private Set<Choice> choices;
+    private Statistic statistic;
 
     /**
      * Creates a {@code QuestionBuilder} with the default details.
@@ -34,6 +36,7 @@ public class QuestionBuilder {
         tags = new HashSet<>();
         choices = new HashSet<>();
         choices.add(DEFAULT_CHOICE);
+        statistic = new Statistic();
     }
 
     /**
@@ -44,6 +47,7 @@ public class QuestionBuilder {
         importance = questionToCopy.getImportance();
         tags = new HashSet<>(questionToCopy.getTags());
         choices = new HashSet<>(questionToCopy.getChoices());
+        statistic = questionToCopy.getStatistic();
     }
 
     /**
@@ -87,7 +91,7 @@ public class QuestionBuilder {
      */
     public Question build() {
         // TODO: edit when more Question types are supported
-        return new MultipleChoiceQuestion(name, importance, tags, choices);
+        return new MultipleChoiceQuestion(name, importance, tags, choices, statistic);
     }
 
 }

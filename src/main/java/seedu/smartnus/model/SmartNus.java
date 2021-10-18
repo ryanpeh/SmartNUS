@@ -129,7 +129,7 @@ public class SmartNus implements ReadOnlySmartNus {
     public List<Question> getQuestionsAsList() {
         List<Question> allQuestions = new ArrayList<>();
         for (Question q : questions) {
-            questions.add(q);
+            allQuestions.add(q);
         }
         return allQuestions;
     }
