@@ -20,6 +20,7 @@ import seedu.smartnus.model.Model;
 import seedu.smartnus.model.ReadOnlySmartNus;
 import seedu.smartnus.model.ReadOnlyUserPrefs;
 import seedu.smartnus.model.SmartNus;
+import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.testutil.QuestionBuilder;
 
@@ -146,6 +147,31 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredQuestionList(Predicate<Question> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addNote(Note note) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteNote(Note target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setNote(Note target, Note editedNote) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Note> getFilteredNoteList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredNoteList(Predicate<Note> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
