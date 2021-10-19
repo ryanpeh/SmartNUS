@@ -3,6 +3,7 @@ package seedu.smartnus.model.note;
 import static java.util.Objects.requireNonNull;
 import static seedu.smartnus.commons.util.AppUtil.checkArgument;
 
+import java.util.Collections;
 import java.util.Set;
 
 import seedu.smartnus.model.tag.Tag;
@@ -51,7 +52,19 @@ public class Note {
 
     @Override
     public String toString() {
-        return title;
+        final StringBuilder builder = new StringBuilder();
+        appendTags(builder);
+        return builder.toString();
+    }
+
+    private StringBuilder appendTags(StringBuilder builder) {
+        Set<Tag> tags = getTags();
+        builder.append(getTitle());
+        if (!tags.isEmpty()) {
+            builder.append("; Tags: ");
+            tags.forEach(builder::append);
+        }
+        return builder;
     }
 
     @Override
@@ -71,5 +84,13 @@ public class Note {
     @Override
     public int hashCode() {
         return title.hashCode();
+    }
+
+    /**
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Tag> getTags() {
+        return Collections.unmodifiableSet(tagSet);
     }
 }
