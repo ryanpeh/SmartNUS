@@ -3,6 +3,10 @@ package seedu.smartnus.model.note;
 import static java.util.Objects.requireNonNull;
 import static seedu.smartnus.commons.util.AppUtil.checkArgument;
 
+import java.util.Set;
+
+import seedu.smartnus.model.tag.Tag;
+
 public class Note {
 
     public static final String MESSAGE_CONSTRAINTS = "Notes can take any values, and they cannot not be blank";
@@ -14,6 +18,7 @@ public class Note {
     public static final String VALIDATION_REGEX = "[^\\s].*";
 
     private final String title;
+    private Set<Tag> tagSet;
 
     /**
      * Constructs a {@code Note}.
@@ -24,6 +29,13 @@ public class Note {
         requireNonNull(title);
         checkArgument(isValidNoteTitle(title), MESSAGE_CONSTRAINTS);
         this.title = title;
+    }
+
+    public Note(String title, Set<Tag> tags) {
+        requireNonNull(title);
+        checkArgument(isValidNoteTitle(title), MESSAGE_CONSTRAINTS);
+        this.title = title;
+        this.tagSet = tags;
     }
 
     /**
