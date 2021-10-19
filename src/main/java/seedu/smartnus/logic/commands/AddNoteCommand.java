@@ -5,7 +5,7 @@ import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_NOTE;
 
 import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.model.Model;
-import seedu.smartnus.model.Note;
+import seedu.smartnus.model.note.Note;
 
 public class AddNoteCommand extends Command {
 
