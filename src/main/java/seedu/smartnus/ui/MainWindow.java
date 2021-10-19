@@ -189,6 +189,18 @@ public class MainWindow extends UiPart<Stage> {
         return questionListPanel;
     }
 
+    public NoteListPanel getNoteListPanel() {
+        return noteListPanel;
+    }
+
+    /**
+     * Lists the specified items.
+     */
+    @FXML
+    private void handleListCommand() {
+        fillInnerParts();
+    }
+
     /**
      * Executes the command and returns the result.
      *
@@ -210,6 +222,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isQuizStart()) {
                 handleQuizStart();
+            }
+
+            if (commandResult.isDisplayNotes()) {
+                handleListCommand();
             }
 
             return commandResult;
