@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.question.exceptions.DuplicateQuestionException;
 import seedu.smartnus.testutil.QuestionBuilder;
@@ -90,6 +91,7 @@ public class SmartNusTest {
      */
     private static class SmartNusStub implements ReadOnlySmartNus {
         private final ObservableList<Question> questions = FXCollections.observableArrayList();
+        private final ObservableList<Note> notes = FXCollections.observableArrayList();
 
         SmartNusStub(Collection<Question> questions) {
             this.questions.setAll(questions);
@@ -98,6 +100,11 @@ public class SmartNusTest {
         @Override
         public ObservableList<Question> getQuestionList() {
             return questions;
+        }
+
+        @Override
+        public ObservableList<Note> getNoteList() {
+            return notes;
         }
     }
 
