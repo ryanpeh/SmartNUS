@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.smartnus.commons.core.GuiSettings;
+import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
 
 /**
