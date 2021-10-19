@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.smartnus.model.note.Note;
-import seedu.smartnus.model.note.NoteName;
 import seedu.smartnus.model.tag.Tag;
 import seedu.smartnus.model.util.SampleDataUtil;
 

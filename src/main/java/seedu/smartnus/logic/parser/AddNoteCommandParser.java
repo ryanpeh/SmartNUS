@@ -13,7 +13,7 @@ import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.note.NoteName;
 import seedu.smartnus.model.tag.Tag;
 
-public class AddNoteCommandParser {
+public class AddNoteCommandParser implements Parser<AddNoteCommand> {
     public AddNoteCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NOTE, PREFIX_TAG);
