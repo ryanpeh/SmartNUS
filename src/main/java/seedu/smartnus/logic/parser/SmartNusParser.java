@@ -68,7 +68,7 @@ public class SmartNusParser {
             return new FindByTagCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return new ListCommandParser().parse(arguments);
 
         case AddMcqCommand.COMMAND_WORD:
             return new AddMcqCommandParser().parse(arguments);
