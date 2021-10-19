@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import seedu.smartnus.logic.commands.AddCommand;
 import seedu.smartnus.logic.commands.AddMcqCommand;
+import seedu.smartnus.logic.commands.AddNoteCommand;
 import seedu.smartnus.logic.commands.ClearCommand;
 import seedu.smartnus.logic.commands.Command;
 import seedu.smartnus.logic.commands.DeleteCommand;
@@ -80,6 +81,9 @@ public class SmartNusParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case AddNoteCommand.COMMAND_WORD:
+            return new AddNoteCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

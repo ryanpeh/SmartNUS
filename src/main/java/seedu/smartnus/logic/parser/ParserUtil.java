@@ -14,6 +14,7 @@ import seedu.smartnus.commons.core.index.Index;
 import seedu.smartnus.commons.util.StringUtil;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
 import seedu.smartnus.model.choice.Choice;
+import seedu.smartnus.model.note.NoteName;
 import seedu.smartnus.model.question.Importance;
 import seedu.smartnus.model.question.MultipleChoiceQuestion;
 import seedu.smartnus.model.question.Name;
@@ -61,6 +62,21 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String name} into a {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static NoteName parseNoteName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!Name.isValidName(trimmedName)) {
+            throw new ParseException(NoteName.MESSAGE_CONSTRAINTS);
+        }
+        return new NoteName(trimmedName);
     }
 
     /**
