@@ -86,6 +86,11 @@ public class SmartNusTest {
         assertThrows(UnsupportedOperationException.class, () -> smartNus.getQuestionList().remove(0));
     }
 
+    @Test
+    public void getNoteList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> smartNus.getNoteList().remove(0));
+    }
+
     /**
      * A stub ReadOnlySmartNus whose questions list can violate interface constraints.
      */
