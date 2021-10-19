@@ -1,4 +1,4 @@
-package seedu.smartnus.model;
+package seedu.smartnus.model.note;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.smartnus.commons.util.AppUtil.checkArgument;

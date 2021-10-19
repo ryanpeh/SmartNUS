@@ -4,9 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.smartnus.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
+import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.question.exceptions.DuplicateQuestionException;
+import seedu.smartnus.model.question.exceptions.QuestionNotFoundException;
 
 public class NoteList implements Iterable<Note> {
     private final ObservableList<Note> internalList = FXCollections.observableArrayList();
@@ -39,7 +43,7 @@ public class NoteList implements Iterable<Note> {
         internalList.set(index, editedNote);
     }
 
-    public void setNote(NoteList replacement) {
+    public void setNotes(NoteList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -54,6 +58,27 @@ public class NoteList implements Iterable<Note> {
     @Override
     public Iterator<Note> iterator() {
         return internalList.iterator();
+    }
+
+    /**
+     * Replaces the contents of this list with {@code questions}.
+     * {@code questions} must not contain duplicate questions.
+     */
+    public void setNotes(List<Note> notes) {
+        requireAllNonNull(notes);
+        internalList.setAll(notes);
+    }
+
+    /**
+     * Removes the equivalent question from the list.
+     * The question must exist in the list.
+     */
+    public void remove(Note toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            // todo: create an exception for this.
+            throw new QuestionNotFoundException();
+        }
     }
 
     @Override
