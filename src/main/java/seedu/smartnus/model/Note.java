@@ -3,8 +3,6 @@ package seedu.smartnus.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.smartnus.commons.util.AppUtil.checkArgument;
 
-import seedu.smartnus.model.choice.Choice;
-
 public class Note {
 
     public static final String MESSAGE_CONSTRAINTS = "Notes can take any values, and they cannot not be blank";
