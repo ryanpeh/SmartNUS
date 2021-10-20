@@ -28,8 +28,8 @@ public class MainWindow extends UiPart<Stage> {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    private Stage primaryStage;
     private Logic logic;
+    private Stage primaryStage;
 
     // Independent Ui parts residing in this Ui container
     private QuestionListPanel questionListPanel;
