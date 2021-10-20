@@ -2,6 +2,8 @@ package seedu.smartnus.logic.commands;
 
 import seedu.smartnus.model.Model;
 
+import static seedu.smartnus.model.Model.PREDICATE_SHOW_ALL_QUESTIONS;
+
 /**
  * Terminates the program.
  */
@@ -13,6 +15,7 @@ public class ExitCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
+        model.updateFilteredQuestionList(PREDICATE_SHOW_ALL_QUESTIONS);
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true, false);
     }
 
