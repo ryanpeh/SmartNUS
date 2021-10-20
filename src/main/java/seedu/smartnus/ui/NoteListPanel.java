@@ -10,20 +10,23 @@ import javafx.scene.layout.Region;
 import seedu.smartnus.commons.core.LogsCenter;
 import seedu.smartnus.model.note.Note;
 
+/**
+ * Panel containing the list of notes.
+ */
 public class NoteListPanel extends UiPart<Region> {
     private static final String FXML = "NoteListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(NoteListPanel.class);
 
-    @javafx.fxml.FXML
+    @FXML
     private ListView<Note> noteListView;
 
     /**
-     * Creates a {@code QuestionListPanel} with the given {@code ObservableList}.
+     * Creates a {@code NoteListPanel} with the given {@code ObservableList}.
      */
     public NoteListPanel(ObservableList<Note> noteList) {
         super(FXML);
         noteListView.setItems(noteList);
-        noteListView.setCellFactory(listView -> new NoteListPanel.NoteListViewCell());
+        noteListView.setCellFactory(listView -> new NoteListViewCell());
     }
 
     /**
