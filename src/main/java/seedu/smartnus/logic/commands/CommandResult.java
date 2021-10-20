@@ -21,17 +21,17 @@ public class CommandResult {
     private final boolean quizStart;
 
     /** display notes to the user. */
-    private final boolean displayNotes;
+    private final boolean isList;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean quizStart, boolean displayNotes) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean quizStart, boolean isList) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.quizStart = quizStart;
-        this.displayNotes = displayNotes;
+        this.isList = isList;
     }
 
     /**
@@ -47,12 +47,12 @@ public class CommandResult {
      * indicates the command is a {@code QuizCommand}, and other fields set to their
      * default value.
      */
-    public CommandResult(String feedbackToUser, Boolean isQuizStart, Boolean displayNotes) {
+    public CommandResult(String feedbackToUser, Boolean isQuizStart, Boolean isList) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = false;
         this.exit = false;
         this.quizStart = false;
-        this.displayNotes = false;
+        this.isList = false;
     }
 
     public String getFeedbackToUser() {
@@ -71,8 +71,8 @@ public class CommandResult {
         return quizStart;
     }
 
-    public boolean isDisplayNotes() {
-        return displayNotes;
+    public boolean isList() {
+        return isList;
     }
 
     @Override
