@@ -1,7 +1,7 @@
 package seedu.smartnus.model.quiz.exceptions;
 
 /**
- * Signals that the navigation operatibvon will result in an out of bound error.
+ * Signals that the navigation operation will result in an out of bound error.
  */
 public class QuizOutOfBoundException extends RuntimeException {
     public QuizOutOfBoundException() {
