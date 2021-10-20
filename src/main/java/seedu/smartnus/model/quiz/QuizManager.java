@@ -1,10 +1,13 @@
 package seedu.smartnus.model.quiz;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.question.Statistic;
+import seedu.smartnus.model.quiz.exceptions.QuestionAlreadyAnsweredException;
 import seedu.smartnus.model.quiz.exceptions.QuizOutOfBoundException;
 
 
@@ -18,6 +21,7 @@ public class QuizManager implements Quiz {
     private int currentIndex;
     private final int totalQuestions;
     private final Statistic statistic;
+    private final ArrayList<Choice> selectedChoices;
 
     /**
      * Creates a quiz manager with a given list of questions.
@@ -29,6 +33,7 @@ public class QuizManager implements Quiz {
         this.totalQuestions = questions.size();
         this.statistic = new Statistic();
         this.shuffleQuestionChoices();
+        this.selectedChoices = new ArrayList<>(Collections.nCopies(totalQuestions, null));
     }
 
     @Override
@@ -62,7 +67,11 @@ public class QuizManager implements Quiz {
     }
 
     @Override
-    public boolean attemptAndCheckAnswer(Choice choice) {
+    public boolean attemptAndCheckAnswer(Choice choice) throws QuestionAlreadyAnsweredException {
+        if (selectedChoices.get(currentIndex) != null) {
+            throw new QuestionAlreadyAnsweredException();
+        }
+        selectedChoices.set(currentIndex, choice);
         statistic.addAttempt();
         if (currQuestion().attemptAndCheckAnswer(choice)) {
             statistic.addCorrect();
