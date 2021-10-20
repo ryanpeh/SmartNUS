@@ -38,6 +38,8 @@ public class AddNoteCommandTest {
         assertEquals(Arrays.asList(validNote), modelStub.notesAdded);
     }
 
+    // todo: if duplicate note checker is implemented, add a test here to check if it works properly
+
     private class ModelStub implements Model {
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {

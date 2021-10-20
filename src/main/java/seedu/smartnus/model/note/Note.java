@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.smartnus.commons.util.AppUtil.checkArgument;
 
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
 
 import seedu.smartnus.model.tag.Tag;
@@ -89,7 +90,7 @@ public class Note {
 
     @Override
     public int hashCode() {
-        return title.hashCode();
+        return Objects.hash(title, tagSet);
     }
 
     /**

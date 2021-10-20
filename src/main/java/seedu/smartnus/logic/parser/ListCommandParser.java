@@ -8,7 +8,7 @@ import static seedu.smartnus.logic.parser.ParserUtil.arePrefixesPresent;
 import seedu.smartnus.logic.commands.ListCommand;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
 
-public class ListCommandParser {
+public class ListCommandParser implements Parser<ListCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the ListCommand

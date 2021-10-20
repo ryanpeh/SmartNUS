@@ -3,8 +3,10 @@ package seedu.smartnus.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX;
 import static seedu.smartnus.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.smartnus.logic.commands.CommandTestUtil.IMPORTANCE_DESC_AMY;
 import static seedu.smartnus.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.smartnus.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.smartnus.testutil.Assert.assertThrows;
 import static seedu.smartnus.testutil.TypicalQuestions.AMY;
 
@@ -58,12 +60,6 @@ public class LogicManagerTest {
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete 9";
         assertCommandException(deleteCommand, MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX);
-    }
-
-    @Test
-    public void execute_validCommand_success() throws Exception {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS_QUESTIONS, model);
     }
 
     @Test
