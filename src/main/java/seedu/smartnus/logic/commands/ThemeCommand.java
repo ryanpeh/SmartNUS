@@ -1,8 +1,8 @@
 package seedu.smartnus.logic.commands;
 
+import seedu.smartnus.commons.core.theme.Theme;
 import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.model.Model;
-import seedu.smartnus.commons.core.theme.Theme;
 
 public class ThemeCommand extends Command {
 
@@ -22,5 +22,12 @@ public class ThemeCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         model.setTheme(theme);
         return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ThemeCommand // instanceof handles nulls
+                && theme.equals(((ThemeCommand) other).theme)); // state check
     }
 }

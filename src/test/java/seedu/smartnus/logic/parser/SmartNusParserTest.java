@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.smartnus.commons.core.theme.LightTheme;
 import seedu.smartnus.logic.commands.AddCommand;
 import seedu.smartnus.logic.commands.ClearCommand;
 import seedu.smartnus.logic.commands.DeleteCommand;
@@ -22,6 +23,7 @@ import seedu.smartnus.logic.commands.FindByTagCommand;
 import seedu.smartnus.logic.commands.FindCommand;
 import seedu.smartnus.logic.commands.HelpCommand;
 import seedu.smartnus.logic.commands.ListCommand;
+import seedu.smartnus.logic.commands.ThemeCommand;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.question.predicate.NameContainsKeywordsPredicate;
@@ -106,5 +108,14 @@ public class SmartNusParserTest {
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
+    }
+
+    @Test
+    public void parseCommand_theme() throws Exception {
+        ThemeCommand command = (ThemeCommand) parser.parseCommand(
+                ThemeCommand.COMMAND_WORD + " " + ThemeCommand.LIGHT_KEYWORD);
+        assertEquals(new ThemeCommand(new LightTheme()), command);
+        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, ThemeCommand.MESSAGE_USAGE), ()
+            -> parser.parseCommand(ThemeCommand.COMMAND_WORD + " abc"));
     }
 }

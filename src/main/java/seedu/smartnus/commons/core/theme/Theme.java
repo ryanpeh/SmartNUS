@@ -3,14 +3,20 @@ package seedu.smartnus.commons.core.theme;
 import static seedu.smartnus.commons.core.theme.LightTheme.LIGHT_EXTENSION_CSS_FILE;
 import static seedu.smartnus.commons.core.theme.LightTheme.LIGHT_THEME_CSS_FILE;
 
+/**
+ * The UI Theme.
+ */
 public class Theme {
 
-    private final String THEME_CSS_FILE;
-    private final String EXTENSIONS_CSS_FILE;
+    private final String themeCssFile;
+    private final String extensionCssFile;
 
+    /**
+     * Default constructor for theme.
+     */
     public Theme() {
-        this.THEME_CSS_FILE = LIGHT_THEME_CSS_FILE;
-        this.EXTENSIONS_CSS_FILE = LIGHT_EXTENSION_CSS_FILE;
+        this.themeCssFile = LIGHT_THEME_CSS_FILE;
+        this.extensionCssFile = LIGHT_EXTENSION_CSS_FILE;
     }
 
 
@@ -20,8 +26,8 @@ public class Theme {
      * @param extensionCssFile The extension css file name.
      */
     public Theme(String themeCssFile, String extensionCssFile) {
-        this.THEME_CSS_FILE = themeCssFile;
-        this.EXTENSIONS_CSS_FILE = extensionCssFile;
+        this.themeCssFile = themeCssFile;
+        this.extensionCssFile = extensionCssFile;
     }
 
 
@@ -30,7 +36,7 @@ public class Theme {
      * @return The filename of the theme css file.
      */
     public String getThemeCssFile() {
-        return THEME_CSS_FILE;
+        return themeCssFile;
     }
 
     /**
@@ -38,7 +44,7 @@ public class Theme {
      * @return The filename of the extensions css file.
      */
     public String getExtensionsCssFile() {
-        return EXTENSIONS_CSS_FILE;
+        return extensionCssFile;
     }
 
     @Override
@@ -52,8 +58,8 @@ public class Theme {
 
         Theme o = (Theme) other;
 
-        return THEME_CSS_FILE.equals(o.THEME_CSS_FILE)
-                && EXTENSIONS_CSS_FILE.equals(o.EXTENSIONS_CSS_FILE);
+        return themeCssFile.equals(o.themeCssFile)
+                && extensionCssFile.equals(o.extensionCssFile);
     }
 
     @Override
