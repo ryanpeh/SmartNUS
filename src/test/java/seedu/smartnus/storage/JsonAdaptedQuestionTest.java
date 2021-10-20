@@ -32,6 +32,7 @@ public class JsonAdaptedQuestionTest {
             .collect(Collectors.toList());
     private static final int DEFAULT_ATTEMPT_COUNT = 0;
     private static final int DEFAULT_CORRECT_COUNT = 0;
+    private static final int VALID_QUESTION_TYPE = 0;
 
     @Test
     public void toModelType_validQuestionDetails_returnsQuestion() throws Exception {
@@ -43,7 +44,7 @@ public class JsonAdaptedQuestionTest {
     public void toModelType_invalidName_throwsIllegalValueException() {
         JsonAdaptedQuestion question =
                 new JsonAdaptedQuestion(INVALID_NAME, VALID_IMPORTANCE, VALID_TAGS,
-                        VALID_CHOICES, DEFAULT_ATTEMPT_COUNT, DEFAULT_CORRECT_COUNT);
+                        VALID_CHOICES, DEFAULT_ATTEMPT_COUNT, DEFAULT_CORRECT_COUNT, VALID_QUESTION_TYPE);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, question::toModelType);
     }
@@ -51,7 +52,7 @@ public class JsonAdaptedQuestionTest {
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
         JsonAdaptedQuestion question = new JsonAdaptedQuestion(null, VALID_IMPORTANCE, VALID_TAGS,
-                VALID_CHOICES, 0, DEFAULT_CORRECT_COUNT);
+                VALID_CHOICES, 0, DEFAULT_CORRECT_COUNT, VALID_QUESTION_TYPE);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, question::toModelType);
     }
@@ -60,7 +61,7 @@ public class JsonAdaptedQuestionTest {
     public void toModelType_invalidImportance_throwsIllegalValueException() {
         JsonAdaptedQuestion question =
                 new JsonAdaptedQuestion(VALID_NAME, INVALID_IMPORTANCE, VALID_TAGS,
-                        VALID_CHOICES, DEFAULT_ATTEMPT_COUNT, DEFAULT_CORRECT_COUNT);
+                        VALID_CHOICES, DEFAULT_ATTEMPT_COUNT, DEFAULT_CORRECT_COUNT, VALID_QUESTION_TYPE);
         String expectedMessage = Importance.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, question::toModelType);
     }
@@ -68,7 +69,7 @@ public class JsonAdaptedQuestionTest {
     @Test
     public void toModelType_nullImportance_throwsIllegalValueException() {
         JsonAdaptedQuestion question = new JsonAdaptedQuestion(VALID_NAME, null, VALID_TAGS,
-                VALID_CHOICES, DEFAULT_ATTEMPT_COUNT, DEFAULT_CORRECT_COUNT);
+                VALID_CHOICES, DEFAULT_ATTEMPT_COUNT, DEFAULT_CORRECT_COUNT, VALID_QUESTION_TYPE);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Importance.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, question::toModelType);
     }
@@ -79,7 +80,7 @@ public class JsonAdaptedQuestionTest {
         invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
         JsonAdaptedQuestion question =
                 new JsonAdaptedQuestion(VALID_NAME, VALID_IMPORTANCE, invalidTags,
-                        VALID_CHOICES, DEFAULT_ATTEMPT_COUNT, DEFAULT_CORRECT_COUNT);
+                        VALID_CHOICES, DEFAULT_ATTEMPT_COUNT, DEFAULT_CORRECT_COUNT, VALID_QUESTION_TYPE);
         assertThrows(IllegalValueException.class, question::toModelType);
     }
 

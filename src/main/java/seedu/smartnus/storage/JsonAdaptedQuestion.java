@@ -11,12 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.smartnus.commons.exceptions.IllegalValueException;
 import seedu.smartnus.model.choice.Choice;
-import seedu.smartnus.model.question.Importance;
-import seedu.smartnus.model.question.MultipleChoiceQuestion;
-import seedu.smartnus.model.question.Name;
-import seedu.smartnus.model.question.Question;
-import seedu.smartnus.model.question.Statistic;
+import seedu.smartnus.model.question.*;
 import seedu.smartnus.model.tag.Tag;
+
+import static seedu.smartnus.model.question.Question.MCQ_QUESTION_TYPE;
+import static seedu.smartnus.model.question.Question.TF_QUESTION_TYPE;
 
 /**
  * Jackson-friendly version of {@link Question}.
@@ -31,6 +30,7 @@ class JsonAdaptedQuestion {
     private final List<JsonAdaptedChoice> choices = new ArrayList<>();
     private int attemptCount = 0;
     private int correctCount = 0;
+    private int questionType = 0;
 
     /**
      * Constructs a {@code JsonAdaptedQuestion} with the given question details.
@@ -40,7 +40,8 @@ class JsonAdaptedQuestion {
                                @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
                                @JsonProperty("choices") List<JsonAdaptedChoice> choices,
                                @JsonProperty("attemptStat") int attemptCount,
-                               @JsonProperty("correctStat") int correctCount) {
+                               @JsonProperty("correctStat") int correctCount,
+                               @JsonProperty("questionType") int questionType) {
         this.name = name;
         this.importance = importance;
         if (tagged != null) {
@@ -51,6 +52,7 @@ class JsonAdaptedQuestion {
         }
         this.attemptCount = attemptCount;
         this.correctCount = correctCount;
+        this.questionType = questionType;
     }
 
     /**
@@ -67,6 +69,7 @@ class JsonAdaptedQuestion {
                 .collect(Collectors.toList()));
         attemptCount = source.getStatistic().getAttemptCount();
         correctCount = source.getStatistic().getCorrectCount();
+        questionType = source.getQuestionType();
     }
 
     /**
@@ -110,7 +113,13 @@ class JsonAdaptedQuestion {
         final Statistic statistic = new Statistic(attemptCount, correctCount);
 
         // TODO: save question type in json and instantiate correct Question type when more types are supported
-        return new MultipleChoiceQuestion(modelName, modelImportance, modelTags, modelChoices, statistic);
+        if (questionType == MCQ_QUESTION_TYPE) {
+            return new MultipleChoiceQuestion(modelName, modelImportance, modelTags, modelChoices, statistic);
+        } else if (questionType == TF_QUESTION_TYPE) {
+            return new TrueFalseQuestion(modelName, modelImportance, modelTags, modelChoices, statistic);
+        } else {
+            throw new IllegalValueException("Invalid question type!");
+        }
     }
 
 }

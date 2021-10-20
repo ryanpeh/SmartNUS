@@ -51,6 +51,11 @@ public class MultipleChoiceQuestion extends Question {
     }
 
     @Override
+    public int getQuestionType() {
+        return MCQ_QUESTION_TYPE;
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (!(other instanceof MultipleChoiceQuestion)) {
             return false;

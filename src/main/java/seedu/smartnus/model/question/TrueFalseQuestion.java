@@ -58,6 +58,11 @@ public class TrueFalseQuestion extends Question {
     }
 
     @Override
+    public int getQuestionType() {
+        return TF_QUESTION_TYPE;
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (!(other instanceof TrueFalseQuestion)) {
             return false;

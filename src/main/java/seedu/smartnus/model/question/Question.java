@@ -17,6 +17,10 @@ import seedu.smartnus.model.tag.Tag;
  */
 public abstract class Question {
 
+    // Integer representation of question types
+    public static final int MCQ_QUESTION_TYPE = 0;
+    public static final int TF_QUESTION_TYPE = 1;
+
     // Identity fields
     private final Name name;
     private final Importance importance;
@@ -179,6 +183,8 @@ public abstract class Question {
 
     // TODO: Remove maybe when UI is implemented
     public abstract String getQuestionAndOptions();
+
+    public abstract int getQuestionType();
 
     @Override
     public String toString() {
