@@ -12,7 +12,7 @@ import seedu.smartnus.logic.commands.CommandResult;
 import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.question.Question;
-import seedu.smartnus.model.question.ShowAllQuestionsPredicate;
+import seedu.smartnus.model.question.predicate.ShowAllQuestionsPredicate;
 
 /**
  * Starts a quiz
@@ -23,9 +23,10 @@ public class QuizCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Starts a quiz, takes optional arguments "
             + "specifying the questions to be included in the quiz.\n"
-            + "Parameters: " + "[" + PREFIX_TAG + "TAG]...\n"
+            + "Parameters: " + "[INDEX (must be a positive integer)] " + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TAG + "CS2103T " + PREFIX_TAG + "CS2100 ";
+            + PREFIX_TAG + "CS2103T " + PREFIX_TAG + "CS2100 \n"
+            + "Example: " + COMMAND_WORD + " 3";
 
 
     public static final String MESSAGE_SUCCESS = "Quiz started!";
@@ -34,8 +35,8 @@ public class QuizCommand extends Command {
 
     private final ArrayList<Predicate<Question>> predicates = new ArrayList<>();
 
-    public QuizCommand(Predicate<Question> tagPredicate) {
-        this.predicates.add(tagPredicate);
+    public QuizCommand(Predicate<Question> filterPredicate) {
+        this.predicates.add(filterPredicate);
     }
 
     @Override

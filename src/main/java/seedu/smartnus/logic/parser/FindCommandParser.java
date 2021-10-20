@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import seedu.smartnus.logic.commands.FindCommand;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
-import seedu.smartnus.model.question.NameContainsKeywordsPredicate;
+import seedu.smartnus.model.question.predicate.NameContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
