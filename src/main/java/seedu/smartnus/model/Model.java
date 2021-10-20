@@ -82,7 +82,7 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered quiz question list */
     ObservableList<Question> getFilteredQuizQuestionList();
-    
+
     /**
      * Updates the filter of the filtered question list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.

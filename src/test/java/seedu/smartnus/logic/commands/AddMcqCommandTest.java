@@ -163,7 +163,18 @@ class AddMcqCommandTest {
         }
 
         @Override
+        public ObservableList<Question> getFilteredQuizQuestionList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+
+        @Override
         public void updateFilteredQuestionList(Predicate<Question> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredQuizQuestionList(Predicate<Question> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }

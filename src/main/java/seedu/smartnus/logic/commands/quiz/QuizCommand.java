@@ -73,4 +73,5 @@ public class QuizCommand extends Command {
                 || (other instanceof QuizCommand) // instanceof handles nulls
                 && predicates.equals(((QuizCommand) other).predicates);
     }
+
 }
