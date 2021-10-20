@@ -3,10 +3,8 @@ package seedu.smartnus.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX;
 import static seedu.smartnus.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.smartnus.logic.commands.CommandTestUtil.IMPORTANCE_DESC_AMY;
 import static seedu.smartnus.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.smartnus.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.smartnus.testutil.Assert.assertThrows;
 import static seedu.smartnus.testutil.TypicalQuestions.AMY;
 
@@ -19,7 +17,6 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.smartnus.logic.commands.AddCommand;
 import seedu.smartnus.logic.commands.CommandResult;
-import seedu.smartnus.logic.commands.ListCommand;
 import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
 import seedu.smartnus.model.Model;
