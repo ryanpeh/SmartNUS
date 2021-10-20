@@ -20,8 +20,8 @@
     <Scene>
       <stylesheets>
         <URL value="@Fonts.css"/>
-        <URL value="@DarkTheme.css" />
-        <URL value="@Extensions.css" />
+        <URL value="@LightTheme.css" />
+        <URL value="@LightExtensions.css" />
       </stylesheets>
 
       <VBox>
