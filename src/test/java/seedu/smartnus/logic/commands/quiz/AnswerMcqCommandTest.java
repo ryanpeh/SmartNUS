@@ -1,6 +1,7 @@
 package seedu.smartnus.logic.commands.quiz;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import static seedu.smartnus.logic.commands.quiz.AnswerMcqCommand.CONTINUE_QUIZ_MESSAGE;
 import static seedu.smartnus.testutil.Assert.assertThrows;
 
