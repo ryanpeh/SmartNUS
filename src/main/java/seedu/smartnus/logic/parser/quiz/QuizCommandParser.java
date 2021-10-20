@@ -1,7 +1,6 @@
 package seedu.smartnus.logic.parser.quiz;
 
 import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;

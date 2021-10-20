@@ -87,7 +87,7 @@ public class LogicManager implements Logic {
     public ObservableList<Question> getFilteredQuizQuestionList() {
         return model.getFilteredQuizQuestionList();
     }
-    
+
     @Override
     public Path getSmartNusFilePath() {
         return model.getSmartNusFilePath();
