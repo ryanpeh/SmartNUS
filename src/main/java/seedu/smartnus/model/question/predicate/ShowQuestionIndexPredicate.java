@@ -32,4 +32,11 @@ public class ShowQuestionIndexPredicate implements Predicate<Question> {
             return false;
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ShowQuestionIndexPredicate // instanceof handles nulls
+                && targetIndex.equals(((ShowQuestionIndexPredicate) other).targetIndex)); // state check
+    }
 }
