@@ -30,9 +30,10 @@ public class AnswerMcqCommand extends Command {
     private final QuizManager quizManager;
 
     /**
-     * Creates
+     * Creates a AnswerMcqCommand
      */
     public AnswerMcqCommand(String input, QuizManager quizManager) {
+        assert(input.matches("^[a-dA-D]$"));
         this.input = input;
         this.currentQuestion = quizManager.currQuestion();
         this.quizManager = quizManager;
