@@ -1,7 +1,6 @@
 package seedu.smartnus.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX;
 import static seedu.smartnus.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.smartnus.logic.commands.CommandTestUtil.IMPORTANCE_DESC_AMY;
