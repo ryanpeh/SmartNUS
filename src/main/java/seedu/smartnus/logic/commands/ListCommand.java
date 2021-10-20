@@ -24,7 +24,7 @@ public class ListCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NOTE;
 
-    public static boolean displayQuestions = true;
+    private static boolean displayQuestions = true;
 
     /**
      * Toggles displayQuestions field based on user input.

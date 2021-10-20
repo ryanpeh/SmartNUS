@@ -32,6 +32,12 @@ public class Note {
         this.title = title;
     }
 
+    /**
+     * Constructs a {@code Note}.
+     *
+     * @param title Title of the note.
+     * @param tags the tags of the note.
+     */
     public Note(String title, Set<Tag> tags) {
         requireNonNull(title);
         checkArgument(isValidNoteTitle(title), MESSAGE_CONSTRAINTS);

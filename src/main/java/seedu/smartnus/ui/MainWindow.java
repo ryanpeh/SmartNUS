@@ -2,8 +2,6 @@ package seedu.smartnus.ui;
 
 import java.util.logging.Logger;
 
-import javafx.beans.Observable;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -19,7 +17,6 @@ import seedu.smartnus.logic.commands.CommandResult;
 import seedu.smartnus.logic.commands.ListCommand;
 import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
-import seedu.smartnus.model.note.Note;
 
 /**
  * The Main Window. Provides the basic application layout containing

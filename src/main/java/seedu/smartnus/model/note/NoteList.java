@@ -8,8 +8,6 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.smartnus.model.question.Question;
-import seedu.smartnus.model.question.exceptions.DuplicateQuestionException;
 import seedu.smartnus.model.question.exceptions.QuestionNotFoundException;
 
 public class NoteList implements Iterable<Note> {
@@ -43,10 +41,12 @@ public class NoteList implements Iterable<Note> {
         internalList.set(index, editedNote);
     }
 
+    /*
     public void setNotes(NoteList replacement) {
         requireNonNull(replacement);
-        internalList.setAll(replacement.internalList);
+        setNotes(replacement.internalList);
     }
+    */
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
@@ -61,8 +61,8 @@ public class NoteList implements Iterable<Note> {
     }
 
     /**
-     * Replaces the contents of this list with {@code questions}.
-     * {@code questions} must not contain duplicate questions.
+     * Replaces the contents of this list with {@code notes}.
+     * {@code notes} must not contain duplicate notes.
      */
     public void setNotes(List<Note> notes) {
         requireAllNonNull(notes);
