@@ -167,7 +167,6 @@ class AddMcqCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-
         @Override
         public void updateFilteredQuestionList(Predicate<Question> predicate) {
             throw new AssertionError("This method should not be called.");
