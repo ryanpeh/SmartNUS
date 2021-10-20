@@ -1,0 +1,63 @@
+package seedu.smartnus.model.question;
+
+import static seedu.smartnus.model.choice.Choice.FALSE_CHOICE_TITLE;
+import static seedu.smartnus.model.choice.Choice.TRUE_CHOICE_TITLE;
+
+import java.util.ArrayList;
+import java.util.Set;
+
+import seedu.smartnus.model.choice.Choice;
+import seedu.smartnus.model.tag.Tag;
+
+public class TrueFalseQuestion extends Question {
+
+    private static final int NUMBER_OF_CHOICES = 2;
+
+    public TrueFalseQuestion(Name name, Importance importance, Set<Tag> tags,
+                             Set<Choice> choices, Statistic statistic) {
+        super(name, importance, tags, choices, statistic);
+    }
+
+    /**
+     * Returns True if {@code TrueFalseQuestion} is valid, false otherwise.A {@code TrueFalseQuestion} is
+     * valid if it has two choices (True and False) and only one of them is correct.
+     *
+     * @return True if TrueFalseQuestion is valid, false otherwise.
+     */
+    @Override
+    public boolean isValidQuestion() {
+        int validChoices = 0;
+        int correctChoices = 0;
+        for (Choice choice : getChoices()) {
+            if (choice.getIsCorrect()) {
+                correctChoices += 1;
+            }
+            if (isValidChoice(choice)) {
+                validChoices += 1;
+            }
+        }
+        return validChoices == NUMBER_OF_CHOICES && correctChoices == 1;
+    }
+
+    private static boolean isValidChoice(Choice choice) {
+        return choice.getTitle().equals(TRUE_CHOICE_TITLE) || choice.getTitle().equals(FALSE_CHOICE_TITLE);
+    }
+
+    @Override
+    public String getQuestionAndOptions() {
+        String title = this.getName().toString();
+        ArrayList<Choice> choices = this.getOrderedChoices();
+        String options = "\na. " + choices.get(0).getTitle()
+                + "  b. " + choices.get(1).getTitle();
+        return title + options;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof TrueFalseQuestion)) {
+            return false;
+        }
+
+        return super.equals(other);
+    }
+}
