@@ -1,9 +1,10 @@
-package seedu.smartnus.model.question;
+package seedu.smartnus.model.question.predicate;
 
 import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.smartnus.commons.util.StringUtil;
+import seedu.smartnus.model.question.Question;
 
 /**
  * Tests that a {@code Question}'s {@code Name} matches any of the keywords given.
