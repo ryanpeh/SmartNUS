@@ -18,7 +18,7 @@ import seedu.smartnus.commons.core.index.Index;
 import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.SmartNus;
-import seedu.smartnus.model.question.NameContainsKeywordsPredicate;
+import seedu.smartnus.model.question.predicate.NameContainsKeywordsPredicate;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.testutil.EditQuestionDescriptorBuilder;
 

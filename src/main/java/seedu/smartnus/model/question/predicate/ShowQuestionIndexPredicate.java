@@ -1,6 +1,7 @@
-package seedu.smartnus.model.question;
+package seedu.smartnus.model.question.predicate;
 
 import seedu.smartnus.commons.core.index.Index;
+import seedu.smartnus.model.question.Question;
 
 import java.util.function.Predicate;
 

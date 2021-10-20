@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.smartnus.logic.commands.quiz.QuizCommand;
 import seedu.smartnus.logic.parser.quiz.QuizCommandParser;
-import seedu.smartnus.model.question.ShowAllQuestionsPredicate;
-import seedu.smartnus.model.question.TagsContainKeywordsPredicate;
+import seedu.smartnus.model.question.predicate.ShowAllQuestionsPredicate;
+import seedu.smartnus.model.question.predicate.TagsContainKeywordsPredicate;
 
 
 class QuizCommandParserTest {

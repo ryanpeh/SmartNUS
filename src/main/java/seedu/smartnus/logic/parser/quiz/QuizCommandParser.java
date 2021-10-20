@@ -17,9 +17,9 @@ import seedu.smartnus.logic.parser.Parser;
 import seedu.smartnus.logic.parser.ParserUtil;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
 import seedu.smartnus.model.question.Question;
-import seedu.smartnus.model.question.ShowAllQuestionsPredicate;
-import seedu.smartnus.model.question.ShowQuestionIndexPredicate;
-import seedu.smartnus.model.question.TagsContainKeywordsPredicate;
+import seedu.smartnus.model.question.predicate.ShowAllQuestionsPredicate;
+import seedu.smartnus.model.question.predicate.ShowQuestionIndexPredicate;
+import seedu.smartnus.model.question.predicate.TagsContainKeywordsPredicate;
 
 public class QuizCommandParser implements Parser<QuizCommand> {
 
@@ -40,7 +40,7 @@ public class QuizCommandParser implements Parser<QuizCommand> {
         }
 
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TAG, PREFIX_NAME);
+                ArgumentTokenizer.tokenize(args, PREFIX_TAG);
 
         if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, QuizCommand.MESSAGE_USAGE));

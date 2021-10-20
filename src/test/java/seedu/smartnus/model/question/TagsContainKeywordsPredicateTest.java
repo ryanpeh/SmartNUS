@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.smartnus.model.question.predicate.TagsContainKeywordsPredicate;
 import seedu.smartnus.testutil.QuestionBuilder;
 
 public class TagsContainKeywordsPredicateTest {
