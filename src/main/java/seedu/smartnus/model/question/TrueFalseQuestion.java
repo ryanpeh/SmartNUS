@@ -12,10 +12,15 @@ import seedu.smartnus.model.tag.Tag;
 public class TrueFalseQuestion extends Question {
 
     private static final int NUMBER_OF_CHOICES = 2;
+    public static final String MESSAGE_ANSWER_INVALID = "Only T or F is allowed as an answer!";
 
     public TrueFalseQuestion(Name name, Importance importance, Set<Tag> tags,
                              Set<Choice> choices, Statistic statistic) {
         super(name, importance, tags, choices, statistic);
+    }
+
+    public TrueFalseQuestion(Name name, Importance importance, Set<Tag> tags, Set<Choice> choices) {
+        super(name, importance, tags, choices);
     }
 
     /**

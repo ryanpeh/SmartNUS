@@ -10,7 +10,7 @@ import static seedu.smartnus.logic.parser.ParserUtil.arePrefixesPresent;
 
 import java.util.Set;
 
-import seedu.smartnus.logic.commands.AddMcqCommand;
+import seedu.smartnus.logic.commands.questions.AddMcqCommand;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
 import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.question.Importance;

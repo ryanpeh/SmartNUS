@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.smartnus.logic.commands.AddCommand;
-import seedu.smartnus.logic.commands.AddMcqCommand;
+import seedu.smartnus.logic.commands.questions.AddMcqCommand;
 import seedu.smartnus.logic.commands.ClearCommand;
 import seedu.smartnus.logic.commands.Command;
 import seedu.smartnus.logic.commands.DeleteCommand;
@@ -17,6 +17,7 @@ import seedu.smartnus.logic.commands.FindByTagCommand;
 import seedu.smartnus.logic.commands.FindCommand;
 import seedu.smartnus.logic.commands.HelpCommand;
 import seedu.smartnus.logic.commands.ListCommand;
+import seedu.smartnus.logic.commands.questions.AddTfCommand;
 import seedu.smartnus.logic.commands.quiz.QuizCommand;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
 import seedu.smartnus.logic.parser.quiz.QuizCommandParser;
@@ -71,6 +72,9 @@ public class SmartNusParser {
 
         case AddMcqCommand.COMMAND_WORD:
             return new AddMcqCommandParser().parse(arguments);
+
+        case AddTfCommand.COMMAND_WORD:
+            return new AddTfCommandParser().parse(arguments);
 
         case QuizCommand.COMMAND_WORD:
             return new QuizCommandParser().parse(arguments);
