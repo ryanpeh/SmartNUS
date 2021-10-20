@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.smartnus.commons.core.Messages;
 import seedu.smartnus.model.Model;
-import seedu.smartnus.model.question.TagsContainKeywordsPredicate;
+import seedu.smartnus.model.question.predicate.TagsContainKeywordsPredicate;
 
 /**
  * Finds and lists all questions in address book whose name contains any of the argument keywords.

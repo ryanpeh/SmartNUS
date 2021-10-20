@@ -24,6 +24,8 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Question> filteredQuestions;
     private final FilteredList<Note> filteredNotes;
+    private final FilteredList<Question> filteredQuizQuestions;
+
 
     /**
      * Initializes a ModelManager with the given smartNus and userPrefs.
@@ -38,6 +40,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredQuestions = new FilteredList<>(this.smartNus.getQuestionList());
         filteredNotes = new FilteredList<>(this.smartNus.getNoteList());
+        filteredQuizQuestions = new FilteredList<>(this.smartNus.getQuestionList());
     }
 
     public ModelManager() {
@@ -145,6 +148,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Question> getFilteredQuizQuestionList() {
+        return filteredQuizQuestions;
+    }
+
+    @Override
     public void updateFilteredQuestionList(Predicate<Question> predicate) {
         requireNonNull(predicate);
         filteredQuestions.setPredicate(predicate);
@@ -161,6 +169,12 @@ public class ModelManager implements Model {
     public void updateFilteredNoteList(Predicate<Note> predicate) {
         requireNonNull(predicate);
         filteredNotes.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredQuizQuestionList(Predicate<Question> predicate) {
+        requireNonNull(predicate);
+        filteredQuizQuestions.setPredicate(predicate);
     }
 
     @Override

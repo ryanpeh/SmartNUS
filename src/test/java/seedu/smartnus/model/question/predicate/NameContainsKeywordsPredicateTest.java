@@ -1,4 +1,4 @@
-package seedu.smartnus.model.question;
+package seedu.smartnus.model.question.predicate;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;

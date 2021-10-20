@@ -1,10 +1,11 @@
-package seedu.smartnus.model.question;
+package seedu.smartnus.model.question.predicate;
 
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
 import seedu.smartnus.commons.util.StringUtil;
+import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.tag.Tag;
 
 /**
@@ -36,4 +37,5 @@ public class TagsContainKeywordsPredicate implements Predicate<Question> {
                 || (other instanceof TagsContainKeywordsPredicate // instanceof handles nulls
                 && keywords.equals(((TagsContainKeywordsPredicate) other).keywords)); // state check
     }
+
 }
