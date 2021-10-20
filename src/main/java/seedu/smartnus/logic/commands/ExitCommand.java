@@ -1,8 +1,8 @@
 package seedu.smartnus.logic.commands;
 
-import seedu.smartnus.model.Model;
-
 import static seedu.smartnus.model.Model.PREDICATE_SHOW_ALL_QUESTIONS;
+
+import seedu.smartnus.model.Model;
 
 /**
  * Terminates the program.
