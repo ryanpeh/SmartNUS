@@ -38,7 +38,7 @@ public class ThemeTest {
         Theme theme3 = new LightTheme();
         assertEquals(theme1, theme3);
         assertNotEquals(theme1, theme2);
-        assertNotEquals("abc", theme1);
+        assertNotEquals(null, theme1);
     }
 
 }
