@@ -3,17 +3,21 @@ package seedu.smartnus.logic.parser.quiz;
 import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import seedu.smartnus.logic.commands.quiz.QuizCommand;
 import seedu.smartnus.logic.parser.ArgumentMultimap;
 import seedu.smartnus.logic.parser.ArgumentTokenizer;
 import seedu.smartnus.logic.parser.Parser;
+import seedu.smartnus.logic.parser.ParserUtil;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.question.ShowAllQuestionsPredicate;
 import seedu.smartnus.model.question.TagsContainKeywordsPredicate;
+import seedu.smartnus.model.tag.Tag;
 
 public class QuizCommandParser implements Parser<QuizCommand> {
 
@@ -30,7 +34,9 @@ public class QuizCommandParser implements Parser<QuizCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, QuizCommand.MESSAGE_USAGE));
         }
 
-        List<String> tagKeywords = argMultimap.getAllValues(PREFIX_TAG);
+        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        List<String> tagKeywords = new ArrayList<>();
+        tagList.stream().forEach(tag -> tagKeywords.add(tag.getTagName()));
 
         return new QuizCommand(getTagPredicate(tagKeywords));
     }

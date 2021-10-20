@@ -36,4 +36,5 @@ public class TagsContainKeywordsPredicate implements Predicate<Question> {
                 || (other instanceof TagsContainKeywordsPredicate // instanceof handles nulls
                 && keywords.equals(((TagsContainKeywordsPredicate) other).keywords)); // state check
     }
+
 }
