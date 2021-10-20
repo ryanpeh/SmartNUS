@@ -2,6 +2,8 @@ package seedu.smartnus.ui;
 
 import java.util.logging.Logger;
 
+import javafx.beans.Observable;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -17,6 +19,7 @@ import seedu.smartnus.logic.commands.CommandResult;
 import seedu.smartnus.logic.commands.ListCommand;
 import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
+import seedu.smartnus.model.note.Note;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -115,19 +118,49 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        if (ListCommand.getDisplayQuestions()) {
-            questionListPanel = new QuestionListPanel(logic.getFilteredQuestionList());
-            questionListPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
+        if (ListCommand.isDisplayQuestions()) {
+            fillInnerPartsWithQuestions();
         } else {
-            noteListPanel = new NoteListPanel(logic.getFilteredNoteList());
-            noteListPanelPlaceholder.getChildren().add(noteListPanel.getRoot());
+            fillInnerPartsWithNotes();
         }
+    }
 
+    /**
+     * Fills up all the placeholders of this window with questions.
+     */
+    void fillInnerPartsWithQuestions() {
+        questionListPanel = new QuestionListPanel(logic.getFilteredQuestionList());
+
+        // toggle visibility of noteList and questionList
+        questionListPanelPlaceholder.setVisible(true);
+        noteListPanelPlaceholder.setVisible(false);
+        noteListPanelPlaceholder.managedProperty().bind(noteListPanelPlaceholder.visibleProperty());
+
+        questionListPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getSmartNusFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+
+        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Fills up all the placeholders of this window with notes.
+     */
+    void fillInnerPartsWithNotes() {
+        noteListPanel = new NoteListPanel(logic.getFilteredNoteList());
+
+        // toggle visibility of noteList and questionList
+        noteListPanelPlaceholder.setVisible(true);
+        questionListPanelPlaceholder.setVisible(false);
+        questionListPanelPlaceholder.managedProperty().bind(questionListPanelPlaceholder.visibleProperty());
+
+        noteListPanelPlaceholder.getChildren().add(noteListPanel.getRoot());
+        resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -224,7 +257,7 @@ public class MainWindow extends UiPart<Stage> {
                 handleQuizStart();
             }
 
-            if (commandResult.isDisplayNotes()) {
+            if (commandResult.isList()) {
                 handleListCommand();
             }
 
