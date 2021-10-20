@@ -43,9 +43,9 @@ public class QuizCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         // TODO: Update state (model) with Quiz object?
-        model.updateFilteredQuestionList(combinePredicates());
+        model.updateFilteredQuizQuestionList(combinePredicates());
 
-        if (model.getFilteredQuestionList().isEmpty()) {
+        if (model.getFilteredQuizQuestionList().isEmpty()) {
             throw new CommandException(MESSAGE_NO_QUESTIONS);
         }
 
@@ -74,4 +74,5 @@ public class QuizCommand extends Command {
                 || (other instanceof QuizCommand) // instanceof handles nulls
                 && predicates.equals(((QuizCommand) other).predicates);
     }
+
 }
