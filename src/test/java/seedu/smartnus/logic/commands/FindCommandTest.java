@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.ModelManager;
 import seedu.smartnus.model.UserPrefs;
-import seedu.smartnus.model.question.NameContainsKeywordsPredicate;
+import seedu.smartnus.model.question.predicate.NameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
