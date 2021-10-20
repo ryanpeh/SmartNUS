@@ -43,6 +43,9 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of questions */
     ObservableList<Question> getFilteredQuestionList();
 
+    /** Returns an unmodifiable view of the filtered list of questions for quizzes */
+    ObservableList<Question> getFilteredQuizQuestionList();
+    
     /**
      * Returns the user prefs' SmartNUS file path.
      */
