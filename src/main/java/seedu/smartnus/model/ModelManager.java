@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.smartnus.commons.core.GuiSettings;
 import seedu.smartnus.commons.core.LogsCenter;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.commons.core.theme.Theme;
 
 /**
  * Represents the in-memory model of SmartNus data.
@@ -74,6 +75,17 @@ public class ModelManager implements Model {
     public void setSmartNusFilePath(Path smartNusFilePath) {
         requireNonNull(smartNusFilePath);
         userPrefs.setSmartNusFilePath(smartNusFilePath);
+    }
+
+    @Override
+    public Theme getTheme() {
+        return userPrefs.getTheme();
+    }
+
+    @Override
+    public void setTheme(Theme theme) {
+        requireNonNull(theme);
+        userPrefs.setTheme(theme);
     }
 
     //=========== SmartNus ================================================================================

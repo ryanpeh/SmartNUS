@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.smartnus.commons.core.GuiSettings;
+import seedu.smartnus.commons.core.theme.Theme;
 import seedu.smartnus.model.question.Question;
 
 /**
@@ -85,4 +86,14 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredQuestionList(Predicate<Question> predicate);
+
+    /**
+     * Sets the Theme.
+     */
+    void setTheme(Theme theme);
+
+    /**
+     * Returns the Theme.
+     */
+    Theme getTheme();
 }

@@ -2,6 +2,8 @@ package seedu.smartnus.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.smartnus.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.smartnus.logic.commands.ThemeCommand.DARK_KEYWORD;
+import static seedu.smartnus.logic.commands.ThemeCommand.LIGHT_KEYWORD;
 import static seedu.smartnus.model.question.MultipleChoiceQuestion.NUMBER_OF_INCORRECT_CHOICES;
 
 import java.util.Collection;
@@ -138,5 +140,14 @@ public class ParserUtil {
         }
         choiceSet.add(parseChoice(answer, true));
         return choiceSet;
+    }
+
+    /**
+     * Returns True if the given theme is valid.
+     * @param theme The given theme.
+     * @return True if theme is valid, false otherwise.
+     */
+    public static boolean isValidTheme(String theme) {
+        return theme.trim().equals(LIGHT_KEYWORD) || theme.trim().equals(DARK_KEYWORD);
     }
 }
