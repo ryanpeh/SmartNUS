@@ -38,7 +38,7 @@ public class ListCommand extends Command {
      * returns the boolean determining what to list.
      * @return displayQuestions
      */
-    public static boolean getDisplayQuestions() {
+    public static boolean isDisplayQuestions() {
         return displayQuestions;
     }
 
@@ -54,6 +54,6 @@ public class ListCommand extends Command {
             model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
             successMessage = MESSAGE_SUCCESS_NOTES;
         }
-        return new CommandResult(successMessage);
+        return new CommandResult(successMessage, false, false, false, true);
     }
 }
