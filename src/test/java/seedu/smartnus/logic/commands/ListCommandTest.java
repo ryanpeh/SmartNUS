@@ -23,8 +23,10 @@ public class ListCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalSmartNus(), new UserPrefs());
-        expectedModel = new ModelManager(model.getSmartNus(), new UserPrefs());
+        //        expectedModel = new ModelManager(model.getSmartNus(), new UserPrefs());
+        expectedModel = new ModelManager(getTypicalSmartNus(), new UserPrefs());
     }
+
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
