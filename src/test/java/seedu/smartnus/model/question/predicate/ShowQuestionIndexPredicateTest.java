@@ -1,15 +1,16 @@
 package seedu.smartnus.model.question.predicate;
 
-import org.junit.jupiter.api.Test;
-import seedu.smartnus.commons.core.index.Index;
-import seedu.smartnus.testutil.QuestionBuilder;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+
+import seedu.smartnus.commons.core.index.Index;
+import seedu.smartnus.testutil.QuestionBuilder;
 
 public class ShowQuestionIndexPredicateTest {
     @Test
