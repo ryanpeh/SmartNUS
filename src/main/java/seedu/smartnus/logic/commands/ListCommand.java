@@ -56,4 +56,10 @@ public class ListCommand extends Command {
         }
         return new CommandResult(successMessage, false, false, false, true);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ListCommand); // instanceof handles nulls
+    }
 }
