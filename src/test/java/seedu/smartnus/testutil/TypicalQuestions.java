@@ -27,6 +27,11 @@ public class TypicalQuestions {
             .withImportance("2")
             .withTags("owesMoney", "friends")
             .withChoices(new Choice("good guy", true)).build();
+    public static final Question MCQ_QUESTION = new QuestionBuilder().withName("What is 1+1?")
+            .withImportance("1")
+            .withChoices(new Choice("2", true),
+                    new Choice("1", false), new Choice("4", false),
+                    new Choice("3", false)).build();
     public static final Question TF_QUESTION = new QuestionBuilder().withName("Is 1+1 = 2?")
             .withImportance("2")
             .withChoices(new Choice(Choice.TRUE_CHOICE_TITLE, true),
