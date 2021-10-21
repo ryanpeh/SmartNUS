@@ -1,14 +1,24 @@
 package seedu.smartnus.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.smartnus.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.smartnus.logic.commands.CommandTestUtil.FALSE_ANSWER_DESC;
+import static seedu.smartnus.logic.commands.CommandTestUtil.IMPORTANCE_DESC_1;
+import static seedu.smartnus.logic.commands.CommandTestUtil.QUESTION_DESC_1;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_IMPORTANCE_1;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_QUESTION_1;
+import static seedu.smartnus.model.choice.Choice.FALSE_CHOICE_TITLE;
+import static seedu.smartnus.model.choice.Choice.TRUE_CHOICE_TITLE;
 import static seedu.smartnus.testutil.Assert.assertThrows;
 import static seedu.smartnus.testutil.TypicalIndexes.INDEX_FIRST_QUESTION;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
@@ -24,8 +34,13 @@ import seedu.smartnus.logic.commands.FindCommand;
 import seedu.smartnus.logic.commands.HelpCommand;
 import seedu.smartnus.logic.commands.ListCommand;
 import seedu.smartnus.logic.commands.ThemeCommand;
+import seedu.smartnus.logic.commands.questions.AddTfCommand;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
+import seedu.smartnus.model.choice.Choice;
+import seedu.smartnus.model.question.Importance;
+import seedu.smartnus.model.question.Name;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.question.TrueFalseQuestion;
 import seedu.smartnus.model.question.predicate.NameContainsKeywordsPredicate;
 import seedu.smartnus.model.question.predicate.TagsContainKeywordsPredicate;
 import seedu.smartnus.testutil.EditQuestionDescriptorBuilder;
@@ -97,6 +112,19 @@ public class SmartNusParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+    }
+
+    @Test
+    public void parseCommand_tf() throws Exception {
+        AddTfCommand command = (AddTfCommand) parser.parseCommand(
+                AddTfCommand.COMMAND_WORD + QUESTION_DESC_1 + FALSE_ANSWER_DESC + IMPORTANCE_DESC_1);
+        assertNotNull(command);
+        Set<Choice> correctChoices = new HashSet<>();
+        correctChoices.add(new Choice(TRUE_CHOICE_TITLE, false));
+        correctChoices.add(new Choice(FALSE_CHOICE_TITLE, true));
+        TrueFalseQuestion expectedQuestion = new TrueFalseQuestion(new Name(VALID_QUESTION_1),
+                new Importance(VALID_IMPORTANCE_1), new HashSet<>(), correctChoices);
+        assertEquals(new AddTfCommand(expectedQuestion), command);
     }
 
     @Test

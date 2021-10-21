@@ -27,6 +27,10 @@ public class TypicalQuestions {
             .withImportance("2")
             .withTags("owesMoney", "friends")
             .withChoices(new Choice("good guy", true)).build();
+    public static final Question TF_QUESTION = new QuestionBuilder().withName("Is 1+1 = 2?")
+            .withImportance("2")
+            .withChoices(new Choice(Choice.TRUE_CHOICE_TITLE, true),
+                    new Choice(Choice.FALSE_CHOICE_TITLE, false)).build();
     public static final Question CARL = new QuestionBuilder().withName("Carl Kurz").withImportance("3")
             .build();
     public static final Question DANIEL = new QuestionBuilder().withName("Daniel Meier").withImportance("1")

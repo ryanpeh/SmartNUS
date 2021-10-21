@@ -28,6 +28,7 @@ import seedu.smartnus.model.tag.Tag;
 class JsonAdaptedQuestion {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Question's %s field is missing!";
+    public static final String INVALID_QUESTION_TYPE_MESSAGE = "Invalid question type!";
 
     private final String name;
     private final String importance;
@@ -117,13 +118,12 @@ class JsonAdaptedQuestion {
 
         final Statistic statistic = new Statistic(attemptCount, correctCount);
 
-        // TODO: save question type in json and instantiate correct Question type when more types are supported
         if (questionType == MCQ_QUESTION_TYPE) {
             return new MultipleChoiceQuestion(modelName, modelImportance, modelTags, modelChoices, statistic);
         } else if (questionType == TF_QUESTION_TYPE) {
             return new TrueFalseQuestion(modelName, modelImportance, modelTags, modelChoices, statistic);
         } else {
-            throw new IllegalValueException("Invalid question type!");
+            throw new IllegalValueException(INVALID_QUESTION_TYPE_MESSAGE);
         }
     }
 
