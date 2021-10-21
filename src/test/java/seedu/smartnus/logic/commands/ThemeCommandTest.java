@@ -19,19 +19,44 @@ public class ThemeCommandTest {
 
 
     @Test
-    public void execute_dark_test() {
+    public void execute_once_test() {
         ThemeCommand themeCommand = new ThemeCommand(new DarkTheme());
-        String expectedMessage = ThemeCommand.MESSAGE_SUCCESS;
+        String expectedMessage = ThemeCommand.MESSAGE_SUCCESS + new DarkTheme().toString();
         Model expectedModel = new ModelManager(new SmartNus(model.getSmartNus()), new UserPrefs());
+        expectedModel.setTheme(new DarkTheme());
+        assertCommandSuccess(themeCommand, model, expectedMessage, expectedModel);
+        assertEquals(new DarkTheme(), model.getTheme());
+
+        themeCommand = new ThemeCommand(new LightTheme());
+        expectedMessage = ThemeCommand.MESSAGE_SUCCESS + new LightTheme().toString();
+        expectedModel = new ModelManager(new SmartNus(model.getSmartNus()), new UserPrefs());
+        expectedModel.setTheme(new LightTheme());
+        assertCommandSuccess(themeCommand, model, expectedMessage, expectedModel);
+        assertEquals(new LightTheme(), model.getTheme());
+    }
+
+    @Test
+    public void double_execute_dark_test() {
+        ThemeCommand themeCommand = new ThemeCommand(new DarkTheme());
+        String expectedMessage = ThemeCommand.MESSAGE_SUCCESS + new DarkTheme().toString();
+        Model expectedModel = new ModelManager(new SmartNus(model.getSmartNus()), new UserPrefs());
+        expectedModel.setTheme(new DarkTheme());
+        assertCommandSuccess(themeCommand, model, expectedMessage, expectedModel);
+        assertEquals(new DarkTheme(), model.getTheme());
+
+        themeCommand = new ThemeCommand(new DarkTheme());
+        expectedMessage = ThemeCommand.MESSAGE_NO_CHANGE + new DarkTheme().toString();
+        expectedModel = new ModelManager(new SmartNus(model.getSmartNus()), new UserPrefs());
         expectedModel.setTheme(new DarkTheme());
         assertCommandSuccess(themeCommand, model, expectedMessage, expectedModel);
         assertEquals(new DarkTheme(), model.getTheme());
     }
 
     @Test
-    public void execute_light_test() {
+    public void double_execute_light_test() {
+        // Default is already light
         ThemeCommand themeCommand = new ThemeCommand(new LightTheme());
-        String expectedMessage = ThemeCommand.MESSAGE_SUCCESS;
+        String expectedMessage = ThemeCommand.MESSAGE_NO_CHANGE + new LightTheme().toString();
         Model expectedModel = new ModelManager(new SmartNus(model.getSmartNus()), new UserPrefs());
         expectedModel.setTheme(new LightTheme());
         assertCommandSuccess(themeCommand, model, expectedMessage, expectedModel);
