@@ -1,7 +1,7 @@
 package seedu.smartnus.logic.commands.quiz;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.smartnus.logic.commands.quiz.AnswerMcqCommand.CONTINUE_QUIZ_MESSAGE;
+import static seedu.smartnus.logic.commands.quiz.AnswerMcqCommand.MESSAGE_CONTINUE_QUIZ;
 import static seedu.smartnus.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -50,7 +50,7 @@ class AnswerMcqCommandTest {
         int idx = question.getOrderedChoices().indexOf(correctChoice);
         answerMcqCommand = new AnswerMcqCommand(Character.toString("abcd".charAt(idx)), quizManager);
         assertEquals(answerMcqCommand.execute(model),
-                new CommandResult("Correct!\n" + CONTINUE_QUIZ_MESSAGE));
+                new CommandResult("Correct!\n" + MESSAGE_CONTINUE_QUIZ));
     }
 
     @Test
@@ -61,7 +61,7 @@ class AnswerMcqCommandTest {
         answerMcqCommand = new AnswerMcqCommand(Character.toString("dcba".charAt(idx)), quizManager);
         assertEquals(answerMcqCommand.execute(model),
                 new CommandResult("Incorrect. The correct answer is: "
-                        + question.getCorrectChoice().getTitle() + "\n" + CONTINUE_QUIZ_MESSAGE));
+                        + question.getCorrectChoice().getTitle() + "\n" + MESSAGE_CONTINUE_QUIZ));
     }
 
 }

@@ -65,6 +65,9 @@ public class McqChoiceGrid extends UiPart<Region> {
 
         // state check
         McqChoiceGrid card = (McqChoiceGrid) other;
-        return other == this;
+        return optionA.getText().equals(card.optionA.getText())
+                && optionB.getText().equals(card.optionB.getText())
+                && optionC.getText().equals(card.optionC.getText())
+                && optionD.getText().equals(card.optionD.getText());
     }
 }

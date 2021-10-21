@@ -22,8 +22,11 @@ public class AnswerMcqCommand extends Command {
     public static final String COMMAND_WORD = "quiz";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Starts a quiz, takes no arguments";
     public static final String MESSAGE_SUCCESS = "Quiz started!";
-    public static final String CONTINUE_QUIZ_MESSAGE = "Enter '" + NextQuestionCommand.COMMAND_WORD
+    public static final String MESSAGE_CONTINUE_QUIZ = "Enter '" + NextQuestionCommand.COMMAND_WORD
             + "' to proceed with the next question, or '" + ExitCommand.COMMAND_WORD + "' to exit the quiz";
+    public static final String MESSAGE_END_OF_QUIZ = "You have reached the end of the quiz, enter '"
+            + ExitCommand.COMMAND_WORD + "' to exit the quiz, or enter " + PrevQuestionCommand.COMMAND_WORD
+            + "to view the previous question.";
 
     private final String input;
     private final Question currentQuestion;
@@ -75,15 +78,17 @@ public class AnswerMcqCommand extends Command {
 
         assert choice != null : "Choice should not be null";
 
+        String endMessage = quizManager.isLastQuestion() ? MESSAGE_END_OF_QUIZ : MESSAGE_CONTINUE_QUIZ;
+
         try {
             if (quizManager.attemptAndCheckAnswer(choice)) {
-                return new CommandResult("Correct!\n" + CONTINUE_QUIZ_MESSAGE);
+                return new CommandResult("Correct!\n" + endMessage);
             } else {
                 return new CommandResult("Incorrect. The correct answer is: "
-                        + currentQuestion.getCorrectChoice().getTitle() + "\n" + CONTINUE_QUIZ_MESSAGE);
+                        + currentQuestion.getCorrectChoice().getTitle() + "\n" + endMessage);
             }
         } catch (QuestionAlreadyAnsweredException e) {
-            return new CommandResult("You have already answered this question.");
+            return new CommandResult("You have already answered this question.\n" + endMessage);
         }
 
 
