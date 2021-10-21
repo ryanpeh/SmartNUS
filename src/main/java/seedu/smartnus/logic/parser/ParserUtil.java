@@ -142,6 +142,23 @@ public class ParserUtil {
         return choiceSet;
     }
 
+    public static Set<Choice> parseWrongChoicesForEdit(List<String> choices) throws ParseException {
+        requireAllNonNull(choices);
+        Set<Choice> choiceSet = new HashSet<>();
+        for (String choice : choices) {
+            choiceSet.add(parseChoice(choice, false));
+        }
+        if (choiceSet.size() != choices.size()) {
+            throw new ParseException(MultipleChoiceQuestion.MESSAGE_DUPLICATE_CHOICES);
+        }
+        return choiceSet;
+    }
+    
+    public static Choice parseAnswerForEdit(String answer) throws ParseException {
+        requireNonNull(answer);
+        return parseChoice(answer, true);
+    }
+
     /**
      * Returns True if the given theme is valid.
      * @param theme The given theme.

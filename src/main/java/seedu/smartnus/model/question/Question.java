@@ -93,6 +93,20 @@ public abstract class Question {
     }
 
     /**
+     * Returns an immutable wrong choice set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Choice> getWrongChoices() {
+        Set<Choice> wrongChoices = new HashSet<>();
+        for (Choice choice : choices) {
+            if (!choice.getIsCorrect()) {
+                wrongChoices.add(choice);
+            }
+        }
+        return Collections.unmodifiableSet(wrongChoices);
+    }
+
+    /**
      * Returns a randomised ArrayList of choices.
      */
     public ArrayList<Choice> getOrderedChoices() {

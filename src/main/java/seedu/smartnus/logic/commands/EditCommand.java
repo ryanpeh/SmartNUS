@@ -1,8 +1,10 @@
 package seedu.smartnus.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_IMPORTANCE;
-import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_OPTION;
+import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.smartnus.model.Model.PREDICATE_SHOW_ALL_QUESTIONS;
 
@@ -35,12 +37,15 @@ public class EditCommand extends Command {
             + "by the index number used in the displayed question list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
+            + "[" + PREFIX_QUESTION + "QUESTION] "
             + "[" + PREFIX_IMPORTANCE + "IMPORTANCE] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_TAG + "TAG] "
+            + "[" + PREFIX_ANSWER + "ANSWER] "
+            + "[" + PREFIX_OPTION + "OPTION]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_IMPORTANCE + "3 ";
 
+    public static final String MESSAGE_UNRECOGNISED_QUESTION_TYPE = "Unrecognised question type to edit.";
     public static final String MESSAGE_EDIT_QUESTION_SUCCESS = "Edited Question: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_QUESTION = "This question already exists in SmartNUS.";
@@ -62,6 +67,7 @@ public class EditCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        assert false : "ABC";
         requireNonNull(model);
         List<Question> lastShownList = model.getFilteredQuestionList();
 
@@ -70,8 +76,12 @@ public class EditCommand extends Command {
         }
 
         Question questionToEdit = lastShownList.get(index.getZeroBased());
-        Question editedQuestion = createEditedQuestion(questionToEdit, editQuestionDescriptor);
-
+        Question editedQuestion = null;
+        if (questionToEdit instanceof MultipleChoiceQuestion) {
+            editedQuestion = createEditedMcq(questionToEdit, editQuestionDescriptor);
+        } 
+        assert editedQuestion != null : "Unrecognised question type detected in EditCommand";
+        
         if (!questionToEdit.isSameQuestion(editedQuestion) && model.hasQuestion(editedQuestion)) {
             throw new CommandException(MESSAGE_DUPLICATE_QUESTION);
         }
@@ -85,19 +95,39 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Question} with the details of {@code questionToEdit}
      * edited with {@code editQuestionDescriptor}.
      */
-    private static Question createEditedQuestion(Question questionToEdit,
-                                                 EditQuestionDescriptor editQuestionDescriptor) {
+    private static MultipleChoiceQuestion createEditedMcq(Question questionToEdit,
+                                                 EditQuestionDescriptor editQuestionDescriptor)
+            throws CommandException {
         assert questionToEdit != null;
 
         Name updatedName = editQuestionDescriptor.getName().orElse(questionToEdit.getName());
         Importance updatedImportance = editQuestionDescriptor.getImportance().orElse(questionToEdit.getImportance());
         Set<Tag> updatedTags = editQuestionDescriptor.getTags().orElse(questionToEdit.getTags());
 
-        // TODO: implement parsing for choices
-        Set<Choice> updatedChoices = questionToEdit.getChoices();
-
-        // TODO: edit when more Question types are supported
-        return new MultipleChoiceQuestion(updatedName, updatedImportance, updatedTags, updatedChoices);
+        Set<Choice> wrongChoices = editQuestionDescriptor.getWrongChoices().orElse(questionToEdit.getWrongChoices());
+        Choice answer = editQuestionDescriptor.getAnswer().orElse(questionToEdit.getCorrectChoice());
+        Set<Choice> updatedChoices = new HashSet<>(wrongChoices);
+        updatedChoices.add(answer);
+        if (!isMcqChoicesValid(updatedChoices)) {
+            throw new CommandException("Multiple Choice Questions should have one correct answer and"
+                    + " three wrong options.");
+        }
+        MultipleChoiceQuestion updatedMcq = new MultipleChoiceQuestion(updatedName, updatedImportance,
+                updatedTags,updatedChoices);
+        return updatedMcq;
+    }
+    
+    private static boolean isMcqChoicesValid(Set<Choice> choices) {
+        int wrongChoices = 0;
+        int correctChoices = 0;
+        for (Choice choice : choices) {
+            if (choice.getIsCorrect()) {
+                correctChoices += 1;
+            } else {
+                wrongChoices += 1;
+            }
+        }
+        return wrongChoices == 3 && correctChoices == 1;
     }
 
     @Override
@@ -126,6 +156,8 @@ public class EditCommand extends Command {
         private Name name;
         private Importance importance;
         private Set<Tag> tags;
+        private Set<Choice> wrongChoices;
+        private Choice answer;
 
         public EditQuestionDescriptor() {}
 
@@ -137,13 +169,15 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setImportance(toCopy.importance);
             setTags(toCopy.tags);
+            setWrongChoices(toCopy.wrongChoices);
+            setAnswer(toCopy.answer);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, importance, tags);
+            return CollectionUtil.isAnyNonNull(name, importance, tags, wrongChoices, answer);
         }
 
         public void setName(Name name) {
@@ -179,6 +213,31 @@ public class EditCommand extends Command {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
 
+        /**
+         * Sets {@code choices} to this object's {@code choices}.
+         * A defensive copy of {@code choices} is used internally.
+         */
+        public void setWrongChoices(Set<Choice> choices) {
+            this.wrongChoices = (choices != null) ? new HashSet<>(choices) : null;
+        }
+
+        /**
+         * Returns an unmodifiable set of wrong choices, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code choices} is null.
+         */
+        public Optional<Set<Choice>> getWrongChoices() {
+            return (wrongChoices != null) ? Optional.of(Collections.unmodifiableSet(wrongChoices)) : Optional.empty();
+        }
+        
+        public void setAnswer(Choice answer) {
+            this.answer = (answer != null) ? answer : null;
+        }
+
+        public Optional<Choice> getAnswer() {
+            return (answer != null) ? Optional.of(answer) : Optional.empty();
+        }
+
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -196,7 +255,9 @@ public class EditCommand extends Command {
 
             return getName().equals(e.getName())
                     && getImportance().equals(e.getImportance())
-                    && getTags().equals(e.getTags());
+                    && getTags().equals(e.getTags())
+                    && getWrongChoices().equals(e.getWrongChoices())
+                    && getAnswer().equals(e.getAnswer());
         }
     }
 }

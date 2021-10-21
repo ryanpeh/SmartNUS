@@ -2,8 +2,10 @@ package seedu.smartnus.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_IMPORTANCE;
-import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_OPTION;
+import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
@@ -14,6 +16,7 @@ import java.util.Set;
 import seedu.smartnus.commons.core.index.Index;
 import seedu.smartnus.logic.commands.EditCommand;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
+import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.tag.Tag;
 
 /**
@@ -29,7 +32,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_IMPORTANCE, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_QUESTION, PREFIX_IMPORTANCE, PREFIX_TAG, PREFIX_OPTION,
+                        PREFIX_ANSWER);
 
         Index index;
 
@@ -40,19 +44,27 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         EditCommand.EditQuestionDescriptor editQuestionDescriptor = new EditCommand.EditQuestionDescriptor();
-        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editQuestionDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+        if (argMultimap.getValue(PREFIX_QUESTION).isPresent()) {
+            editQuestionDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_QUESTION).get()));
         }
         if (argMultimap.getValue(PREFIX_IMPORTANCE).isPresent()) {
             editQuestionDescriptor.setImportance(ParserUtil.parseImportance(
                     argMultimap.getValue(PREFIX_IMPORTANCE).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editQuestionDescriptor::setTags);
-
+        if (argMultimap.getValue(PREFIX_ANSWER).isPresent()) {
+            Choice answer = ParserUtil.parseAnswerForEdit(argMultimap.getValue(PREFIX_ANSWER).get());
+            editQuestionDescriptor.setAnswer(answer);
+        }
+        Set<Choice> wrongChoices = ParserUtil.parseWrongChoicesForEdit(argMultimap.getAllValues(PREFIX_OPTION));
+        if (!wrongChoices.isEmpty()) {
+            editQuestionDescriptor.setWrongChoices(wrongChoices);
+        }
+        
         if (!editQuestionDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
-
+        
         return new EditCommand(index, editQuestionDescriptor);
     }
 
