@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -12,6 +13,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.smartnus.commons.core.GuiSettings;
 import seedu.smartnus.commons.core.LogsCenter;
+import seedu.smartnus.commons.core.theme.Theme;
 import seedu.smartnus.logic.Logic;
 import seedu.smartnus.logic.commands.CommandResult;
 import seedu.smartnus.logic.commands.ListCommand;
@@ -67,6 +69,7 @@ public class MainWindow extends UiPart<Stage> {
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
+        setTheme(logic.getTheme());
 
         setAccelerators();
 
@@ -182,6 +185,16 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    private void setTheme(Theme theme) {
+        Scene scene = primaryStage.getScene();
+        String pathToTheme = FXML_FILE_FOLDER;
+        String themeCssFile = pathToTheme + theme.getThemeCssFile();
+        String extensionCssFile = pathToTheme + theme.getExtensionsCssFile();
+        scene.getStylesheets().remove(1, scene.getStylesheets().size());
+        scene.getStylesheets().add(themeCssFile);
+        scene.getStylesheets().add(extensionCssFile);
+    }
+
     /**
      * Opens the help window or focuses on it if it's already opened.
      */
@@ -268,6 +281,8 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isList()) {
                 handleListCommand();
             }
+
+            setTheme(logic.getTheme());
 
             return commandResult;
         } catch (CommandException | ParseException e) {

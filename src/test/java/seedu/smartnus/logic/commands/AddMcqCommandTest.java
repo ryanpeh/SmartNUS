@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.smartnus.commons.core.GuiSettings;
+import seedu.smartnus.commons.core.theme.Theme;
 import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.ReadOnlySmartNus;
@@ -170,6 +171,16 @@ class AddMcqCommandTest {
 
         @Override
         public void updateFilteredQuestionList(Predicate<Question> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setTheme(Theme theme) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Theme getTheme() {
             throw new AssertionError("This method should not be called.");
         }
 
