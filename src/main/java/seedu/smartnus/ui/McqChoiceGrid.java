@@ -49,6 +49,19 @@ public class McqChoiceGrid extends UiPart<Region> {
         optionB.setText("B. " + choices.get(1).getTitle());
         optionC.setText("C. " + choices.get(2).getTitle());
         optionD.setText("D. " + choices.get(3).getTitle());
+        // TODO: Remove function below if we're enabling click to select choice.
+        disableButtons();
+        optionA.getStyleClass().add("quiz-choice-bg");
+        optionA.getStyleClass().add("quiz-choice-bg");
+        optionA.getStyleClass().add("quiz-choice-bg");
+        optionA.getStyleClass().add("quiz-choice-bg");
+    }
+
+    private void disableButtons() {
+        optionA.setDisable(true);
+        optionB.setDisable(true);
+        optionC.setDisable(true);
+        optionD.setDisable(true);
     }
 
     @Override

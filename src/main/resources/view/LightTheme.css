@@ -385,3 +385,8 @@
     -fx-background-color: #ffa500;
 }
 
+.quiz-choice:disabled {
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
