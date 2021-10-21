@@ -5,10 +5,18 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.smartnus.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.smartnus.logic.commands.CommandTestUtil.ANSWER_DESC_1;
 import static seedu.smartnus.logic.commands.CommandTestUtil.FALSE_ANSWER_DESC;
 import static seedu.smartnus.logic.commands.CommandTestUtil.IMPORTANCE_DESC_1;
+import static seedu.smartnus.logic.commands.CommandTestUtil.OPTION_DESC_3;
+import static seedu.smartnus.logic.commands.CommandTestUtil.OPTION_DESC_4;
+import static seedu.smartnus.logic.commands.CommandTestUtil.OPTION_DESC_5;
 import static seedu.smartnus.logic.commands.CommandTestUtil.QUESTION_DESC_1;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_ANSWER_1;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_IMPORTANCE_1;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_OPTION_3;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_OPTION_4;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_OPTION_5;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_QUESTION_1;
 import static seedu.smartnus.model.choice.Choice.FALSE_CHOICE_TITLE;
 import static seedu.smartnus.model.choice.Choice.TRUE_CHOICE_TITLE;
@@ -34,10 +42,13 @@ import seedu.smartnus.logic.commands.FindCommand;
 import seedu.smartnus.logic.commands.HelpCommand;
 import seedu.smartnus.logic.commands.ListCommand;
 import seedu.smartnus.logic.commands.ThemeCommand;
+import seedu.smartnus.logic.commands.questions.AddMcqCommand;
 import seedu.smartnus.logic.commands.questions.AddTfCommand;
+import seedu.smartnus.logic.commands.quiz.QuizCommand;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
 import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.question.Importance;
+import seedu.smartnus.model.question.MultipleChoiceQuestion;
 import seedu.smartnus.model.question.Name;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.question.TrueFalseQuestion;
@@ -112,6 +123,27 @@ public class SmartNusParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+    }
+
+    @Test
+    public void parseCommand_quiz() throws Exception {
+        assertTrue(parser.parseCommand(QuizCommand.COMMAND_WORD) instanceof QuizCommand);
+    }
+
+    @Test
+    public void parseCommand_mcq() throws Exception {
+        AddMcqCommand command = (AddMcqCommand) parser.parseCommand(AddMcqCommand.COMMAND_WORD
+                + QUESTION_DESC_1 + OPTION_DESC_5 + OPTION_DESC_4 + OPTION_DESC_3 + ANSWER_DESC_1 + IMPORTANCE_DESC_1);
+        assertNotNull(command);
+        Set<Choice> expectedChoices = new HashSet<>();
+        expectedChoices.add(new Choice(VALID_OPTION_5, false));
+        expectedChoices.add(new Choice(VALID_OPTION_4, false));
+        expectedChoices.add(new Choice(VALID_OPTION_3, false));
+        expectedChoices.add(new Choice(VALID_ANSWER_1, true));
+
+        MultipleChoiceQuestion expectedQuestion = new MultipleChoiceQuestion(new Name(VALID_QUESTION_1),
+                new Importance(VALID_IMPORTANCE_1), new HashSet<>(), expectedChoices);
+        assertEquals(new AddMcqCommand(expectedQuestion), command);
     }
 
     @Test
