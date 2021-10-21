@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.smartnus.commons.core.GuiSettings;
 import seedu.smartnus.commons.core.LogsCenter;
+import seedu.smartnus.commons.core.theme.Theme;
 import seedu.smartnus.model.question.Question;
 
 /**
@@ -22,6 +23,7 @@ public class ModelManager implements Model {
     private final SmartNus smartNus;
     private final UserPrefs userPrefs;
     private final FilteredList<Question> filteredQuestions;
+    private final FilteredList<Question> filteredQuizQuestions;
 
     /**
      * Initializes a ModelManager with the given smartNus and userPrefs.
@@ -35,6 +37,7 @@ public class ModelManager implements Model {
         this.smartNus = new SmartNus(smartNus);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredQuestions = new FilteredList<>(this.smartNus.getQuestionList());
+        filteredQuizQuestions = new FilteredList<>(this.smartNus.getQuestionList());
     }
 
     public ModelManager() {
@@ -74,6 +77,17 @@ public class ModelManager implements Model {
     public void setSmartNusFilePath(Path smartNusFilePath) {
         requireNonNull(smartNusFilePath);
         userPrefs.setSmartNusFilePath(smartNusFilePath);
+    }
+
+    @Override
+    public Theme getTheme() {
+        return userPrefs.getTheme();
+    }
+
+    @Override
+    public void setTheme(Theme theme) {
+        requireNonNull(theme);
+        userPrefs.setTheme(theme);
     }
 
     //=========== SmartNus ================================================================================
@@ -124,9 +138,20 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Question> getFilteredQuizQuestionList() {
+        return filteredQuizQuestions;
+    }
+
+    @Override
     public void updateFilteredQuestionList(Predicate<Question> predicate) {
         requireNonNull(predicate);
         filteredQuestions.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredQuizQuestionList(Predicate<Question> predicate) {
+        requireNonNull(predicate);
+        filteredQuizQuestions.setPredicate(predicate);
     }
 
     @Override

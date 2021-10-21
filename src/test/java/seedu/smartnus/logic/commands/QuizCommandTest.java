@@ -10,7 +10,7 @@ import seedu.smartnus.logic.commands.quiz.QuizCommand;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.ModelManager;
 import seedu.smartnus.model.UserPrefs;
-import seedu.smartnus.model.question.ShowAllQuestionsPredicate;
+import seedu.smartnus.model.question.predicate.ShowAllQuestionsPredicate;
 
 
 class QuizCommandTest {

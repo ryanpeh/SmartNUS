@@ -76,7 +76,7 @@ public class QuizWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
-        quizManager = new QuizManager(logic.getFilteredQuestionList());
+        quizManager = new QuizManager(logic.getFilteredQuizQuestionList());
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
