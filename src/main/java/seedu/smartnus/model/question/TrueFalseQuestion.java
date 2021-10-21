@@ -11,8 +11,8 @@ import seedu.smartnus.model.tag.Tag;
 
 public class TrueFalseQuestion extends Question {
 
-    private static final int NUMBER_OF_CHOICES = 2;
     public static final String MESSAGE_ANSWER_INVALID = "Only T or F is allowed as an answer!";
+    private static final int NUMBER_OF_CHOICES = 2;
 
     public TrueFalseQuestion(Name name, Importance importance, Set<Tag> tags,
                              Set<Choice> choices, Statistic statistic) {
@@ -52,8 +52,7 @@ public class TrueFalseQuestion extends Question {
     public String getQuestionAndOptions() {
         String title = this.getName().toString();
         ArrayList<Choice> choices = this.getOrderedChoices();
-        String options = "\na. " + choices.get(0).getTitle()
-                + "  b. " + choices.get(1).getTitle();
+        String options = "\n " + "1. " + choices.get(0).getTitle() + " 2. " + choices.get(1).getTitle();
         return title + options;
     }
 
