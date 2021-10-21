@@ -6,6 +6,8 @@ import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.smartnus.model.Model.PREDICATE_SHOW_ALL_NOTES;
 import static seedu.smartnus.model.Model.PREDICATE_SHOW_ALL_QUESTIONS;
 
+import java.nio.file.FileAlreadyExistsException;
+
 import seedu.smartnus.model.Model;
 
 /**
@@ -14,24 +16,26 @@ import seedu.smartnus.model.Model;
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
+    public static final String NOTE_KEYWORD = "note";
+    public static final String QUESTION_KEYWORD = "qn";
 
     public static final String MESSAGE_SUCCESS_QUESTIONS = "Listed all questions";
     public static final String MESSAGE_SUCCESS_NOTES = "Listed all notes";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": lists the contents of SmartNUS. "
             + "Parameters: "
-            + PREFIX_NOTE + ": list notes or "
-            + PREFIX_QUESTION + ": list questions "
+            + NOTE_KEYWORD + ": list notes or "
+            + QUESTION_KEYWORD + ": list questions "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NOTE;
+            + NOTE_KEYWORD;
 
     private static boolean displayQuestions = true;
 
-    /**
-     * Toggles displayQuestions field based on user input.
-     * @param showQuestions decides whether questions are to be displayed or notes.
-     */
-    public static void setDisplayQuestions(boolean showQuestions) {
-        displayQuestions = showQuestions;
+    public ListCommand(String listArg) {
+        if (listArg.equals(NOTE_KEYWORD)) {
+            displayQuestions = false;
+        } else {
+            displayQuestions = true;
+        }
     }
 
     /**
@@ -41,7 +45,6 @@ public class ListCommand extends Command {
     public static boolean isDisplayQuestions() {
         return displayQuestions;
     }
-
 
     @Override
     public CommandResult execute(Model model) {
