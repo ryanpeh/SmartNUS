@@ -7,6 +7,8 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 import seedu.smartnus.commons.core.GuiSettings;
+import seedu.smartnus.commons.core.theme.LightTheme;
+import seedu.smartnus.commons.core.theme.Theme;
 
 /**
  * Represents User's preferences.
@@ -15,6 +17,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path smartNusFilePath = Paths.get("data" , "smartnus.json");
+    private Theme theme = new LightTheme();
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -36,6 +39,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setSmartNusFilePath(newUserPrefs.getSmartNusFilePath());
+        setTheme(newUserPrefs.getTheme());
     }
 
     public GuiSettings getGuiSettings() {
@@ -45,6 +49,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
         this.guiSettings = guiSettings;
+    }
+
+    public Theme getTheme() {
+        return theme;
+    }
+
+    public void setTheme(Theme theme) {
+        requireNonNull(theme);
+        this.theme = theme;
     }
 
     public Path getSmartNusFilePath() {
@@ -68,7 +81,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && smartNusFilePath.equals(o.smartNusFilePath);
+                && smartNusFilePath.equals(o.smartNusFilePath)
+                && theme.equals(o.theme);
     }
 
     @Override
@@ -81,6 +95,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + smartNusFilePath);
+        sb.append("\nTheme: " + theme);
         return sb.toString();
     }
 

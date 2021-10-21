@@ -4,6 +4,7 @@ import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
 import seedu.smartnus.commons.core.GuiSettings;
+import seedu.smartnus.commons.core.theme.Theme;
 import seedu.smartnus.logic.commands.CommandResult;
 import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
@@ -43,6 +44,9 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of questions */
     ObservableList<Question> getFilteredQuestionList();
 
+    /** Returns an unmodifiable view of the filtered list of questions for quizzes */
+    ObservableList<Question> getFilteredQuizQuestionList();
+
     /**
      * Returns the user prefs' SmartNUS file path.
      */
@@ -57,4 +61,14 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Returns the user pref's theme.
+     */
+    Theme getTheme();
+
+    /**
+     * Sets the user pref's tehme.
+     */
+    void setTheme(Theme theme);
 }

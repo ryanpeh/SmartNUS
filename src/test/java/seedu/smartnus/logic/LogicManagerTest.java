@@ -15,6 +15,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import seedu.smartnus.commons.core.theme.LightTheme;
+import seedu.smartnus.commons.core.theme.Theme;
 import seedu.smartnus.logic.commands.AddCommand;
 import seedu.smartnus.logic.commands.CommandResult;
 import seedu.smartnus.logic.commands.ListCommand;
@@ -88,6 +90,17 @@ public class LogicManagerTest {
     @Test
     public void getFilteredQuestionList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredQuestionList().remove(0));
+    }
+
+    @Test
+    public void getFilteredQuizQuestionList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredQuizQuestionList().remove(0));
+    }
+
+    @Test
+    public void theme_test() {
+        logic.setTheme(new Theme());
+        assertEquals(new LightTheme(), logic.getTheme());
     }
 
     /**

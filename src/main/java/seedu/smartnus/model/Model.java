@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.smartnus.commons.core.GuiSettings;
+import seedu.smartnus.commons.core.theme.Theme;
 import seedu.smartnus.model.question.Question;
 
 /**
@@ -80,9 +81,28 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered question list */
     ObservableList<Question> getFilteredQuestionList();
 
+    /** Returns an unmodifiable view of the filtered quiz question list */
+    ObservableList<Question> getFilteredQuizQuestionList();
+
     /**
      * Updates the filter of the filtered question list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredQuestionList(Predicate<Question> predicate);
+
+    /**
+     * Updates the filter of the filtered quiz question list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredQuizQuestionList(Predicate<Question> predicate);
+
+    /**
+     * Sets the Theme.
+     */
+    void setTheme(Theme theme);
+
+    /**
+     * Returns the Theme.
+     */
+    Theme getTheme();
 }

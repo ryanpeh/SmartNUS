@@ -11,6 +11,7 @@ import seedu.smartnus.model.Model;
 import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.quiz.QuizManager;
+import seedu.smartnus.model.quiz.exceptions.QuestionAlreadyAnsweredException;
 
 
 /**
@@ -29,9 +30,10 @@ public class AnswerMcqCommand extends Command {
     private final QuizManager quizManager;
 
     /**
-     * Creates
+     * Creates a AnswerMcqCommand
      */
     public AnswerMcqCommand(String input, QuizManager quizManager) {
+        assert(input.matches("^[a-dA-D]$"));
         this.input = input;
         this.currentQuestion = quizManager.currQuestion();
         this.quizManager = quizManager;
@@ -73,12 +75,18 @@ public class AnswerMcqCommand extends Command {
 
         assert choice != null : "Choice should not be null";
 
-        if (quizManager.attemptAndCheckAnswer(choice)) {
-            return new CommandResult("Correct!\n" + CONTINUE_QUIZ_MESSAGE);
-        } else {
-            return new CommandResult("Incorrect. The correct answer is: "
-                    + currentQuestion.getCorrectChoice().getTitle() + "\n" + CONTINUE_QUIZ_MESSAGE);
+        try {
+            if (quizManager.attemptAndCheckAnswer(choice)) {
+                return new CommandResult("Correct!\n" + CONTINUE_QUIZ_MESSAGE);
+            } else {
+                return new CommandResult("Incorrect. The correct answer is: "
+                        + currentQuestion.getCorrectChoice().getTitle() + "\n" + CONTINUE_QUIZ_MESSAGE);
+            }
+        } catch (QuestionAlreadyAnsweredException e) {
+            return new CommandResult("You have already answered this question.");
         }
+
+
     }
 
     @Override

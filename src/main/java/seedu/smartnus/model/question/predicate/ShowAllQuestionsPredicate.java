@@ -1,6 +1,9 @@
-package seedu.smartnus.model.question;
+package seedu.smartnus.model.question.predicate;
 
 import java.util.function.Predicate;
+
+import seedu.smartnus.model.question.Question;
+
 
 
 /**
