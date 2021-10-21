@@ -234,7 +234,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseTrueFalseAnswer_validValuesWithWhitespace_returnsChoice() throws Exception {
-        Set<Choice> expectedChoices =  new HashSet<>();
+        Set<Choice> expectedChoices = new HashSet<>();
         expectedChoices.add(new Choice(TRUE_CHOICE_TITLE, true));
         expectedChoices.add(new Choice(FALSE_CHOICE_TITLE, false));
         Set<Choice> actualChoices = ParserUtil.parseTrueFalseAnswer(WHITESPACE + ANSWER_TRUE + WHITESPACE);
