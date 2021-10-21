@@ -37,14 +37,14 @@ public class TrueFalseQuestion extends Question {
             if (choice.getIsCorrect()) {
                 correctChoices += 1;
             }
-            if (isValidChoice(choice)) {
+            if (isValidTrueFalseChoice(choice)) {
                 validChoices += 1;
             }
         }
         return validChoices == NUMBER_OF_CHOICES && correctChoices == 1;
     }
 
-    private static boolean isValidChoice(Choice choice) {
+    public static boolean isValidTrueFalseChoice(Choice choice) {
         return choice.getTitle().equals(TRUE_CHOICE_TITLE) || choice.getTitle().equals(FALSE_CHOICE_TITLE);
     }
 
