@@ -30,7 +30,7 @@ public class ListCommand extends Command {
      * Toggles displayQuestions field based on user input.
      * @param showQuestions decides whether questions are to be displayed or notes.
      */
-    public static void listQuestions(boolean showQuestions) {
+    public static void setDisplayQuestions(boolean showQuestions) {
         displayQuestions = showQuestions;
     }
 

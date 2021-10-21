@@ -27,13 +27,13 @@ public class ListCommandParser implements Parser<ListCommand> {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
             } else {
                 // question is empty, note is not empty
-                ListCommand.listQuestions(false);
+                ListCommand.setDisplayQuestions(false);
             }
         } else if (!arePrefixesPresent(argMultimap, PREFIX_NOTE)) {
             if (!arePrefixesPresent(argMultimap, PREFIX_QUESTION)) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
             } else {
-                ListCommand.listQuestions(true);
+                ListCommand.setDisplayQuestions(true);
             }
         }
         return new ListCommand();
