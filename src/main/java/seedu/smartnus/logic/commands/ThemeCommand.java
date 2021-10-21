@@ -10,7 +10,8 @@ public class ThemeCommand extends Command {
     public static final String LIGHT_KEYWORD = "light";
     public static final String DARK_KEYWORD = "dark";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " light/dark";
-    public static final String MESSAGE_SUCCESS = "Changed the theme";
+    public static final String MESSAGE_SUCCESS = "Changed the theme to: ";
+    public static final String MESSAGE_NO_CHANGE = "Theme is already: ";
 
     private Theme theme;
 
@@ -20,8 +21,11 @@ public class ThemeCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        if (model.getTheme().equals(theme)) {
+            return new CommandResult(MESSAGE_NO_CHANGE + theme);
+        }
         model.setTheme(theme);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS + theme);
     }
 
     @Override
