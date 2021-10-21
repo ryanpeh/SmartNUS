@@ -23,7 +23,7 @@ public class ListCommandParser implements Parser<ListCommand> {
         if (!arePrefixesPresent(argMultimap, PREFIX_QUESTION)) {
             // if prefix note is empty, true.
             if (!arePrefixesPresent(argMultimap, PREFIX_NOTE)) {
-                // both cannot be empty.
+                // both cannot be empty.l
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
             } else {
                 // question is empty, note is not empty

@@ -112,14 +112,25 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Fills up all the placeholders of this window.
+     * Fills up all the placeholders of this window with questions.
      */
     void fillInnerParts() {
-        if (ListCommand.isDisplayQuestions()) {
-            fillInnerPartsWithQuestions();
-        } else {
-            fillInnerPartsWithNotes();
-        }
+        questionListPanel = new QuestionListPanel(logic.getFilteredQuestionList());
+
+        // toggle visibility of noteList and questionList
+        questionListPanelPlaceholder.setVisible(true);
+        noteListPanelPlaceholder.setVisible(false);
+        noteListPanelPlaceholder.managedProperty().bind(noteListPanelPlaceholder.visibleProperty());
+
+        questionListPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
+        resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getSmartNusFilePath());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+
+        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
     /**
@@ -134,8 +145,6 @@ public class MainWindow extends UiPart<Stage> {
         noteListPanelPlaceholder.managedProperty().bind(noteListPanelPlaceholder.visibleProperty());
 
         questionListPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
-        resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getSmartNusFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
@@ -156,8 +165,6 @@ public class MainWindow extends UiPart<Stage> {
         questionListPanelPlaceholder.managedProperty().bind(questionListPanelPlaceholder.visibleProperty());
 
         noteListPanelPlaceholder.getChildren().add(noteListPanel.getRoot());
-        resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -228,7 +235,11 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleListCommand() {
-        fillInnerParts();
+        if (ListCommand.isDisplayQuestions()) {
+            fillInnerPartsWithQuestions();
+        } else {
+            fillInnerPartsWithNotes();
+        }
     }
 
     /**
