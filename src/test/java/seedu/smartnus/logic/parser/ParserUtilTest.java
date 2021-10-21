@@ -2,7 +2,11 @@ package seedu.smartnus.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.smartnus.logic.parser.AddTfCommandParser.ANSWER_FALSE;
+import static seedu.smartnus.logic.parser.AddTfCommandParser.ANSWER_TRUE;
 import static seedu.smartnus.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static seedu.smartnus.model.choice.Choice.FALSE_CHOICE_TITLE;
+import static seedu.smartnus.model.choice.Choice.TRUE_CHOICE_TITLE;
 import static seedu.smartnus.testutil.Assert.assertThrows;
 import static seedu.smartnus.testutil.TypicalIndexes.INDEX_FIRST_QUESTION;
 
@@ -26,6 +30,7 @@ public class ParserUtilTest {
     private static final String INVALID_TAG = "#friend";
     private static final String INVALID_ANSWER = " ";
     private static final String INVALID_CHOICE = " ";
+    private static final String INVALID_TRUE_FALSE_ANSWER = "5";
 
     private static final String VALID_IMPORTANCE = "1";
     private static final String VALID_NAME = "Rachel Walker";
@@ -212,4 +217,35 @@ public class ParserUtilTest {
                 Arrays.asList(VALID_CHOICE_1, VALID_CHOICE_2, VALID_CHOICE_3),
                 INVALID_ANSWER));
     }
+
+    @Test
+    public void parseTrueFalseAnswer_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseTrueFalseAnswer(null));
+    }
+
+    @Test
+    public void parseTrueFalseAnswer_validValues_returnsChoices() throws Exception {
+        Set<Choice> expectedChoices = new HashSet<>();
+        expectedChoices.add(new Choice(TRUE_CHOICE_TITLE, false));
+        expectedChoices.add(new Choice(FALSE_CHOICE_TITLE, true));
+        Set<Choice> actualChoices = ParserUtil.parseTrueFalseAnswer(ANSWER_FALSE);
+        assertEquals(actualChoices, expectedChoices);
+    }
+
+    @Test
+    public void parseTrueFalseAnswer_validValuesWithWhitespace_returnsChoice() throws Exception {
+        Set<Choice> expectedChoices =  new HashSet<>();
+        expectedChoices.add(new Choice(TRUE_CHOICE_TITLE, true));
+        expectedChoices.add(new Choice(FALSE_CHOICE_TITLE, false));
+        Set<Choice> actualChoices = ParserUtil.parseTrueFalseAnswer(WHITESPACE + ANSWER_TRUE + WHITESPACE);
+        assertEquals(actualChoices, expectedChoices);
+    }
+
+    @Test
+    public void parseTrueFalseAnswer_invalidValues_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseTrueFalseAnswer(INVALID_ANSWER));
+        assertThrows(ParseException.class, () -> ParserUtil.parseTrueFalseAnswer(INVALID_TRUE_FALSE_ANSWER));
+    }
+
+
 }
