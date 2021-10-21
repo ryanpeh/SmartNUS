@@ -1,5 +1,8 @@
 package seedu.smartnus.storage;
 
+import static seedu.smartnus.model.question.Question.MCQ_QUESTION_TYPE;
+import static seedu.smartnus.model.question.Question.TF_QUESTION_TYPE;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -11,11 +14,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.smartnus.commons.exceptions.IllegalValueException;
 import seedu.smartnus.model.choice.Choice;
-import seedu.smartnus.model.question.*;
+import seedu.smartnus.model.question.Importance;
+import seedu.smartnus.model.question.MultipleChoiceQuestion;
+import seedu.smartnus.model.question.Name;
+import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.question.Statistic;
+import seedu.smartnus.model.question.TrueFalseQuestion;
 import seedu.smartnus.model.tag.Tag;
-
-import static seedu.smartnus.model.question.Question.MCQ_QUESTION_TYPE;
-import static seedu.smartnus.model.question.Question.TF_QUESTION_TYPE;
 
 /**
  * Jackson-friendly version of {@link Question}.

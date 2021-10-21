@@ -20,6 +20,9 @@ public class AnswerTfCommand extends Command {
     private final Question currentQuestion;
     private final QuizManager quizManager;
 
+    /**
+     * Creates
+     */
     public AnswerTfCommand(String input, QuizManager quizManager) {
         this.input = input;
         this.currentQuestion = quizManager.currQuestion();

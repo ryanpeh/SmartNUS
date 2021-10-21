@@ -1,18 +1,22 @@
 package seedu.smartnus.logic.parser;
 
-import seedu.smartnus.logic.commands.questions.AddMcqCommand;
-import seedu.smartnus.logic.commands.questions.AddTfCommand;
-import seedu.smartnus.logic.parser.exceptions.ParseException;
-import seedu.smartnus.model.choice.Choice;
-import seedu.smartnus.model.question.*;
-import seedu.smartnus.model.tag.Tag;
+import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_ANSWER;
+import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_IMPORTANCE;
+import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_QUESTION;
+import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.smartnus.logic.parser.ParserUtil.arePrefixesPresent;
 
 import java.util.Set;
 
-import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.smartnus.logic.parser.CliSyntax.*;
-import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_ANSWER;
-import static seedu.smartnus.logic.parser.ParserUtil.arePrefixesPresent;
+import seedu.smartnus.logic.commands.questions.AddTfCommand;
+import seedu.smartnus.logic.parser.exceptions.ParseException;
+import seedu.smartnus.model.choice.Choice;
+import seedu.smartnus.model.question.Importance;
+import seedu.smartnus.model.question.Name;
+import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.question.TrueFalseQuestion;
+import seedu.smartnus.model.tag.Tag;
 
 public class AddTfCommandParser implements Parser<AddTfCommand> {
 

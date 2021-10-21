@@ -1,19 +1,22 @@
 package seedu.smartnus.logic.commands.questions;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.smartnus.logic.commands.AddCommand.MESSAGE_DUPLICATE_QUESTION;
+
 import seedu.smartnus.logic.commands.Command;
 import seedu.smartnus.logic.commands.CommandResult;
 import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.question.Question;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.smartnus.logic.commands.AddCommand.MESSAGE_DUPLICATE_QUESTION;
-
 public class AddQuestionCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New question added: %s";
     private final Question toAdd;
 
+    /**
+     * @param question The question to add to SmartNus
+     */
     public AddQuestionCommand(Question question) {
         requireNonNull(question);
         this.toAdd = question;
