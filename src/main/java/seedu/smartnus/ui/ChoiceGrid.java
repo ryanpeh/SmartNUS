@@ -14,7 +14,7 @@ import seedu.smartnus.model.quiz.QuizManager;
 /**
  * An UI component that displays information of a {@code Question}.
  */
-public class McqChoiceGrid extends UiPart<Region> {
+public class ChoiceGrid extends UiPart<Region> {
 
     private static final String FXML = "McqChoiceGrid.fxml";
 
@@ -41,7 +41,7 @@ public class McqChoiceGrid extends UiPart<Region> {
     /**
      * Creates a {@code QuestionCard} with the given {@code Question} and index to display.
      */
-    public McqChoiceGrid(QuizManager quizManager) {
+    public ChoiceGrid(QuizManager quizManager) {
         super(FXML);
         Question question = quizManager.currQuestion();
         ArrayList<Choice> choices = question.getOrderedChoices();
@@ -73,10 +73,7 @@ public class McqChoiceGrid extends UiPart<Region> {
         }
 
         // state check
-        McqChoiceGrid card = (McqChoiceGrid) other;
-        return optionA.getText().equals(card.optionA.getText())
-                && optionB.getText().equals(card.optionB.getText())
-                && optionC.getText().equals(card.optionC.getText())
-                && optionD.getText().equals(card.optionD.getText());
+        // McqChoiceGrid card = (McqChoiceGrid) other;
+        return false;
     }
 }

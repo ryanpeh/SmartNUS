@@ -1,7 +1,5 @@
 package seedu.smartnus.ui;
 
-import java.util.ArrayList;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
@@ -10,13 +8,15 @@ import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.quiz.QuizManager;
 
+import java.util.ArrayList;
+
 
 /**
  * An UI component that displays information of a {@code Question}.
  */
-public class McqChoiceGrid extends UiPart<Region> {
+public class TfqChoiceGrid extends UiPart<Region> {
 
-    private static final String FXML = "McqChoiceGrid.fxml";
+    private static final String FXML = "TfqChoiceGrid.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -27,37 +27,26 @@ public class McqChoiceGrid extends UiPart<Region> {
      */
 
     @FXML
-    private GridPane mcqGrid;
+    private GridPane tfqGrid;
     @FXML
-    private Button optionA;
+    private Button optionTrue;
     @FXML
-    private Button optionB;
-    @FXML
-    private Button optionC;
-    @FXML
-    private Button optionD;
+    private Button optionFalse;
 
 
     /**
      * Creates a {@code QuestionCard} with the given {@code Question} and index to display.
      */
-    public McqChoiceGrid(QuizManager quizManager) {
+    public TfqChoiceGrid(QuizManager quizManager) {
         super(FXML);
         Question question = quizManager.currQuestion();
-        ArrayList<Choice> choices = question.getOrderedChoices();
-        optionA.setText("A. " + choices.get(0).getTitle());
-        optionB.setText("B. " + choices.get(1).getTitle());
-        optionC.setText("C. " + choices.get(2).getTitle());
-        optionD.setText("D. " + choices.get(3).getTitle());
         // TODO: Remove function below if we're enabling click to select choice.
         disableButtons();
     }
 
     private void disableButtons() {
-        optionA.setDisable(true);
-        optionB.setDisable(true);
-        optionC.setDisable(true);
-        optionD.setDisable(true);
+        optionTrue.setDisable(true);
+        optionFalse.setDisable(true);
     }
 
     @Override
@@ -68,15 +57,12 @@ public class McqChoiceGrid extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof McqChoiceGrid)) {
+        if (!(other instanceof TfqChoiceGrid)) {
             return false;
         }
 
         // state check
-        McqChoiceGrid card = (McqChoiceGrid) other;
-        return optionA.getText().equals(card.optionA.getText())
-                && optionB.getText().equals(card.optionB.getText())
-                && optionC.getText().equals(card.optionC.getText())
-                && optionD.getText().equals(card.optionD.getText());
+        TfqChoiceGrid card = (TfqChoiceGrid) other;
+        return card == other;
     }
 }

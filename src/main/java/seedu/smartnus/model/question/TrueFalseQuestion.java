@@ -56,6 +56,12 @@ public class TrueFalseQuestion extends Question {
         return title + options;
     }
 
+    /**
+     * Shuffling does nothing for True False questions.
+     **/
+    @Override
+    public void shuffleChoices() {}
+
     @Override
     public int getQuestionType() {
         return TF_QUESTION_TYPE;

@@ -18,6 +18,7 @@ import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
 import seedu.smartnus.model.question.MultipleChoiceQuestion;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.question.TrueFalseQuestion;
 import seedu.smartnus.model.quiz.QuizManager;
 
 
@@ -161,6 +162,9 @@ public class QuizWindow extends UiPart<Stage> {
         if (quizManager.currQuestion() instanceof MultipleChoiceQuestion) {
             choiceGrid = new McqChoiceGrid(quizManager);
             choiceGridPlaceholder.getChildren().add(choiceGrid.getRoot());
+        } else if (quizManager.currQuestion() instanceof TrueFalseQuestion) {
+            TfqChoiceGrid tfqChoiceGrid = new TfqChoiceGrid(quizManager);
+            choiceGridPlaceholder.getChildren().add(tfqChoiceGrid.getRoot());
         }
 
     }
