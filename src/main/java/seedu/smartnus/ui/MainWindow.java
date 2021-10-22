@@ -138,7 +138,12 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    private void setTheme(Theme theme) {
+    /**
+     * Sets the theme of the UI (light or dark).
+     * @param theme The theme of the UI.
+     */
+    @FXML
+    public void setTheme(Theme theme) {
         Scene scene = primaryStage.getScene();
         String pathToTheme = FXML_FILE_FOLDER;
         String themeCssFile = pathToTheme + theme.getThemeCssFile();
