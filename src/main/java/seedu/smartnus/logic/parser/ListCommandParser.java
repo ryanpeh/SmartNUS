@@ -1,9 +1,6 @@
 package seedu.smartnus.logic.parser;
 
 import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_NOTE;
-import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_QUESTION;
-import static seedu.smartnus.logic.parser.ParserUtil.arePrefixesPresent;
 
 import seedu.smartnus.logic.commands.ListCommand;
 import seedu.smartnus.logic.parser.exceptions.ParseException;

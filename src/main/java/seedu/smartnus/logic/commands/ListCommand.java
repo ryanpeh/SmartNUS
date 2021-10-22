@@ -1,12 +1,8 @@
 package seedu.smartnus.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_NOTE;
-import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.smartnus.model.Model.PREDICATE_SHOW_ALL_NOTES;
 import static seedu.smartnus.model.Model.PREDICATE_SHOW_ALL_QUESTIONS;
-
-import java.nio.file.FileAlreadyExistsException;
 
 import seedu.smartnus.model.Model;
 
@@ -30,6 +26,10 @@ public class ListCommand extends Command {
 
     private static boolean displayQuestions = true;
 
+    /**
+     * Instantiates a new ListCommand
+     * @param listArg argument passed to the list command
+     */
     public ListCommand(String listArg) {
         if (listArg.equals(NOTE_KEYWORD)) {
             displayQuestions = false;
@@ -60,6 +60,11 @@ public class ListCommand extends Command {
         return new CommandResult(successMessage, false, false, false, true);
     }
 
+    /**
+     * Checks if two instances are the same.
+     * @param other the otehr instance of listCommand.
+     * @return true if both instances are the same, false otherwise
+     */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
