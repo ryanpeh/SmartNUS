@@ -377,3 +377,19 @@
     -fx-background-color: #035546;
 }
 
+.quiz-choice:disabled {
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
+.quiz-choice-correct:disabled {
+    -fx-background-color: darkgreen;
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
+.quiz-choice-incorrect:disabled {
+    -fx-background-color: darkred;
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
