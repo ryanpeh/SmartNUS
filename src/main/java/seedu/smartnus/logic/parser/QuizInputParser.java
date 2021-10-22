@@ -13,7 +13,9 @@ import seedu.smartnus.logic.commands.quiz.NextQuestionCommand;
 import seedu.smartnus.logic.commands.quiz.PrevQuestionCommand;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
 import seedu.smartnus.logic.parser.quiz.AnswerMcqCommandParser;
+import seedu.smartnus.logic.parser.quiz.AnswerTfCommandParser;
 import seedu.smartnus.model.question.MultipleChoiceQuestion;
+import seedu.smartnus.model.question.TrueFalseQuestion;
 import seedu.smartnus.model.quiz.QuizManager;
 
 
@@ -63,6 +65,8 @@ public class QuizInputParser {
         }
         if (quizManager.currQuestion() instanceof MultipleChoiceQuestion) {
             return new AnswerMcqCommandParser().parse(userInput, quizManager);
+        } else if (quizManager.currQuestion() instanceof TrueFalseQuestion) {
+            return new AnswerTfCommandParser().parse(userInput, quizManager);
         } else {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

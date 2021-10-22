@@ -17,6 +17,10 @@ import seedu.smartnus.model.tag.Tag;
  */
 public abstract class Question {
 
+    // Integer representation of question types
+    public static final int MCQ_QUESTION_TYPE = 0;
+    public static final int TF_QUESTION_TYPE = 1;
+
     // Identity fields
     private final Name name;
     private final Importance importance;
@@ -151,6 +155,15 @@ public abstract class Question {
     }
 
     /**
+     * Find a {@code Choice} by its title
+     * @param title A String representation of title of the choice
+     * @return The {@code Choice} whose title equals {@code title} or null if that choice does not exist
+     */
+    public Choice findChoiceByTitle(String title) {
+        return orderedChoices.stream().filter(x -> x.getTitle().equals(title)).findFirst().orElse(null);
+    }
+
+    /**
      * Returns true if both questions have the same identity and data fields.
      * This defines a stronger notion of equality between two questions.
      */
@@ -179,6 +192,8 @@ public abstract class Question {
 
     // TODO: Remove maybe when UI is implemented
     public abstract String getQuestionAndOptions();
+
+    public abstract int getQuestionType();
 
     @Override
     public String toString() {
