@@ -19,8 +19,7 @@ public class AnswerTfCommandParser implements QuizParser<AnswerTfCommand> {
         if (args.matches(TF_REGEX)) {
             return new AnswerTfCommand(args, quizManager);
         } else {
-            throw new ParseException(MESSAGE_INVALID_TF_ANSWER_FORMAT
-                    + quizManager.currQuestion().getQuestionAndOptions());
+            throw new ParseException(MESSAGE_INVALID_TF_ANSWER_FORMAT);
         }
     }
 }

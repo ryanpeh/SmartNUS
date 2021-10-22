@@ -1,18 +1,18 @@
 package seedu.smartnus.logic.commands.quiz;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.smartnus.commons.core.Messages.MESSAGE_CONTINUE_QUIZ;
+import static seedu.smartnus.commons.core.Messages.MESSAGE_END_OF_QUIZ;
 
 import java.util.ArrayList;
 
 import seedu.smartnus.logic.commands.Command;
 import seedu.smartnus.logic.commands.CommandResult;
-import seedu.smartnus.logic.commands.ExitCommand;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.quiz.QuizManager;
 import seedu.smartnus.model.quiz.exceptions.QuestionAlreadyAnsweredException;
-
 
 /**
  * Starts a quiz
@@ -21,12 +21,7 @@ public class AnswerMcqCommand extends Command {
 
     public static final String COMMAND_WORD = "quiz";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Starts a quiz, takes no arguments";
-    public static final String MESSAGE_SUCCESS = "Quiz started!";
-    public static final String MESSAGE_CONTINUE_QUIZ = "Enter '" + NextQuestionCommand.COMMAND_WORD
-            + "' to proceed with the next question, or '" + ExitCommand.COMMAND_WORD + "' to exit the quiz";
-    public static final String MESSAGE_END_OF_QUIZ = "You have reached the end of the quiz, enter '"
-            + ExitCommand.COMMAND_WORD + "' to exit the quiz, or enter " + PrevQuestionCommand.COMMAND_WORD
-            + "to view the previous question.";
+
 
     private final String input;
     private final Question currentQuestion;
@@ -90,7 +85,6 @@ public class AnswerMcqCommand extends Command {
         } catch (QuestionAlreadyAnsweredException e) {
             return new CommandResult("You have already answered this question.\n" + endMessage);
         }
-
 
     }
 
