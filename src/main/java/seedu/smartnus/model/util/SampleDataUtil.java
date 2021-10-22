@@ -40,7 +40,8 @@ public class SampleDataUtil {
             ),
             new MultipleChoiceQuestion(
                     new Name("The mean of a random variable X is 10 and E(X^2) = 20. "
-                            + "What is the standard deviation of X?"), new Importance("2"), getTagSet("ST2334"),
+                            + "What is the standard deviation of X?"),
+                    new Importance("2"), getTagSet("ST2334"),
                     getChoiceSet(new Choice("8.94", true), new Choice("80.0", false),
                             new Choice("60.0", false), new Choice("7.78", false))
             ),
