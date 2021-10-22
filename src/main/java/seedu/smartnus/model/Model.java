@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.smartnus.commons.core.GuiSettings;
 import seedu.smartnus.model.note.Note;
 import seedu.smartnus.commons.core.theme.Theme;
+import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
 
 /**
