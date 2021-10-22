@@ -67,7 +67,6 @@ public class EditCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        assert false : "ABC";
         requireNonNull(model);
         List<Question> lastShownList = model.getFilteredQuestionList();
 
