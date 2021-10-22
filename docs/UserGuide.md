@@ -51,10 +51,10 @@ SmartNUS is a **desktop app for students to revise for their exams, optimized fo
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
  -->
 * Items with `…`​ after them can be used multiple times.<br>
-  e.g. `/opt…​` can be used as `/opt OPTION1`, `/opt OPTION1 /opt OPTION2` etc.
+  e.g. `/opt…​` can be used as `opt/ OPTION1`, `opt/ OPTION1 opt/ OPTION2` etc.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `/ans ANSWER /opt OPTION1`, `/opt OPTION1 /ans ANSWER` is also acceptable.
+  e.g. if the command specifies `ans/ ANSWER opt/ OPTION1`, `opt/ OPTION1 ans/ ANSWER` is also acceptable.
 
 <!-- * If a parameter is expected only once in the command but you specified it multiple times, only the last occurrence of the parameter will be taken.<br>
   e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken. -->
@@ -75,9 +75,9 @@ Shows a message explaning how to access the help page.
 Format: `help`
 
 
-### Add a Multiple Chocie Question: `mcq`
+### Add a Multiple Choice Question: `mcq`
 
-Adds a multipe choice question to the question bank.
+Adds a multiple choice question to the question bank.
 
 Format: `mcq qn/QUESTION opt/OPTION1 opt/OPTION2 opt/OPTION3 ans/ANSWER i/IMPORTANCE`
 
@@ -87,6 +87,19 @@ A multiple choice question can have exactly 4 options (1 of the option is an ans
 
 Examples:
 * `mcq qn/what is 1 + 1? opt/3 opt/1 opt/0 ans/2 i/1`
+
+### Add a True False Question: `tf`
+
+Adds a true false question to the question bank.
+
+Format: `tf qn/QUESTION ans/ANSWER i/IMPORTANCE`
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+A true false question can only have one answer, either "T" or "F"
+</div>
+
+Examples:
+* `tf qn/Is 1+1 = 2 ? ans/T i/1`
 
 <!-- ### Listing all persons : `list`
 

@@ -69,7 +69,7 @@ The sections below give more details of each component.
 
 ### UI component
 
-The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
+The **API** of this component is specified in [`Ui.java`](https://github.com/AY2122S1-CS2103T-F12-1/tp/blob/master/src/main/java/seedu/smartnus/ui/Ui.java)
 
 ![Structure of the UI Component](images/UiClassDiagram.png)
 
@@ -86,7 +86,7 @@ The `UI` component,
 
 ### Logic component
 
-**API** : [`Logic.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](https://github.com/AY2122S1-CS2103T-F12-1/tp/blob/master/src/main/java/seedu/smartnus/logic/Logic.java)
 
 Here's a (partial) class diagram of the `Logic` component:
 
@@ -114,28 +114,45 @@ How the parsing works:
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
-**API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](https://github.com/AY2122S1-CS2103T-F12-1/tp/blob/master/src/main/java/seedu/smartnus/model/Model.java)
 
 <img src="images/ModelClassDiagram.png" width="450" />
 
 
 The `Model` component,
 
-* stores the address book data i.e., all `Question` and `Quiz` objects (which are contained in a `UniqueQuestionList` object).
+* stores the smartNUS data i.e., all [`Question`](#question-class) and `Quiz` objects (which are contained in a `UniqueQuestionList` object).
 * stores the currently 'selected' `Question` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Question>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores another list of the currently 'selected' `Question` objects for a `Quiz` as a separate _filtered_ list which is also exposed to outsiders as an unmodifiable `ObservableList<Question>` that can be used in the Quiz UI
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Question` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Question` needing their own `Tag` objects.<br>
+<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `SmartNus` model, which `Question` references. This allows `SmartNus` to only require one `Tag` object per unique tag, instead of each `Question` needing their own `Tag` objects.<br>
 
 <img src="images/BetterModelClassDiagram.png" width="450" />
 
 </div>
 
+## Question class
+
+The `Question` class is an abstract class that stores a name, importance, and any number of tags and `Choices`.
+A `Choice` stores a name and a boolean value `isCorrect` representing if it is a correct answer to the `Question`.
+The validity of a `Question` depends on the type of question.
+
+Types of Questions currently supported by SmartNUS and their conditions for validity are:
+1. Multiple Choice Questions
+   * Has four `Choices` in total, exactly one of which is correct
+2. True-False Questions
+   * Has two `Choices` in total, which can only be "True" and "False", exactly one of which is correct
+3. Multiple Response Questions (coming soon)
+   * Has four `Choices` in total, at least one of which is correct
+4. Open-Ended Questions (coming soon)
+
+
 
 ### Storage component
 
-**API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](https://github.com/AY2122S1-CS2103T-F12-1/tp/blob/master/src/main/java/seedu/smartnus/storage/Storage.java)
 
 <img src="images/StorageClassDiagram.png" width="550" />
 
@@ -146,7 +163,7 @@ The `Storage` component,
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.smartnus.commons` package.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -359,6 +376,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 1b1. SmartNUS shows error message.
 
       Use case ends.
+      
+* 1c. User does not specify an appropriate answer.
+    * 1c1. SmartNUS shows error message.
+    
+        Use case ends.
 
 
 **Use case: Delete a question**
