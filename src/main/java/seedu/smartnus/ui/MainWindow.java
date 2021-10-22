@@ -64,7 +64,7 @@ public class MainWindow extends UiPart<Stage> {
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
-        setTheme(logic.getTheme());
+        UiUtils.setTheme(logic.getTheme(), primaryStage);
 
         setAccelerators();
 
@@ -139,21 +139,6 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Sets the theme of the UI (light or dark).
-     * @param theme The theme of the UI.
-     */
-    @FXML
-    public void setTheme(Theme theme) {
-        Scene scene = primaryStage.getScene();
-        String pathToTheme = FXML_FILE_FOLDER;
-        String themeCssFile = pathToTheme + theme.getThemeCssFile();
-        String extensionCssFile = pathToTheme + theme.getExtensionsCssFile();
-        scene.getStylesheets().remove(1, scene.getStylesheets().size());
-        scene.getStylesheets().add(themeCssFile);
-        scene.getStylesheets().add(extensionCssFile);
-    }
-
-    /**
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
@@ -174,9 +159,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleExit() {
-        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
-        logic.setGuiSettings(guiSettings);
+        UiUtils.setGuiSettings(logic, primaryStage);
         helpWindow.hide();
         primaryStage.hide();
     }
@@ -187,6 +170,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleQuizStart() {
         // TODO: Check if quiz has any questions, throw error if doesn't
+        UiUtils.setGuiSettings(logic, primaryStage);
         QuizWindow quizWindow = new QuizWindow(primaryStage, logic);
         quizWindow.show();
         quizWindow.fillInnerParts();
@@ -220,7 +204,7 @@ public class MainWindow extends UiPart<Stage> {
                 handleQuizStart();
             }
 
-            setTheme(logic.getTheme());
+            UiUtils.setTheme(logic.getTheme(), primaryStage);
 
             return commandResult;
         } catch (CommandException | ParseException e) {
