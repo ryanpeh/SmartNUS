@@ -39,8 +39,49 @@ public class TfqChoiceGrid extends UiPart<Region> {
      */
     public TfqChoiceGrid(Question question, Choice selectedChoice) {
         super(FXML);
+
+        ArrayList<Choice> choices = question.getOrderedChoices();
+        boolean isQuestionAnswered = selectedChoice != null;
+
+        if (isQuestionAnswered) {
+            showCorrectOption(choices, question.getCorrectChoice());
+            if (!selectedChoice.equals(question.getCorrectChoice())) {
+                showIncorrectOption(choices, selectedChoice);
+            }
+        }
+
         // TODO: Remove function below if we're enabling click to select choice.
         disableButtons();
+    }
+
+    private void showCorrectOption(ArrayList<Choice> choices, Choice correctChoice) {
+        int selectedIndex = choices.indexOf(correctChoice);
+
+        switch (selectedIndex) {
+        case 0:
+            optionTrue.getStyleClass().add("quiz-choice-correct");
+            break;
+        case 1:
+            optionFalse.getStyleClass().add("quiz-choice-correct");
+            break;
+        default:
+            break;
+        }
+    }
+
+    private void showIncorrectOption(ArrayList<Choice> choices, Choice selectedChoice) {
+        int selectedIndex = choices.indexOf(selectedChoice);
+
+        switch (selectedIndex) {
+        case 0:
+            optionTrue.getStyleClass().add("quiz-choice-incorrect");
+            break;
+        case 1:
+            optionFalse.getStyleClass().add("quiz-choice-incorrect");
+            break;
+        default:
+            break;
+        }
     }
 
     private void disableButtons() {
