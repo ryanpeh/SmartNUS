@@ -12,6 +12,8 @@ public class Choice {
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String TRUE_CHOICE_TITLE = "True";
+    public static final String FALSE_CHOICE_TITLE = "False";
 
     private final String title;
     private final boolean isCorrect;

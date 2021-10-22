@@ -31,7 +31,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.smartnus.logic.commands.AddMcqCommand;
+import seedu.smartnus.logic.commands.questions.AddMcqCommand;
 import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.question.Importance;
 import seedu.smartnus.model.question.MultipleChoiceQuestion;
