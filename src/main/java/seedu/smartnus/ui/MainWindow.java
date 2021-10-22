@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -13,7 +12,6 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.smartnus.commons.core.GuiSettings;
 import seedu.smartnus.commons.core.LogsCenter;
-import seedu.smartnus.commons.core.theme.Theme;
 import seedu.smartnus.logic.Logic;
 import seedu.smartnus.logic.commands.CommandResult;
 import seedu.smartnus.logic.commands.exceptions.CommandException;

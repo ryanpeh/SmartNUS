@@ -1,12 +1,12 @@
 package seedu.smartnus.ui;
 
+import static seedu.smartnus.ui.UiPart.FXML_FILE_FOLDER;
+
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import seedu.smartnus.commons.core.GuiSettings;
 import seedu.smartnus.commons.core.theme.Theme;
 import seedu.smartnus.logic.Logic;
-
-import static seedu.smartnus.ui.UiPart.FXML_FILE_FOLDER;
 
 public class UiUtils {
 
