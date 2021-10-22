@@ -37,9 +37,8 @@ public class TfqChoiceGrid extends UiPart<Region> {
     /**
      * Creates a {@code QuestionCard} with the given {@code Question} and index to display.
      */
-    public TfqChoiceGrid(QuizManager quizManager) {
+    public TfqChoiceGrid(Question question, Choice selectedChoice) {
         super(FXML);
-        Question question = quizManager.currQuestion();
         // TODO: Remove function below if we're enabling click to select choice.
         disableButtons();
     }

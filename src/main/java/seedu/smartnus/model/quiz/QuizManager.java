@@ -105,4 +105,8 @@ public class QuizManager implements Quiz {
         return currentIndex == totalQuestions - 1;
     }
 
+    public Choice getCurrentSelectedChoice() {
+        return selectedChoices.get(currentIndex);
+    }
+
 }

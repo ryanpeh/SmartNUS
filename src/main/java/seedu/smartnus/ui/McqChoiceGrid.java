@@ -38,19 +38,71 @@ public class McqChoiceGrid extends UiPart<Region> {
     private Button optionD;
 
 
+
     /**
      * Creates a {@code QuestionCard} with the given {@code Question} and index to display.
      */
-    public McqChoiceGrid(QuizManager quizManager) {
+    public McqChoiceGrid(Question question, Choice selectedChoice) {
         super(FXML);
-        Question question = quizManager.currQuestion();
         ArrayList<Choice> choices = question.getOrderedChoices();
         optionA.setText("A. " + choices.get(0).getTitle());
         optionB.setText("B. " + choices.get(1).getTitle());
         optionC.setText("C. " + choices.get(2).getTitle());
         optionD.setText("D. " + choices.get(3).getTitle());
+
+        boolean isQuestionAnswered = selectedChoice != null;
+
+        if (isQuestionAnswered) {
+            showCorrectOption(choices, question.getCorrectChoice());
+            if (!selectedChoice.equals(question.getCorrectChoice())) {
+                showIncorrectOption(choices, selectedChoice);
+            }
+        }
+
         // TODO: Remove function below if we're enabling click to select choice.
         disableButtons();
+    }
+
+    private void showCorrectOption(ArrayList<Choice> choices, Choice correctChoice) {
+        int selectedIndex = choices.indexOf(correctChoice);
+
+        switch (selectedIndex) {
+        case 0:
+            optionA.getStyleClass().add("quiz-choice-correct");
+            break;
+        case 1:
+            optionB.getStyleClass().add("quiz-choice-correct");
+            break;
+        case 2:
+            optionC.getStyleClass().add("quiz-choice-correct");
+            break;
+        case 3:
+            optionD.getStyleClass().add("quiz-choice-correct");
+            break;
+        default:
+            break;
+        }
+    }
+
+    private void showIncorrectOption(ArrayList<Choice> choices, Choice selectedChoice) {
+        int selectedIndex = choices.indexOf(selectedChoice);
+
+        switch (selectedIndex) {
+        case 0:
+            optionA.getStyleClass().add("quiz-choice-incorrect");
+            break;
+        case 1:
+            optionB.getStyleClass().add("quiz-choice-incorrect");
+            break;
+        case 2:
+            optionC.getStyleClass().add("quiz-choice-incorrect");
+            break;
+        case 3:
+            optionD.getStyleClass().add("quiz-choice-incorrect");
+            break;
+        default:
+            break;
+        }
     }
 
     private void disableButtons() {

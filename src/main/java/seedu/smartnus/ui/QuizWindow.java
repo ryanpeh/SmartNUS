@@ -16,6 +16,7 @@ import seedu.smartnus.logic.Logic;
 import seedu.smartnus.logic.commands.CommandResult;
 import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
+import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.question.MultipleChoiceQuestion;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.question.TrueFalseQuestion;
@@ -159,11 +160,14 @@ public class QuizWindow extends UiPart<Stage> {
     private void updateChoices() {
         choiceGridPlaceholder.getChildren().clear();
 
+        Question currentQuestion = quizManager.currQuestion();
+        Choice selectedChoice = quizManager.getCurrentSelectedChoice();
+
         if (quizManager.currQuestion() instanceof MultipleChoiceQuestion) {
-            choiceGrid = new McqChoiceGrid(quizManager);
+            choiceGrid = new McqChoiceGrid(currentQuestion, selectedChoice);
             choiceGridPlaceholder.getChildren().add(choiceGrid.getRoot());
         } else if (quizManager.currQuestion() instanceof TrueFalseQuestion) {
-            TfqChoiceGrid tfqChoiceGrid = new TfqChoiceGrid(quizManager);
+            TfqChoiceGrid tfqChoiceGrid = new TfqChoiceGrid(currentQuestion, selectedChoice);
             choiceGridPlaceholder.getChildren().add(tfqChoiceGrid.getRoot());
         }
 
