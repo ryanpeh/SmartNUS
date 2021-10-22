@@ -143,7 +143,7 @@ Types of Questions currently supported by SmartNUS and their conditions for vali
 1. Multiple Choice Questions
    * Has four `Choices` in total, exactly one of which is correct
 2. True-False Questions
-   * Has two `Choices` in total, which can only be "T" and "F", exactly one of which is correct
+   * Has two `Choices` in total, which can only be "True" and "False", exactly one of which is correct
 3. Multiple Response Questions (coming soon)
    * Has four `Choices` in total, at least one of which is correct
 4. Open-Ended Questions (coming soon)
@@ -376,6 +376,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 1b1. SmartNUS shows error message.
 
       Use case ends.
+      
+* 1c. User does not specify an appropriate answer.
+    * 1c1. SmartNUS shows error message.
+    
+        Use case ends.
 
 
 **Use case: Delete a question**
