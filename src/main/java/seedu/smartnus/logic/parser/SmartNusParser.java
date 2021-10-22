@@ -19,6 +19,8 @@ import seedu.smartnus.logic.commands.FindCommand;
 import seedu.smartnus.logic.commands.HelpCommand;
 import seedu.smartnus.logic.commands.ListCommand;
 import seedu.smartnus.logic.commands.ThemeCommand;
+import seedu.smartnus.logic.commands.questions.AddMcqCommand;
+import seedu.smartnus.logic.commands.questions.AddTfCommand;
 import seedu.smartnus.logic.commands.quiz.QuizCommand;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
 import seedu.smartnus.logic.parser.quiz.QuizCommandParser;
@@ -73,6 +75,9 @@ public class SmartNusParser {
 
         case AddMcqCommand.COMMAND_WORD:
             return new AddMcqCommandParser().parse(arguments);
+
+        case AddTfCommand.COMMAND_WORD:
+            return new AddTfCommandParser().parse(arguments);
 
         case QuizCommand.COMMAND_WORD:
             return new QuizCommandParser().parse(arguments);

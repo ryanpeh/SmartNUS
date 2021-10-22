@@ -11,5 +11,7 @@ public class Messages {
     public static final String MESSAGE_QUESTIONS_LISTED_OVERVIEW = "%1$d questions listed!";
     public static final String MESSAGE_INVALID_MCQ_ANSWER_FORMAT = "Invalid answer format!"
             + " Acceptable answers are 'a', 'b', 'c', 'd'\n";
+    public static final String MESSAGE_INVALID_TF_ANSWER_FORMAT = "Invalid answer format!"
+            + " Acceptable answers are 't', 'f'\n";
 
 }
