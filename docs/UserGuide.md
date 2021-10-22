@@ -82,7 +82,7 @@ Adds a multiple choice question to the question bank.
 Format: `mcq qn/QUESTION opt/OPTION1 opt/OPTION2 opt/OPTION3 ans/ANSWER i/IMPORTANCE`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A multiple choice question can have exactly 4 options (1 of the option is an answer)
+A multiple choice question must have exactly three incorrect options and one correct answer
 </div>
 
 Examples:
@@ -115,6 +115,22 @@ Format: `delete QUESTION_ID`
 
 * Deletes the question and answer with the specified `QUESTION_ID`.
 * The question id refers to the index number shown in the displayed question list. The index **must be a positive integer** 1, 2, 3, …​ -->
+
+### Find Questions by Tag: `tag`
+
+Shows a list of all questions in SmartNUS that have at least one of the specified tags. 
+* The search is case-insensitive (e.g. `math` will match a tag named `MaTH`).
+* Only full words will be matched (e.g. `CS2100` will not match a tag named `CS210`).
+* Any question that has at least one of the tags will be listed.
+
+Format: `tag [TAGNAME]`
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+You can search for more than one tag.
+</div>
+
+Examples:
+* `tag CS2100 MIPS Hexadecimal` returns questions tagged with at least one of the tags.
 
 ### Start a Quiz: `quiz`
 

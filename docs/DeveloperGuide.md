@@ -440,6 +440,30 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at Step 4.
 
+**Use case: List questions containing specific tags**
+
+**MSS**
+
+1. User requests to list questions containing specific tags.
+2. SmartNUS shows a list of questions that contain at least one of the tags.
+
+**Extensions**
+
+* 1a. User does not specify any tags.
+    * 1a1. SmartNUS shows an error message.
+
+    Use case ends.
+
+* 1b. User specifies tag names that are not alphanumeric.
+    * 1b1. SmartNUS shows an error message.
+
+    Use case ends.
+
+* 2a. There are no questions in SmartNUS that contain at least one of the specified tags.
+    * 2a1. SmartNUS shows message that there are no questions.
+
+      Use case ends.
+
 
 **Use case: Start a quiz**
 
