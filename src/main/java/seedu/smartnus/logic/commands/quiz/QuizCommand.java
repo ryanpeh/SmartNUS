@@ -2,6 +2,7 @@ package seedu.smartnus.logic.commands.quiz;
 
 
 import static java.util.Objects.requireNonNull;
+import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_NUMBER;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
@@ -23,10 +24,12 @@ public class QuizCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Starts a quiz, takes optional arguments "
             + "specifying the questions to be included in the quiz.\n"
-            + "Parameters: " + "[INDEX (must be a positive integer)] " + "[" + PREFIX_TAG + "TAG]...\n"
+            + "Parameters: " + "[" + PREFIX_NUMBER + "NUMBER...] "
+            + "[INDEX (must be a positive integer)] " + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TAG + "CS2103T " + PREFIX_TAG + "CS2100 \n"
-            + "Example: " + COMMAND_WORD + " 3";
+            + "Example: " + COMMAND_WORD + " 3 \n"
+            + "Example: " + COMMAND_WORD + PREFIX_NUMBER + "1 2 3";
 
 
     public static final String MESSAGE_SUCCESS = "Quiz started!";
