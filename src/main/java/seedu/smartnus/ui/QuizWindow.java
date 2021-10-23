@@ -66,8 +66,6 @@ public class QuizWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
-    @FXML
-    private StackPane choicesGridPlaceholder;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
