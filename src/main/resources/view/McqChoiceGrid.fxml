@@ -15,9 +15,9 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <Button fx:id="optionA" mnemonicParsing="false" prefHeight="178.0" prefWidth="315.0" text="\$optionA" styleClass="quiz-choice" />
-        <Button fx:id="optionB" mnemonicParsing="false" prefHeight="178.0" prefWidth="315.0" text="\$optionB" GridPane.columnIndex="1" styleClass="quiz-choice" />
-        <Button fx:id="optionC" mnemonicParsing="false" prefHeight="178.0" prefWidth="315.0" text="\$optionC" GridPane.rowIndex="1" styleClass="quiz-choice" />
-        <Button fx:id="optionD" mnemonicParsing="false" prefHeight="178.0" prefWidth="315.0" text="\$optionD" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="quiz-choice" />
+        <Button fx:id="optionA" mnemonicParsing="false" prefHeight="178.0" prefWidth="315.0" styleClass="quiz-choice" text="\$optionA" />
+        <Button fx:id="optionB" mnemonicParsing="false" prefHeight="178.0" prefWidth="315.0" styleClass="quiz-choice" text="\$optionB" GridPane.columnIndex="1" />
+        <Button fx:id="optionC" mnemonicParsing="false" prefHeight="178.0" prefWidth="315.0" styleClass="quiz-choice" text="\$optionC" GridPane.rowIndex="1" />
+        <Button fx:id="optionD" mnemonicParsing="false" prefHeight="178.0" prefWidth="315.0" styleClass="quiz-choice" text="\$optionD" GridPane.columnIndex="1" GridPane.rowIndex="1" />
     </children>
 </GridPane>
