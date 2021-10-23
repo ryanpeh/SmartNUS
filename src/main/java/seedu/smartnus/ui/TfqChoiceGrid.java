@@ -1,14 +1,13 @@
 package seedu.smartnus.ui;
 
+import java.util.ArrayList;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.question.Question;
-import seedu.smartnus.model.quiz.QuizManager;
-
-import java.util.ArrayList;
 
 
 /**
