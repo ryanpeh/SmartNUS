@@ -386,21 +386,18 @@
 }
 
 .quiz-choice:disabled {
-    -fx-text-fill: white;
+    -fx-max-height: Infinity;
+    -fx-max-width: Infinity;
+    -fx-background-color: whitesmoke;
+    -fx-text-fill: black;
     -fx-opacity: 1;
     -fx-wrap-text: true;
 }
 
 .quiz-choice-correct:disabled {
     -fx-background-color: darkgreen;
-    -fx-text-fill: white;
-    -fx-opacity: 1;
-    -fx-wrap-text: true;
 }
 
 .quiz-choice-incorrect:disabled {
     -fx-background-color: darkred;
-    -fx-text-fill: white;
-    -fx-opacity: 1;
-    -fx-wrap-text: true;
 }

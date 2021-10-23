@@ -5,16 +5,16 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane id="mcqGrid" fx:id="mcqGrid" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300" prefWidth="600.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
-   <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-  </rowConstraints>
+<GridPane id="mcqGrid" fx:id="mcqGrid" alignment="CENTER" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+    <columnConstraints>
+        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="50.0"/>
+        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="50.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints vgrow="ALWAYS" minHeight="10.0" percentHeight="100.0"/>
+    </rowConstraints>
    <children>
-      <Button fx:id="optionTrue" mnemonicParsing="false" prefHeight="323.0" prefWidth="300.0" styleClass="quiz-choice" text="True" />
-      <Button fx:id="optionFalse" mnemonicParsing="false" prefHeight="460.0" prefWidth="300.0" styleClass="quiz-choice" text="False" GridPane.columnIndex="1" />
+      <Button fx:id="optionTrue" mnemonicParsing="false" styleClass="quiz-choice" text="True" />
+      <Button fx:id="optionFalse" mnemonicParsing="false" styleClass="quiz-choice" text="False" GridPane.columnIndex="1" />
    </children>
 </GridPane>
