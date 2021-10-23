@@ -382,7 +382,7 @@
     -fx-opacity: 1;
     -fx-wrap-text: true;
 }
-dev
+
 .quiz-choice-correct:disabled {
     -fx-background-color: darkgreen;
     -fx-text-fill: white;
