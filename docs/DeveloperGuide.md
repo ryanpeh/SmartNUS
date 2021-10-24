@@ -93,7 +93,7 @@ Here's a (partial) class diagram of the `Logic` component:
 <img src="images/LogicClassDiagram.png" width="550"/>
 
 How the `Logic` component works:
-1. When `Logic` is called upon to execute a command, it uses the `AddressBookParser` class to parse the user command.
+1. When `Logic` is called upon to execute a command, it uses either the `SmartNusParser` or the `QuizInputParser` class to parse the user command.
 1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddCommand`) which is executed by the `LogicManager`.
 1. The command can communicate with the `Model` when it is executed (e.g. to add a question).
 1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
@@ -110,8 +110,14 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 <img src="images/ParserClasses.png" width="600"/>
 
 How the parsing works:
-* When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
+* When called upon to parse a user command, either the `SmartNusParser` class or the `QuizInputParser`class will create a `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
+
+How the `Logic` component determines which parser to use:
+- The `Logic` component uses either the `SmartNusParser` or the `QuizInputParser` class to parse the user command, depending on whether the user is entering the command while in a quiz.
+- Different parsers are used due to different commands being available to the user during the quiz.
+- The `LogicManager` class achieves this through the usage of overloaded methods, `parseCommand(String)` and `parseCommand(String, QuizManager)`, with the latter for parsing commands while in a quiz.
+- This was implemented with the consideration that the `QuizInputParser` would require a `QuizManager` argument to be passed to various `XYZCommandParser` and `Command` classes to carry out the various quiz functionality.
 
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2122S1-CS2103T-F12-1/tp/blob/master/src/main/java/seedu/smartnus/model/Model.java)
@@ -433,6 +439,30 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3b1. SmartNUS creates tags that do not exist.
 
       Use case resumes at Step 4.
+
+**Use case: List questions containing specific tags**
+
+**MSS**
+
+1. User requests to list questions containing specific tags.
+2. SmartNUS shows a list of questions that contain at least one of the tags.
+
+**Extensions**
+
+* 1a. User does not specify any tags.
+    * 1a1. SmartNUS shows an error message.
+
+    Use case ends.
+
+* 1b. User specifies tag names that are not alphanumeric.
+    * 1b1. SmartNUS shows an error message.
+
+    Use case ends.
+
+* 2a. There are no questions in SmartNUS that contain at least one of the specified tags.
+    * 2a1. SmartNUS shows message that there are no questions.
+
+      Use case ends.
 
 
 **Use case: Start a quiz**
