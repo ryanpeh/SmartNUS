@@ -40,7 +40,7 @@ public class QuizWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     // private QuestionListPanel questionListPanel;
-    private McqChoiceGrid choiceGrid;
+    private ChoiceGrid choiceGrid;
     private ResultDisplay resultDisplay;
     private QuestionDisplay questionDisplay;
     private HelpWindow helpWindow;
@@ -157,18 +157,20 @@ public class QuizWindow extends UiPart<Stage> {
 
     private void updateChoices() {
         choiceGridPlaceholder.getChildren().clear();
+        choiceGrid = null;
 
         Question currentQuestion = quizManager.currQuestion();
         Choice selectedChoice = quizManager.getCurrentSelectedChoice();
 
         if (quizManager.currQuestion() instanceof MultipleChoiceQuestion) {
             choiceGrid = new McqChoiceGrid(currentQuestion, selectedChoice);
-            choiceGridPlaceholder.getChildren().add(choiceGrid.getRoot());
         } else if (quizManager.currQuestion() instanceof TrueFalseQuestion) {
-            TfqChoiceGrid tfqChoiceGrid = new TfqChoiceGrid(currentQuestion, selectedChoice);
-            choiceGridPlaceholder.getChildren().add(tfqChoiceGrid.getRoot());
+            choiceGrid = new TfqChoiceGrid(currentQuestion, selectedChoice);
         }
 
+        assert choiceGrid != null : "Question should either be instance of MultipleChoiceQuestion or TrueFalseQuestion";
+
+        choiceGridPlaceholder.getChildren().add(choiceGrid.getRoot());
     }
 
     /**

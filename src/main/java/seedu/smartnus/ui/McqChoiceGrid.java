@@ -13,17 +13,9 @@ import seedu.smartnus.model.question.Question;
 /**
  * An UI component that displays information of a {@code Question}.
  */
-public class McqChoiceGrid extends UiPart<Region> {
+public class McqChoiceGrid extends ChoiceGrid {
 
     private static final String FXML = "McqChoiceGrid.fxml";
-
-    /**
-     * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
-     * As a consequence, UI elements' variable names cannot be set to such keywords
-     * or an exception will be thrown by JavaFX during runtime.
-     *
-     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
-     */
 
     @FXML
     private GridPane mcqGrid;
@@ -36,10 +28,8 @@ public class McqChoiceGrid extends UiPart<Region> {
     @FXML
     private Button optionD;
 
-
-
     /**
-     * Creates a {@code QuestionCard} with the given {@code Question} and index to display.
+     * A UI component that displays the choices of a {@code MultipleChoiceQuestion}
      */
     public McqChoiceGrid(Question question, Choice selectedChoice) {
         super(FXML);
@@ -62,7 +52,8 @@ public class McqChoiceGrid extends UiPart<Region> {
         disableButtons();
     }
 
-    private void showCorrectOption(ArrayList<Choice> choices, Choice correctChoice) {
+    @Override
+    protected void showCorrectOption(ArrayList<Choice> choices, Choice correctChoice) {
         int selectedIndex = choices.indexOf(correctChoice);
 
         switch (selectedIndex) {
@@ -83,7 +74,8 @@ public class McqChoiceGrid extends UiPart<Region> {
         }
     }
 
-    private void showIncorrectOption(ArrayList<Choice> choices, Choice selectedChoice) {
+    @Override
+    protected void showIncorrectOption(ArrayList<Choice> choices, Choice selectedChoice) {
         int selectedIndex = choices.indexOf(selectedChoice);
 
         switch (selectedIndex) {
@@ -104,7 +96,8 @@ public class McqChoiceGrid extends UiPart<Region> {
         }
     }
 
-    private void disableButtons() {
+    @Override
+    protected void disableButtons() {
         optionA.setDisable(true);
         optionB.setDisable(true);
         optionC.setDisable(true);
