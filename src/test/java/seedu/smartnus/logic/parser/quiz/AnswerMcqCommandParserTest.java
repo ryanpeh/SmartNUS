@@ -8,10 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.smartnus.logic.commands.quiz.AnswerMcqCommand;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
-import seedu.smartnus.model.Model;
-import seedu.smartnus.model.ModelManager;
 import seedu.smartnus.model.ReadOnlySmartNus;
-import seedu.smartnus.model.UserPrefs;
 import seedu.smartnus.model.quiz.QuizManager;
 import seedu.smartnus.model.util.SampleDataUtil;
 
@@ -21,13 +18,11 @@ class AnswerMcqCommandParserTest {
     private ReadOnlySmartNus smartNus;
     private QuizManager quizManager;
     private AnswerMcqCommandParser answerMcqCommandParser;
-    private Model model;
 
     @BeforeEach
     public void setUp() {
         smartNus = SampleDataUtil.getSampleSmartNus();
         quizManager = new QuizManager(smartNus.getQuestionList());
-        model = new ModelManager(smartNus, new UserPrefs());
         answerMcqCommandParser = new AnswerMcqCommandParser();
     }
 
