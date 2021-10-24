@@ -5,7 +5,6 @@ import static seedu.smartnus.commons.core.Messages.MESSAGE_CONTINUE_QUIZ;
 import static seedu.smartnus.commons.core.Messages.MESSAGE_END_OF_QUIZ;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 import seedu.smartnus.logic.commands.Command;
 import seedu.smartnus.logic.commands.CommandResult;
