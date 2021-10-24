@@ -8,7 +8,7 @@ import seedu.smartnus.model.quiz.QuizManager;
 
 public class AnswerTfCommandParser implements QuizParser<AnswerTfCommand> {
 
-    private static final String TF_REGEX = "^[TtFf]$";
+    private static final String TF_REGEX = "(?i)(^true$|^false$|^[tf]$)";
 
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand

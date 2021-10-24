@@ -5,6 +5,7 @@ import static seedu.smartnus.commons.core.Messages.MESSAGE_CONTINUE_QUIZ;
 import static seedu.smartnus.commons.core.Messages.MESSAGE_END_OF_QUIZ;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import seedu.smartnus.logic.commands.Command;
 import seedu.smartnus.logic.commands.CommandResult;
@@ -44,25 +45,22 @@ public class AnswerMcqCommand extends Command {
 
         ArrayList<Choice> choices = currentQuestion.getOrderedChoices();
         Choice choice = null;
-        switch (input) {
+
+        switch (input.toLowerCase()) {
 
         case "a":
-        case "A":
             choice = choices.get(0);
             break;
 
         case "b":
-        case "B":
             choice = choices.get(1);
             break;
 
         case "c":
-        case "C":
             choice = choices.get(2);
             break;
 
         case "d":
-        case "D":
             choice = choices.get(3);
             break;
 

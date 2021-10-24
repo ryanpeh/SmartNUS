@@ -7,6 +7,7 @@ import static seedu.smartnus.model.choice.Choice.FALSE_CHOICE_TITLE;
 import static seedu.smartnus.model.choice.Choice.TRUE_CHOICE_TITLE;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import seedu.smartnus.logic.commands.Command;
 import seedu.smartnus.logic.commands.CommandResult;
@@ -38,15 +39,18 @@ public class AnswerTfCommand extends Command {
 
         ArrayList<Choice> choices = currentQuestion.getOrderedChoices();
         Choice choice = null;
-        switch (input) {
-        case "T":
+        switch (input.toLowerCase()) {
+
+        case "true":
         case "t":
             choice = currentQuestion.findChoiceByTitle(TRUE_CHOICE_TITLE);
             break;
-        case "F":
-        case"f":
+
+        case "false":
+        case "f":
             choice = currentQuestion.findChoiceByTitle(FALSE_CHOICE_TITLE);
             break;
+
         default:
             break;
         }

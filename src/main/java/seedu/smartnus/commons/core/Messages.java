@@ -14,9 +14,9 @@ public class Messages {
     public static final String MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX = "The question index provided is invalid";
     public static final String MESSAGE_QUESTIONS_LISTED_OVERVIEW = "%1$d questions listed!";
     public static final String MESSAGE_INVALID_MCQ_ANSWER_FORMAT = "Invalid answer format!"
-            + " Acceptable answers are 'a', 'b', 'c', 'd' (Case insensitive)\n";
+            + " Acceptable answers are 'a', 'b', 'c', 'd' (Case-insensitive)\n";
     public static final String MESSAGE_INVALID_TF_ANSWER_FORMAT = "Invalid answer format!"
-            + " Acceptable answers are 't', 'f' (Case insensitive)\n";
+            + " Acceptable answers are 't', 'f', 'true', 'false' (Case-insensitive)\n";
     public static final String MESSAGE_END_OF_QUIZ = "You have reached the end of the quiz, enter '"
             + ExitCommand.COMMAND_WORD + "' to exit the quiz, or enter " + PrevQuestionCommand.COMMAND_WORD
             + "to view the previous question.";
