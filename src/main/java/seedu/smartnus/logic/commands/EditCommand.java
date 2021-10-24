@@ -40,9 +40,9 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_QUESTION + "QUESTION] "
             + "[" + PREFIX_IMPORTANCE + "IMPORTANCE] "
-            + "[" + PREFIX_TAG + "TAG] "
+            + "[" + PREFIX_TAG + "TAG]... "
             + "[" + PREFIX_ANSWER + "ANSWER] "
-            + "[" + PREFIX_OPTION + "OPTION]\n"
+            + "[" + PREFIX_OPTION + "OPTION]... \n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_IMPORTANCE + "3 ";
 
@@ -67,14 +67,6 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public String toString() {
-        return "EditCommand{" +
-                "index=" + index +
-                ", editQuestionDescriptor=" + editQuestionDescriptor +
-                '}';
-    }
-
-    @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Question> lastShownList = model.getFilteredQuestionList();
@@ -92,11 +84,9 @@ public class EditCommand extends Command {
         
         Question editedQuestion = null;
         if (questionToEdit instanceof MultipleChoiceQuestion) {
-            editedQuestion = createEditedMcq(questionToEdit, editQuestionDescriptor, updatedName,
-                    updatedImportance, updatedTags);
+            editedQuestion = createEditedMcq(questionToEdit, updatedName, updatedImportance, updatedTags);
         } else if (questionToEdit instanceof TrueFalseQuestion) {
-            editedQuestion = createEditedTf(questionToEdit, editQuestionDescriptor, updatedName,
-                    updatedImportance, updatedTags);
+            editedQuestion = createEditedTf(questionToEdit, updatedName, updatedImportance, updatedTags);
         }
         assert editedQuestion != null : MESSAGE_UNRECOGNISED_QUESTION_TYPE;
         
@@ -113,8 +103,8 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Question} with the details of {@code questionToEdit}
      * edited with {@code editQuestionDescriptor}.
      */
-    private static MultipleChoiceQuestion createEditedMcq(Question questionToEdit,
-                                                          EditQuestionDescriptor editQuestionDescriptor, Name updatedName,
+    private MultipleChoiceQuestion createEditedMcq(Question questionToEdit,
+                                                          Name updatedName,
                                                           Importance updatedImportance, Set<Tag> updatedTags)
             throws CommandException {
         Set<Choice> wrongChoices = editQuestionDescriptor.getWrongChoices().orElse(questionToEdit.getWrongChoices());
@@ -124,54 +114,36 @@ public class EditCommand extends Command {
         MultipleChoiceQuestion updatedMcq = new MultipleChoiceQuestion(updatedName, updatedImportance,
                 updatedTags,updatedChoices);
         if (!updatedMcq.isValidQuestion()) {
-            throw new CommandException("Multiple Choice Questions should have one correct answer and"
-                    + " three wrong options.");
+            throw new CommandException(MultipleChoiceQuestion.MESSAGE_VALID_MCQ);
         }
         return updatedMcq;
     }
-    
-    private static TrueFalseQuestion createEditedTf(Question questionToEdit,
-                                                    EditQuestionDescriptor editQuestionDescriptor, Name updatedName,
-                                                    Importance updatedImportance, Set<Tag> updatedTags)
+
+    private TrueFalseQuestion createEditedTf(Question questionToEdit,
+                                             Name updatedName,
+                                             Importance updatedImportance, Set<Tag> updatedTags)
             throws CommandException {
         if (editQuestionDescriptor.getWrongChoices().isPresent()) {
-            throw new CommandException("Only specify the answer for True/False questions.");
+            throw new CommandException(TrueFalseQuestion.MESSAGE_OPTIONS_INVALID);
         }
-        Choice answer = editQuestionDescriptor.getAnswer().orElse(questionToEdit.getCorrectChoice());
-        Choice wrongOption;
-        if (answer.getTitle().equals("T")) {
-            answer = new Choice("True", true);
-            wrongOption = new Choice("False", false);
-        } else if (answer.getTitle().equals("F")) {
-            answer = new Choice("False", true);
-            wrongOption = new Choice("True", false);
-        } else {
-            wrongOption = questionToEdit.getWrongChoices().iterator().next();
+        Set<Choice> updatedChoices = getEditedTfChoices(questionToEdit);
+        TrueFalseQuestion updatedTf = new TrueFalseQuestion(updatedName, updatedImportance, updatedTags,
+                updatedChoices);
+        if (!updatedTf.isValidQuestion()) {
+            throw new CommandException(TrueFalseQuestion.MESSAGE_ANSWER_INVALID);
         }
-
-        Set<Choice> updatedChoices = new HashSet<>();
-        updatedChoices.add(answer);
-        updatedChoices.add(wrongOption);
-        TrueFalseQuestion updatedTf = new TrueFalseQuestion(updatedName, updatedImportance,
-                updatedTags,updatedChoices);
-        if (updatedTf.isValidQuestion()) {
-            return updatedTf;
-        } else {
-            throw new CommandException("True/False questions should have one correct answer: either T or F");
-        }
+        return updatedTf;
     }
-    
-    private static boolean isMcqChoicesValid(Set<Choice> choices) {
-        int wrongChoices = 0;
-        int correctChoices = 0;
-        for (Choice choice : choices) {
-            if (choice.getIsCorrect()) {
-                correctChoices += 1;
-            } else {
-                wrongChoices += 1;
-            }
+
+    private Set<Choice> getEditedTfChoices(Question questionToEdit) throws CommandException {
+        Set<Choice> updatedChoices;
+        if (editQuestionDescriptor.getTfChoices().isPresent()) {
+            updatedChoices = editQuestionDescriptor.getTfChoices().get();
+        } else {
+            updatedChoices = questionToEdit.getChoices();
         }
-        return wrongChoices == 3 && correctChoices == 1;
+        
+        return updatedChoices;
     }
 
     @Override
@@ -202,19 +174,9 @@ public class EditCommand extends Command {
         private Set<Tag> tags;
         private Set<Choice> wrongChoices;
         private Choice answer;
+        private Set<Choice> parsedTrueFalseChoices;
 
         public EditQuestionDescriptor() {}
-
-        @Override
-        public String toString() {
-            return "EditQuestionDescriptor{" +
-                    "name=" + name +
-                    ", importance=" + importance +
-                    ", tags=" + tags +
-                    ", wrongChoices=" + wrongChoices +
-                    ", answer=" + answer +
-                    '}';
-        }
 
         /**
          * Copy constructor.
@@ -226,6 +188,7 @@ public class EditCommand extends Command {
             setTags(toCopy.tags);
             setWrongChoices(toCopy.wrongChoices);
             setAnswer(toCopy.answer);
+            setTfChoices(toCopy.parsedTrueFalseChoices);
         }
 
         /**
@@ -291,6 +254,15 @@ public class EditCommand extends Command {
 
         public Optional<Choice> getAnswer() {
             return (answer != null) ? Optional.of(answer) : Optional.empty();
+        }
+
+        public void setTfChoices(Set<Choice> choices) {
+            parsedTrueFalseChoices = (choices != null) ? new HashSet<>(choices) : null;
+        }
+
+        public Optional<Set<Choice>> getTfChoices() {
+            return (parsedTrueFalseChoices != null) ? Optional.of(Collections.unmodifiableSet(parsedTrueFalseChoices))
+                    : Optional.empty();
         }
 
         @Override

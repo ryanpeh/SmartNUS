@@ -24,8 +24,7 @@ public class QuestionUtil {
      */
     public static String getQuestionDetails(Question question) {
         StringBuilder sb = new StringBuilder();
-        // TODO-JX: Change to PREFIX_QUESTION
-        sb.append(PREFIX_NAME + question.getName().fullName + " ");
+        sb.append(PREFIX_QUESTION + question.getName().fullName + " ");
         sb.append(PREFIX_IMPORTANCE + question.getImportance().value + " ");
         question.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
@@ -49,7 +48,6 @@ public class QuestionUtil {
             Choice answer = descriptor.getAnswer().get();
             sb.append(PREFIX_ANSWER).append(answer.getTitle()).append(" ");
         }
-
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

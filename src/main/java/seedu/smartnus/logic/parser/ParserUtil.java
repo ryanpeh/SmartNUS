@@ -180,6 +180,20 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code String answer} (T or F) into a {@code Set<Choice> choice} of 2 (T and F) choices.
+     */
+    public static Set<Choice> parseTrueFalseAnswerForEdit(String answer) throws ParseException {
+        requireNonNull(answer);
+        String trimmedAnswer = answer.trim();
+        boolean isAnswerTrue = trimmedAnswer.equals(ANSWER_TRUE);
+        boolean isAnswerFalse = trimmedAnswer.equals(ANSWER_FALSE);
+        Set<Choice> choices = new HashSet<>();
+        choices.add(new Choice(Choice.TRUE_CHOICE_TITLE, isAnswerTrue));
+        choices.add(new Choice(Choice.FALSE_CHOICE_TITLE, isAnswerFalse));
+        return choices;
+    }
+
+    /**
      * Returns True if the given theme is valid.
      * @param theme The given theme.
      * @return True if theme is valid, false otherwise.
