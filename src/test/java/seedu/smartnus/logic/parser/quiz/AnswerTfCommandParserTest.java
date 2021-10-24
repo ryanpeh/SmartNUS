@@ -1,7 +1,11 @@
 package seedu.smartnus.logic.parser.quiz;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.smartnus.testutil.Assert.assertThrows;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import seedu.smartnus.logic.commands.quiz.AnswerMcqCommand;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
 import seedu.smartnus.model.Model;
@@ -10,9 +14,6 @@ import seedu.smartnus.model.ReadOnlySmartNus;
 import seedu.smartnus.model.UserPrefs;
 import seedu.smartnus.model.quiz.QuizManager;
 import seedu.smartnus.model.util.SampleDataUtil;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.smartnus.testutil.Assert.assertThrows;
 
 
 class AnswerTfCommandParserTest {

@@ -1,22 +1,19 @@
 package seedu.smartnus.logic.parser.quiz;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.smartnus.testutil.Assert.assertThrows;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import seedu.smartnus.logic.commands.CommandResult;
+
 import seedu.smartnus.logic.commands.quiz.AnswerMcqCommand;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.ModelManager;
 import seedu.smartnus.model.ReadOnlySmartNus;
 import seedu.smartnus.model.UserPrefs;
-import seedu.smartnus.model.choice.Choice;
-import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.quiz.QuizManager;
 import seedu.smartnus.model.util.SampleDataUtil;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.smartnus.commons.core.Messages.MESSAGE_CONTINUE_QUIZ;
-import static seedu.smartnus.testutil.Assert.assertThrows;
 
 
 class AnswerMcqCommandParserTest {
