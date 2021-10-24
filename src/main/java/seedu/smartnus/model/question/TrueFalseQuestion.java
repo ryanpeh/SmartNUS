@@ -4,6 +4,7 @@ import static seedu.smartnus.model.choice.Choice.FALSE_CHOICE_TITLE;
 import static seedu.smartnus.model.choice.Choice.TRUE_CHOICE_TITLE;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Set;
 
 import seedu.smartnus.model.choice.Choice;
@@ -54,6 +55,16 @@ public class TrueFalseQuestion extends Question {
         ArrayList<Choice> choices = this.getOrderedChoices();
         String options = "\n " + "1. " + choices.get(0).getTitle() + " 2. " + choices.get(1).getTitle();
         return title + options;
+    }
+
+    /**
+     * For True/False questions, instead of random order, we want True to be first and False to be second.
+     **/
+    @Override
+    public void shuffleChoices() {
+        if (orderedChoices.get(0).getTitle().equals("False")) {
+            Collections.reverse(orderedChoices);
+        }
     }
 
     @Override

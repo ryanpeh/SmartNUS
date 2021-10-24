@@ -73,4 +73,11 @@ public class QuizManagerTest {
         quizManager.attemptAndCheckAnswer(choice);
         assertThrows(QuestionAlreadyAnsweredException.class, () -> quizManager.attemptAndCheckAnswer(choice));
     }
+
+    @Test
+    public void getCurrentSelectedChoice_returnsCorrectChoice() {
+        Choice choice = quizManager.currQuestion().getOrderedChoices().get(0);
+        quizManager.attemptAndCheckAnswer(choice);
+        assertEquals(choice, quizManager.getCurrentSelectedChoice());
+    }
 }

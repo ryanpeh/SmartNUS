@@ -337,6 +337,11 @@
     -fx-background-radius: 0;
 }
 
+#questionDisplay .content {
+    -fx-background-color: transparent, #383838, transparent, #383838;
+    -fx-background-radius: 0;
+}
+
 #tags {
     -fx-hgap: 7;
     -fx-vgap: 3;
@@ -372,3 +377,18 @@
     -fx-background-color: #035546;
 }
 
+.quiz-choice:disabled {
+    -fx-max-height: Infinity;
+    -fx-max-width: Infinity;
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+    -fx-wrap-text: true;
+}
+
+.quiz-choice-correct:disabled {
+    -fx-background-color: darkgreen;
+}
+
+.quiz-choice-incorrect:disabled {
+    -fx-background-color: darkred;
+}

@@ -22,12 +22,12 @@ public abstract class Question {
     public static final int TF_QUESTION_TYPE = 1;
 
     // Identity fields
+    protected final ArrayList<Choice> orderedChoices = new ArrayList<>();
     private final Name name;
     private final Importance importance;
 
     private final Set<Tag> tags = new HashSet<>();
     private final Set<Choice> choices = new HashSet<>();
-    private final ArrayList<Choice> orderedChoices = new ArrayList<>();
 
     // Question statistic
     private final Statistic statistic;
