@@ -7,6 +7,7 @@ import static seedu.smartnus.logic.commands.quiz.NextQuestionCommand.MESSAGE_SUC
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.smartnus.logic.commands.Command;
 import seedu.smartnus.logic.commands.CommandResult;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.ModelManager;
@@ -49,7 +50,9 @@ class NextQuestionCommandTest {
 
     @Test
     public void equals_returnsTrue() {
+        Command command = new NextQuestionCommand(quizManager);
         assertEquals(nextQuestionCommand, new NextQuestionCommand(quizManager));
+        assertEquals(nextQuestionCommand, command);
     }
 
 }

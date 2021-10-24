@@ -87,9 +87,10 @@ public class AnswerMcqCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        // TODO: In future, check if the attributes (if any) for the QuizCommand are the same
         return other == this // short circuit if same object
-                || other instanceof AnswerMcqCommand; // instanceof handles nulls
+                || (other instanceof AnswerMcqCommand
+                && input.equals(((AnswerMcqCommand) other).input)
+                && quizManager.equals(((AnswerMcqCommand) other).quizManager)); // instanceof handles nulls
     }
 
 }
