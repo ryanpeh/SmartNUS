@@ -3,6 +3,7 @@ package seedu.smartnus.model.question;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_IMPORTANCE_BOB;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_NAME_BOB;
@@ -156,5 +157,23 @@ public class QuestionTest {
         assertEquals(2, validMcq.getStatistic().getAttemptCount());
         assertEquals(1, validMcq.getStatistic().getCorrectCount());
 
+    }
+
+    @Test
+    public void question_findChoiceByTitle() {
+        Choice expectedChoice = new Choice("option 1", true);
+
+        Question validMcq = new QuestionBuilder().withChoices(
+                expectedChoice, new Choice("option 2", false),
+                new Choice("option 3", false), new Choice("option 4", false)
+        ).build();
+
+        // finds correct choice
+        Choice actualChoice = validMcq.findChoiceByTitle("option 1");
+        assertEquals(expectedChoice, actualChoice);
+
+        // does not find choice and returns null
+        Choice notFoundChoice = validMcq.findChoiceByTitle(" ");
+        assertNull(notFoundChoice);
     }
 }

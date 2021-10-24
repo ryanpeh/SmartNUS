@@ -3,9 +3,16 @@ package seedu.smartnus.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_IMPORTANCE_1;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_QUESTION_1;
 import static seedu.smartnus.testutil.Assert.assertThrows;
+import static seedu.smartnus.testutil.TypicalQuestions.MCQ_QUESTION;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,10 +22,17 @@ import seedu.smartnus.logic.Logic;
 import seedu.smartnus.logic.LogicManager;
 import seedu.smartnus.logic.commands.ExitCommand;
 import seedu.smartnus.logic.commands.HelpCommand;
+import seedu.smartnus.logic.commands.quiz.AnswerMcqCommand;
+import seedu.smartnus.logic.commands.quiz.AnswerTfCommand;
 import seedu.smartnus.logic.commands.quiz.NextQuestionCommand;
 import seedu.smartnus.logic.commands.quiz.PrevQuestionCommand;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
 import seedu.smartnus.model.ModelManager;
+import seedu.smartnus.model.choice.Choice;
+import seedu.smartnus.model.question.Importance;
+import seedu.smartnus.model.question.Name;
+import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.question.TrueFalseQuestion;
 import seedu.smartnus.model.quiz.QuizManager;
 import seedu.smartnus.storage.JsonSmartNusStorage;
 import seedu.smartnus.storage.JsonUserPrefsStorage;
@@ -42,7 +56,7 @@ public class QuizInputParserTest {
                 .resolve("TypicalUserPref.json"));
         StorageManager storage = new StorageManager(smartNusStorage, userPrefsStorage);
         Logic logic = new LogicManager(new ModelManager(), storage);
-        quizManager = new QuizManager(logic.getFilteredQuestionList());
+        quizManager = new QuizManager(logic.getFilteredQuizQuestionList());
     }
 
     @Test
@@ -69,6 +83,26 @@ public class QuizInputParserTest {
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD, quizManager) instanceof HelpCommand);
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3", quizManager) instanceof HelpCommand);
+    }
+
+    @Test
+    public void parseCommand_answerMcqQuestion() throws ParseException {
+        List<Question> typicalQuestions = new ArrayList<>();
+        typicalQuestions.add(MCQ_QUESTION);
+        QuizManager oneQuestionQuiz = new QuizManager(typicalQuestions);
+        assertTrue(parser.parseCommand("a", oneQuestionQuiz) instanceof AnswerMcqCommand);
+    }
+
+    @Test
+    public void parseCommand_answerTfQuestion() throws ParseException {
+        Set<Choice> validChoices = new HashSet<>();
+        validChoices.add(new Choice(Choice.TRUE_CHOICE_TITLE, false));
+        validChoices.add(new Choice(Choice.FALSE_CHOICE_TITLE, true));
+        List<Question> typicalQuestions = new ArrayList<>();
+        typicalQuestions.add(new TrueFalseQuestion(new Name(VALID_QUESTION_1), new Importance(VALID_IMPORTANCE_1),
+                new HashSet<>(), validChoices));
+        QuizManager oneQuestionQuiz = new QuizManager(typicalQuestions);
+        assertTrue(parser.parseCommand("T", oneQuestionQuiz) instanceof AnswerTfCommand);
     }
 
     @Test

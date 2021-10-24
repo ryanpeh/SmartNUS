@@ -183,6 +183,7 @@ public class QuizWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         // TODO: Currently creates a new MainWindow, can explore reusing the original MainWindow in the future
+        UiUtils.setGuiSettings(logic, primaryStage);
         MainWindow mainWindow = new MainWindow(primaryStage, logic);
         mainWindow.show();
         mainWindow.fillInnerParts();

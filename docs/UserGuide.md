@@ -51,10 +51,10 @@ SmartNUS is a **desktop app for students to revise for their exams, optimized fo
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
  -->
 * Items with `…`​ after them can be used multiple times.<br>
-  e.g. `/opt…​` can be used as `/opt OPTION1`, `/opt OPTION1 /opt OPTION2` etc.
+  e.g. `/opt…​` can be used as `opt/ OPTION1`, `opt/ OPTION1 opt/ OPTION2` etc.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `/ans ANSWER /opt OPTION1`, `/opt OPTION1 /ans ANSWER` is also acceptable.
+  e.g. if the command specifies `ans/ ANSWER opt/ OPTION1`, `opt/ OPTION1 ans/ ANSWER` is also acceptable.
 
 <!-- * If a parameter is expected only once in the command but you specified it multiple times, only the last occurrence of the parameter will be taken.<br>
   e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken. -->
@@ -75,18 +75,31 @@ Shows a message explaning how to access the help page.
 Format: `help`
 
 
-### Add a Multiple Chocie Question: `mcq`
+### Add a Multiple Choice Question: `mcq`
 
-Adds a multipe choice question to the question bank.
+Adds a multiple choice question to the question bank.
 
 Format: `mcq qn/QUESTION opt/OPTION1 opt/OPTION2 opt/OPTION3 ans/ANSWER i/IMPORTANCE`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A multiple choice question can have exactly 4 options (1 of the option is an answer)
+A multiple choice question must have exactly three incorrect options and one correct answer
 </div>
 
 Examples:
 * `mcq qn/what is 1 + 1? opt/3 opt/1 opt/0 ans/2 i/1`
+
+### Add a True False Question: `tf`
+
+Adds a true false question to the question bank.
+
+Format: `tf qn/QUESTION ans/ANSWER i/IMPORTANCE`
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+A true false question can only have one answer, either "T" or "F"
+</div>
+
+Examples:
+* `tf qn/Is 1+1 = 2 ? ans/T i/1`
 
 <!-- ### Listing all persons : `list`
 
@@ -102,6 +115,22 @@ Format: `delete QUESTION_ID`
 
 * Deletes the question and answer with the specified `QUESTION_ID`.
 * The question id refers to the index number shown in the displayed question list. The index **must be a positive integer** 1, 2, 3, …​ -->
+
+### Find Questions by Tag: `tag`
+
+Shows a list of all questions in SmartNUS that have at least one of the specified tags. 
+* The search is case-insensitive (e.g. `math` will match a tag named `MaTH`).
+* Only full words will be matched (e.g. `CS2100` will not match a tag named `CS210`).
+* Any question that has at least one of the tags will be listed.
+
+Format: `tag [TAGNAME]`
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+You can search for more than one tag.
+</div>
+
+Examples:
+* `tag CS2100 MIPS Hexadecimal` returns questions tagged with at least one of the tags.
 
 ### Start a Quiz: `quiz`
 

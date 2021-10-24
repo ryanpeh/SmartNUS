@@ -11,6 +11,7 @@ import seedu.smartnus.model.question.Importance;
 import seedu.smartnus.model.question.MultipleChoiceQuestion;
 import seedu.smartnus.model.question.Name;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.question.TrueFalseQuestion;
 import seedu.smartnus.model.tag.Tag;
 
 /**
@@ -31,6 +32,12 @@ public class SampleDataUtil {
                     getChoiceSet(new Choice("120", true), new Choice("110", false),
                             new Choice("100", false), new Choice("130", false))
             ),
+            new TrueFalseQuestion(
+                    new Name("Grey-box test case design is a mixture of specification-based"
+                            + " and implementation-based approaches.?"),
+                    new Importance("2"), getTagSet("CS2103T", "Java", "Testing"),
+                    getChoiceSet(new Choice("True", true), new Choice("False", false))
+            ),
             new MultipleChoiceQuestion(
                     new Name("The mean of a random variable X is 10 and E(X^2) = 20. "
                             + "What is the standard deviation of X?"),
@@ -42,6 +49,12 @@ public class SampleDataUtil {
                     new Importance("1"), getTagSet("CS2100"),
                     getChoiceSet(new Choice("NAND", true), new Choice("OR", false),
                             new Choice("XOR", false), new Choice("AND", false))
+            ),
+            new TrueFalseQuestion(
+                    new Name("Data abstraction is removing all data-related information"
+                            + "from the view to create a higher level abstraction."),
+                    new Importance("2"), getTagSet("CS2103T", "Java", "Design"),
+                    getChoiceSet(new Choice("True", false), new Choice("False", true))
             ),
             new MultipleChoiceQuestion(new Name("Convert the following MIPS instruction into hexadecimal: "
                     + "lw $t9, 0($t7)"),

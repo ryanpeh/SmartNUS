@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.smartnus.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.smartnus.logic.commands.ThemeCommand.DARK_KEYWORD;
 import static seedu.smartnus.logic.commands.ThemeCommand.LIGHT_KEYWORD;
+import static seedu.smartnus.logic.parser.AddTfCommandParser.ANSWER_FALSE;
+import static seedu.smartnus.logic.parser.AddTfCommandParser.ANSWER_TRUE;
 import static seedu.smartnus.model.question.MultipleChoiceQuestion.NUMBER_OF_INCORRECT_CHOICES;
 
 import java.util.Collection;
@@ -19,6 +21,7 @@ import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.question.Importance;
 import seedu.smartnus.model.question.MultipleChoiceQuestion;
 import seedu.smartnus.model.question.Name;
+import seedu.smartnus.model.question.TrueFalseQuestion;
 import seedu.smartnus.model.tag.Tag;
 
 /**
@@ -157,6 +160,23 @@ public class ParserUtil {
     public static Choice parseAnswerForEdit(String answer) throws ParseException {
         requireNonNull(answer);
         return parseChoice(answer, true);
+    }
+
+    /**
+     * Parses {@code String answer} (T or F) into a {@code Set<Choice> choice} of 2 (T and F) choices.
+     */
+    public static Set<Choice> parseTrueFalseAnswer(String answer) throws ParseException {
+        requireNonNull(answer);
+        String trimmedAnswer = answer.trim();
+        boolean isAnswerTrue = trimmedAnswer.equals(ANSWER_TRUE);
+        boolean isAnswerFalse = trimmedAnswer.equals(ANSWER_FALSE);
+        if (!isAnswerTrue && !isAnswerFalse) {
+            throw new ParseException(TrueFalseQuestion.MESSAGE_ANSWER_INVALID);
+        }
+        Set<Choice> choices = new HashSet<>();
+        choices.add(new Choice(Choice.TRUE_CHOICE_TITLE, isAnswerTrue));
+        choices.add(new Choice(Choice.FALSE_CHOICE_TITLE, isAnswerFalse));
+        return choices;
     }
 
     /**
