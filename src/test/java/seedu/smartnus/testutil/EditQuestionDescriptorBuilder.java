@@ -34,6 +34,8 @@ public class EditQuestionDescriptorBuilder {
         descriptor.setName(question.getName());
         descriptor.setImportance(question.getImportance());
         descriptor.setTags(question.getTags());
+        descriptor.setWrongChoices(question.getWrongChoices());
+        descriptor.setAnswer(question.getCorrectChoice());
     }
 
     /**

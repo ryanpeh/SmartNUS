@@ -47,8 +47,8 @@ public class CommandTestUtil {
     public static final String VALID_OPTION_4 = "4";
     public static final String VALID_OPTION_5 = "5";
 
-    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
+    public static final String NAME_DESC_AMY = " " + PREFIX_QUESTION + VALID_NAME_AMY;
+    public static final String NAME_DESC_BOB = " " + PREFIX_QUESTION + VALID_NAME_BOB;
     public static final String IMPORTANCE_DESC_AMY = " " + PREFIX_IMPORTANCE + VALID_IMPORTANCE_AMY;
     public static final String IMPORTANCE_DESC_BOB = " " + PREFIX_IMPORTANCE + VALID_IMPORTANCE_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
@@ -67,7 +67,7 @@ public class CommandTestUtil {
     public static final String OPTIONS_DESC_1 = " " + OPTION_DESC_1 + OPTION_DESC_3 + OPTION_DESC_4;
     public static final String OPTIONS_DESC_2 = OPTIONS_DESC_1 + OPTION_DESC_5;
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + " "; // empty string not allowed for names
+    public static final String INVALID_NAME_DESC = " " + PREFIX_QUESTION + " "; // empty string not allowed for names
     // 'a' not allowed in importance
     public static final String INVALID_IMPORTANCE_DESC = " " + PREFIX_IMPORTANCE + "1a";
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags

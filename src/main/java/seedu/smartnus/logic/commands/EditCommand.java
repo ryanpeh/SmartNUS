@@ -24,6 +24,7 @@ import seedu.smartnus.model.question.Importance;
 import seedu.smartnus.model.question.MultipleChoiceQuestion;
 import seedu.smartnus.model.question.Name;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.question.TrueFalseQuestion;
 import seedu.smartnus.model.tag.Tag;
 
 /**
@@ -66,6 +67,14 @@ public class EditCommand extends Command {
     }
 
     @Override
+    public String toString() {
+        return "EditCommand{" +
+                "index=" + index +
+                ", editQuestionDescriptor=" + editQuestionDescriptor +
+                '}';
+    }
+
+    @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Question> lastShownList = model.getFilteredQuestionList();
@@ -75,11 +84,21 @@ public class EditCommand extends Command {
         }
 
         Question questionToEdit = lastShownList.get(index.getZeroBased());
+        assert questionToEdit != null;
+
+        Name updatedName = editQuestionDescriptor.getName().orElse(questionToEdit.getName());
+        Importance updatedImportance = editQuestionDescriptor.getImportance().orElse(questionToEdit.getImportance());
+        Set<Tag> updatedTags = editQuestionDescriptor.getTags().orElse(questionToEdit.getTags());
+        
         Question editedQuestion = null;
         if (questionToEdit instanceof MultipleChoiceQuestion) {
-            editedQuestion = createEditedMcq(questionToEdit, editQuestionDescriptor);
-        } 
-        assert editedQuestion != null : "Unrecognised question type detected in EditCommand";
+            editedQuestion = createEditedMcq(questionToEdit, editQuestionDescriptor, updatedName,
+                    updatedImportance, updatedTags);
+        } else if (questionToEdit instanceof TrueFalseQuestion) {
+            editedQuestion = createEditedTf(questionToEdit, editQuestionDescriptor, updatedName,
+                    updatedImportance, updatedTags);
+        }
+        assert editedQuestion != null : MESSAGE_UNRECOGNISED_QUESTION_TYPE;
         
         if (!questionToEdit.isSameQuestion(editedQuestion) && model.hasQuestion(editedQuestion)) {
             throw new CommandException(MESSAGE_DUPLICATE_QUESTION);
@@ -95,25 +114,51 @@ public class EditCommand extends Command {
      * edited with {@code editQuestionDescriptor}.
      */
     private static MultipleChoiceQuestion createEditedMcq(Question questionToEdit,
-                                                 EditQuestionDescriptor editQuestionDescriptor)
+                                                          EditQuestionDescriptor editQuestionDescriptor, Name updatedName,
+                                                          Importance updatedImportance, Set<Tag> updatedTags)
             throws CommandException {
-        assert questionToEdit != null;
-
-        Name updatedName = editQuestionDescriptor.getName().orElse(questionToEdit.getName());
-        Importance updatedImportance = editQuestionDescriptor.getImportance().orElse(questionToEdit.getImportance());
-        Set<Tag> updatedTags = editQuestionDescriptor.getTags().orElse(questionToEdit.getTags());
-
         Set<Choice> wrongChoices = editQuestionDescriptor.getWrongChoices().orElse(questionToEdit.getWrongChoices());
         Choice answer = editQuestionDescriptor.getAnswer().orElse(questionToEdit.getCorrectChoice());
         Set<Choice> updatedChoices = new HashSet<>(wrongChoices);
         updatedChoices.add(answer);
-        if (!isMcqChoicesValid(updatedChoices)) {
+        MultipleChoiceQuestion updatedMcq = new MultipleChoiceQuestion(updatedName, updatedImportance,
+                updatedTags,updatedChoices);
+        if (!updatedMcq.isValidQuestion()) {
             throw new CommandException("Multiple Choice Questions should have one correct answer and"
                     + " three wrong options.");
         }
-        MultipleChoiceQuestion updatedMcq = new MultipleChoiceQuestion(updatedName, updatedImportance,
-                updatedTags,updatedChoices);
         return updatedMcq;
+    }
+    
+    private static TrueFalseQuestion createEditedTf(Question questionToEdit,
+                                                    EditQuestionDescriptor editQuestionDescriptor, Name updatedName,
+                                                    Importance updatedImportance, Set<Tag> updatedTags)
+            throws CommandException {
+        if (editQuestionDescriptor.getWrongChoices().isPresent()) {
+            throw new CommandException("Only specify the answer for True/False questions.");
+        }
+        Choice answer = editQuestionDescriptor.getAnswer().orElse(questionToEdit.getCorrectChoice());
+        Choice wrongOption;
+        if (answer.getTitle().equals("T")) {
+            answer = new Choice("True", true);
+            wrongOption = new Choice("False", false);
+        } else if (answer.getTitle().equals("F")) {
+            answer = new Choice("False", true);
+            wrongOption = new Choice("True", false);
+        } else {
+            wrongOption = questionToEdit.getWrongChoices().iterator().next();
+        }
+
+        Set<Choice> updatedChoices = new HashSet<>();
+        updatedChoices.add(answer);
+        updatedChoices.add(wrongOption);
+        TrueFalseQuestion updatedTf = new TrueFalseQuestion(updatedName, updatedImportance,
+                updatedTags,updatedChoices);
+        if (updatedTf.isValidQuestion()) {
+            return updatedTf;
+        } else {
+            throw new CommandException("True/False questions should have one correct answer: either T or F");
+        }
     }
     
     private static boolean isMcqChoicesValid(Set<Choice> choices) {
@@ -159,6 +204,17 @@ public class EditCommand extends Command {
         private Choice answer;
 
         public EditQuestionDescriptor() {}
+
+        @Override
+        public String toString() {
+            return "EditQuestionDescriptor{" +
+                    "name=" + name +
+                    ", importance=" + importance +
+                    ", tags=" + tags +
+                    ", wrongChoices=" + wrongChoices +
+                    ", answer=" + answer +
+                    '}';
+        }
 
         /**
          * Copy constructor.
