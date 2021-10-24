@@ -26,7 +26,10 @@ public class TypicalQuestions {
     public static final Question BENSON = new QuestionBuilder().withName("Benson Meier")
             .withImportance("2")
             .withTags("owesMoney", "friends")
-            .withChoices(new Choice("good guy", true)).build();
+            .withChoices(new Choice("good guy", true),
+                    new Choice("wrong good guy", false),
+                    new Choice("wrong 2", false),
+                    new Choice("wrong 3", false)).build();
     public static final Question MCQ_QUESTION = new QuestionBuilder().withName("What is 1+1?")
             .withImportance("1")
             .withChoices(new Choice("2", true),

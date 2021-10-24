@@ -3,8 +3,12 @@ package seedu.smartnus.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX;
 import static seedu.smartnus.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.smartnus.logic.commands.CommandTestUtil.ANSWER_DESC_1;
 import static seedu.smartnus.logic.commands.CommandTestUtil.IMPORTANCE_DESC_AMY;
 import static seedu.smartnus.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.smartnus.logic.commands.CommandTestUtil.OPTION_DESC_1;
+import static seedu.smartnus.logic.commands.CommandTestUtil.OPTION_DESC_3;
+import static seedu.smartnus.logic.commands.CommandTestUtil.OPTION_DESC_4;
 import static seedu.smartnus.testutil.Assert.assertThrows;
 import static seedu.smartnus.testutil.TypicalQuestions.AMY;
 
@@ -17,10 +21,10 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.smartnus.commons.core.theme.LightTheme;
 import seedu.smartnus.commons.core.theme.Theme;
-import seedu.smartnus.logic.commands.AddCommand;
 import seedu.smartnus.logic.commands.CommandResult;
 import seedu.smartnus.logic.commands.ListCommand;
 import seedu.smartnus.logic.commands.exceptions.CommandException;
+import seedu.smartnus.logic.commands.questions.AddMcqCommand;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.ModelManager;
@@ -79,12 +83,13 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + IMPORTANCE_DESC_AMY;
+        String addMcqCommand = AddMcqCommand.COMMAND_WORD + NAME_DESC_AMY + ANSWER_DESC_1
+                + OPTION_DESC_1 +OPTION_DESC_3 + OPTION_DESC_4 + IMPORTANCE_DESC_AMY;
         Question expectedQuestion = new QuestionBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addQuestion(expectedQuestion);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
-        assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
+        assertCommandFailure(addMcqCommand, CommandException.class, expectedMessage, expectedModel);
     }
 
     @Test

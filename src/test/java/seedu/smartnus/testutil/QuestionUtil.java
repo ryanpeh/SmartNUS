@@ -9,7 +9,6 @@ import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
-import seedu.smartnus.logic.commands.AddCommand;
 import seedu.smartnus.logic.commands.EditCommand.EditQuestionDescriptor;
 import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.question.Question;
@@ -19,13 +18,6 @@ import seedu.smartnus.model.tag.Tag;
  * A utility class for Question.
  */
 public class QuestionUtil {
-
-    /**
-     * Returns an add command string for adding the {@code question}.
-     */
-    public static String getAddCommand(Question question) {
-        return AddCommand.COMMAND_WORD + " " + getQuestionDetails(question);
-    }
 
     /**
      * Returns the part of command string for the given {@code question}'s details.

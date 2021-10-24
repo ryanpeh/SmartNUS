@@ -1,6 +1,7 @@
 package seedu.smartnus.testutil;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.smartnus.model.choice.Choice;
@@ -19,12 +20,15 @@ public class QuestionBuilder {
 
     public static final String DEFAULT_NAME = "Amy Bee";
     public static final String DEFAULT_IMPORTANCE = "1";
-    public static final Choice DEFAULT_CHOICE = new Choice("option 1", false);
+    public static final Choice DEFAULT_WRONG_CHOICE_1 = new Choice("wrong option 1", false);
+    public static final Choice DEFAULT_WRONG_CHOICE_2 = new Choice("wrong option 2", false);
+    public static final Choice DEFAULT_WRONG_CHOICE_3 = new Choice("wrong option 3", false);
+    public static final Choice DEFAULT_ANSWER = new Choice("answer", true);        
 
     private Name name;
     private Importance importance;
     private Set<Tag> tags;
-    private Set<Choice> choices;
+    private Set<Choice> mcqChoices;
     private Statistic statistic;
 
     /**
@@ -34,8 +38,8 @@ public class QuestionBuilder {
         name = new Name(DEFAULT_NAME);
         importance = new Importance(DEFAULT_IMPORTANCE);
         tags = new HashSet<>();
-        choices = new HashSet<>();
-        choices.add(DEFAULT_CHOICE);
+        mcqChoices = new HashSet<>();
+        mcqChoices.addAll(List.of(DEFAULT_WRONG_CHOICE_1, DEFAULT_WRONG_CHOICE_2,DEFAULT_WRONG_CHOICE_3, DEFAULT_ANSWER));
         statistic = new Statistic();
     }
 
@@ -46,7 +50,7 @@ public class QuestionBuilder {
         name = questionToCopy.getName();
         importance = questionToCopy.getImportance();
         tags = new HashSet<>(questionToCopy.getTags());
-        choices = new HashSet<>(questionToCopy.getChoices());
+        mcqChoices = new HashSet<>(questionToCopy.getChoices());
         statistic = questionToCopy.getStatistic();
     }
 
@@ -79,9 +83,9 @@ public class QuestionBuilder {
      * a set containing choices.
      */
     public QuestionBuilder withChoices(Choice ... choices) {
-        this.choices = new HashSet<>();
+        this.mcqChoices = new HashSet<>();
         for (Choice choice : choices) {
-            this.choices.add(choice);
+            this.mcqChoices.add(choice);
         }
         return this;
     }
@@ -91,7 +95,7 @@ public class QuestionBuilder {
      */
     public Question build() {
         // TODO: edit when more Question types are supported
-        return new MultipleChoiceQuestion(name, importance, tags, choices, statistic);
+        return new MultipleChoiceQuestion(name, importance, tags, mcqChoices, statistic);
     }
 
 }

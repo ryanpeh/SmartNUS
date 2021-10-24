@@ -50,7 +50,7 @@ class AddMcqCommandTest {
         AddMcqCommandTest.ModelStub modelStub = new AddMcqCommandTest.ModelStubWithQuestion(validQuestion);
 
         assertThrows(CommandException.class,
-                AddCommand.MESSAGE_DUPLICATE_QUESTION, () -> addCommand.execute(modelStub));
+                AddMcqCommand.MESSAGE_DUPLICATE_QUESTION, () -> addCommand.execute(modelStub));
     }
 
     /**

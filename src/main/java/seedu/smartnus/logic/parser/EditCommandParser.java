@@ -52,6 +52,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                     argMultimap.getValue(PREFIX_IMPORTANCE).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editQuestionDescriptor::setTags);
+        
         if (argMultimap.getValue(PREFIX_ANSWER).isPresent()) {
             Choice answer = ParserUtil.parseAnswerForEdit(argMultimap.getValue(PREFIX_ANSWER).get());
             editQuestionDescriptor.setAnswer(answer);
