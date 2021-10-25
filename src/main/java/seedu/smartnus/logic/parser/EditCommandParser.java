@@ -39,7 +39,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                         PREFIX_ANSWER);
 
         Index index = parseEditIndex(argMultimap);
-        
+
         EditQuestionDescriptor editQuestionDescriptor = new EditCommand.EditQuestionDescriptor();
 
         setDescriptorQuestion(argMultimap, editQuestionDescriptor);
@@ -54,7 +54,7 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         return new EditCommand(index, editQuestionDescriptor);
     }
-    
+
     private Index parseEditIndex(ArgumentMultimap argMultimap) throws ParseException {
         try {
             return ParserUtil.parseIndex(argMultimap.getPreamble());

@@ -21,6 +21,10 @@ public abstract class Question {
     public static final int MCQ_QUESTION_TYPE = 0;
     public static final int TF_QUESTION_TYPE = 1;
 
+    // message on condition for validity of Question
+    public static final String MESSAGE_DUPLICATE_CHOICES = "Choices (both incorrect and correct)"
+            + " should not have duplicate titles.";
+
     // Identity fields
     protected final ArrayList<Choice> orderedChoices = new ArrayList<>();
     private final Name name;
@@ -31,9 +35,6 @@ public abstract class Question {
 
     // Question statistic
     private final Statistic statistic;
-
-    public static final String MESSAGE_DUPLICATE_CHOICES = "Choices (both incorrect and correct)"
-            + " should not have duplicate titles.";
 
     /**
      * Every field must be present and not null.

@@ -199,7 +199,7 @@ public class ParserUtil {
      * {@code answer} may not be T or F, as the question to be edited may not be a TrueFalseQuestion.
      * This method is used to prepare the choices for EditCommand in the event the question to be edited is
      * a TrueFalseQuestion.
-     * 
+     *
      * @param answer The answer specified by the user.
      * @return A set of two Choices (with titles True and False).
      */

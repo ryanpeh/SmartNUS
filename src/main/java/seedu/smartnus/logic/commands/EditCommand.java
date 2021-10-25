@@ -50,9 +50,9 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_QUESTION_SUCCESS = "Edited Question: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_QUESTION = "This question already exists in SmartNUS.";
-    
+
     public static final String MESSAGE_NO_ANSWER = "Answer (ans/) must be specified.";
-    public static final String MESSAGE_NO_OPTIONS = "Options (opt/) must be specified.";        
+    public static final String MESSAGE_NO_OPTIONS = "Options (opt/) must be specified.";
 
     private final Index index;
     private final EditQuestionDescriptor editQuestionDescriptor;
@@ -84,7 +84,7 @@ public class EditCommand extends Command {
         Name updatedName = editQuestionDescriptor.getName().orElse(questionToEdit.getName());
         Importance updatedImportance = editQuestionDescriptor.getImportance().orElse(questionToEdit.getImportance());
         Set<Tag> updatedTags = editQuestionDescriptor.getTags().orElse(questionToEdit.getTags());
-        
+
         Question editedQuestion = null;
         if (questionToEdit instanceof MultipleChoiceQuestion) {
             editedQuestion = createEditedMcq(questionToEdit, updatedName, updatedImportance, updatedTags);
@@ -92,7 +92,7 @@ public class EditCommand extends Command {
             editedQuestion = createEditedTf(questionToEdit, updatedName, updatedImportance, updatedTags);
         }
         assert editedQuestion != null : MESSAGE_UNRECOGNISED_QUESTION_TYPE;
-        
+
         if (!questionToEdit.isSameQuestion(editedQuestion) && model.hasQuestion(editedQuestion)) {
             throw new CommandException(MESSAGE_DUPLICATE_QUESTION);
         }
@@ -123,7 +123,7 @@ public class EditCommand extends Command {
         Set<Choice> updatedChoices = new HashSet<>(wrongChoices);
         updatedChoices.add(answer);
         MultipleChoiceQuestion updatedMcq = new MultipleChoiceQuestion(updatedName, updatedImportance,
-                updatedTags,updatedChoices);
+                updatedTags, updatedChoices);
         if (!updatedMcq.isValidQuestion()) {
             throw new CommandException(MultipleChoiceQuestion.MESSAGE_VALID_MCQ);
         }
@@ -154,7 +154,7 @@ public class EditCommand extends Command {
         } else {
             updatedChoices = questionToEdit.getChoices();
         }
-        
+
         return updatedChoices;
     }
 
@@ -259,7 +259,7 @@ public class EditCommand extends Command {
         public Optional<Set<Choice>> getWrongChoices() {
             return (wrongChoices != null) ? Optional.of(Collections.unmodifiableSet(wrongChoices)) : Optional.empty();
         }
-        
+
         public void setAnswer(Choice answer) {
             this.answer = (answer != null) ? answer : null;
         }

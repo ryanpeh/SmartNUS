@@ -37,7 +37,7 @@ public class Choice {
     public static boolean isValidChoiceTitle(String test) {
         return test.matches(VALIDATION_REGEX);
     }
-    
+
     public boolean hasSameTitle(Choice choice) {
         return title.equals(choice.title);
     }
