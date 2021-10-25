@@ -8,7 +8,7 @@ import static seedu.smartnus.testutil.Assert.assertThrows;
 import org.junit.jupiter.api.Test;
 
 public class ChoiceTest {
-    private final Choice ALPHA = new Choice("alpha", true);
+    private static final Choice DEFAULT_CHOICE = new Choice("alpha", true);
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -42,26 +42,26 @@ public class ChoiceTest {
 
     @Test
     public void hasSameTitle_nullChoice_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ALPHA.hasSameTitle(null));
+        assertThrows(NullPointerException.class, () -> DEFAULT_CHOICE.hasSameTitle(null));
     }
 
     @Test
     public void hasSameTitle_sameTitleChoice_true() {
         // same object
-        assertTrue(ALPHA.hasSameTitle(ALPHA));
+        assertTrue(DEFAULT_CHOICE.hasSameTitle(DEFAULT_CHOICE));
         // same title, different isCorrect value, should still return true
-        assertTrue(ALPHA.hasSameTitle(new Choice("alpha", false)));
+        assertTrue(DEFAULT_CHOICE.hasSameTitle(new Choice("alpha", false)));
         // same title, same isCorrect value
-        assertTrue(ALPHA.hasSameTitle(new Choice("alpha", true)));
+        assertTrue(DEFAULT_CHOICE.hasSameTitle(new Choice("alpha", true)));
     }
 
     @Test
     public void hasSameTitle_differentTitleChoice_false() {
-        assertFalse(ALPHA.hasSameTitle(new Choice("abc", true)));
+        assertFalse(DEFAULT_CHOICE.hasSameTitle(new Choice("abc", true)));
         // has additional whitespace
-        assertFalse(ALPHA.hasSameTitle(new Choice("alpha ", true)));
+        assertFalse(DEFAULT_CHOICE.hasSameTitle(new Choice("alpha ", true)));
         // different case
-        assertFalse(ALPHA.hasSameTitle(new Choice("aLPha", true)));
+        assertFalse(DEFAULT_CHOICE.hasSameTitle(new Choice("aLPha", true)));
     }
 
     @Test
