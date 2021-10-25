@@ -135,7 +135,7 @@ public class EditCommand extends Command {
         return updatedTf;
     }
 
-    private Set<Choice> getEditedTfChoices(Question questionToEdit) throws CommandException {
+    private Set<Choice> getEditedTfChoices(Question questionToEdit) {
         Set<Choice> updatedChoices;
         if (editQuestionDescriptor.getTfChoices().isPresent()) {
             updatedChoices = editQuestionDescriptor.getTfChoices().get();
