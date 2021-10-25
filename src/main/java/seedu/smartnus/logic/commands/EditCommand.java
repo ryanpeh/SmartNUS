@@ -109,6 +109,14 @@ public class EditCommand extends Command {
             throws CommandException {
         Set<Choice> wrongChoices = editQuestionDescriptor.getWrongChoices().orElse(questionToEdit.getWrongChoices());
         Choice answer = editQuestionDescriptor.getAnswer().orElse(questionToEdit.getCorrectChoice());
+        // Both incorrect options and correct answer must be present for mcq
+        if (editQuestionDescriptor.getWrongChoices().isPresent()) {
+            if (!editQuestionDescriptor.getAnswer().isPresent()) {
+                throw new CommandException("Answer (ans/) must be specified.");
+            }
+        } else if (editQuestionDescriptor.getAnswer().isPresent()) {
+            throw new CommandException("Options (opt/) must be specified.");
+        }
         Set<Choice> updatedChoices = new HashSet<>(wrongChoices);
         updatedChoices.add(answer);
         MultipleChoiceQuestion updatedMcq = new MultipleChoiceQuestion(updatedName, updatedImportance,
@@ -123,6 +131,7 @@ public class EditCommand extends Command {
                                              Name updatedName,
                                              Importance updatedImportance, Set<Tag> updatedTags)
             throws CommandException {
+        // Incorrect options should not be specified for T-F Questions
         if (editQuestionDescriptor.getWrongChoices().isPresent()) {
             throw new CommandException(TrueFalseQuestion.MESSAGE_OPTIONS_INVALID);
         }

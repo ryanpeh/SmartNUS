@@ -8,8 +8,10 @@ import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_OPTION;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -53,25 +55,51 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editQuestionDescriptor::setTags);
         
+        Choice answer = null;
         if (argMultimap.getValue(PREFIX_ANSWER).isPresent()) {
-            Choice answer = ParserUtil.parseAnswerForEdit(argMultimap.getValue(PREFIX_ANSWER).get());
+            answer = ParserUtil.parseAnswerForEdit(argMultimap.getValue(PREFIX_ANSWER).get());
             editQuestionDescriptor.setAnswer(answer);
             // TF choices require additional parsing as user input (e.g. T) is not the same as choice title (e.g. True)
             // this is necessary to ensure decoupling of parser and logic/model components
             Set<Choice> tfChoices = ParserUtil.parseTrueFalseAnswerForEdit(answer.getTitle());
             editQuestionDescriptor.setTfChoices(tfChoices);
         }
-        
+
         Set<Choice> wrongChoices = ParserUtil.parseWrongChoicesForEdit(argMultimap.getAllValues(PREFIX_OPTION));
         if (!wrongChoices.isEmpty()) {
             editQuestionDescriptor.setWrongChoices(wrongChoices);
+            if (answer == null) {
+                throw new ParseException("Answer must be specified.");
+            }
         }
         
+        Set<Choice> updatedChoices = new HashSet<>(wrongChoices);
+        updatedChoices.add(answer);
+        if (!isValidChoiceTitles(updatedChoices)) {
+            throw new ParseException("Correct answers and wrong options are not allowed to share the same titles.");
+        }
+
         if (!editQuestionDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
-        
+
         return new EditCommand(index, editQuestionDescriptor);
+    }
+    
+    private boolean isValidChoiceTitles(Set<Choice> updatedChoices) {
+        ArrayList<Choice> arr = new ArrayList<>(updatedChoices);
+        for (int i = 0; i < arr.size(); i++) {
+            Choice currentChoice = arr.get(i);
+            assert currentChoice != null;
+            for (int j = i + 1; j < arr.size(); j++) {
+                Choice nextChoice = arr.get(j);
+                assert nextChoice != null;
+                if (currentChoice.getTitle().equals(nextChoice.getTitle())) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     /**
