@@ -23,7 +23,7 @@ public class QuestionBuilder {
     public static final Choice DEFAULT_WRONG_CHOICE_1 = new Choice("wrong option 1", false);
     public static final Choice DEFAULT_WRONG_CHOICE_2 = new Choice("wrong option 2", false);
     public static final Choice DEFAULT_WRONG_CHOICE_3 = new Choice("wrong option 3", false);
-    public static final Choice DEFAULT_ANSWER = new Choice("answer", true);        
+    public static final Choice DEFAULT_ANSWER = new Choice("answer", true);
 
     private Name name;
     private Importance importance;
@@ -39,7 +39,8 @@ public class QuestionBuilder {
         importance = new Importance(DEFAULT_IMPORTANCE);
         tags = new HashSet<>();
         mcqChoices = new HashSet<>();
-        mcqChoices.addAll(List.of(DEFAULT_WRONG_CHOICE_1, DEFAULT_WRONG_CHOICE_2,DEFAULT_WRONG_CHOICE_3, DEFAULT_ANSWER));
+        mcqChoices.addAll(List.of(DEFAULT_WRONG_CHOICE_1, DEFAULT_WRONG_CHOICE_2, DEFAULT_WRONG_CHOICE_3,
+                DEFAULT_ANSWER));
         statistic = new Statistic();
     }
 

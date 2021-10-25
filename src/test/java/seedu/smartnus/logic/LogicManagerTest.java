@@ -84,7 +84,7 @@ public class LogicManagerTest {
 
         // Execute add command
         String addMcqCommand = AddMcqCommand.COMMAND_WORD + NAME_DESC_AMY + ANSWER_DESC_1
-                + OPTION_DESC_1 +OPTION_DESC_3 + OPTION_DESC_4 + IMPORTANCE_DESC_AMY;
+                + OPTION_DESC_1 + OPTION_DESC_3 + OPTION_DESC_4 + IMPORTANCE_DESC_AMY;
         Question expectedQuestion = new QuestionBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addQuestion(expectedQuestion);
