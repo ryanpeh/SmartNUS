@@ -10,6 +10,7 @@ import seedu.smartnus.model.question.MultipleChoiceQuestion;
 import seedu.smartnus.model.question.Name;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.question.Statistic;
+import seedu.smartnus.model.question.TrueFalseQuestion;
 import seedu.smartnus.model.tag.Tag;
 import seedu.smartnus.model.util.SampleDataUtil;
 
@@ -28,7 +29,7 @@ public class QuestionBuilder {
     private Name name;
     private Importance importance;
     private Set<Tag> tags;
-    private Set<Choice> mcqChoices;
+    private Set<Choice> choices;
     private Statistic statistic;
 
     /**
@@ -38,8 +39,8 @@ public class QuestionBuilder {
         name = new Name(DEFAULT_NAME);
         importance = new Importance(DEFAULT_IMPORTANCE);
         tags = new HashSet<>();
-        mcqChoices = new HashSet<>();
-        mcqChoices.addAll(List.of(DEFAULT_WRONG_CHOICE_1, DEFAULT_WRONG_CHOICE_2, DEFAULT_WRONG_CHOICE_3,
+        choices = new HashSet<>();
+        choices.addAll(List.of(DEFAULT_WRONG_CHOICE_1, DEFAULT_WRONG_CHOICE_2, DEFAULT_WRONG_CHOICE_3,
                 DEFAULT_ANSWER));
         statistic = new Statistic();
     }
@@ -51,7 +52,7 @@ public class QuestionBuilder {
         name = questionToCopy.getName();
         importance = questionToCopy.getImportance();
         tags = new HashSet<>(questionToCopy.getTags());
-        mcqChoices = new HashSet<>(questionToCopy.getChoices());
+        choices = new HashSet<>(questionToCopy.getChoices());
         statistic = questionToCopy.getStatistic();
     }
 
@@ -84,9 +85,9 @@ public class QuestionBuilder {
      * a set containing choices.
      */
     public QuestionBuilder withChoices(Choice ... choices) {
-        this.mcqChoices = new HashSet<>();
+        this.choices = new HashSet<>();
         for (Choice choice : choices) {
-            this.mcqChoices.add(choice);
+            this.choices.add(choice);
         }
         return this;
     }
@@ -96,7 +97,10 @@ public class QuestionBuilder {
      */
     public Question build() {
         // TODO: edit when more Question types are supported
-        return new MultipleChoiceQuestion(name, importance, tags, mcqChoices, statistic);
+        return new MultipleChoiceQuestion(name, importance, tags, choices, statistic);
     }
 
+    public Question buildTrueFalse() {
+        return new TrueFalseQuestion(name, importance, tags, choices, statistic);
+    }
 }

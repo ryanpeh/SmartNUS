@@ -8,6 +8,8 @@ import static seedu.smartnus.testutil.Assert.assertThrows;
 import org.junit.jupiter.api.Test;
 
 public class ChoiceTest {
+    private final Choice ALPHA = new Choice("alpha", true);
+
     @Test
     public void constructor_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new Choice(null, true));
@@ -36,6 +38,30 @@ public class ChoiceTest {
         assertTrue(Choice.isValidChoiceTitle("option 1"));
         assertTrue(Choice.isValidChoiceTitle("10"));
         assertTrue(Choice.isValidChoiceTitle("901p#__"));
+    }
+
+    @Test
+    public void hasSameTitle_nullChoice_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ALPHA.hasSameTitle(null));
+    }
+
+    @Test
+    public void hasSameTitle_sameTitleChoice_true() {
+        // same object
+        assertTrue(ALPHA.hasSameTitle(ALPHA));
+        // same title, different isCorrect value, should still return true
+        assertTrue(ALPHA.hasSameTitle(new Choice("alpha", false)));
+        // same title, same isCorrect value
+        assertTrue(ALPHA.hasSameTitle(new Choice("alpha", true)));
+    }
+
+    @Test
+    public void hasSameTitle_differentTitleChoice_false() {
+        assertFalse(ALPHA.hasSameTitle(new Choice("abc", true)));
+        // has additional whitespace
+        assertFalse(ALPHA.hasSameTitle(new Choice("alpha ", true)));
+        // different case
+        assertFalse(ALPHA.hasSameTitle(new Choice("aLPha", true)));
     }
 
     @Test

@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 import seedu.smartnus.logic.commands.EditCommand;
 import seedu.smartnus.logic.commands.EditCommand.EditQuestionDescriptor;
+import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.question.Importance;
 import seedu.smartnus.model.question.Name;
 import seedu.smartnus.model.question.Question;
@@ -36,6 +37,7 @@ public class EditQuestionDescriptorBuilder {
         descriptor.setTags(question.getTags());
         descriptor.setWrongChoices(question.getWrongChoices());
         descriptor.setAnswer(question.getCorrectChoice());
+        descriptor.setTfChoices(question.getChoices());
     }
 
     /**
@@ -61,6 +63,33 @@ public class EditQuestionDescriptorBuilder {
     public EditQuestionDescriptorBuilder withTags(String... tags) {
         Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
         descriptor.setTags(tagSet);
+        return this;
+    }
+
+    /**
+     * Parses the {@code wrongChoices} into a {@code Set<Choice>} and set it to the {@code EditQuestionDescriptor}
+     * that we are building.
+     */
+    public EditQuestionDescriptorBuilder withWrongChoices(String... wrongChoices) {
+        Set<Choice> choiceSet = Stream.of(wrongChoices).map(choice -> new Choice(choice, false))
+                .collect(Collectors.toSet());
+        descriptor.setWrongChoices(choiceSet);
+        return this;
+    }
+
+    /**
+     * Sets the {@code answer} of the {@code EditQuestionDescriptor} that we are building.
+     */
+    public EditQuestionDescriptorBuilder withAnswer(String answer) {
+        descriptor.setAnswer(new Choice(answer, true));
+        return this;
+    }
+
+    /**
+     * Sets the {@code choices} of the {@code EditQuestionDescriptor} that we are building.
+     */
+    public EditQuestionDescriptorBuilder withTfChoices(Set<Choice> choices) {
+        descriptor.setTfChoices(choices);
         return this;
     }
 

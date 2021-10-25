@@ -38,8 +38,15 @@ public class Choice {
         return test.matches(VALIDATION_REGEX);
     }
 
-    public boolean hasSameTitle(Choice choice) {
-        return title.equals(choice.title);
+    /**
+     * Returns true if {@code otherChoice} has the same title (case-sensitive) as this choice.
+     *
+     * @param otherChoice Another Choice that is to be checked for a duplicate title.
+     * @return True if otherChoice has the same title (case-sensitive) as this choice.
+     */
+    public boolean hasSameTitle(Choice otherChoice) {
+        requireNonNull(otherChoice);
+        return otherChoice == this || title.equals(otherChoice.title);
     }
 
     public boolean getIsCorrect() {
