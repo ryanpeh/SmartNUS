@@ -35,9 +35,7 @@ public class NextQuestionCommand extends Command {
                     + "\n Here is the quiz statistic: " + quizManager.getStatistic());
         }
 
-        // TODO: Change the displayed message once UI is done.
-        //return new CommandResult(MESSAGE_SUCCESS);
-        return new CommandResult(quizManager.currQuestion().getQuestionAndOptions());
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 
     @Override

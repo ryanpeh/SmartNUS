@@ -26,13 +26,12 @@ public class QuestionCard extends UiPart<Region> {
      */
 
     public final Question question;
+    private int displayedIndex;
 
     @FXML
     private HBox cardPane;
     @FXML
     private Label name;
-    @FXML
-    private Label id;
     @FXML
     private Label importance;
     @FXML
@@ -40,7 +39,7 @@ public class QuestionCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
     @FXML
-    private FlowPane choices;
+    private HBox choices;
 
     /**
      * Creates a {@code QuestionCard} with the given {@code Question} and index to display.
@@ -48,9 +47,10 @@ public class QuestionCard extends UiPart<Region> {
     public QuestionCard(Question question, int displayedIndex) {
         super(FXML);
         this.question = question;
-        id.setText(displayedIndex + ". ");
-        name.setText(question.getName().fullName);
-        importance.setText("importance: " + question.getImportance().value);
+        this.displayedIndex = displayedIndex;
+        name.setText(displayedIndex + ". " + question.getName().fullName);
+        name.setWrapText(true);
+        importance.setText("Importance: " + question.getImportance().value);
         question.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
@@ -63,6 +63,7 @@ public class QuestionCard extends UiPart<Region> {
     // If not, during quiz, users can see the correct answers
     private void setChoiceLabel(Choice choice) {
         Label choiceLabel = new Label(choice.getTitle());
+        choiceLabel.setWrapText(true);
         if (choice.getIsCorrect()) {
             choiceLabel.getStyleClass().add("correct-choice-bg");
         } else {
@@ -85,7 +86,7 @@ public class QuestionCard extends UiPart<Region> {
 
         // state check
         QuestionCard card = (QuestionCard) other;
-        return id.getText().equals(card.id.getText())
+        return displayedIndex == card.displayedIndex
                 && question.equals(card.question);
     }
 }

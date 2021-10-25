@@ -23,8 +23,7 @@ public class AnswerMcqCommandParser implements QuizParser<AnswerMcqCommand> {
         if (args.matches(MCQ_REGEX)) {
             return new AnswerMcqCommand(args, quizManager);
         } else {
-            throw new ParseException(MESSAGE_INVALID_MCQ_ANSWER_FORMAT
-                    + quizManager.currQuestion().getQuestionAndOptions());
+            throw new ParseException(MESSAGE_INVALID_MCQ_ANSWER_FORMAT);
         }
     }
 

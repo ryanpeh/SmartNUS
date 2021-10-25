@@ -101,4 +101,12 @@ public class QuizManager implements Quiz {
         return currentIndex;
     }
 
+    public boolean isLastQuestion() {
+        return currentIndex == totalQuestions - 1;
+    }
+
+    public Choice getCurrentSelectedChoice() {
+        return selectedChoices.get(currentIndex);
+    }
+
 }
