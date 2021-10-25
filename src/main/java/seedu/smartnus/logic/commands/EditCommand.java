@@ -50,6 +50,9 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_QUESTION_SUCCESS = "Edited Question: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_QUESTION = "This question already exists in SmartNUS.";
+    
+    public static final String MESSAGE_NO_ANSWER = "Answer (ans/) must be specified.";
+    public static final String MESSAGE_NO_OPTIONS = "Options (opt/) must be specified.";        
 
     private final Index index;
     private final EditQuestionDescriptor editQuestionDescriptor;
@@ -112,10 +115,10 @@ public class EditCommand extends Command {
         // Both incorrect options and correct answer must be present for mcq
         if (editQuestionDescriptor.getWrongChoices().isPresent()) {
             if (!editQuestionDescriptor.getAnswer().isPresent()) {
-                throw new CommandException("Answer (ans/) must be specified.");
+                throw new CommandException(MESSAGE_NO_ANSWER);
             }
         } else if (editQuestionDescriptor.getAnswer().isPresent()) {
-            throw new CommandException("Options (opt/) must be specified.");
+            throw new CommandException(MESSAGE_NO_OPTIONS);
         }
         Set<Choice> updatedChoices = new HashSet<>(wrongChoices);
         updatedChoices.add(answer);
@@ -131,7 +134,7 @@ public class EditCommand extends Command {
                                              Name updatedName,
                                              Importance updatedImportance, Set<Tag> updatedTags)
             throws CommandException {
-        // Incorrect options should not be specified for T-F Questions
+        // Incorrect options should not be specified for T/F Questions
         if (editQuestionDescriptor.getWrongChoices().isPresent()) {
             throw new CommandException(TrueFalseQuestion.MESSAGE_OPTIONS_INVALID);
         }

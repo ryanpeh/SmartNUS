@@ -8,7 +8,6 @@ import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_OPTION;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -17,8 +16,10 @@ import java.util.Set;
 
 import seedu.smartnus.commons.core.index.Index;
 import seedu.smartnus.logic.commands.EditCommand;
+import seedu.smartnus.logic.commands.EditCommand.EditQuestionDescriptor;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
 import seedu.smartnus.model.choice.Choice;
+import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.tag.Tag;
 
 /**
@@ -37,69 +38,94 @@ public class EditCommandParser implements Parser<EditCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_QUESTION, PREFIX_IMPORTANCE, PREFIX_TAG, PREFIX_OPTION,
                         PREFIX_ANSWER);
 
-        Index index;
+        Index index = parseEditIndex(argMultimap);
+        
+        EditQuestionDescriptor editQuestionDescriptor = new EditCommand.EditQuestionDescriptor();
 
+        setDescriptorQuestion(argMultimap, editQuestionDescriptor);
+        setDescriptorImportance(argMultimap, editQuestionDescriptor);
+        setDescriptorTags(argMultimap, editQuestionDescriptor);
+        setDescriptorAnswers(argMultimap, editQuestionDescriptor);
+        setDescriptorWrongChoices(argMultimap, editQuestionDescriptor);
+
+        checkValidChoicesForEdit(editQuestionDescriptor);
+
+        checkAtLeastOneFieldEdited(editQuestionDescriptor);
+
+        return new EditCommand(index, editQuestionDescriptor);
+    }
+    
+    private Index parseEditIndex(ArgumentMultimap argMultimap) throws ParseException {
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            return ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
+    }
 
-        EditCommand.EditQuestionDescriptor editQuestionDescriptor = new EditCommand.EditQuestionDescriptor();
+    private void setDescriptorQuestion(ArgumentMultimap argMultimap, EditQuestionDescriptor editQuestionDescriptor)
+            throws ParseException {
         if (argMultimap.getValue(PREFIX_QUESTION).isPresent()) {
             editQuestionDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_QUESTION).get()));
         }
+    }
+
+    private void setDescriptorImportance(ArgumentMultimap argMultimap, EditQuestionDescriptor editQuestionDescriptor)
+            throws ParseException {
         if (argMultimap.getValue(PREFIX_IMPORTANCE).isPresent()) {
             editQuestionDescriptor.setImportance(ParserUtil.parseImportance(
                     argMultimap.getValue(PREFIX_IMPORTANCE).get()));
         }
+    }
+
+    private void setDescriptorTags(ArgumentMultimap argMultimap, EditQuestionDescriptor editQuestionDescriptor)
+            throws ParseException {
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editQuestionDescriptor::setTags);
-        
-        Choice answer = null;
+    }
+
+    private void setDescriptorAnswers(ArgumentMultimap argMultimap, EditQuestionDescriptor editQuestionDescriptor)
+            throws ParseException {
         if (argMultimap.getValue(PREFIX_ANSWER).isPresent()) {
-            answer = ParserUtil.parseAnswerForEdit(argMultimap.getValue(PREFIX_ANSWER).get());
+            Choice answer = ParserUtil.parseAnswerForEdit(argMultimap.getValue(PREFIX_ANSWER).get());
             editQuestionDescriptor.setAnswer(answer);
             // TF choices require additional parsing as user input (e.g. T) is not the same as choice title (e.g. True)
             // this is necessary to ensure decoupling of parser and logic/model components
             Set<Choice> tfChoices = ParserUtil.parseTrueFalseAnswerForEdit(answer.getTitle());
             editQuestionDescriptor.setTfChoices(tfChoices);
         }
+    }
 
+    private void setDescriptorWrongChoices(ArgumentMultimap argMultimap, EditQuestionDescriptor editQuestionDescriptor)
+            throws ParseException {
         Set<Choice> wrongChoices = ParserUtil.parseWrongChoicesForEdit(argMultimap.getAllValues(PREFIX_OPTION));
-        if (!wrongChoices.isEmpty()) {
+        if (!wrongChoices.isEmpty()) { // incorrect options are specified
             editQuestionDescriptor.setWrongChoices(wrongChoices);
-            if (answer == null) {
-                throw new ParseException("Answer must be specified.");
-            }
         }
-        
-        Set<Choice> updatedChoices = new HashSet<>(wrongChoices);
-        updatedChoices.add(answer);
-        if (!isValidChoiceTitles(updatedChoices)) {
-            throw new ParseException("Correct answers and wrong options are not allowed to share the same titles.");
-        }
+    }
 
+    /**
+     * Throws ParseException if there are duplicate choice titles between the incorrect and correct choices.
+     * If either the incorrect choices or correct choices are not present, the method returns immediately as
+     * duplicate titles within the incorrect options are already checked for during parsing.
+     *
+     * @param editQuestionDescriptor The descriptor that stores the updated correct and wrong choices.
+     * @throws ParseException if there are duplicate choice titles between the incorrect and correct choices.
+     */
+    private void checkValidChoicesForEdit(EditQuestionDescriptor editQuestionDescriptor) throws ParseException {
+        if (!editQuestionDescriptor.getWrongChoices().isPresent() || !editQuestionDescriptor.getAnswer().isPresent()) {
+            return;
+        }
+        Set<Choice> updatedChoices = new HashSet<>(editQuestionDescriptor.getWrongChoices().get());
+        updatedChoices.add(editQuestionDescriptor.getAnswer().get());
+        if (!ParserUtil.isValidChoiceTitles(updatedChoices)) {
+            throw new ParseException(Question.MESSAGE_DUPLICATE_CHOICES);
+        }
+    }
+
+    private void checkAtLeastOneFieldEdited(EditQuestionDescriptor editQuestionDescriptor) throws ParseException {
         if (!editQuestionDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
-
-        return new EditCommand(index, editQuestionDescriptor);
-    }
-    
-    private boolean isValidChoiceTitles(Set<Choice> updatedChoices) {
-        ArrayList<Choice> arr = new ArrayList<>(updatedChoices);
-        for (int i = 0; i < arr.size(); i++) {
-            Choice currentChoice = arr.get(i);
-            assert currentChoice != null;
-            for (int j = i + 1; j < arr.size(); j++) {
-                Choice nextChoice = arr.get(j);
-                assert nextChoice != null;
-                if (currentChoice.getTitle().equals(nextChoice.getTitle())) {
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 
     /**

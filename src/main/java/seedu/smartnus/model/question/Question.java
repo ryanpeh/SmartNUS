@@ -32,6 +32,9 @@ public abstract class Question {
     // Question statistic
     private final Statistic statistic;
 
+    public static final String MESSAGE_DUPLICATE_CHOICES = "Choices (both incorrect and correct)"
+            + " should not have duplicate titles.";
+
     /**
      * Every field must be present and not null.
      */

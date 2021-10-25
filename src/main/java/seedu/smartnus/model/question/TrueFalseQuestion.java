@@ -13,7 +13,7 @@ import seedu.smartnus.model.tag.Tag;
 public class TrueFalseQuestion extends Question {
 
     public static final String MESSAGE_ANSWER_INVALID = "Only T or F is allowed as an answer!";
-    public static final String MESSAGE_OPTIONS_INVALID = "Do not specify incorrect options for T/F questions.";
+    public static final String MESSAGE_OPTIONS_INVALID = "Do not specify incorrect options (/opt) for T/F questions.";
     private static final int NUMBER_OF_CHOICES = 2;
 
     public TrueFalseQuestion(Name name, Importance importance, Set<Tag> tags,
