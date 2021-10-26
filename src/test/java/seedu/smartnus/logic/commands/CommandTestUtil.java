@@ -51,8 +51,6 @@ public class CommandTestUtil {
     public static final String NAME_DESC_BOB = " " + PREFIX_QUESTION + VALID_NAME_BOB;
     public static final String VALID_NOTE_1 = "CS2103T is a fun mod";
     public static final String VALID_NOTE_2 = "CS2100 is not a fun mod";
-    public static final String VALID_NOTE_TAG_1 = "truth";
-    public static final String VALID_NOTE_TAG_2 = "lies";
     public static final String NOTE_DESC_1 = " " + PREFIX_NOTE + VALID_NOTE_1;
     public static final String NOTE_DESC_2 = " " + PREFIX_NOTE + VALID_NOTE_2;
 

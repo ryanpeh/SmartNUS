@@ -1,10 +1,7 @@
 package seedu.smartnus.ui;
 
-import java.util.Comparator;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.smartnus.model.note.Note;
@@ -32,8 +29,6 @@ public class NoteCard extends UiPart<Region> {
     private Label name;
     @FXML
     private Label id;
-    @FXML
-    private FlowPane tags;
 
     /**
      * Creates a {@code QuestionCard} with the given {@code Question} and index to display.
@@ -43,9 +38,6 @@ public class NoteCard extends UiPart<Region> {
         this.note = note;
         id.setText(displayedIndex + ". ");
         name.setText(note.getTitle());
-        note.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override

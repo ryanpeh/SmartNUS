@@ -3,11 +3,7 @@ package seedu.smartnus.model.note;
 import static java.util.Objects.requireNonNull;
 import static seedu.smartnus.commons.util.AppUtil.checkArgument;
 
-import java.util.Collections;
 import java.util.Objects;
-import java.util.Set;
-
-import seedu.smartnus.model.tag.Tag;
 
 public class Note {
 
@@ -20,7 +16,6 @@ public class Note {
     public static final String VALIDATION_REGEX = "[^\\s].*";
 
     private final String title;
-    private Set<Tag> tagSet;
 
     /**
      * Constructs a {@code Note}.
@@ -31,19 +26,6 @@ public class Note {
         requireNonNull(title);
         checkArgument(isValidNoteTitle(title), MESSAGE_CONSTRAINTS);
         this.title = title;
-    }
-
-    /**
-     * Constructs a {@code Note}.
-     *
-     * @param title Title of the note.
-     * @param tags the tags of the note.
-     */
-    public Note(String title, Set<Tag> tags) {
-        requireNonNull(title);
-        checkArgument(isValidNoteTitle(title), MESSAGE_CONSTRAINTS);
-        this.title = title;
-        this.tagSet = tags;
     }
 
     /**
@@ -60,18 +42,8 @@ public class Note {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        appendTags(builder);
-        return builder.toString();
-    }
-
-    private StringBuilder appendTags(StringBuilder builder) {
-        Set<Tag> tags = getTags();
         builder.append(getTitle());
-        if (!tags.isEmpty()) {
-            builder.append("; Tags: ");
-            tags.forEach(builder::append);
-        }
-        return builder;
+        return builder.toString();
     }
 
     @Override
@@ -90,14 +62,6 @@ public class Note {
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, tagSet);
-    }
-
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tagSet);
+        return Objects.hash(title);
     }
 }
