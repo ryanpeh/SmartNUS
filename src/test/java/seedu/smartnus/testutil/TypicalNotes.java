@@ -27,7 +27,7 @@ public class TypicalNotes {
     /**
      * Returns an {@code SmartNus} with all the typical questions.
      */
-    public static SmartNus getTypicalSmartNus() {
+    public static SmartNus getTypicalSmartNusNotes() {
         SmartNus ab = new SmartNus();
         for (Note note : getTypicalNotes()) {
             ab.addNote(note);

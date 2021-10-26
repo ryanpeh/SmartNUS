@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.smartnus.testutil.Assert.assertThrows;
 import static seedu.smartnus.testutil.TypicalQuestions.ALICE;
-import static seedu.smartnus.testutil.TypicalQuestions.getTypicalSmartNus;
+import static seedu.smartnus.testutil.TypicalSmartNus.getTypicalSmartNus;
 
 import java.util.Arrays;
 import java.util.Collection;

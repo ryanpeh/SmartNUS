@@ -42,19 +42,6 @@ public class CommandResult {
         this(feedbackToUser, false, false, false, false);
     }
 
-    /**
-     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
-     * indicates the command is a {@code QuizCommand}, and other fields set to their
-     * default value.
-     */
-    public CommandResult(String feedbackToUser, Boolean isQuizStart, Boolean isList) {
-        this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = false;
-        this.exit = false;
-        this.quizStart = false;
-        this.isList = false;
-    }
-
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
@@ -88,13 +75,13 @@ public class CommandResult {
 
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && showHelp == otherCommandResult.isShowHelp()
+                && exit == otherCommandResult.isExit();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, showHelp, exit, quizStart, isList);
     }
 
 }

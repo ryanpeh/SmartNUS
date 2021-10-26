@@ -42,6 +42,16 @@ public class SmartNus implements ReadOnlySmartNus {
         resetData(toBeCopied);
     }
 
+    /**
+     * instantiates a new smartNus object with the given lists.
+     * @param questionsAsList the question list
+     * @param notesAsList the note list
+     */
+    public SmartNus(List<Question> questionsAsList, List<Note> notesAsList) {
+        setQuestions(questionsAsList);
+        setNotes(notesAsList);
+    }
+
     //// list overwrite operations
 
     /**
@@ -53,7 +63,7 @@ public class SmartNus implements ReadOnlySmartNus {
     }
 
     public void setNotes(List<Note> notes) {
-        this.notes.setNotes(notes);
+        this.notes.setNoteList(notes);
     }
     /**
      * Resets the existing data of this {@code SmartNus} with {@code newData}.

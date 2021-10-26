@@ -61,7 +61,7 @@ public class NoteListTest {
 
     @Test
     public void setNotes_nullNoteList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> noteList.setNotes((List<Note>) null));
+        assertThrows(NullPointerException.class, () -> noteList.setNoteList((List<Note>) null));
     }
 
     @Test

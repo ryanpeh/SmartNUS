@@ -41,12 +41,10 @@ public class NoteList implements Iterable<Note> {
         internalList.set(index, editedNote);
     }
 
-    /*
     public void setNotes(NoteList replacement) {
         requireNonNull(replacement);
-        setNotes(replacement.internalList);
+        internalList.setAll(replacement.internalList);
     }
-    */
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
@@ -64,7 +62,7 @@ public class NoteList implements Iterable<Note> {
      * Replaces the contents of this list with {@code notes}.
      * {@code notes} must not contain duplicate notes.
      */
-    public void setNotes(List<Note> notes) {
+    public void setNoteList(List<Note> notes) {
         requireAllNonNull(notes);
         internalList.setAll(notes);
     }
