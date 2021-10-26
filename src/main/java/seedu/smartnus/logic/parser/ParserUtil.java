@@ -118,7 +118,7 @@ public class ParserUtil {
         requireNonNull(indexCollection);
         final Set<Index> indexSet = new HashSet<>();
         for (String indexCol: indexCollection) {
-            String indexes[] = indexCol.split("\\s+");
+            String[] indexes = indexCol.split("\\s+");
             for (String index : indexes) {
                 indexSet.add(parseIndex(index));
             }

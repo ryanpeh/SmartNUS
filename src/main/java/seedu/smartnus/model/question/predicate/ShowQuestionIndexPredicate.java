@@ -1,7 +1,6 @@
 package seedu.smartnus.model.question.predicate;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -32,9 +31,11 @@ public class ShowQuestionIndexPredicate implements Predicate<Question> {
      */
     public ShowQuestionIndexPredicate(Index targetIndex) {
         this.currentIndex = 0;
-        this.targetIndexes = new HashSet<Index>() {{
-            add(targetIndex);
-        }};
+        this.targetIndexes = new HashSet<Index>() {
+            {
+                add(targetIndex);
+            }
+        };
     }
 
     @Override

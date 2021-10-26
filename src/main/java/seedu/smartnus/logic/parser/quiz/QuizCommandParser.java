@@ -10,9 +10,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
-import java.util.logging.Logger;
 
-import seedu.smartnus.commons.core.LogsCenter;
 import seedu.smartnus.commons.core.index.Index;
 import seedu.smartnus.logic.commands.quiz.QuizCommand;
 import seedu.smartnus.logic.parser.ArgumentMultimap;
