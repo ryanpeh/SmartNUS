@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import seedu.smartnus.model.ReadOnlySmartNus;
 import seedu.smartnus.model.SmartNus;
 import seedu.smartnus.model.choice.Choice;
+import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Importance;
 import seedu.smartnus.model.question.MultipleChoiceQuestion;
 import seedu.smartnus.model.question.Name;
@@ -72,10 +73,23 @@ public class SampleDataUtil {
         };
     }
 
+    public static Note[] getSampleNotes() {
+        return new Note[] {
+            new Note("CS2103T has PE dry run in Week 11"),
+            new Note("CS2100 has assignment 3 coming up"),
+            new Note("Remember to not fall behind in CS mods!"),
+            new Note("Remember to do the CS2103T quiz over the weekends."),
+            new Note("Complete the TP as soon as possible, it can get intense.")
+        };
+    }
+
     public static ReadOnlySmartNus getSampleSmartNus() {
         SmartNus sampleSmartNus = new SmartNus();
         for (Question sampleQuestion : getSampleQuestions()) {
             sampleSmartNus.addQuestion(sampleQuestion);
+        }
+        for (Note sampleNote : getSampleNotes()) {
+            sampleSmartNus.addNote(sampleNote);
         }
         return sampleSmartNus;
     }
