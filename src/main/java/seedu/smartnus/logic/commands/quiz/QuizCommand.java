@@ -6,7 +6,6 @@ import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_NUMBER;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.function.Predicate;
 
 import seedu.smartnus.logic.commands.Command;

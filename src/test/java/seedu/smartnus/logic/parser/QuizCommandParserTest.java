@@ -1,7 +1,7 @@
 package seedu.smartnus.logic.parser;
 
 import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.smartnus.commons.core.Messages.MESSAGE_TOO_MANY_ARGUMENTS;
+import static seedu.smartnus.commons.core.Messages.MESSAGE_NO_TAGS_AND_INDEXES;
 import static seedu.smartnus.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.smartnus.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -40,7 +40,7 @@ class QuizCommandParserTest {
 
         // Users selecting more than 1 quiz types
         assertParseFailure(parser, " n/1 2 t/abcdef t/defg",
-                String.format(MESSAGE_TOO_MANY_ARGUMENTS, QuizCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_NO_TAGS_AND_INDEXES, QuizCommand.MESSAGE_USAGE));
     }
 
     @Test

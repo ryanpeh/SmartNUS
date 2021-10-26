@@ -1,7 +1,7 @@
 package seedu.smartnus.logic.parser.quiz;
 
 import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.smartnus.commons.core.Messages.MESSAGE_TOO_MANY_ARGUMENTS;
+import static seedu.smartnus.commons.core.Messages.MESSAGE_NO_TAGS_AND_INDEXES;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_NUMBER;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -43,9 +43,12 @@ public class QuizCommandParser implements Parser<QuizCommand> {
         Collection<String> indexes = argMultimap.getAllValues(PREFIX_NUMBER);
         Collection<String> tags = argMultimap.getAllValues(PREFIX_TAG);
 
-        // Check if the number of arguments is correct
-        if (indexes.size() > 0 && tags.size() > 0) {
-            throw new ParseException(String.format(MESSAGE_TOO_MANY_ARGUMENTS, QuizCommand.MESSAGE_USAGE));
+        boolean hasTagArgs = tags.size() > 0;
+        boolean hasIndexArgs = indexes.size() > 0;
+
+        // Check if the user passed in both index and tags
+        if (hasIndexArgs && hasTagArgs) {
+            throw new ParseException(String.format(MESSAGE_NO_TAGS_AND_INDEXES, QuizCommand.MESSAGE_USAGE));
         }
 
         // ArrayList of Predicates for question to be filtered by
@@ -53,10 +56,10 @@ public class QuizCommandParser implements Parser<QuizCommand> {
         filterPredicates.add(new ShowAllQuestionsPredicate());
 
         // Returns the command
-        if (indexes.size() > 0) {
+        if (hasIndexArgs) {
             Set<Index> indexSet = ParserUtil.parseQuizIndexes(argMultimap.getAllValues(PREFIX_NUMBER));
             filterPredicates.add(getIndexPredicate(indexSet));
-        } else if (tags.size() > 0) {
+        } else if (hasTagArgs) {
             Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
             List<String> tagKeywords = new ArrayList<>();
             tagList.stream().forEach(tag -> tagKeywords.add(tag.getTagName()));
