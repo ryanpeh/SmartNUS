@@ -14,6 +14,7 @@ import seedu.smartnus.commons.core.GuiSettings;
 import seedu.smartnus.commons.core.LogsCenter;
 import seedu.smartnus.logic.Logic;
 import seedu.smartnus.logic.commands.CommandResult;
+import seedu.smartnus.logic.commands.ListCommand;
 import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
 
@@ -27,11 +28,12 @@ public class MainWindow extends UiPart<Stage> {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    private Stage primaryStage;
     private Logic logic;
+    private Stage primaryStage;
 
     // Independent Ui parts residing in this Ui container
     private QuestionListPanel questionListPanel;
+    private NoteListPanel noteListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -43,6 +45,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane questionListPanelPlaceholder;
+
+    @FXML
+    private StackPane noteListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -108,12 +113,17 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Fills up all the placeholders of this window.
+     * Fills up all the placeholders of this window with questions.
      */
     void fillInnerParts() {
         questionListPanel = new QuestionListPanel(logic.getFilteredQuestionList());
-        questionListPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
 
+        // toggle visibility of noteList and questionList
+        questionListPanelPlaceholder.setVisible(true);
+        noteListPanelPlaceholder.setVisible(false);
+        noteListPanelPlaceholder.managedProperty().bind(noteListPanelPlaceholder.visibleProperty());
+
+        questionListPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -122,6 +132,37 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Fills up all the placeholders of this window with questions.
+     */
+    void fillInnerPartsWithQuestions() {
+        questionListPanel = new QuestionListPanel(logic.getFilteredQuestionList());
+
+        // toggle visibility of noteList and questionList
+        questionListPanelPlaceholder.setVisible(true);
+        noteListPanelPlaceholder.setVisible(false);
+        noteListPanelPlaceholder.managedProperty().bind(noteListPanelPlaceholder.visibleProperty());
+
+        questionListPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
+
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getSmartNusFilePath());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+    }
+
+    /**
+     * Fills up all the placeholders of this window with notes.
+     */
+    void fillInnerPartsWithNotes() {
+        noteListPanel = new NoteListPanel(logic.getFilteredNoteList());
+
+        // toggle visibility of noteList and questionList
+        noteListPanelPlaceholder.setVisible(true);
+        questionListPanelPlaceholder.setVisible(false);
+        questionListPanelPlaceholder.managedProperty().bind(questionListPanelPlaceholder.visibleProperty());
+
+        noteListPanelPlaceholder.getChildren().add(noteListPanel.getRoot());
     }
 
     /**
@@ -179,6 +220,22 @@ public class MainWindow extends UiPart<Stage> {
         return questionListPanel;
     }
 
+    public NoteListPanel getNoteListPanel() {
+        return noteListPanel;
+    }
+
+    /**
+     * Lists the specified items.
+     */
+    @FXML
+    private void handleListCommand() {
+        if (ListCommand.isDisplayQuestions()) {
+            fillInnerPartsWithQuestions();
+        } else {
+            fillInnerPartsWithNotes();
+        }
+    }
+
     /**
      * Executes the command and returns the result.
      *
@@ -203,6 +260,10 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             UiUtils.setTheme(logic.getTheme(), primaryStage);
+
+            if (commandResult.isList()) {
+                handleListCommand();
+            }
 
             return commandResult;
         } catch (CommandException | ParseException e) {

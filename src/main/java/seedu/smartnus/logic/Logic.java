@@ -9,6 +9,7 @@ import seedu.smartnus.logic.commands.CommandResult;
 import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
 import seedu.smartnus.model.ReadOnlySmartNus;
+import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.quiz.QuizManager;
 
@@ -44,8 +45,13 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of questions */
     ObservableList<Question> getFilteredQuestionList();
 
+
+    /** Returns an unmodifiable view of the filtered list of questions */
+    ObservableList<Note> getFilteredNoteList();
+
     /** Returns an unmodifiable view of the filtered list of questions for quizzes */
     ObservableList<Question> getFilteredQuizQuestionList();
+
 
     /**
      * Returns the user prefs' SmartNUS file path.

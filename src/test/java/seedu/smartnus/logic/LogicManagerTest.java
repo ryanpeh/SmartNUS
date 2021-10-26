@@ -22,7 +22,6 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.smartnus.commons.core.theme.LightTheme;
 import seedu.smartnus.commons.core.theme.Theme;
 import seedu.smartnus.logic.commands.CommandResult;
-import seedu.smartnus.logic.commands.ListCommand;
 import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.logic.commands.questions.AddMcqCommand;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
@@ -64,12 +63,6 @@ public class LogicManagerTest {
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete 9";
         assertCommandException(deleteCommand, MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX);
-    }
-
-    @Test
-    public void execute_validCommand_success() throws Exception {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
     }
 
     @Test

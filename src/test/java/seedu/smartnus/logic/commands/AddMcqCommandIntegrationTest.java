@@ -2,7 +2,7 @@ package seedu.smartnus.logic.commands;
 
 import static seedu.smartnus.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.smartnus.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.smartnus.testutil.TypicalQuestions.getTypicalSmartNus;
+import static seedu.smartnus.testutil.TypicalSmartNus.getTypicalSmartNus;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

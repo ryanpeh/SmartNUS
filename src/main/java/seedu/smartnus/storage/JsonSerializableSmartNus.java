@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.smartnus.commons.exceptions.IllegalValueException;
 import seedu.smartnus.model.ReadOnlySmartNus;
 import seedu.smartnus.model.SmartNus;
+import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
 
 /**
@@ -22,13 +23,16 @@ class JsonSerializableSmartNus {
     public static final String MESSAGE_DUPLICATE_QUESTION = "Questions list contains duplicate question(s).";
 
     private final List<JsonAdaptedQuestion> questions = new ArrayList<>();
+    private final List<JsonAdaptedNote> notes = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableSmartNus} with the given questions.
      */
     @JsonCreator
-    public JsonSerializableSmartNus(@JsonProperty("questions") List<JsonAdaptedQuestion> questions) {
+    public JsonSerializableSmartNus(@JsonProperty("questions") List<JsonAdaptedQuestion> questions,
+                                    @JsonProperty("notes") List<JsonAdaptedNote> notes) {
         this.questions.addAll(questions);
+        this.notes.addAll(notes);
     }
 
     /**
@@ -38,6 +42,7 @@ class JsonSerializableSmartNus {
      */
     public JsonSerializableSmartNus(ReadOnlySmartNus source) {
         questions.addAll(source.getQuestionList().stream().map(JsonAdaptedQuestion::new).collect(Collectors.toList()));
+        notes.addAll(source.getNoteList().stream().map(JsonAdaptedNote::new).collect(Collectors.toList()));
     }
 
     /**
@@ -54,7 +59,11 @@ class JsonSerializableSmartNus {
             }
             smartNus.addQuestion(question);
         }
+
+        for (JsonAdaptedNote jsonAdaptedNote : notes) {
+            Note note = jsonAdaptedNote.toModelType();
+            smartNus.addNote(note);
+        }
         return smartNus;
     }
-
 }
