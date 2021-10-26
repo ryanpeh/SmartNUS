@@ -65,14 +65,10 @@ public class QuizCommandParser implements Parser<QuizCommand> {
     }
 
     private Predicate<Question> getTagPredicate(List<String> tagKeywords) {
-        return !tagKeywords.isEmpty()
-                ? new TagsContainKeywordsPredicate(tagKeywords)
-                : new ShowAllQuestionsPredicate();
+        return new TagsContainKeywordsPredicate(tagKeywords);
     }
 
     private Predicate<Question> getIndexPredicate(Set<Index> indexes) {
-        return !indexes.isEmpty()
-                ? new ShowQuestionIndexPredicate(indexes)
-                : new ShowAllQuestionsPredicate();
+        return new ShowQuestionIndexPredicate(indexes);
     }
 }

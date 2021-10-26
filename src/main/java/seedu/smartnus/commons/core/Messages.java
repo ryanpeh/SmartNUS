@@ -13,6 +13,6 @@ public class Messages {
             + " Acceptable answers are 'a', 'b', 'c', 'd'\n";
     public static final String MESSAGE_INVALID_TF_ANSWER_FORMAT = "Invalid answer format!"
             + " Acceptable answers are 't', 'f'\n";
-    public static final String MESSAGE_TOO_MANY_ARGUMENTS = "Inserted too many arguments!";
+    public static final String MESSAGE_TOO_MANY_ARGUMENTS = "Inserted too many arguments! \n%1$s";
 
 }

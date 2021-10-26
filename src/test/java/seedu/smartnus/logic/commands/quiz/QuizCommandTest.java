@@ -1,16 +1,19 @@
-package seedu.smartnus.logic.commands;
+package seedu.smartnus.logic.commands.quiz;
 
+import static seedu.smartnus.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.smartnus.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.smartnus.testutil.TypicalQuestions.getTypicalSmartNus;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.smartnus.commons.core.index.Index;
 import seedu.smartnus.logic.commands.quiz.QuizCommand;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.ModelManager;
 import seedu.smartnus.model.UserPrefs;
 import seedu.smartnus.model.question.predicate.ShowAllQuestionsPredicate;
+import seedu.smartnus.model.question.predicate.ShowQuestionIndexPredicate;
 
 
 class QuizCommandTest {
@@ -28,5 +31,11 @@ class QuizCommandTest {
     void execute_startQuizWithoutArguments_success() {
         assertCommandSuccess(new QuizCommand(new ShowAllQuestionsPredicate()), model,
                 QuizCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    void execute_quizNoQuestions() {
+        assertCommandFailure(new QuizCommand(new ShowQuestionIndexPredicate(Index.fromOneBased(100))), model,
+                QuizCommand.MESSAGE_NO_QUESTIONS);
     }
 }
