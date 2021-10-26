@@ -18,6 +18,7 @@ import seedu.smartnus.commons.core.GuiSettings;
 import seedu.smartnus.commons.core.theme.Theme;
 import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.logic.commands.questions.AddMcqCommand;
+import seedu.smartnus.logic.commands.questions.AddQuestionCommand;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.ReadOnlySmartNus;
 import seedu.smartnus.model.ReadOnlyUserPrefs;
@@ -51,7 +52,7 @@ class AddMcqCommandTest {
         AddMcqCommandTest.ModelStub modelStub = new AddMcqCommandTest.ModelStubWithQuestion(validQuestion);
 
         assertThrows(CommandException.class,
-                AddCommand.MESSAGE_DUPLICATE_QUESTION, () -> addCommand.execute(modelStub));
+                AddQuestionCommand.MESSAGE_DUPLICATE_QUESTION, () -> addCommand.execute(modelStub));
     }
 
     /**

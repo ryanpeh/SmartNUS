@@ -1,5 +1,7 @@
 package seedu.smartnus.model.question.predicate;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import seedu.smartnus.commons.core.index.Index;
@@ -11,7 +13,17 @@ import seedu.smartnus.model.question.Question;
 public class ShowQuestionIndexPredicate implements Predicate<Question> {
 
     private int currentIndex;
-    private Index targetIndex;
+    private final Set<Index> targetIndexes;
+
+    /**
+     * Constructor for the predicate.
+     * @param targetIndexes The target index set of the list.
+     */
+    public ShowQuestionIndexPredicate(Set<Index> targetIndexes) {
+        this.currentIndex = 0;
+        this.targetIndexes = targetIndexes;
+
+    }
 
     /**
      * Constructor for the predicate.
@@ -19,12 +31,16 @@ public class ShowQuestionIndexPredicate implements Predicate<Question> {
      */
     public ShowQuestionIndexPredicate(Index targetIndex) {
         this.currentIndex = 0;
-        this.targetIndex = targetIndex;
+        this.targetIndexes = new HashSet<Index>() {
+            {
+                add(targetIndex);
+            }
+        };
     }
 
     @Override
     public boolean test(Question question) {
-        if (currentIndex == targetIndex.getZeroBased()) {
+        if (targetIndexes.contains(Index.fromZeroBased(currentIndex))) {
             currentIndex++;
             return true;
         } else {
@@ -37,6 +53,6 @@ public class ShowQuestionIndexPredicate implements Predicate<Question> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ShowQuestionIndexPredicate // instanceof handles nulls
-                && targetIndex.equals(((ShowQuestionIndexPredicate) other).targetIndex)); // state check
+                && targetIndexes.equals(((ShowQuestionIndexPredicate) other).targetIndexes)); // state check
     }
 }

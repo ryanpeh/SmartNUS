@@ -21,13 +21,17 @@ public abstract class Question {
     public static final int MCQ_QUESTION_TYPE = 0;
     public static final int TF_QUESTION_TYPE = 1;
 
+    // message on condition for validity of Question
+    public static final String MESSAGE_DUPLICATE_CHOICES = "Choices (both incorrect and correct)"
+            + " should not have duplicate titles.";
+
     // Identity fields
+    protected final ArrayList<Choice> orderedChoices = new ArrayList<>();
     private final Name name;
     private final Importance importance;
 
     private final Set<Tag> tags = new HashSet<>();
     private final Set<Choice> choices = new HashSet<>();
-    private final ArrayList<Choice> orderedChoices = new ArrayList<>();
 
     // Question statistic
     private final Statistic statistic;
@@ -94,6 +98,20 @@ public abstract class Question {
      */
     public Set<Choice> getChoices() {
         return Collections.unmodifiableSet(choices);
+    }
+
+    /**
+     * Returns an immutable wrong choice set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Choice> getWrongChoices() {
+        Set<Choice> wrongChoices = new HashSet<>();
+        for (Choice choice : choices) {
+            if (!choice.getIsCorrect()) {
+                wrongChoices.add(choice);
+            }
+        }
+        return Collections.unmodifiableSet(wrongChoices);
     }
 
     /**

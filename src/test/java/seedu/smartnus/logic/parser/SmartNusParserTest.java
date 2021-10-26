@@ -32,7 +32,6 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.smartnus.commons.core.theme.LightTheme;
-import seedu.smartnus.logic.commands.AddCommand;
 import seedu.smartnus.logic.commands.ClearCommand;
 import seedu.smartnus.logic.commands.DeleteCommand;
 import seedu.smartnus.logic.commands.EditCommand;
@@ -61,13 +60,6 @@ import seedu.smartnus.testutil.QuestionUtil;
 public class SmartNusParserTest {
 
     private final SmartNusParser parser = new SmartNusParser();
-
-    @Test
-    public void parseCommand_add() throws Exception {
-        Question question = new QuestionBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(QuestionUtil.getAddCommand(question));
-        assertEquals(new AddCommand(question), command);
-    }
 
     @Test
     public void parseCommand_clear() throws Exception {
