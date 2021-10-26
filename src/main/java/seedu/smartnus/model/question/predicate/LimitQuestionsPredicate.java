@@ -8,7 +8,7 @@ import seedu.smartnus.model.question.Question;
 
 public class LimitQuestionsPredicate implements Predicate<Question> {
 
-    public int questionLimit;
+    private int questionLimit;
 
     public LimitQuestionsPredicate(int limit) {
         this.questionLimit = limit;

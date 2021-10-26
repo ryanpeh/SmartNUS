@@ -35,14 +35,14 @@ class QuizCommandTest {
     @Test
     void execute_startQuizWithoutArguments_success() {
         filterPredicates.add(new ShowAllQuestionsPredicate());
-        assertCommandSuccess(new QuizCommand(filterPredicates), model,
+        assertCommandSuccess(new QuizCommand(filterPredicates, null), model,
                 QuizCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     void execute_quizNoQuestions() {
         filterPredicates.add(new ShowQuestionIndexPredicate(Index.fromOneBased(100)));
-        assertCommandFailure(new QuizCommand(filterPredicates), model,
+        assertCommandFailure(new QuizCommand(filterPredicates, null), model,
                 QuizCommand.MESSAGE_NO_QUESTIONS);
     }
 }
