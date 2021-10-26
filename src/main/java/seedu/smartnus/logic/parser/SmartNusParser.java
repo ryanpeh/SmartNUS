@@ -6,7 +6,6 @@ import static seedu.smartnus.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.smartnus.logic.commands.AddCommand;
 import seedu.smartnus.logic.commands.AddNoteCommand;
 import seedu.smartnus.logic.commands.ClearCommand;
 import seedu.smartnus.logic.commands.Command;
