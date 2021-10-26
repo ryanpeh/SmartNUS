@@ -15,7 +15,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.smartnus.commons.core.GuiSettings;
-import seedu.smartnus.model.question.predicate.NameContainsKeywordsPredicate;
+import seedu.smartnus.model.question.predicates.NameContainsKeywordsPredicate;
 import seedu.smartnus.testutil.SmartNusBuilder;
 
 public class ModelManagerTest {

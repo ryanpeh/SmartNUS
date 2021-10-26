@@ -1,6 +1,10 @@
-package seedu.smartnus.model.question.predicate;
+package seedu.smartnus.model.question.predicates;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -12,10 +16,15 @@ import seedu.smartnus.model.tag.Tag;
  * Tests that any of a {@code Question}'s {@code Tag}s match any of the keywords given.
  */
 public class TagsContainKeywordsPredicate implements Predicate<Question> {
-    private final List<String> keywords;
+    private final Set<String> keywords = new HashSet<>();
 
+    /**
+     * Constructs a predicate that tests if a question contains at least one of the tags in {@code keywords}.
+     * @param keywords The tag names that the user is searching for.
+     */
     public TagsContainKeywordsPredicate(List<String> keywords) {
-        this.keywords = keywords;
+        requireNonNull(keywords);
+        this.keywords.addAll(keywords);
     }
 
     @Override
@@ -38,4 +47,8 @@ public class TagsContainKeywordsPredicate implements Predicate<Question> {
                 && keywords.equals(((TagsContainKeywordsPredicate) other).keywords)); // state check
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(keywords);
+    }
 }

@@ -1,4 +1,4 @@
-package seedu.smartnus.model.question.predicate;
+package seedu.smartnus.model.question.predicates;
 
 import java.util.HashSet;
 import java.util.Set;

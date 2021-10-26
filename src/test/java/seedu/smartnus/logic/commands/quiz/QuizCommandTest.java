@@ -11,8 +11,8 @@ import seedu.smartnus.commons.core.index.Index;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.ModelManager;
 import seedu.smartnus.model.UserPrefs;
-import seedu.smartnus.model.question.predicate.ShowAllQuestionsPredicate;
-import seedu.smartnus.model.question.predicate.ShowQuestionIndexPredicate;
+import seedu.smartnus.model.question.predicates.ShowAllQuestionsPredicate;
+import seedu.smartnus.model.question.predicates.ShowQuestionIndexPredicate;
 
 
 class QuizCommandTest {

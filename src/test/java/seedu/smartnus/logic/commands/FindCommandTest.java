@@ -10,15 +10,18 @@ import static seedu.smartnus.testutil.TypicalQuestions.ELLE;
 import static seedu.smartnus.testutil.TypicalQuestions.FIONA;
 import static seedu.smartnus.testutil.TypicalQuestions.getTypicalSmartNus;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.ModelManager;
 import seedu.smartnus.model.UserPrefs;
-import seedu.smartnus.model.question.predicate.NameContainsKeywordsPredicate;
+import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.question.predicates.NameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
@@ -29,19 +32,23 @@ public class FindCommandTest {
 
     @Test
     public void equals() {
-        NameContainsKeywordsPredicate firstPredicate =
+        NameContainsKeywordsPredicate firstNamePredicate =
                 new NameContainsKeywordsPredicate(Collections.singletonList("first"));
-        NameContainsKeywordsPredicate secondPredicate =
+        NameContainsKeywordsPredicate secondNamePredicate =
                 new NameContainsKeywordsPredicate(Collections.singletonList("second"));
 
-        FindCommand findFirstCommand = new FindCommand(firstPredicate);
-        FindCommand findSecondCommand = new FindCommand(secondPredicate);
+        ArrayList<Predicate<Question>> firstPredicateArr = new ArrayList<>();
+        firstPredicateArr.add(firstNamePredicate);
+        ArrayList<Predicate<Question>> secondPredicateArr = new ArrayList<>();
+        secondPredicateArr.add(secondNamePredicate);
+        FindCommand findFirstCommand = new FindCommand(firstPredicateArr);
+        FindCommand findSecondCommand = new FindCommand(secondPredicateArr);
 
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));
 
         // same values -> returns true
-        FindCommand findFirstCommandCopy = new FindCommand(firstPredicate);
+        FindCommand findFirstCommandCopy = new FindCommand(firstPredicateArr);
         assertTrue(findFirstCommand.equals(findFirstCommandCopy));
 
         // different types -> returns false
@@ -57,8 +64,10 @@ public class FindCommandTest {
     @Test
     public void execute_zeroKeywords_noQuestionFound() {
         String expectedMessage = String.format(MESSAGE_QUESTIONS_LISTED_OVERVIEW, 0);
-        NameContainsKeywordsPredicate predicate = preparePredicate(" ");
-        FindCommand command = new FindCommand(predicate);
+        ArrayList<Predicate<Question>> arr = new ArrayList<>();
+        NameContainsKeywordsPredicate predicate = prepareNamePredicate(" ");
+        arr.add(predicate);
+        FindCommand command = new FindCommand(arr);
         expectedModel.updateFilteredQuestionList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredQuestionList());
@@ -67,8 +76,10 @@ public class FindCommandTest {
     @Test
     public void execute_multipleKeywords_multipleQuestionsFound() {
         String expectedMessage = String.format(MESSAGE_QUESTIONS_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
-        FindCommand command = new FindCommand(predicate);
+        NameContainsKeywordsPredicate predicate = prepareNamePredicate("Kurz Elle Kunz");
+        ArrayList<Predicate<Question>> arr = new ArrayList<>();
+        arr.add(predicate);
+        FindCommand command = new FindCommand(arr);
         expectedModel.updateFilteredQuestionList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredQuestionList());
@@ -77,7 +88,7 @@ public class FindCommandTest {
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
-    private NameContainsKeywordsPredicate preparePredicate(String userInput) {
+    private NameContainsKeywordsPredicate prepareNamePredicate(String userInput) {
         return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }

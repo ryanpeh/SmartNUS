@@ -20,7 +20,7 @@ import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.SmartNus;
 import seedu.smartnus.model.question.Question;
-import seedu.smartnus.model.question.predicate.NameContainsKeywordsPredicate;
+import seedu.smartnus.model.question.predicates.NameContainsKeywordsPredicate;
 import seedu.smartnus.testutil.EditQuestionDescriptorBuilder;
 
 /**
