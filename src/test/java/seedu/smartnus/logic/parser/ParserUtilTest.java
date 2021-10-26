@@ -31,6 +31,9 @@ public class ParserUtilTest {
     private static final String INVALID_ANSWER = " ";
     private static final String INVALID_CHOICE = " ";
     private static final String INVALID_TRUE_FALSE_ANSWER = "5";
+    private static final String INVALID_LIMIT_1 = " ";
+    private static final String INVALID_LIMIT_2 = "-2";
+    private static final String INVALID_LIMIT_3 = "a3";
 
     private static final String VALID_IMPORTANCE = "1";
     private static final String VALID_NAME = "Rachel Walker";
@@ -40,6 +43,7 @@ public class ParserUtilTest {
     private static final String VALID_CHOICE_1 = "3";
     private static final String VALID_CHOICE_2 = "4";
     private static final String VALID_CHOICE_3 = "1";
+    private static final String VALID_LIMIT = "1";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -247,5 +251,29 @@ public class ParserUtilTest {
         assertThrows(ParseException.class, () -> ParserUtil.parseTrueFalseAnswer(INVALID_TRUE_FALSE_ANSWER));
     }
 
+    @Test
+    public void parseQuizLimit_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseQuizLimit(null));
+    }
 
+    @Test
+    public void parseQuizLimit_validLimit_returnsInt() throws Exception {
+        int expectedLimit = 1;
+        int actualLimit = ParserUtil.parseQuizLimit(VALID_LIMIT);
+        assertEquals(actualLimit, expectedLimit);
+    }
+
+    @Test
+    public void parseQuizLimit_validLimitWithWhiteSpace_returnsInt() throws Exception {
+        int expectedLimit = 1;
+        int actualLimit = ParserUtil.parseQuizLimit(WHITESPACE + VALID_LIMIT + WHITESPACE);
+        assertEquals(actualLimit, expectedLimit);
+    }
+
+    @Test
+    public void parseQuizLimit_invalidValues_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseTrueFalseAnswer(INVALID_LIMIT_1));
+        assertThrows(ParseException.class, () -> ParserUtil.parseTrueFalseAnswer(INVALID_LIMIT_2));
+        assertThrows(ParseException.class, () -> ParserUtil.parseTrueFalseAnswer(INVALID_LIMIT_3));
+    }
 }
