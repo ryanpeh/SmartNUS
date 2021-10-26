@@ -2,6 +2,8 @@ package seedu.smartnus.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.smartnus.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.smartnus.logic.commands.ListCommand.NOTE_KEYWORD;
+import static seedu.smartnus.logic.commands.ListCommand.QUESTION_KEYWORD;
 import static seedu.smartnus.logic.commands.ThemeCommand.DARK_KEYWORD;
 import static seedu.smartnus.logic.commands.ThemeCommand.LIGHT_KEYWORD;
 import static seedu.smartnus.logic.parser.AddTfCommandParser.ANSWER_FALSE;
@@ -19,6 +21,7 @@ import seedu.smartnus.commons.core.index.Index;
 import seedu.smartnus.commons.util.StringUtil;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
 import seedu.smartnus.model.choice.Choice;
+import seedu.smartnus.model.note.NoteName;
 import seedu.smartnus.model.question.Importance;
 import seedu.smartnus.model.question.MultipleChoiceQuestion;
 import seedu.smartnus.model.question.Name;
@@ -67,6 +70,21 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String name} into a {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static NoteName parseNoteName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!Name.isValidName(trimmedName)) {
+            throw new ParseException(NoteName.MESSAGE_CONSTRAINTS);
+        }
+        return new NoteName(trimmedName);
     }
 
     /**
@@ -258,5 +276,14 @@ public class ParserUtil {
      */
     public static boolean isValidTheme(String theme) {
         return theme.trim().equals(LIGHT_KEYWORD) || theme.trim().equals(DARK_KEYWORD);
+    }
+
+    /**
+     * Returns True if the given listArgument is valid.
+     * @param listArgument The given argument
+     * @return True if listArgument is valid, false otherwise.
+     */
+    public static boolean isValidListArgument(String listArgument) {
+        return listArgument.trim().equals(NOTE_KEYWORD) || listArgument.trim().equals(QUESTION_KEYWORD);
     }
 }

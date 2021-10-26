@@ -94,6 +94,11 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void getFilteredNoteList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredNoteList().remove(0));
+    }
+
+    @Test
     public void equals() {
         SmartNus smartNus = new SmartNusBuilder().withQuestion(ALICE).withQuestion(BENSON).build();
         SmartNus differentSmartNus = new SmartNus();

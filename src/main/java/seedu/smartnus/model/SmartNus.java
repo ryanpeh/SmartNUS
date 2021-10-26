@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.smartnus.model.note.Note;
+import seedu.smartnus.model.note.NoteList;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.question.UniqueQuestionList;
 
@@ -16,6 +18,7 @@ import seedu.smartnus.model.question.UniqueQuestionList;
 public class SmartNus implements ReadOnlySmartNus {
 
     private final UniqueQuestionList questions;
+    private final NoteList notes;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -26,6 +29,7 @@ public class SmartNus implements ReadOnlySmartNus {
      */
     {
         questions = new UniqueQuestionList();
+        notes = new NoteList();
     }
 
     public SmartNus() {}
@@ -38,6 +42,16 @@ public class SmartNus implements ReadOnlySmartNus {
         resetData(toBeCopied);
     }
 
+    /**
+     * instantiates a new smartNus object with the given lists.
+     * @param questionsAsList the question list
+     * @param notesAsList the note list
+     */
+    public SmartNus(List<Question> questionsAsList, List<Note> notesAsList) {
+        setQuestions(questionsAsList);
+        setNotes(notesAsList);
+    }
+
     //// list overwrite operations
 
     /**
@@ -48,6 +62,9 @@ public class SmartNus implements ReadOnlySmartNus {
         this.questions.setQuestions(questions);
     }
 
+    public void setNotes(List<Note> notes) {
+        this.notes.setNoteList(notes);
+    }
     /**
      * Resets the existing data of this {@code SmartNus} with {@code newData}.
      */
@@ -55,6 +72,7 @@ public class SmartNus implements ReadOnlySmartNus {
         requireNonNull(newData);
 
         setQuestions(newData.getQuestionList());
+        setNotes(newData.getNoteList());
     }
 
     //// question-level operations
@@ -95,6 +113,30 @@ public class SmartNus implements ReadOnlySmartNus {
         questions.remove(key);
     }
 
+    ////// note level operations
+    /**
+     * Adds a note to {@code SmartNus}.
+     */
+    public void addNote(Note p) {
+        notes.add(p);
+    }
+
+    /**
+     * Replaces the given note {@code target} in the list with {@code editedNote}.
+     */
+    public void setNote(Note target, Note editedNote) {
+        requireNonNull(editedNote);
+        notes.setNote(target, editedNote);
+    }
+
+    /**
+     * Removes {@code key} from this {@code SmartNus}.
+     * {@code key} must exist in the {@code SmartNus}.
+     */
+    public void removeNote(Note key) {
+        notes.remove(key);
+    }
+
     //// util methods
 
     @Override
@@ -109,10 +151,16 @@ public class SmartNus implements ReadOnlySmartNus {
     }
 
     @Override
+    public ObservableList<Note> getNoteList() {
+        return notes.asUnmodifiableObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof SmartNus // instanceof handles nulls
-                && questions.equals(((SmartNus) other).questions));
+                && questions.equals(((SmartNus) other).questions)
+                    && notes.equals(((SmartNus) other).notes));
     }
 
     @Override
@@ -132,5 +180,17 @@ public class SmartNus implements ReadOnlySmartNus {
             allQuestions.add(q);
         }
         return allQuestions;
+    }
+
+    /**
+     * Returns all the notes as a List.
+     * @return A List of all the Notes.
+     */
+    public List<Note> getNotesAsList() {
+        List<Note> allNotes = new ArrayList<>();
+        for (Note n : notes) {
+            allNotes.add(n);
+        }
+        return allNotes;
     }
 }

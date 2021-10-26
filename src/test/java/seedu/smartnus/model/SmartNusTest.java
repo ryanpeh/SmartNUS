@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.smartnus.testutil.Assert.assertThrows;
 import static seedu.smartnus.testutil.TypicalQuestions.ALICE;
-import static seedu.smartnus.testutil.TypicalQuestions.getTypicalSmartNus;
+import static seedu.smartnus.testutil.TypicalSmartNus.getTypicalSmartNus;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.question.exceptions.DuplicateQuestionException;
 import seedu.smartnus.testutil.QuestionBuilder;
@@ -85,11 +86,17 @@ public class SmartNusTest {
         assertThrows(UnsupportedOperationException.class, () -> smartNus.getQuestionList().remove(0));
     }
 
+    @Test
+    public void getNoteList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> smartNus.getNoteList().remove(0));
+    }
+
     /**
      * A stub ReadOnlySmartNus whose questions list can violate interface constraints.
      */
     private static class SmartNusStub implements ReadOnlySmartNus {
         private final ObservableList<Question> questions = FXCollections.observableArrayList();
+        private final ObservableList<Note> notes = FXCollections.observableArrayList();
 
         SmartNusStub(Collection<Question> questions) {
             this.questions.setAll(questions);
@@ -98,6 +105,11 @@ public class SmartNusTest {
         @Override
         public ObservableList<Question> getQuestionList() {
             return questions;
+        }
+
+        @Override
+        public ObservableList<Note> getNoteList() {
+            return notes;
         }
     }
 

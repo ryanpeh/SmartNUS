@@ -6,6 +6,7 @@ import static seedu.smartnus.logic.parser.AddTfCommandParser.ANSWER_FALSE;
 import static seedu.smartnus.logic.parser.AddTfCommandParser.ANSWER_TRUE;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_IMPORTANCE;
+import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_OPTION;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_TAG;
@@ -48,6 +49,11 @@ public class CommandTestUtil {
 
     public static final String NAME_DESC_AMY = " " + PREFIX_QUESTION + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_QUESTION + VALID_NAME_BOB;
+    public static final String VALID_NOTE_1 = "CS2103T is a fun mod";
+    public static final String VALID_NOTE_2 = "CS2100 is not a fun mod";
+    public static final String NOTE_DESC_1 = " " + PREFIX_NOTE + VALID_NOTE_1;
+    public static final String NOTE_DESC_2 = " " + PREFIX_NOTE + VALID_NOTE_2;
+
     public static final String IMPORTANCE_DESC_AMY = " " + PREFIX_IMPORTANCE + VALID_IMPORTANCE_AMY;
     public static final String IMPORTANCE_DESC_BOB = " " + PREFIX_IMPORTANCE + VALID_IMPORTANCE_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
@@ -73,6 +79,9 @@ public class CommandTestUtil {
     public static final String INVALID_QUESTION_DESC = " " + PREFIX_QUESTION; // empty string not allowed for question
     public static final String INVALID_ANSWER_DESC = " " + PREFIX_ANSWER; // empty string not allowed for answer
     public static final String INVALID_OPTION_DESC = " " + PREFIX_OPTION; // empty string not allowed for option
+
+    public static final String INVALID_NOTE_TAG_DESC = " " + PREFIX_TAG + "truth:)"; // ':)' not allowed in tags
+    public static final String INVALID_NOTE_DESC = " " + PREFIX_NOTE; // empty string not allowed for question
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
