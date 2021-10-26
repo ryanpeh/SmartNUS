@@ -7,6 +7,7 @@ import static seedu.smartnus.logic.commands.CommandTestUtil.assertCommandSuccess
 import static seedu.smartnus.logic.commands.CommandTestUtil.showQuestionAtIndex;
 import static seedu.smartnus.testutil.TypicalIndexes.INDEX_FIRST_QUESTION;
 import static seedu.smartnus.testutil.TypicalIndexes.INDEX_SECOND_QUESTION;
+import static seedu.smartnus.testutil.TypicalIndexes.INDEX_THIRD_QUESTION;
 import static seedu.smartnus.testutil.TypicalSmartNus.getTypicalSmartNus;
 
 import org.junit.jupiter.api.Test;
@@ -27,7 +28,7 @@ public class DeleteCommandTest {
     private Model model = new ModelManager(getTypicalSmartNus(), new UserPrefs());
 
     @Test
-    public void execute_validIndexUnfilteredList_success() {
+    public void execute_validIndexUnfilteredQuestionList_success() {
         Question questionToDelete = model.getFilteredQuestionList().get(INDEX_FIRST_QUESTION.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand("question", INDEX_FIRST_QUESTION);
 
@@ -68,7 +69,7 @@ public class DeleteCommandTest {
         showQuestionAtIndex(model, INDEX_FIRST_QUESTION);
 
         Index outOfBoundIndex = INDEX_SECOND_QUESTION;
-        // ensures that outOfBoundIndex is still in bounds of the SmartNus's question list
+        // ensures that outOfBoundIndex is still in bounds of the SmartNus question list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getSmartNus().getQuestionList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand("question", outOfBoundIndex);
@@ -80,13 +81,17 @@ public class DeleteCommandTest {
     public void equals() {
         DeleteCommand deleteFirstCommand = new DeleteCommand("question", INDEX_FIRST_QUESTION);
         DeleteCommand deleteSecondCommand = new DeleteCommand("question", INDEX_SECOND_QUESTION);
+        DeleteCommand deleteThirdCommand = new DeleteCommand("note", INDEX_FIRST_QUESTION);
+        DeleteCommand deleteFourthCommand = new DeleteCommand("note", INDEX_THIRD_QUESTION);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
         DeleteCommand deleteFirstCommandCopy = new DeleteCommand("question", INDEX_FIRST_QUESTION);
+        DeleteCommand deleteThirdCommandCopy = new DeleteCommand("note", INDEX_FIRST_QUESTION);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
+        assertTrue(deleteThirdCommand.equals(deleteThirdCommandCopy));
 
         // different types -> returns false
         assertFalse(deleteFirstCommand.equals(1));
@@ -96,6 +101,12 @@ public class DeleteCommandTest {
 
         // different question -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
+
+        // different deleteItems, same index -> returns false
+        assertFalse(deleteFirstCommand.equals(deleteThirdCommand));
+
+        // different index, deleteItems -> returns false
+        assertFalse(deleteFirstCommand.equals(deleteFourthCommand));
     }
 
     /**
