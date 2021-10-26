@@ -10,6 +10,8 @@ public class MultipleChoiceQuestion extends Question {
     public static final int NUMBER_OF_INCORRECT_CHOICES = 3;
     public static final String MESSAGE_INCORRECT_NUMBER_OF_CHOICES = "Must have only 3 incorrect options!";
     public static final String MESSAGE_DUPLICATE_CHOICES = "Options should not be duplicates!";
+    public static final String MESSAGE_VALID_MCQ = "Multiple Choice Questions should have one correct answer and"
+            + " three wrong options.";
 
     public MultipleChoiceQuestion(Name name, Importance importance, Set<Tag> tags,
                                   Set<Choice> choices) {

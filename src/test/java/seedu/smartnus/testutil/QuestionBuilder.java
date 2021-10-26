@@ -1,6 +1,7 @@
 package seedu.smartnus.testutil;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.smartnus.model.choice.Choice;
@@ -9,6 +10,7 @@ import seedu.smartnus.model.question.MultipleChoiceQuestion;
 import seedu.smartnus.model.question.Name;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.question.Statistic;
+import seedu.smartnus.model.question.TrueFalseQuestion;
 import seedu.smartnus.model.tag.Tag;
 import seedu.smartnus.model.util.SampleDataUtil;
 
@@ -19,7 +21,10 @@ public class QuestionBuilder {
 
     public static final String DEFAULT_NAME = "Amy Bee";
     public static final String DEFAULT_IMPORTANCE = "1";
-    public static final Choice DEFAULT_CHOICE = new Choice("option 1", false);
+    public static final Choice DEFAULT_WRONG_CHOICE_1 = new Choice("wrong option 1", false);
+    public static final Choice DEFAULT_WRONG_CHOICE_2 = new Choice("wrong option 2", false);
+    public static final Choice DEFAULT_WRONG_CHOICE_3 = new Choice("wrong option 3", false);
+    public static final Choice DEFAULT_ANSWER = new Choice("answer", true);
 
     private Name name;
     private Importance importance;
@@ -35,7 +40,8 @@ public class QuestionBuilder {
         importance = new Importance(DEFAULT_IMPORTANCE);
         tags = new HashSet<>();
         choices = new HashSet<>();
-        choices.add(DEFAULT_CHOICE);
+        choices.addAll(List.of(DEFAULT_WRONG_CHOICE_1, DEFAULT_WRONG_CHOICE_2, DEFAULT_WRONG_CHOICE_3,
+                DEFAULT_ANSWER));
         statistic = new Statistic();
     }
 
@@ -94,4 +100,7 @@ public class QuestionBuilder {
         return new MultipleChoiceQuestion(name, importance, tags, choices, statistic);
     }
 
+    public Question buildTrueFalse() {
+        return new TrueFalseQuestion(name, importance, tags, choices, statistic);
+    }
 }

@@ -7,7 +7,7 @@ import seedu.smartnus.model.Model;
 import seedu.smartnus.model.question.predicate.TagsContainKeywordsPredicate;
 
 /**
- * Finds and lists all questions in address book whose name contains any of the argument keywords.
+ * Finds and lists all questions in smartNUS whose tags contains any of the argument keywords.
  * Keyword matching is case-insensitive.
  */
 public class FindByTagCommand extends Command {
