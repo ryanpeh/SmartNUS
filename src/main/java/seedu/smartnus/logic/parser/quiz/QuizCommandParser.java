@@ -48,18 +48,22 @@ public class QuizCommandParser implements Parser<QuizCommand> {
             throw new ParseException(String.format(MESSAGE_TOO_MANY_ARGUMENTS, QuizCommand.MESSAGE_USAGE));
         }
 
+        // ArrayList of Predicates for question to be filtered by
+        ArrayList<Predicate<Question>> filterPredicates = new ArrayList<>();
+        filterPredicates.add(new ShowAllQuestionsPredicate());
+
         // Returns the command
         if (indexes.size() > 0) {
             Set<Index> indexSet = ParserUtil.parseQuizIndexes(argMultimap.getAllValues(PREFIX_NUMBER));
-            return new QuizCommand(getIndexPredicate(indexSet));
+            filterPredicates.add(getIndexPredicate(indexSet));
         } else if (tags.size() > 0) {
             Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
             List<String> tagKeywords = new ArrayList<>();
             tagList.stream().forEach(tag -> tagKeywords.add(tag.getTagName()));
-            return new QuizCommand(getTagPredicate(tagKeywords));
+            filterPredicates.add(getTagPredicate(tagKeywords));
         }
 
-        return new QuizCommand(new ShowAllQuestionsPredicate());
+        return new QuizCommand(filterPredicates);
     }
 
     private Predicate<Question> getTagPredicate(List<String> tagKeywords) {

@@ -11,30 +11,38 @@ import seedu.smartnus.commons.core.index.Index;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.ModelManager;
 import seedu.smartnus.model.UserPrefs;
+import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.question.predicate.ShowAllQuestionsPredicate;
 import seedu.smartnus.model.question.predicate.ShowQuestionIndexPredicate;
+
+import java.util.ArrayList;
+import java.util.function.Predicate;
 
 
 class QuizCommandTest {
 
     private Model model;
     private Model expectedModel;
+    private ArrayList<Predicate<Question>> filterPredicates;
 
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalSmartNus(), new UserPrefs());
         expectedModel = new ModelManager(model.getSmartNus(), new UserPrefs());
+        filterPredicates = new ArrayList<>();
     }
 
     @Test
     void execute_startQuizWithoutArguments_success() {
-        assertCommandSuccess(new QuizCommand(new ShowAllQuestionsPredicate()), model,
+        filterPredicates.add(new ShowAllQuestionsPredicate());
+        assertCommandSuccess(new QuizCommand(filterPredicates), model,
                 QuizCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     void execute_quizNoQuestions() {
-        assertCommandFailure(new QuizCommand(new ShowQuestionIndexPredicate(Index.fromOneBased(100))), model,
+        filterPredicates.add(new ShowQuestionIndexPredicate(Index.fromOneBased(100)));
+        assertCommandFailure(new QuizCommand(filterPredicates), model,
                 QuizCommand.MESSAGE_NO_QUESTIONS);
     }
 }

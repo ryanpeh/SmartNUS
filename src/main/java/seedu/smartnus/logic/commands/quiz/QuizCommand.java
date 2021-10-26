@@ -6,6 +6,7 @@ import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_NUMBER;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.function.Predicate;
 
 import seedu.smartnus.logic.commands.Command;
@@ -37,8 +38,13 @@ public class QuizCommand extends Command {
 
     private final ArrayList<Predicate<Question>> predicates = new ArrayList<>();
 
-    public QuizCommand(Predicate<Question> filterPredicate) {
-        this.predicates.add(filterPredicate);
+    /**
+     * Creates a QuizCommand
+     * @param filterPredicates The predicates the questions in the quiz command has to fulfill
+     *                         in order to be in the quiz
+     */
+    public QuizCommand(ArrayList<Predicate<Question>> filterPredicates) {
+        this.predicates.addAll(filterPredicates);
     }
 
     @Override

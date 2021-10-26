@@ -5,13 +5,17 @@ import static seedu.smartnus.commons.core.Messages.MESSAGE_TOO_MANY_ARGUMENTS;
 import static seedu.smartnus.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.smartnus.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.function.Predicate;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.smartnus.commons.core.index.Index;
 import seedu.smartnus.logic.commands.quiz.QuizCommand;
 import seedu.smartnus.logic.parser.quiz.QuizCommandParser;
+import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.question.predicate.ShowAllQuestionsPredicate;
 import seedu.smartnus.model.question.predicate.ShowQuestionIndexPredicate;
 import seedu.smartnus.model.question.predicate.TagsContainKeywordsPredicate;
@@ -21,7 +25,13 @@ class QuizCommandParserTest {
 
     public static final String INVALID_ARGUMENT = "@TASedg";
     private final QuizCommandParser parser = new QuizCommandParser();
+    private ArrayList<Predicate<Question>> filterPredicates;
 
+    @BeforeEach
+    public void setUp() {
+        filterPredicates = new ArrayList<>();
+        filterPredicates.add(new ShowAllQuestionsPredicate());
+    }
 
     @Test
     void parse_withInvalidArgs_throwParseException() {
@@ -35,14 +45,18 @@ class QuizCommandParserTest {
 
     @Test
     void parse_withValidArgs_success() {
-        assertParseSuccess(parser, "      ", new QuizCommand(new ShowAllQuestionsPredicate()));
-        assertParseSuccess(parser, "", new QuizCommand(new ShowAllQuestionsPredicate()));
+        assertParseSuccess(parser, "      ", new QuizCommand(filterPredicates));
+        assertParseSuccess(parser, "", new QuizCommand(filterPredicates));
+
+        filterPredicates.add(new TagsContainKeywordsPredicate(Arrays.asList("CS2103T", "ST2334")));
+
         assertParseSuccess(parser, " t/CS2103T t/ST2334",
-                new QuizCommand(new TagsContainKeywordsPredicate(Arrays.asList("CS2103T", "ST2334"))));
+                new QuizCommand(filterPredicates));
     }
 
     @Test
     void parse_withIndex() {
-        assertParseSuccess(parser, " n/1", new QuizCommand(new ShowQuestionIndexPredicate(Index.fromOneBased(1))));
+        filterPredicates.add(new ShowQuestionIndexPredicate(Index.fromOneBased(1)));
+        assertParseSuccess(parser, " n/1", new QuizCommand(filterPredicates));
     }
 }
