@@ -4,11 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.smartnus.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.smartnus.commons.core.GuiSettings;
 import seedu.smartnus.commons.core.LogsCenter;
 import seedu.smartnus.commons.core.theme.Theme;
@@ -23,7 +25,7 @@ public class ModelManager implements Model {
     private final SmartNus smartNus;
     private final UserPrefs userPrefs;
     private final FilteredList<Question> filteredQuestions;
-    private final FilteredList<Question> filteredQuizQuestions;
+    private FilteredList<Question> filteredQuizQuestions;
 
     /**
      * Initializes a ModelManager with the given smartNus and userPrefs.
@@ -152,6 +154,14 @@ public class ModelManager implements Model {
     public void updateFilteredQuizQuestionList(Predicate<Question> predicate) {
         requireNonNull(predicate);
         filteredQuizQuestions.setPredicate(predicate);
+    }
+
+    @Override
+    public void sortFilteredQuizQuestionList(Comparator<Question> comparator) {
+        requireNonNull(comparator);
+        SortedList<Question> sortedQuizQuestionList = new SortedList<>(this.smartNus.getQuestionList());
+        sortedQuizQuestionList.setComparator(comparator);
+        filteredQuizQuestions = new FilteredList<>(sortedQuizQuestionList);
     }
 
     @Override
