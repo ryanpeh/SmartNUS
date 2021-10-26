@@ -112,6 +112,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code Collection<String> indexes} into a {@code Set<Index>}.
+     */
+    public static Set<Index> parseQuizIndexes(Collection<String> indexCollection) throws ParseException {
+        requireNonNull(indexCollection);
+        final Set<Index> indexSet = new HashSet<>();
+        for (String indexCol: indexCollection) {
+            String[] indexes = indexCol.split("\\s+");
+            for (String index : indexes) {
+                indexSet.add(parseIndex(index));
+            }
+        }
+        return indexSet;
+    }
+
+    /**
      * Parses {@code String choice} into a {@code Choice choice}.
      */
     public static Choice parseChoice(String choice, boolean isCorrect) throws ParseException {
