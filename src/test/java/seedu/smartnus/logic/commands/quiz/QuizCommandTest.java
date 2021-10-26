@@ -4,6 +4,9 @@ import static seedu.smartnus.logic.commands.CommandTestUtil.assertCommandFailure
 import static seedu.smartnus.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.smartnus.testutil.TypicalQuestions.getTypicalSmartNus;
 
+import java.util.ArrayList;
+import java.util.function.Predicate;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,8 +18,6 @@ import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.question.predicate.ShowAllQuestionsPredicate;
 import seedu.smartnus.model.question.predicate.ShowQuestionIndexPredicate;
 
-import java.util.ArrayList;
-import java.util.function.Predicate;
 
 
 class QuizCommandTest {

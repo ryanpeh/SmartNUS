@@ -46,7 +46,7 @@ class QuizCommandParserTest {
     @Test
     void parse_withValidArgs_success() {
         assertParseSuccess(parser, "      ", new QuizCommand(filterPredicates, null));
-        assertParseSuccess(parser, "", new QuizCommand(filterPredicates,null));
+        assertParseSuccess(parser, "", new QuizCommand(filterPredicates, null));
 
         filterPredicates.add(new TagsContainKeywordsPredicate(Arrays.asList("CS2103T", "ST2334")));
 
