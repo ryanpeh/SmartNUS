@@ -31,11 +31,7 @@ public class ListCommand extends Command {
      * @param listArg argument passed to the list command
      */
     public ListCommand(String listArg) {
-        if (listArg.equals(NOTE_KEYWORD)) {
-            displayQuestions = false;
-        } else {
-            displayQuestions = true;
-        }
+        displayQuestions = !listArg.equals(NOTE_KEYWORD);
     }
 
     /**
