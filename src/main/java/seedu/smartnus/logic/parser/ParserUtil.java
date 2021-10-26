@@ -8,6 +8,7 @@ import static seedu.smartnus.logic.parser.AddTfCommandParser.ANSWER_FALSE;
 import static seedu.smartnus.logic.parser.AddTfCommandParser.ANSWER_TRUE;
 import static seedu.smartnus.model.question.MultipleChoiceQuestion.NUMBER_OF_INCORRECT_CHOICES;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -146,6 +147,37 @@ public class ParserUtil {
     }
 
     /**
+     * Parses  {@code choices} into a set of Choices.
+     *
+     * @param choices List of Strings representing titles of choices.
+     * @return Set of Choices where all Choices have isCorrect set to false.
+     * @throws ParseException If any choice has an invalid title.
+     */
+    public static Set<Choice> parseWrongChoicesForEdit(List<String> choices) throws ParseException {
+        requireAllNonNull(choices);
+        Set<Choice> choiceSet = new HashSet<>();
+        for (String choice : choices) {
+            choiceSet.add(parseChoice(choice, false));
+        }
+        if (choiceSet.size() != choices.size()) {
+            throw new ParseException(MultipleChoiceQuestion.MESSAGE_DUPLICATE_CHOICES);
+        }
+        return choiceSet;
+    }
+
+    /**
+     * Parses {@code answer} into a correct Choice.
+     *
+     * @param answer Title of the correct Choice.
+     * @return Choice with title set to answer and isCorrect set to true.
+     * @throws ParseException If answer is not a valid choice title.
+     */
+    public static Choice parseAnswerForEdit(String answer) throws ParseException {
+        requireNonNull(answer);
+        return parseChoice(answer, true);
+    }
+
+    /**
      * Parses {@code String answer} (T or F) into a {@code Set<Choice> choice} of 2 (T and F) choices.
      */
     public static Set<Choice> parseTrueFalseAnswer(String answer) throws ParseException {
@@ -160,6 +192,48 @@ public class ParserUtil {
         choices.add(new Choice(Choice.TRUE_CHOICE_TITLE, isAnswerTrue));
         choices.add(new Choice(Choice.FALSE_CHOICE_TITLE, isAnswerFalse));
         return choices;
+    }
+
+    /**
+     * Parses {@code String answer} into a {@code Set<Choice> choice} of two Choices (with titles True and False).
+     * {@code answer} may not be T or F, as the question to be edited may not be a TrueFalseQuestion.
+     * This method is used to prepare the choices for EditCommand in the event the question to be edited is
+     * a TrueFalseQuestion.
+     *
+     * @param answer The answer specified by the user.
+     * @return A set of two Choices (with titles True and False).
+     */
+    public static Set<Choice> parseTrueFalseAnswerForEdit(String answer) {
+        requireNonNull(answer);
+        String trimmedAnswer = answer.trim();
+        boolean isAnswerTrue = trimmedAnswer.equalsIgnoreCase(ANSWER_TRUE);
+        boolean isAnswerFalse = trimmedAnswer.equalsIgnoreCase(ANSWER_FALSE);
+        Set<Choice> choices = new HashSet<>();
+        choices.add(new Choice(Choice.TRUE_CHOICE_TITLE, isAnswerTrue));
+        choices.add(new Choice(Choice.FALSE_CHOICE_TITLE, isAnswerFalse));
+        return choices;
+    }
+
+    /**
+     * Returns true if there are no choices with duplicate titles in {@code choices}, false otherwise.
+     * {@code choices} should not contain null.
+     *
+     * @param choices A set of choices.
+     * @return True if there are no choices with duplicate titles, false otherwise.
+     */
+    public static boolean isValidChoiceTitles(Set<Choice> choices) {
+        requireAllNonNull(choices);
+        ArrayList<Choice> arr = new ArrayList<>(choices);
+        for (int i = 0; i < arr.size(); i++) {
+            Choice currentChoice = arr.get(i);
+            for (int j = i + 1; j < arr.size(); j++) {
+                Choice nextChoice = arr.get(j);
+                if (currentChoice.hasSameTitle(nextChoice)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     /**

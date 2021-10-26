@@ -14,6 +14,10 @@ import static seedu.smartnus.testutil.TypicalIndexes.INDEX_FIRST_QUESTION;
 import static seedu.smartnus.testutil.TypicalIndexes.INDEX_SECOND_QUESTION;
 import static seedu.smartnus.testutil.TypicalQuestions.getTypicalSmartNus;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.smartnus.commons.core.Messages;
@@ -23,9 +27,13 @@ import seedu.smartnus.model.Model;
 import seedu.smartnus.model.ModelManager;
 import seedu.smartnus.model.SmartNus;
 import seedu.smartnus.model.UserPrefs;
+import seedu.smartnus.model.choice.Choice;
+import seedu.smartnus.model.question.MultipleChoiceQuestion;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.question.TrueFalseQuestion;
 import seedu.smartnus.testutil.EditQuestionDescriptorBuilder;
 import seedu.smartnus.testutil.QuestionBuilder;
+import seedu.smartnus.testutil.TypicalQuestions;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for EditCommand.
@@ -35,7 +43,7 @@ public class EditCommandTest {
     private Model model = new ModelManager(getTypicalSmartNus(), new UserPrefs());
 
     @Test
-    public void execute_allFieldsSpecifiedUnfilteredList_success() {
+    public void execute_allFieldsSpecifiedUnfilteredListEditMcq_success() {
         Question editedQuestion = new QuestionBuilder().build();
         EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder(editedQuestion).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_QUESTION, descriptor);
@@ -49,13 +57,13 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_someFieldsSpecifiedUnfilteredList_success() {
+    public void execute_someFieldsSpecifiedUnfilteredListEditTf_success() {
         Index indexLastQuestion = Index.fromOneBased(model.getFilteredQuestionList().size());
         Question lastQuestion = model.getFilteredQuestionList().get(indexLastQuestion.getZeroBased());
 
         QuestionBuilder questionInList = new QuestionBuilder(lastQuestion);
         Question editedQuestion = questionInList.withName(VALID_NAME_BOB).withImportance(VALID_IMPORTANCE_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
+                .withTags(VALID_TAG_HUSBAND).buildTrueFalse();
 
         EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withImportance(VALID_IMPORTANCE_BOB).withTags(VALID_TAG_HUSBAND).build();
@@ -143,6 +151,54 @@ public class EditCommandTest {
                 new EditQuestionDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void createEditedMcq_optionsButNoAnswer_failure() {
+        Index mcqIndex = Index.fromOneBased(TypicalQuestions.MCQ_ONE_BASED_INDEX);
+        EditCommand editCommand = new EditCommand(mcqIndex,
+                new EditQuestionDescriptorBuilder().withWrongChoices("1", "2", "3").build());
+
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_NO_ANSWER);
+    }
+
+    @Test
+    public void createEditedMcq_answerNoOptions_failure() {
+        Index mcqIndex = Index.fromOneBased(TypicalQuestions.MCQ_ONE_BASED_INDEX);
+        EditCommand editCommand = new EditCommand(mcqIndex,
+                new EditQuestionDescriptorBuilder().withAnswer("1").build());
+
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_NO_OPTIONS);
+    }
+
+    @Test
+    public void createEditedMcq_invalidMcqChoices_failure() {
+        Index mcqIndex = Index.fromOneBased(TypicalQuestions.MCQ_ONE_BASED_INDEX);
+        // only two wrong, one correct choice. MCQs should have three wrong, one correct choice.
+        EditCommand editCommand = new EditCommand(mcqIndex,
+                new EditQuestionDescriptorBuilder().withAnswer("1").withWrongChoices("2", "3").build());
+
+        assertCommandFailure(editCommand, model, MultipleChoiceQuestion.MESSAGE_VALID_MCQ);
+    }
+
+    @Test
+    public void createEditedTf_wrongChoicesPresent_failure() {
+        Index tfIndex = Index.fromOneBased(TypicalQuestions.TF_ONE_BASED_INDEX);
+        EditCommand editCommand = new EditCommand(tfIndex,
+                new EditQuestionDescriptorBuilder().withWrongChoices("F").build());
+
+        assertCommandFailure(editCommand, model, TrueFalseQuestion.MESSAGE_OPTIONS_INVALID);
+    }
+
+    @Test
+    public void createEditedTf_invalidAnswer_failure() {
+        // TrueFalseQuestions can only have "True" or "False" as choice titles
+        Index tfIndex = Index.fromOneBased(TypicalQuestions.TF_ONE_BASED_INDEX);
+        Set<Choice> choices = new HashSet<>();
+        choices.addAll(List.of(new Choice("abc", true), new Choice("False", false)));
+        EditCommand editCommand = new EditCommand(tfIndex,
+                new EditQuestionDescriptorBuilder().withTfChoices(choices).build());
+        assertCommandFailure(editCommand, model, TrueFalseQuestion.MESSAGE_ANSWER_INVALID);
     }
 
     @Test
