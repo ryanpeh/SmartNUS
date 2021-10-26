@@ -13,7 +13,7 @@ public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
     public static final String NOTE_KEYWORD = "note";
-    public static final String QUESTION_KEYWORD = "qn";
+    public static final String QUESTION_KEYWORD = "question";
 
     public static final String MESSAGE_SUCCESS_QUESTIONS = "Listed all questions";
     public static final String MESSAGE_SUCCESS_NOTES = "Listed all notes";
@@ -62,7 +62,7 @@ public class ListCommand extends Command {
 
     /**
      * Checks if two instances are the same.
-     * @param other the otehr instance of listCommand.
+     * @param other the other instance of listCommand.
      * @return true if both instances are the same, false otherwise
      */
     @Override
