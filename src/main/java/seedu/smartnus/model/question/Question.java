@@ -20,6 +20,7 @@ public abstract class Question {
     // Integer representation of question types
     public static final int MCQ_QUESTION_TYPE = 0;
     public static final int TF_QUESTION_TYPE = 1;
+    public static final int SAQ_QUESTION_TYPE = 2;
 
     // message on condition for validity of Question
     public static final String MESSAGE_DUPLICATE_CHOICES = "Choices (both incorrect and correct)"
