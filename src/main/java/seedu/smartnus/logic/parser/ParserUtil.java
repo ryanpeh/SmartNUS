@@ -318,7 +318,8 @@ public class ParserUtil {
             if (word.isBlank()) {
                 continue;
             }
-            parsedKeywords.add(word.toLowerCase());
+            // get first part of word without punctuation e.g. keyword should be "abc" rather than "abc,"
+            parsedKeywords.add(word.split("\\W+")[0].toLowerCase());
         }
         return new Choice(answerString, true, parsedKeywords);
     }

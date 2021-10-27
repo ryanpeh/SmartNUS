@@ -120,7 +120,9 @@ public class Choice {
         for (String keyword : keywords) {
             builder.append(keyword).append(", ");
         }
-        builder.setLength(builder.length() - 2); //remove ", " after last keyword
+        if (builder.length() >= 2) {
+            builder.setLength(builder.length() - 2); //remove ", " after last keyword
+        }
         return builder.toString();
     }
 }
