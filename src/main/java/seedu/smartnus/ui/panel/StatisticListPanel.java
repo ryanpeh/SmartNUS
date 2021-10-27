@@ -55,13 +55,6 @@ public class StatisticListPanel extends UiPart<Region> implements Panel {
         return statisticListPanel;
     }
 
-    @Override
-    public Panel disable(Logic logic) {
-        statisticListPanelPlaceholder.setVisible(false);
-        statisticListPanelPlaceholder.managedProperty().bind(statisticListPanelPlaceholder.visibleProperty());
-        return this;
-    }
-
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Question} using a {@code QuestionCard}.
      */

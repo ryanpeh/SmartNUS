@@ -52,13 +52,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane resultDisplayPlaceholder;
 
     @FXML
-    private StackPane questionListPanelPlaceholder;
-
-    @FXML
-    private StackPane noteListPanelPlaceholder;
-
-    @FXML
-    private StackPane statisticListPanelPlaceholder;
+    private StackPane panelPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -94,9 +88,9 @@ public class MainWindow extends UiPart<Stage> {
 
     private void initPanelManger() {
         panelManager = new PanelManager(logic);
-        questionListPanel = new QuestionListPanel(questionListPanelPlaceholder, statusbarPlaceholder);
-        noteListPanel = new NoteListPanel(noteListPanelPlaceholder, statusbarPlaceholder);
-        statisticListPanel = new StatisticListPanel(statisticListPanelPlaceholder, statusbarPlaceholder);
+        questionListPanel = new QuestionListPanel(panelPlaceholder, statusbarPlaceholder);
+        noteListPanel = new NoteListPanel(panelPlaceholder, statusbarPlaceholder);
+        statisticListPanel = new StatisticListPanel(panelPlaceholder, statusbarPlaceholder);
         panelManager.addPanel(questionListPanel);
         panelManager.addPanel(noteListPanel);
         panelManager.addPanel(statisticListPanel);
