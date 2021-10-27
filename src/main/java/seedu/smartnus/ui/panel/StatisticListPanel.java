@@ -10,11 +10,10 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import seedu.smartnus.commons.core.LogsCenter;
 import seedu.smartnus.logic.Logic;
-import seedu.smartnus.model.note.Note;
-import seedu.smartnus.model.question.Statistic;
+import seedu.smartnus.model.tag.TagStatistic;
 import seedu.smartnus.ui.StatusBarFooter;
 import seedu.smartnus.ui.UiPart;
-import seedu.smartnus.ui.card.NoteCard;
+import seedu.smartnus.ui.card.StatisticCard;
 
 public class StatisticListPanel extends UiPart<Region> implements Panel {
     public static final String STATISTIC_PANEL = "stats";
@@ -24,7 +23,7 @@ public class StatisticListPanel extends UiPart<Region> implements Panel {
     private final Logger logger = LogsCenter.getLogger(StatisticListPanel.class);
 
     @FXML
-    private ListView<Statistic> statisticListView;
+    private ListView<TagStatistic> statisticListView;
 
     private StackPane statisticListPanelPlaceholder;
     private StackPane statusbarPlaceholder;
@@ -38,7 +37,7 @@ public class StatisticListPanel extends UiPart<Region> implements Panel {
         statusbarPlaceholder = status;
     }
 
-    private StatisticListPanel(ObservableList<Statistic> statisticList) {
+    private StatisticListPanel(ObservableList<TagStatistic> statisticList) {
         super(FXML);
         statisticListView.setItems(statisticList);
         statisticListView.setCellFactory(listView -> new StatisticListPanel.StatisticListViewCell());
@@ -46,7 +45,7 @@ public class StatisticListPanel extends UiPart<Region> implements Panel {
 
     @Override
     public Panel render(Logic logic) {
-        StatisticListPanel statisticListPanel = new StatisticListPanel(logic.getTagStatistic());
+        StatisticListPanel statisticListPanel = new StatisticListPanel(logic.getSmartNus().getTagStatistic());
         statisticListPanelPlaceholder.setVisible(true);
         statisticListPanelPlaceholder.getChildren().add(statisticListPanel.getRoot());
 
@@ -66,9 +65,9 @@ public class StatisticListPanel extends UiPart<Region> implements Panel {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Question} using a {@code QuestionCard}.
      */
-    class StatisticListViewCell extends ListCell<Statistic> {
+    class StatisticListViewCell extends ListCell<TagStatistic> {
         @Override
-        protected void updateItem(Statistic statistic, boolean empty) {
+        protected void updateItem(TagStatistic statistic, boolean empty) {
             super.updateItem(statistic, empty);
 
             if (empty || statistic == null) {
