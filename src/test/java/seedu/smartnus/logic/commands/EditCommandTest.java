@@ -30,6 +30,7 @@ import seedu.smartnus.model.UserPrefs;
 import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.question.MultipleChoiceQuestion;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.question.ShortAnswerQuestion;
 import seedu.smartnus.model.question.TrueFalseQuestion;
 import seedu.smartnus.testutil.EditQuestionDescriptorBuilder;
 import seedu.smartnus.testutil.QuestionBuilder;
@@ -55,11 +56,32 @@ public class EditCommandTest {
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
+    
+    @Test
+    public void execute_someFieldsSpecifiedUnfilteredListEditSaq_success() {
+        Index indexLastQuestion = Index.fromOneBased(model.getFilteredQuestionList().size());
+        Question lastQuestion = model.getFilteredQuestionList().get(indexLastQuestion.getZeroBased());
+
+        QuestionBuilder questionInList = new QuestionBuilder(lastQuestion);
+        Question editedQuestion = questionInList.withName(VALID_NAME_BOB).withImportance(VALID_IMPORTANCE_BOB)
+                .withTags(VALID_TAG_HUSBAND).buildSaq();
+
+        EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder().withName(VALID_NAME_BOB)
+                .withImportance(VALID_IMPORTANCE_BOB).withTags(VALID_TAG_HUSBAND).build();
+        EditCommand editCommand = new EditCommand(indexLastQuestion, descriptor);
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_QUESTION_SUCCESS, editedQuestion);
+
+        Model expectedModel = new ModelManager(new SmartNus(model.getSmartNus()), new UserPrefs());
+        expectedModel.setQuestion(lastQuestion, editedQuestion);
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredListEditTf_success() {
-        Index indexLastQuestion = Index.fromOneBased(model.getFilteredQuestionList().size());
-        Question lastQuestion = model.getFilteredQuestionList().get(indexLastQuestion.getZeroBased());
+        Index indexSecondLastQuestion = Index.fromOneBased(model.getFilteredQuestionList().size() - 1);
+        Question lastQuestion = model.getFilteredQuestionList().get(indexSecondLastQuestion.getZeroBased());
 
         QuestionBuilder questionInList = new QuestionBuilder(lastQuestion);
         Question editedQuestion = questionInList.withName(VALID_NAME_BOB).withImportance(VALID_IMPORTANCE_BOB)
@@ -67,7 +89,7 @@ public class EditCommandTest {
 
         EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withImportance(VALID_IMPORTANCE_BOB).withTags(VALID_TAG_HUSBAND).build();
-        EditCommand editCommand = new EditCommand(indexLastQuestion, descriptor);
+        EditCommand editCommand = new EditCommand(indexSecondLastQuestion, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_QUESTION_SUCCESS, editedQuestion);
 
@@ -199,6 +221,15 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(tfIndex,
                 new EditQuestionDescriptorBuilder().withTfChoices(choices).build());
         assertCommandFailure(editCommand, model, TrueFalseQuestion.MESSAGE_ANSWER_INVALID);
+    }
+    
+    @Test
+    public void createEditedSaq_hasWrongOptionsPresent_failure() {
+        Index saqIndex = Index.fromOneBased(TypicalQuestions.SAQ_ONE_BASED_INDEX);
+        EditCommand editCommand = new EditCommand(saqIndex,
+                new EditQuestionDescriptorBuilder().withWrongChoices("F").build());
+
+        assertCommandFailure(editCommand, model, ShortAnswerQuestion.MESSAGE_OPTIONS_INVALID);
     }
 
     @Test

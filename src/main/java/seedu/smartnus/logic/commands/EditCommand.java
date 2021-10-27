@@ -139,7 +139,7 @@ public class EditCommand extends Command {
             throws CommandException {
         // Incorrect options should not be specified for SAQ
         if (editQuestionDescriptor.getWrongChoices().isPresent()) {
-            throw new CommandException(TrueFalseQuestion.MESSAGE_OPTIONS_INVALID);
+            throw new CommandException(ShortAnswerQuestion.MESSAGE_OPTIONS_INVALID);
         }
 
         Set<Choice> updatedChoices = editQuestionDescriptor.getSaqChoices().orElse(questionToEdit.getChoices());

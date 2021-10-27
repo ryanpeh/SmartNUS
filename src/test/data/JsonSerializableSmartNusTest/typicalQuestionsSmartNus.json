@@ -62,6 +62,18 @@
     "questionType" : 1,
     "attemptCount" : 0,
     "correctCount" : 0
+  }, {
+    "name" : "Harry, you're a wizard. Where is this quote from?",
+    "importance" : "2",
+    "tagged" : [ ],
+    "choices" : [ {
+      "title" : "Harry Potter and the Philosopher's Stone",
+      "isCorrect" : true,
+      "keywords" : [ "harry", "potter" ]
+    } ],
+    "questionType" : 0,
+    "attemptCount" : 0,
+    "correctCount" : 0
   }
   ]
 }
