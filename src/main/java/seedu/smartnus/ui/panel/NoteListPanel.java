@@ -19,10 +19,11 @@ import seedu.smartnus.ui.card.NoteCard;
  * Panel containing the list of notes.
  */
 public class NoteListPanel extends UiPart<Region> implements Panel {
-    private static final String FXML = "NoteListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(NoteListPanel.class);
-
     public static final String NOTE_PANEL = "note";
+
+    private static final String FXML = "NoteListPanel.fxml";
+
+    private final Logger logger = LogsCenter.getLogger(NoteListPanel.class);
 
     @FXML
     private ListView<Note> noteListView;

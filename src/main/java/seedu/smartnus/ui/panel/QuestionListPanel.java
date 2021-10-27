@@ -20,16 +20,16 @@ import seedu.smartnus.ui.card.QuestionCard;
  * Panel containing the list of questions.
  */
 public class QuestionListPanel extends UiPart<Region> implements Panel {
+    public static final String QUESTION_PANEL = "question";
+
     private static final String FXML = "QuestionListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(QuestionListPanel.class);
-
-    public static final String QUESTION_PANEL = "question";
 
     @FXML
     private ListView<Question> questionListView;
 
-    StackPane questionListPanelPlaceholder;
-    StackPane statusbarPlaceholder;
+    private StackPane questionListPanelPlaceholder;
+    private StackPane statusbarPlaceholder;
 
     /**
      * Creates a {@code QuestionListPanel} with the given {@code ObservableList}.

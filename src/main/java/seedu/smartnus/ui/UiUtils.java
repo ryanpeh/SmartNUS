@@ -7,9 +7,6 @@ import javafx.stage.Stage;
 import seedu.smartnus.commons.core.GuiSettings;
 import seedu.smartnus.commons.core.theme.Theme;
 import seedu.smartnus.logic.Logic;
-import seedu.smartnus.ui.panel.NoteListPanel;
-import seedu.smartnus.ui.panel.PanelManager;
-import seedu.smartnus.ui.panel.QuestionListPanel;
 
 public class UiUtils {
 
