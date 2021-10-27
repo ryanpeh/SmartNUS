@@ -2,6 +2,7 @@ package seedu.smartnus.model;
 
 import java.nio.file.Path;
 import java.util.Comparator;
+import java.util.Map;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -9,6 +10,8 @@ import seedu.smartnus.commons.core.GuiSettings;
 import seedu.smartnus.commons.core.theme.Theme;
 import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.question.Statistic;
+import seedu.smartnus.model.tag.Tag;
 
 /**
  * The API of the Model component.
@@ -143,4 +146,9 @@ public interface Model {
      * Returns the Theme.
      */
     Theme getTheme();
+
+    /**
+     * Returns the tag-to-statistic map.
+     */
+    Map<Tag, Statistic> getTagStatistic();
 }
