@@ -1,12 +1,12 @@
 package seedu.smartnus.logic.parser;
 
-import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.smartnus.commons.core.Messages.MESSAGE_NO_TAGS_AND_INDEXES;
+import static seedu.smartnus.commons.core.Messages.*;
 import static seedu.smartnus.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.smartnus.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +16,8 @@ import seedu.smartnus.commons.core.index.Index;
 import seedu.smartnus.logic.commands.quiz.QuizCommand;
 import seedu.smartnus.logic.parser.quiz.QuizCommandParser;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.question.comparator.QuestionsDefaultComparator;
+import seedu.smartnus.model.question.predicate.LimitQuestionsPredicate;
 import seedu.smartnus.model.question.predicate.ShowAllQuestionsPredicate;
 import seedu.smartnus.model.question.predicate.ShowQuestionIndexPredicate;
 import seedu.smartnus.model.question.predicate.TagsContainKeywordsPredicate;
@@ -38,9 +40,13 @@ class QuizCommandParserTest {
         assertParseFailure(parser, INVALID_ARGUMENT,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, QuizCommand.MESSAGE_USAGE));
 
-        // Users selecting more than 1 quiz types
+        // Users entering index and tag
         assertParseFailure(parser, " n/1 2 t/abcdef t/defg",
                 String.format(MESSAGE_NO_TAGS_AND_INDEXES, QuizCommand.MESSAGE_USAGE));
+
+        // User entering index and limit
+        assertParseFailure(parser, " n/1 2 lim/4",
+                String.format(MESSAGE_NO_LIMIT_AND_INDEXES, QuizCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -48,10 +54,19 @@ class QuizCommandParserTest {
         assertParseSuccess(parser, "      ", new QuizCommand(filterPredicates, null));
         assertParseSuccess(parser, "", new QuizCommand(filterPredicates, null));
 
+        // with tags
+        String tags = " t/CS2103T t/ST2334 ";
         filterPredicates.add(new TagsContainKeywordsPredicate(Arrays.asList("CS2103T", "ST2334")));
 
-        assertParseSuccess(parser, " t/CS2103T t/ST2334",
+        assertParseSuccess(parser, tags,
                 new QuizCommand(filterPredicates, null));
+
+        // with limit and tags
+        String limit = "lim/ 4 lim/ 3";
+        // takes the last limit passed in
+        filterPredicates.add(new LimitQuestionsPredicate(3));
+        Comparator<Question> defaultComparator = new QuestionsDefaultComparator();
+        assertParseSuccess(parser, tags + limit, new QuizCommand(filterPredicates, defaultComparator));
     }
 
     @Test
