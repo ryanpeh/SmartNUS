@@ -101,8 +101,17 @@ public class Statistic implements Comparable<Statistic> {
 
     @Override
     public int compareTo(Statistic o) {
+        int res = 0;
         Double percentage = this.getCorrectPercentage();
         Double otherPercentage = o.getCorrectPercentage();
-        return percentage.compareTo(otherPercentage);
+        res = percentage.compareTo(otherPercentage);
+        if (res != 0) {
+            return res;
+        }
+
+        // if percentage is the same, use attempts as tiebreaker
+        Integer attempts = this.attemptCount;
+        Integer otherAttempts = o.attemptCount;
+        return -attempts.compareTo(otherAttempts);
     }
 }
