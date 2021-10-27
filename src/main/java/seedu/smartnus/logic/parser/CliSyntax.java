@@ -16,4 +16,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_NUMBER = new Prefix("n/");
     public static final Prefix PREFIX_LIMIT = new Prefix("lim/");
 
+    public static final Prefix PREFIX_NOTE = new Prefix("note/");
+
 }

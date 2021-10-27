@@ -12,7 +12,7 @@ import static seedu.smartnus.logic.commands.CommandTestUtil.assertCommandSuccess
 import static seedu.smartnus.logic.commands.CommandTestUtil.showQuestionAtIndex;
 import static seedu.smartnus.testutil.TypicalIndexes.INDEX_FIRST_QUESTION;
 import static seedu.smartnus.testutil.TypicalIndexes.INDEX_SECOND_QUESTION;
-import static seedu.smartnus.testutil.TypicalQuestions.getTypicalSmartNus;
+import static seedu.smartnus.testutil.TypicalSmartNus.getTypicalSmartNus;
 
 import java.util.HashSet;
 import java.util.List;

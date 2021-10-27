@@ -14,6 +14,7 @@ import javafx.collections.transformation.SortedList;
 import seedu.smartnus.commons.core.GuiSettings;
 import seedu.smartnus.commons.core.LogsCenter;
 import seedu.smartnus.commons.core.theme.Theme;
+import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
 
 /**
@@ -25,6 +26,7 @@ public class ModelManager implements Model {
     private final SmartNus smartNus;
     private final UserPrefs userPrefs;
     private final FilteredList<Question> filteredQuestions;
+    private final FilteredList<Note> filteredNotes;
     private FilteredList<Question> filteredQuizQuestions;
 
     /**
@@ -39,6 +41,7 @@ public class ModelManager implements Model {
         this.smartNus = new SmartNus(smartNus);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredQuestions = new FilteredList<>(this.smartNus.getQuestionList());
+        filteredNotes = new FilteredList<>(this.smartNus.getNoteList());
         filteredQuizQuestions = new FilteredList<>(this.smartNus.getQuestionList());
     }
 
@@ -116,9 +119,20 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteNote(Note target) {
+        smartNus.removeNote(target);
+    }
+
+    @Override
     public void addQuestion(Question question) {
         smartNus.addQuestion(question);
         updateFilteredQuestionList(PREDICATE_SHOW_ALL_QUESTIONS);
+    }
+
+    @Override
+    public void addNote(Note note) {
+        smartNus.addNote(note);
+        updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
     }
 
     @Override
@@ -126,6 +140,13 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedQuestion);
 
         smartNus.setQuestion(target, editedQuestion);
+    }
+
+    @Override
+    public void setNote(Note target, Note editedNote) {
+        requireAllNonNull(target, editedNote);
+
+        smartNus.setNote(target, editedNote);
     }
 
     //=========== Filtered Question List Accessors =============================================================
@@ -148,6 +169,19 @@ public class ModelManager implements Model {
     public void updateFilteredQuestionList(Predicate<Question> predicate) {
         requireNonNull(predicate);
         filteredQuestions.setPredicate(predicate);
+    }
+
+    //=========== Filtered Note List Accessors =============================================================
+
+    @Override
+    public ObservableList<Note> getFilteredNoteList() {
+        return filteredNotes;
+    }
+
+    @Override
+    public void updateFilteredNoteList(Predicate<Note> predicate) {
+        requireNonNull(predicate);
+        filteredNotes.setPredicate(predicate);
     }
 
     @Override

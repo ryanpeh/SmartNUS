@@ -8,7 +8,7 @@ import static seedu.smartnus.logic.commands.CommandTestUtil.assertCommandSuccess
 import static seedu.smartnus.testutil.TypicalQuestions.CARL;
 import static seedu.smartnus.testutil.TypicalQuestions.ELLE;
 import static seedu.smartnus.testutil.TypicalQuestions.FIONA;
-import static seedu.smartnus.testutil.TypicalQuestions.getTypicalSmartNus;
+import static seedu.smartnus.testutil.TypicalSmartNus.getTypicalSmartNus;
 
 import java.util.Arrays;
 import java.util.Collections;

@@ -74,7 +74,7 @@ public class TypicalQuestions {
     /**
      * Returns an {@code SmartNus} with all the typical questions.
      */
-    public static SmartNus getTypicalSmartNus() {
+    public static SmartNus getTypicalSmartNusQuestions() {
         SmartNus ab = new SmartNus();
         for (Question question : getTypicalQuestions()) {
             ab.addQuestion(question);

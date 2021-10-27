@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.smartnus.commons.core.GuiSettings;
 import seedu.smartnus.commons.core.theme.Theme;
+import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
 
 /**
@@ -15,6 +16,7 @@ import seedu.smartnus.model.question.Question;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Question> PREDICATE_SHOW_ALL_QUESTIONS = unused -> true;
+    Predicate<Note> PREDICATE_SHOW_ALL_NOTES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -90,6 +92,35 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredQuestionList(Predicate<Question> predicate);
+
+    /**
+
+     * Adds the given note.
+     */
+    void addNote(Note note);
+
+    /**
+     * Deletes the given question.
+     * The note must exist in SmartNus.
+     */
+    void deleteNote(Note target);
+
+    /**
+     * Replaces the given note {@code target} with {@code editedNote}.
+     * {@code target} must exist in SmartNus.
+     * The note identity of {@code editedNote} must not be the same as another existing note
+     * in SmartNus.
+     */
+    void setNote(Note target, Note editedNote);
+
+    /** Returns an unmodifiable view of the filtered note list */
+    ObservableList<Note> getFilteredNoteList();
+
+    /**
+     * Updates the filter of the filtered note list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredNoteList(Predicate<Note> predicate);
 
     /**
      * Updates the filter of the filtered quiz question list to filter by the given {@code predicate}.
