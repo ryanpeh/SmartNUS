@@ -51,23 +51,23 @@ public class StatisticTest {
 
     @Test
     void compareTo() {
-        Statistic test_statistic = new Statistic(0, 0);
+        Statistic testStatistic = new Statistic(0, 0);
 
         // same stats
-        assertEquals(test_statistic.compareTo(defaultStat), 0);
+        assertEquals(testStatistic.compareTo(defaultStat), 0);
 
-        test_statistic.addAttempt();
-        // same percentage but test_statistic has more attempts
-        assertEquals(test_statistic.compareTo(defaultStat), -1);
+        testStatistic.addAttempt();
+        // same percentage but testStatistic has more attempts
+        assertEquals(testStatistic.compareTo(defaultStat), -1);
 
-        test_statistic.addAttempt();
-        test_statistic.addCorrect();
-        // test_statistic is 50% while default is 0%
-        assertEquals(test_statistic.compareTo(defaultStat), 1);
+        testStatistic.addAttempt();
+        testStatistic.addCorrect();
+        // testStatistic is 50% while default is 0%
+        assertEquals(testStatistic.compareTo(defaultStat), 1);
 
         defaultStat.addCorrect();
         defaultStat.addAttempt();
         // default is 100%, test is 0%
-        assertEquals(test_statistic.compareTo(defaultStat), -1);
+        assertEquals(testStatistic.compareTo(defaultStat), -1);
     }
 }

@@ -1,6 +1,8 @@
 package seedu.smartnus.logic.parser;
 
-import static seedu.smartnus.commons.core.Messages.*;
+import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.smartnus.commons.core.Messages.MESSAGE_NO_LIMIT_AND_INDEXES;
+import static seedu.smartnus.commons.core.Messages.MESSAGE_NO_TAGS_AND_INDEXES;
 import static seedu.smartnus.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.smartnus.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
