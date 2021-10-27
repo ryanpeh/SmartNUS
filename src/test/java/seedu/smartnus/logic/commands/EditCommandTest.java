@@ -69,7 +69,7 @@ public class EditCommandTest {
         Choice validSaqAnswer = new Choice(VALID_SAQ_ANSWER_1, true,
                 new HashSet<>(List.of(VALID_SAQ_KEYWORD_1, VALID_SAQ_KEYWORD_2)));
         Set<Choice> validSaqChoiceSet = new HashSet<>(List.of(validSaqAnswer));
-        
+
         Question editedQuestion = questionInList.withName(VALID_NAME_BOB).withImportance(VALID_IMPORTANCE_BOB)
                 .withTags(VALID_TAG_HUSBAND)
                 .withChoices(validSaqAnswer).buildSaq();
@@ -240,7 +240,7 @@ public class EditCommandTest {
 
         assertCommandFailure(editCommand, model, ShortAnswerQuestion.MESSAGE_OPTIONS_INVALID);
     }
-    
+
     @Test
     public void createEditedSaq_answerHasNoKeywords_failure() {
         Index saqIndex = Index.fromOneBased(TypicalQuestions.SAQ_ONE_BASED_INDEX);

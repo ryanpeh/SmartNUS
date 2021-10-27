@@ -42,7 +42,6 @@ public class AddSaqCommandParser implements Parser<AddSaqCommand> {
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Set<Choice> choices = new HashSet<>();
         String answerString = argMultimap.getValue(PREFIX_ANSWER).get();
-        
         // ArgumentTokenizer expects there to be a space " " before the prefix
         ArgumentMultimap keywordsMultimap = ArgumentTokenizer.tokenize(" " + answerString, PREFIX_KEYWORD);
         if (!arePrefixesPresent(keywordsMultimap, PREFIX_KEYWORD)) {
