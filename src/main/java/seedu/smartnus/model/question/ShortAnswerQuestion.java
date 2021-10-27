@@ -71,7 +71,7 @@ public class ShortAnswerQuestion extends Question {
 
     private boolean containsAllKeywords(String input, Set<String> keywords) {
         for (String keyword : keywords) {
-            if (!input.toLowerCase().contains(keyword)) { // keywords are already stored in lowercase
+            if (!input.toLowerCase().contains(keyword.toLowerCase())) {
                 return false;
             }
         }
