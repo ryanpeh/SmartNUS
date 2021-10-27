@@ -301,7 +301,7 @@ public class ParserUtil {
         String answerString = answer.getTitle();
         ArgumentMultimap keywordsMultimap = ArgumentTokenizer.tokenize(" " + answerString, PREFIX_KEYWORD);
         if (!arePrefixesPresent(keywordsMultimap, PREFIX_KEYWORD)) {
-            String[] keywordStrings = answerString.split("\\W+");
+            String[] keywordStrings = answerString.split("\\s+");
             answer = ParserUtil.getChoiceWithAllWordsAsKeywords(answerString, keywordStrings);
 
         } else {
@@ -312,27 +312,33 @@ public class ParserUtil {
         return choices;
     }
 
-    public static Choice getChoiceWithAllWordsAsKeywords(String answerString, String[] keywordStrings) {
+    public static Choice getChoiceWithAllWordsAsKeywords(String answerString, String[] keywordStrings)
+            throws ParseException {
+        if (answerString.isBlank()) {
+            throw new ParseException(Choice.MESSAGE_CONSTRAINTS);
+        }
         Set<String> parsedKeywords = new HashSet<>();
         for (String word : keywordStrings) {
             if (word.isBlank()) {
                 continue;
             }
-            // get first part of word without punctuation e.g. keyword should be "abc" rather than "abc,"
-            parsedKeywords.add(word.split("\\W+")[0].toLowerCase());
+            parsedKeywords.add(word.toLowerCase());
         }
         return new Choice(answerString, true, parsedKeywords);
     }
 
     public static Choice getChoiceWithSpecifiedKeywords(String answerString, ArgumentMultimap keywordsMultimap)
             throws ParseException {
+        if (answerString.isBlank()) {
+            throw new ParseException(Choice.MESSAGE_CONSTRAINTS);
+        }
         String answerTitleWithoutPrefix = answerString.replaceAll(PREFIX_KEYWORD.toString(), "");
         Set<String> parsedKeywords = new HashSet<>();
         List<String> keywordsList = keywordsMultimap.getAllValues(PREFIX_KEYWORD);
         checkEmptyKeywords(keywordsList);
 
         for (String keywords : keywordsList) {
-            String[] singleWords = keywords.split("\\W+");
+            String[] singleWords = keywords.split("\\s+");
             for (String word : singleWords) {
                 if (word.isBlank()) {
                     continue;

@@ -42,24 +42,18 @@ public class AddSaqCommandParser implements Parser<AddSaqCommand> {
         Importance importance = ParserUtil.parseImportance(argMultimap.getValue(PREFIX_IMPORTANCE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Set<Choice> choices = new HashSet<>();
-        List<String> answerStrings = argMultimap.getAllValues(PREFIX_ANSWER);
-        if (answerStrings.size() != 1) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddSaqCommand.MESSAGE_NO_ANSWER));
-        }
-        for (String answerString : answerStrings) {
-            // ArgumentTokenizer expects there to be a space " " before the prefix
-            Choice answer;
-            ArgumentMultimap keywordsMultimap = ArgumentTokenizer.tokenize(" " + answerString, PREFIX_KEYWORD);
-            if (!arePrefixesPresent(keywordsMultimap, PREFIX_KEYWORD)) {
-                String[] keywordStrings = answerString.split("\\W+");
-                answer = ParserUtil.getChoiceWithAllWordsAsKeywords(answerString, keywordStrings);
+        String answerString = argMultimap.getValue(PREFIX_ANSWER).get();
 
-            } else {
-                answer = ParserUtil.getChoiceWithSpecifiedKeywords(answerString, keywordsMultimap);
-            }
-            choices.add(answer);
+        Choice answer;
+        // ArgumentTokenizer expects there to be a space " " before the prefix
+        ArgumentMultimap keywordsMultimap = ArgumentTokenizer.tokenize(" " + answerString, PREFIX_KEYWORD);
+        if (!arePrefixesPresent(keywordsMultimap, PREFIX_KEYWORD)) {
+            String[] keywordStrings = answerString.split("\\s+");
+            answer = ParserUtil.getChoiceWithAllWordsAsKeywords(answerString, keywordStrings);
+        } else {
+            answer = ParserUtil.getChoiceWithSpecifiedKeywords(answerString, keywordsMultimap);
         }
+        choices.add(answer);
 
         Question toAdd = new ShortAnswerQuestion(questionName, importance, tagList, choices);
 

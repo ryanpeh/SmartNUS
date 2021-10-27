@@ -56,7 +56,7 @@ public class EditCommandTest {
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
-    
+
     @Test
     public void execute_someFieldsSpecifiedUnfilteredListEditSaq_success() {
         Index indexLastQuestion = Index.fromOneBased(model.getFilteredQuestionList().size());
@@ -222,7 +222,7 @@ public class EditCommandTest {
                 new EditQuestionDescriptorBuilder().withTfChoices(choices).build());
         assertCommandFailure(editCommand, model, TrueFalseQuestion.MESSAGE_ANSWER_INVALID);
     }
-    
+
     @Test
     public void createEditedSaq_hasWrongOptionsPresent_failure() {
         Index saqIndex = Index.fromOneBased(TypicalQuestions.SAQ_ONE_BASED_INDEX);
