@@ -76,13 +76,13 @@ public class Statistic implements Comparable<Statistic> {
      * Returns the percentage of correct attempts over total attempts.
      * @return The percentage of correct attempts.
      */
-    public double getCorrectPercentage() {
+    public int getCorrectPercentage() {
         if (attemptCount == 0) {
             return 0;
         }
         double correct = correctCount * 1.0;
         double attempt = attemptCount * 1.0;
-        return correct / attempt * 100;
+        return (int) (correct / attempt * 100);
     }
 
     @Override
@@ -118,8 +118,8 @@ public class Statistic implements Comparable<Statistic> {
     @Override
     public int compareTo(Statistic o) {
         int res = 0;
-        Double percentage = this.getCorrectPercentage();
-        Double otherPercentage = o.getCorrectPercentage();
+        Integer percentage = this.getCorrectPercentage();
+        Integer otherPercentage = o.getCorrectPercentage();
         res = percentage.compareTo(otherPercentage);
         if (res != 0) {
             return res;
