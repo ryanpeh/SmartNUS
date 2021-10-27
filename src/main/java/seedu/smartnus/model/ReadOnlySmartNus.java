@@ -1,12 +1,13 @@
 package seedu.smartnus.model;
 
+import java.util.Map;
+
 import javafx.collections.ObservableList;
 import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.question.Statistic;
 import seedu.smartnus.model.tag.Tag;
 
-import java.util.Map;
 
 /**
  * Unmodifiable view of a SmartNus

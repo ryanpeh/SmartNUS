@@ -4,15 +4,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.smartnus.testutil.Assert.assertThrows;
 import static seedu.smartnus.testutil.TypicalQuestions.ALICE;
+import static seedu.smartnus.testutil.TypicalQuestions.BOB;
+import static seedu.smartnus.testutil.TypicalQuestions.CARL;
 import static seedu.smartnus.testutil.TypicalSmartNus.getTypicalSmartNus;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +25,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.question.Statistic;
 import seedu.smartnus.model.question.exceptions.DuplicateQuestionException;
+import seedu.smartnus.model.tag.Tag;
 import seedu.smartnus.testutil.QuestionBuilder;
 
 public class SmartNusTest {
@@ -91,12 +98,34 @@ public class SmartNusTest {
         assertThrows(UnsupportedOperationException.class, () -> smartNus.getNoteList().remove(0));
     }
 
+    @Test
+    public void tagStatistic_equals() {
+        Question editedAlice = new QuestionBuilder(ALICE).withTags(VALID_TAG_FRIEND).build();
+        Question editedBob = new QuestionBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
+        Question editedCarl = new QuestionBuilder(CARL).withTags(VALID_TAG_HUSBAND).build();
+        smartNus.addQuestion(editedAlice);
+        smartNus.addQuestion(editedBob);
+        smartNus.addQuestion(editedCarl);
+        Map<Tag, Statistic> tagStatisticMap = smartNus.getTagStatistic();
+        Tag husband = new Tag(VALID_TAG_HUSBAND);
+        Tag friend = new Tag(VALID_TAG_FRIEND);
+
+        assertEquals(2, tagStatisticMap.size());
+        assertTrue(tagStatisticMap.containsKey(husband));
+        assertTrue(tagStatisticMap.containsKey(friend));
+        assertEquals(0, tagStatisticMap.get(husband).getAttemptCount());
+        assertEquals(0, tagStatisticMap.get(husband).getCorrectCount());
+        assertEquals(0, tagStatisticMap.get(friend).getAttemptCount());
+        assertEquals(0, tagStatisticMap.get(friend).getCorrectCount());
+    }
+
     /**
      * A stub ReadOnlySmartNus whose questions list can violate interface constraints.
      */
     private static class SmartNusStub implements ReadOnlySmartNus {
         private final ObservableList<Question> questions = FXCollections.observableArrayList();
         private final ObservableList<Note> notes = FXCollections.observableArrayList();
+        private final Map<Tag, Statistic> tagStatisticMap = new HashMap<>();
 
         SmartNusStub(Collection<Question> questions) {
             this.questions.setAll(questions);
@@ -110,6 +139,11 @@ public class SmartNusTest {
         @Override
         public ObservableList<Note> getNoteList() {
             return notes;
+        }
+
+        @Override
+        public Map<Tag, Statistic> getTagStatistic() {
+            return tagStatisticMap;
         }
     }
 
