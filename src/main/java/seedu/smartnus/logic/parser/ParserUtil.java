@@ -300,34 +300,21 @@ public class ParserUtil {
     public static Set<Choice> parseEditSaqAnswer(Choice answer) throws ParseException {
         String answerString = answer.getTitle();
         ArgumentMultimap keywordsMultimap = ArgumentTokenizer.tokenize(" " + answerString, PREFIX_KEYWORD);
-        if (!arePrefixesPresent(keywordsMultimap, PREFIX_KEYWORD)) {
-            String[] keywordStrings = answerString.split("\\s+");
-            answer = ParserUtil.getChoiceWithAllWordsAsKeywords(answerString, keywordStrings);
-
-        } else {
-            answer = ParserUtil.getChoiceWithSpecifiedKeywords(answerString, keywordsMultimap);
-        }
+        answer = ParserUtil.getChoiceWithKeywords(answerString, keywordsMultimap);
         Set<Choice> choices = new HashSet<>();
         choices.add(answer);
         return choices;
     }
 
-    public static Choice getChoiceWithAllWordsAsKeywords(String answerString, String[] keywordStrings)
-            throws ParseException {
-        if (answerString.isBlank()) {
-            throw new ParseException(Choice.MESSAGE_CONSTRAINTS);
-        }
-        Set<String> parsedKeywords = new HashSet<>();
-        for (String word : keywordStrings) {
-            if (word.isBlank()) {
-                continue;
-            }
-            parsedKeywords.add(word.toLowerCase());
-        }
-        return new Choice(answerString, true, parsedKeywords);
-    }
-
-    public static Choice getChoiceWithSpecifiedKeywords(String answerString, ArgumentMultimap keywordsMultimap)
+    /**
+     * Returns Choice with formatted title without keyword prefixes and set of keywords specified in user input.
+     *
+     * @param answerString Raw user input that includes keyword prefixes (k/).
+     * @param keywordsMultimap Multimap of keyword prefixes to their arguments.
+     * @return Choice that contains formatted title without keyword prefix and set of keywords from user input.
+     * @throws ParseException If answerString is blank or empty keywords are specified.
+     */
+    public static Choice getChoiceWithKeywords(String answerString, ArgumentMultimap keywordsMultimap)
             throws ParseException {
         if (answerString.isBlank()) {
             throw new ParseException(Choice.MESSAGE_CONSTRAINTS);
@@ -338,7 +325,7 @@ public class ParserUtil {
         checkEmptyKeywords(keywordsList);
 
         for (String keywords : keywordsList) {
-            String[] singleWords = keywords.split("\\s+");
+            String[] singleWords = keywords.split("\\W+"); // keywords will be stored without punctuation
             for (String word : singleWords) {
                 if (word.isBlank()) {
                     continue;

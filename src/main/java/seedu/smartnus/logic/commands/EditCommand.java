@@ -141,7 +141,6 @@ public class EditCommand extends Command {
         if (editQuestionDescriptor.getWrongChoices().isPresent()) {
             throw new CommandException(ShortAnswerQuestion.MESSAGE_OPTIONS_INVALID);
         }
-
         Set<Choice> updatedChoices = editQuestionDescriptor.getSaqChoices().orElse(questionToEdit.getChoices());
         ShortAnswerQuestion updatedSaq = new ShortAnswerQuestion(updatedName, updatedImportance,
                 updatedTags, updatedChoices, questionToEdit.getStatistic());

@@ -42,16 +42,13 @@ public class AddSaqCommandParser implements Parser<AddSaqCommand> {
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Set<Choice> choices = new HashSet<>();
         String answerString = argMultimap.getValue(PREFIX_ANSWER).get();
-
-        Choice answer;
+        
         // ArgumentTokenizer expects there to be a space " " before the prefix
         ArgumentMultimap keywordsMultimap = ArgumentTokenizer.tokenize(" " + answerString, PREFIX_KEYWORD);
         if (!arePrefixesPresent(keywordsMultimap, PREFIX_KEYWORD)) {
-            String[] keywordStrings = answerString.split("\\s+");
-            answer = ParserUtil.getChoiceWithAllWordsAsKeywords(answerString, keywordStrings);
-        } else {
-            answer = ParserUtil.getChoiceWithSpecifiedKeywords(answerString, keywordsMultimap);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddSaqCommand.MESSAGE_USAGE));
         }
+        Choice answer = ParserUtil.getChoiceWithKeywords(answerString, keywordsMultimap);
         choices.add(answer);
 
         Question toAdd = new ShortAnswerQuestion(questionName, importance, tagList, choices);

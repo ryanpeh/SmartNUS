@@ -13,15 +13,14 @@ import seedu.smartnus.model.question.Question;
 public class AddSaqCommand extends AddQuestionCommand {
 
     public static final String COMMAND_WORD = "saq";
-    public static final String MESSAGE_NO_ANSWER = "Must have exactly one correct answer";
     public static final String MESSAGE_SUCCESS = "New question added: %s";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an short answer question to SmartNUS. "
             + "Parameters: "
             + PREFIX_QUESTION + "QUESTION "
-            + PREFIX_ANSWER + "ANSWER INCLUDING [" + PREFIX_KEYWORD + "KEYWORD]..." + "]"
+            + PREFIX_ANSWER + "ANSWER MUST INCLUDE [" + PREFIX_KEYWORD + "KEYWORD]..." + "] "
             + PREFIX_IMPORTANCE + "IMPORTANCE "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_QUESTION + "You're a wizard, Harry. Which famous series is this quote from? "
+            + PREFIX_QUESTION + "You're a wizard, Harry. Where is this quote from? "
             + PREFIX_ANSWER + " "
             + PREFIX_KEYWORD + "Harry "
             + PREFIX_KEYWORD + "Potter "

@@ -47,7 +47,7 @@ public class AnswerSaqCommand extends Command {
             if (quizManager.attemptAndCheckAnswer(choice)) {
                 return new CommandResult("Correct!\n" + endMessage);
             } else {
-                return new CommandResult("Incorrect. The correct answers is: "
+                return new CommandResult("Incorrect. The correct answer is: "
                         + currentQuestion.getCorrectChoiceTitle() + "\n" + endMessage);
             }
         } catch (QuestionAlreadyAnsweredException e) {

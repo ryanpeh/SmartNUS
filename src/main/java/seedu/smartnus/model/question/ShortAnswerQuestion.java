@@ -7,7 +7,7 @@ import seedu.smartnus.model.tag.Tag;
 
 public class ShortAnswerQuestion extends Question {
     public static final String MESSAGE_VALID_SAQ = "Short Answer Questions must have exactly one choice"
-            + " which is the correct answer.";
+            + " which is the correct answer, with at least one keyword.";
     public static final String MESSAGE_OPTIONS_INVALID = "Short Answer Questions should not have"
         + "wrong options specified";
 
@@ -23,7 +23,7 @@ public class ShortAnswerQuestion extends Question {
 
     /**
      * Returns True if {@code ShortAnswerQuestion} is valid, false otherwise.A {@code ShortAnswerQuestion} is
-     * valid if it has exactly one choice which is correct.
+     * valid if it has exactly one correct answer that contains at least one keyword.
      *
      * @return True if this ShortAnswerQuestion is valid, false otherwise.
      */
@@ -34,6 +34,9 @@ public class ShortAnswerQuestion extends Question {
         for (Choice choice : choices) {
             if (choice.getIsCorrect()) {
                 correctChoiceCount += 1;
+            }
+            if (choice.getKeywords().isEmpty()) {
+                return false;
             }
         }
         return correctChoiceCount == 1 && choices.size() == 1;
