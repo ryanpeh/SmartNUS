@@ -48,7 +48,7 @@ public class AnswerSaqCommand extends Command {
                 return new CommandResult("Correct!\n" + endMessage);
             } else {
                 return new CommandResult("Incorrect. The correct answers is: "
-                        + currentQuestion.getCorrectChoice().getTitle() + "\n" + endMessage);
+                        + currentQuestion.getCorrectChoiceTitle() + "\n" + endMessage);
             }
         } catch (QuestionAlreadyAnsweredException e) {
             return new CommandResult("You have already answered this question.\n" + endMessage);
