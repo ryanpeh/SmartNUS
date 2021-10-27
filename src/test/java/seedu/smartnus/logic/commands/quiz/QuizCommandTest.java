@@ -5,6 +5,7 @@ import static seedu.smartnus.logic.commands.CommandTestUtil.assertCommandSuccess
 import static seedu.smartnus.testutil.TypicalSmartNus.getTypicalSmartNus;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -15,6 +16,7 @@ import seedu.smartnus.model.Model;
 import seedu.smartnus.model.ModelManager;
 import seedu.smartnus.model.UserPrefs;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.question.comparator.QuestionsDefaultComparator;
 import seedu.smartnus.model.question.predicate.ShowAllQuestionsPredicate;
 import seedu.smartnus.model.question.predicate.ShowQuestionIndexPredicate;
 
@@ -37,6 +39,14 @@ class QuizCommandTest {
     void execute_startQuizWithoutArguments_success() {
         filterPredicates.add(new ShowAllQuestionsPredicate());
         assertCommandSuccess(new QuizCommand(filterPredicates, null), model,
+                QuizCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    void execute_quizWithComparator() {
+        Comparator<Question> defaultComparator = new QuestionsDefaultComparator();
+        expectedModel.sortFilteredQuizQuestionList(defaultComparator);
+        assertCommandSuccess(new QuizCommand(filterPredicates, defaultComparator), model,
                 QuizCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
