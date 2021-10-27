@@ -4,11 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.smartnus.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.smartnus.commons.core.GuiSettings;
 import seedu.smartnus.commons.core.LogsCenter;
 import seedu.smartnus.commons.core.theme.Theme;
@@ -25,8 +27,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Question> filteredQuestions;
     private final FilteredList<Note> filteredNotes;
-    private final FilteredList<Question> filteredQuizQuestions;
-
+    private FilteredList<Question> filteredQuizQuestions;
 
     /**
      * Initializes a ModelManager with the given smartNus and userPrefs.
@@ -190,6 +191,14 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void sortFilteredQuizQuestionList(Comparator<Question> comparator) {
+        requireNonNull(comparator);
+        SortedList<Question> sortedQuizQuestionList = new SortedList<>(this.smartNus.getQuestionList());
+        sortedQuizQuestionList.setComparator(comparator);
+        filteredQuizQuestions = new FilteredList<>(sortedQuizQuestionList);
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
@@ -205,7 +214,8 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return smartNus.equals(other.smartNus)
                 && userPrefs.equals(other.userPrefs)
-                && filteredQuestions.equals(other.filteredQuestions);
+                && filteredQuestions.equals(other.filteredQuestions)
+                && filteredQuizQuestions.equals(other.filteredQuizQuestions);
     }
 
 }

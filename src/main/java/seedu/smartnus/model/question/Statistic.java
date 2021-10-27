@@ -3,7 +3,7 @@ package seedu.smartnus.model.question;
 /**
  * Class to keep track of question statistics.
  */
-public class Statistic {
+public class Statistic implements Comparable<Statistic> {
 
     private int attemptCount;
     private int correctCount;
@@ -97,5 +97,21 @@ public class Statistic {
                 .append(getCorrectPercentage())
                 .append("%");
         return builder;
+    }
+
+    @Override
+    public int compareTo(Statistic o) {
+        int res = 0;
+        Double percentage = this.getCorrectPercentage();
+        Double otherPercentage = o.getCorrectPercentage();
+        res = percentage.compareTo(otherPercentage);
+        if (res != 0) {
+            return res;
+        }
+
+        // if percentage is the same, use attempts as tiebreaker
+        Integer attempts = this.attemptCount;
+        Integer otherAttempts = o.attemptCount;
+        return -attempts.compareTo(otherAttempts);
     }
 }

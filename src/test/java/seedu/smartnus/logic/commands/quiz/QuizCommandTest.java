@@ -4,6 +4,10 @@ import static seedu.smartnus.logic.commands.CommandTestUtil.assertCommandFailure
 import static seedu.smartnus.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.smartnus.testutil.TypicalSmartNus.getTypicalSmartNus;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.function.Predicate;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,28 +17,42 @@ import seedu.smartnus.model.ModelManager;
 import seedu.smartnus.model.UserPrefs;
 import seedu.smartnus.model.question.predicates.ShowAllQuestionsPredicate;
 import seedu.smartnus.model.question.predicates.ShowQuestionIndexPredicate;
+import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.question.comparator.QuestionsDefaultComparator;
 
 
 class QuizCommandTest {
 
     private Model model;
     private Model expectedModel;
+    private ArrayList<Predicate<Question>> filterPredicates;
 
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalSmartNus(), new UserPrefs());
         expectedModel = new ModelManager(model.getSmartNus(), new UserPrefs());
+        filterPredicates = new ArrayList<>();
     }
 
     @Test
     void execute_startQuizWithoutArguments_success() {
-        assertCommandSuccess(new QuizCommand(new ShowAllQuestionsPredicate()), model,
+        filterPredicates.add(new ShowAllQuestionsPredicate());
+        assertCommandSuccess(new QuizCommand(filterPredicates, null), model,
+                QuizCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    void execute_quizWithComparator() {
+        Comparator<Question> defaultComparator = new QuestionsDefaultComparator();
+        expectedModel.sortFilteredQuizQuestionList(defaultComparator);
+        assertCommandSuccess(new QuizCommand(filterPredicates, defaultComparator), model,
                 QuizCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     void execute_quizNoQuestions() {
-        assertCommandFailure(new QuizCommand(new ShowQuestionIndexPredicate(Index.fromOneBased(100))), model,
+        filterPredicates.add(new ShowQuestionIndexPredicate(Index.fromOneBased(100)));
+        assertCommandFailure(new QuizCommand(filterPredicates, null), model,
                 QuizCommand.MESSAGE_NO_QUESTIONS);
     }
 }

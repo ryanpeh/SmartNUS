@@ -1,13 +1,17 @@
 package seedu.smartnus.logic.parser.quiz;
 
 import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.smartnus.commons.core.Messages.MESSAGE_TOO_MANY_ARGUMENTS;
+import static seedu.smartnus.commons.core.Messages.MESSAGE_NO_LIMIT_AND_INDEXES;
+import static seedu.smartnus.commons.core.Messages.MESSAGE_NO_TAGS_AND_INDEXES;
+import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_LIMIT;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_NUMBER;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -22,6 +26,8 @@ import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.question.predicates.ShowAllQuestionsPredicate;
 import seedu.smartnus.model.question.predicates.ShowQuestionIndexPredicate;
 import seedu.smartnus.model.question.predicates.TagsContainKeywordsPredicate;
+import seedu.smartnus.model.question.comparator.QuestionsDefaultComparator;
+import seedu.smartnus.model.question.predicate.LimitQuestionsPredicate;
 import seedu.smartnus.model.tag.Tag;
 
 public class QuizCommandParser implements Parser<QuizCommand> {
@@ -34,7 +40,7 @@ public class QuizCommandParser implements Parser<QuizCommand> {
     public QuizCommand parse(String args) throws ParseException {
 
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TAG, PREFIX_NUMBER);
+                ArgumentTokenizer.tokenize(args, PREFIX_TAG, PREFIX_NUMBER, PREFIX_LIMIT);
 
         if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, QuizCommand.MESSAGE_USAGE));
@@ -42,24 +48,45 @@ public class QuizCommandParser implements Parser<QuizCommand> {
 
         Collection<String> indexes = argMultimap.getAllValues(PREFIX_NUMBER);
         Collection<String> tags = argMultimap.getAllValues(PREFIX_TAG);
+        Optional<String> limit = argMultimap.getValue(PREFIX_LIMIT);
 
-        // Check if the number of arguments is correct
-        if (indexes.size() > 0 && tags.size() > 0) {
-            throw new ParseException(String.format(MESSAGE_TOO_MANY_ARGUMENTS, QuizCommand.MESSAGE_USAGE));
+        boolean hasTagArgs = tags.size() > 0;
+        boolean hasIndexArgs = indexes.size() > 0;
+        boolean hasLimitArg = limit.isPresent();
+
+        // Check if the user passed in both index and tags
+        if (hasIndexArgs && hasTagArgs) {
+            throw new ParseException(String.format(MESSAGE_NO_TAGS_AND_INDEXES, QuizCommand.MESSAGE_USAGE));
         }
 
-        // Returns the command
-        if (indexes.size() > 0) {
-            Set<Index> indexSet = ParserUtil.parseQuizIndexes(argMultimap.getAllValues(PREFIX_NUMBER));
-            return new QuizCommand(getIndexPredicate(indexSet));
-        } else if (tags.size() > 0) {
-            Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        // Check if user passed in both limit and index
+        if (hasIndexArgs && hasLimitArg) {
+            throw new ParseException(String.format(MESSAGE_NO_LIMIT_AND_INDEXES, QuizCommand.MESSAGE_USAGE));
+        }
+
+        // ArrayList of Predicates for question to be filtered by
+        ArrayList<Predicate<Question>> filterPredicates = new ArrayList<>();
+        filterPredicates.add(new ShowAllQuestionsPredicate());
+        Comparator<Question> questionComparator = null;
+
+        // Adds to filter predicate based on arguments the user has passed in
+        if (hasIndexArgs) {
+            Set<Index> indexSet = ParserUtil.parseQuizIndexes(indexes);
+            filterPredicates.add(getIndexPredicate(indexSet));
+        } else if (hasTagArgs) {
+            Set<Tag> tagList = ParserUtil.parseTags(tags);
             List<String> tagKeywords = new ArrayList<>();
             tagList.stream().forEach(tag -> tagKeywords.add(tag.getTagName()));
-            return new QuizCommand(getTagPredicate(tagKeywords));
+            filterPredicates.add(getTagPredicate(tagKeywords));
         }
 
-        return new QuizCommand(new ShowAllQuestionsPredicate());
+        if (hasLimitArg) {
+            int quizLimit = ParserUtil.parseQuizLimit(limit.get());
+            filterPredicates.add(getLimitPredicate(quizLimit));
+            questionComparator = new QuestionsDefaultComparator();
+        }
+
+        return new QuizCommand(filterPredicates, questionComparator);
     }
 
     private Predicate<Question> getTagPredicate(List<String> tagKeywords) {
@@ -68,5 +95,9 @@ public class QuizCommandParser implements Parser<QuizCommand> {
 
     private Predicate<Question> getIndexPredicate(Set<Index> indexes) {
         return new ShowQuestionIndexPredicate(indexes);
+    }
+
+    private Predicate<Question> getLimitPredicate(int limit) {
+        return new LimitQuestionsPredicate(limit);
     }
 }

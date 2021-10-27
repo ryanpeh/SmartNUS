@@ -7,6 +7,7 @@ import static seedu.smartnus.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -144,6 +145,11 @@ public class AddNoteCommandTest {
 
         @Override
         public void updateFilteredQuizQuestionList(Predicate<Question> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortFilteredQuizQuestionList(Comparator<Question> comparator) {
             throw new AssertionError("This method should not be called.");
         }
 
