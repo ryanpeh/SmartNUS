@@ -23,11 +23,11 @@ import seedu.smartnus.logic.parser.Parser;
 import seedu.smartnus.logic.parser.ParserUtil;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.question.comparator.QuestionsDefaultComparator;
+import seedu.smartnus.model.question.predicates.LimitQuestionsPredicate;
 import seedu.smartnus.model.question.predicates.ShowAllQuestionsPredicate;
 import seedu.smartnus.model.question.predicates.ShowQuestionIndexPredicate;
 import seedu.smartnus.model.question.predicates.TagsContainKeywordsPredicate;
-import seedu.smartnus.model.question.comparator.QuestionsDefaultComparator;
-import seedu.smartnus.model.question.predicate.LimitQuestionsPredicate;
 import seedu.smartnus.model.tag.Tag;
 
 public class QuizCommandParser implements Parser<QuizCommand> {

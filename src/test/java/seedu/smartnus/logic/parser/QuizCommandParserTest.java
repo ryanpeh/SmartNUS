@@ -17,13 +17,12 @@ import org.junit.jupiter.api.Test;
 import seedu.smartnus.commons.core.index.Index;
 import seedu.smartnus.logic.commands.quiz.QuizCommand;
 import seedu.smartnus.logic.parser.quiz.QuizCommandParser;
+import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.question.comparator.QuestionsDefaultComparator;
+import seedu.smartnus.model.question.predicates.LimitQuestionsPredicate;
 import seedu.smartnus.model.question.predicates.ShowAllQuestionsPredicate;
 import seedu.smartnus.model.question.predicates.ShowQuestionIndexPredicate;
 import seedu.smartnus.model.question.predicates.TagsContainKeywordsPredicate;
-import seedu.smartnus.model.question.Question;
-import seedu.smartnus.model.question.comparator.QuestionsDefaultComparator;
-import seedu.smartnus.model.question.predicate.LimitQuestionsPredicate;
-
 
 class QuizCommandParserTest {
 
