@@ -12,7 +12,7 @@ import seedu.smartnus.ui.UiPart;
  */
 public class StatisticCard extends UiPart<Region> {
 
-    private static final String FXML = "StatisticCard.fxml";
+    private static final String FXML = "StatisticListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -27,6 +27,8 @@ public class StatisticCard extends UiPart<Region> {
 
     @FXML
     private HBox cardPane;
+    @FXML
+    private Label id;
     @FXML
     private Label name;
     @FXML
@@ -44,12 +46,13 @@ public class StatisticCard extends UiPart<Region> {
         this.statistic = statistic;
         this.displayedIndex = displayedIndex;
 
+        id.setText(displayedIndex + ". ");
         name.setText(statistic.getTitle());
         name.setWrapText(true);
 
         attempt.setText("Attempts: " + statistic.getAttemptCount());
         correct.setText("Correct Attempts: " + statistic.getCorrectCount());
-        percentage.setText("Performance: " + statistic.getCorrectPercentage());
+        percentage.setText("Performance: " + statistic.getCorrectPercentage() + "%");
     }
 
     @Override

@@ -16,7 +16,7 @@ import seedu.smartnus.ui.UiPart;
 import seedu.smartnus.ui.card.StatisticCard;
 
 public class StatisticListPanel extends UiPart<Region> implements Panel {
-    public static final String STATISTIC_PANEL = "stats";
+    public static final String STATISTIC_PANEL = "tag";
 
     private static final String FXML = "StatisticListPanel.fxml";
 
@@ -49,7 +49,7 @@ public class StatisticListPanel extends UiPart<Region> implements Panel {
         statisticListPanelPlaceholder.setVisible(true);
         statisticListPanelPlaceholder.getChildren().add(statisticListPanel.getRoot());
 
-        StatusBarFooter status = new StatusBarFooter("Notes");
+        StatusBarFooter status = new StatusBarFooter("Tags");
         statusbarPlaceholder.getChildren().add(status.getRoot());
 
         return statisticListPanel;
