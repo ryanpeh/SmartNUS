@@ -15,9 +15,7 @@ import static seedu.smartnus.testutil.TypicalSmartNus.getTypicalSmartNus;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
@@ -25,9 +23,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
-import seedu.smartnus.model.question.Statistic;
 import seedu.smartnus.model.question.exceptions.DuplicateQuestionException;
 import seedu.smartnus.model.tag.Tag;
+import seedu.smartnus.model.tag.TagStatistic;
 import seedu.smartnus.testutil.QuestionBuilder;
 
 public class SmartNusTest {
@@ -106,17 +104,11 @@ public class SmartNusTest {
         smartNus.addQuestion(editedAlice);
         smartNus.addQuestion(editedBob);
         smartNus.addQuestion(editedCarl);
-        Map<Tag, Statistic> tagStatisticMap = smartNus.getTagStatistic();
+        ObservableList<TagStatistic> tagStatisticMap = smartNus.getTagStatistic();
         Tag husband = new Tag(VALID_TAG_HUSBAND);
         Tag friend = new Tag(VALID_TAG_FRIEND);
 
         assertEquals(2, tagStatisticMap.size());
-        assertTrue(tagStatisticMap.containsKey(husband));
-        assertTrue(tagStatisticMap.containsKey(friend));
-        assertEquals(0, tagStatisticMap.get(husband).getAttemptCount());
-        assertEquals(0, tagStatisticMap.get(husband).getCorrectCount());
-        assertEquals(0, tagStatisticMap.get(friend).getAttemptCount());
-        assertEquals(0, tagStatisticMap.get(friend).getCorrectCount());
     }
 
     /**
@@ -125,7 +117,7 @@ public class SmartNusTest {
     private static class SmartNusStub implements ReadOnlySmartNus {
         private final ObservableList<Question> questions = FXCollections.observableArrayList();
         private final ObservableList<Note> notes = FXCollections.observableArrayList();
-        private final Map<Tag, Statistic> tagStatisticMap = new HashMap<>();
+        private final ObservableList<TagStatistic> tagStatisticMap = FXCollections.observableArrayList();
 
         SmartNusStub(Collection<Question> questions) {
             this.questions.setAll(questions);
@@ -142,7 +134,7 @@ public class SmartNusTest {
         }
 
         @Override
-        public Map<Tag, Statistic> getTagStatistic() {
+        public ObservableList<TagStatistic> getTagStatistic() {
             return tagStatisticMap;
         }
     }

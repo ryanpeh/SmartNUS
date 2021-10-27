@@ -5,7 +5,6 @@ import static seedu.smartnus.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.Comparator;
-import java.util.Map;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -17,8 +16,7 @@ import seedu.smartnus.commons.core.LogsCenter;
 import seedu.smartnus.commons.core.theme.Theme;
 import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
-import seedu.smartnus.model.question.Statistic;
-import seedu.smartnus.model.tag.Tag;
+import seedu.smartnus.model.tag.TagStatistic;
 
 /**
  * Represents the in-memory model of SmartNus data.
@@ -204,7 +202,7 @@ public class ModelManager implements Model {
     //=========== Tag Statistic Accessors =============================================================
 
     @Override
-    public Map<Tag, Statistic> getTagStatistic() {
+    public ObservableList<TagStatistic> getTagStatistic() {
         return smartNus.getTagStatistic();
     }
 
