@@ -41,7 +41,12 @@ public class ListCommandTest {
 
     @Test
     public void execute_listNotes() {
-        assertCommandSuccess(new ListCommand("notes"), model, ListCommand.MESSAGE_SUCCESS_NOTES, expectedModel);
+        assertCommandSuccess(new ListCommand("note"), model, ListCommand.MESSAGE_SUCCESS_NOTES, expectedModel);
+    }
+
+    @Test
+    public void execute_listTag() {
+        assertCommandSuccess(new ListCommand("tag"), model, ListCommand.MESSAGE_SUCCESS_TAGS, expectedModel);
     }
 
     @Test
