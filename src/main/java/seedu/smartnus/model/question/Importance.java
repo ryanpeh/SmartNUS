@@ -53,6 +53,6 @@ public class Importance implements Comparable<Importance> {
     public int compareTo(Importance o) {
         int importance = Integer.parseInt(value);
         int otherImportance = Integer.parseInt(o.value);
-        return Integer.compare(otherImportance, importance);
+        return Integer.compare(importance, otherImportance);
     }
 }

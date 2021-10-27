@@ -13,7 +13,7 @@ public class QuestionsDefaultComparator implements Comparator<Question> {
         int res = 0;
         Importance q1Importance = q1.getImportance();
         Importance q2Importance = q2.getImportance();
-        res = q1Importance.compareTo(q2Importance);
+        res = -q1Importance.compareTo(q2Importance);
         if (res == 0) {
             Statistic q1Statistic = q1.getStatistic();
             Statistic q2Statistic = q2.getStatistic();
