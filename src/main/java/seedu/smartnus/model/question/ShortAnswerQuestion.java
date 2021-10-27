@@ -97,7 +97,7 @@ public class ShortAnswerQuestion extends Question {
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof MultipleChoiceQuestion)) {
+        if (!(other instanceof ShortAnswerQuestion)) {
             return false;
         }
 

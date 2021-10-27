@@ -9,6 +9,8 @@ import static seedu.smartnus.logic.commands.ThemeCommand.DARK_KEYWORD;
 import static seedu.smartnus.logic.commands.ThemeCommand.LIGHT_KEYWORD;
 import static seedu.smartnus.logic.parser.AddTfCommandParser.ANSWER_FALSE;
 import static seedu.smartnus.logic.parser.AddTfCommandParser.ANSWER_TRUE;
+import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_KEYWORD;
+import static seedu.smartnus.model.choice.Choice.MESSAGE_KEYWORD_CONSTRAINTS;
 import static seedu.smartnus.model.question.MultipleChoiceQuestion.NUMBER_OF_INCORRECT_CHOICES;
 
 import java.util.ArrayList;
@@ -286,6 +288,60 @@ public class ParserUtil {
             }
         }
         return true;
+    }
+
+    public static Set<Choice> parseEditSaqAnswer(Choice answer) throws ParseException {
+        String answerString = answer.getTitle();
+        ArgumentMultimap keywordsMultimap = ArgumentTokenizer.tokenize(" " + answerString, PREFIX_KEYWORD);
+        if (!arePrefixesPresent(keywordsMultimap, PREFIX_KEYWORD)) {
+            String[] keywordStrings = answerString.split("\\W+");
+            answer = ParserUtil.getChoiceWithAllWordsAsKeywords(answerString, keywordStrings);
+
+        } else {
+            answer = ParserUtil.getChoiceWithSpecifiedKeywords(answerString, keywordsMultimap);
+        }
+        Set<Choice> choices = new HashSet<>();
+        choices.add(answer);
+        return choices;
+    }
+
+    public static Choice getChoiceWithAllWordsAsKeywords(String answerString, String[] keywordStrings) {
+        Set<String> parsedKeywords = new HashSet<>();
+        for (String word : keywordStrings) {
+            if (word.isBlank()) {
+                continue;
+            }
+            parsedKeywords.add(word);
+        }
+        return new Choice(answerString, true, parsedKeywords);
+    }
+
+    public static Choice getChoiceWithSpecifiedKeywords(String answerString, ArgumentMultimap keywordsMultimap)
+            throws ParseException {
+        String answerTitleWithoutPrefix = answerString.replaceAll(PREFIX_KEYWORD.toString(), "");
+        Set<String> parsedKeywords = new HashSet<>();
+        List<String> keywordsList = keywordsMultimap.getAllValues(PREFIX_KEYWORD);
+        checkEmptyKeywords(keywordsList);
+
+        for (String keywords : keywordsList) {
+            String[] singleWords = keywords.split("\\W+");
+            for (String word : singleWords) {
+                if (word.isBlank()) {
+                    continue;
+                }
+                parsedKeywords.add(word);
+                break; // only the first non-empty word specified after prefix is a keyword
+            }
+        }
+        return new Choice(answerTitleWithoutPrefix, true, parsedKeywords);
+    }
+
+    private static void checkEmptyKeywords(List<String> keywords) throws ParseException {
+        for (String word : keywords) {
+            if (word.isBlank()) {
+                throw new ParseException(MESSAGE_KEYWORD_CONSTRAINTS);
+            }
+        }
     }
 
     /**

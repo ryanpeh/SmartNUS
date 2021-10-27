@@ -50,14 +50,14 @@ public class AddSaqCommandParser implements Parser<AddSaqCommand> {
         }
         for (String answerString : answerStrings) {
             // ArgumentTokenizer expects there to be a space " " before the prefix
-            Choice answer = null;
+            Choice answer;
             ArgumentMultimap keywordsMultimap = ArgumentTokenizer.tokenize(" " + answerString, PREFIX_KEYWORD);
             if (!arePrefixesPresent(keywordsMultimap, PREFIX_KEYWORD)) {
                 String[] keywordStrings = answerString.split("\\W+");
-                answer = getChoiceWithAllWordsAsKeywords(answerString, keywordStrings);
+                answer = ParserUtil.getChoiceWithAllWordsAsKeywords(answerString, keywordStrings);
 
             } else {
-                answer = getChoiceWithSpecifiedKeywords(answerString, keywordsMultimap, choices);
+                answer = ParserUtil.getChoiceWithSpecifiedKeywords(answerString, keywordsMultimap);
             }
             choices.add(answer);
         }
@@ -65,44 +65,5 @@ public class AddSaqCommandParser implements Parser<AddSaqCommand> {
         Question toAdd = new ShortAnswerQuestion(questionName, importance, tagList, choices);
 
         return new AddSaqCommand(toAdd);
-    }
-
-    private Choice getChoiceWithAllWordsAsKeywords(String answerString, String[] keywordStrings) {
-        Set<String> parsedKeywords = new HashSet<>();
-        for (String word : keywordStrings) {
-            if (word.isBlank()) {
-                continue;
-            }
-            parsedKeywords.add(word);
-        }
-        return new Choice(answerString, true, parsedKeywords);
-    }
-
-    private Choice getChoiceWithSpecifiedKeywords(String answerString, ArgumentMultimap keywordsMultimap, Set<Choice> choices) 
-            throws ParseException {
-        String answerTitleWithoutPrefix = answerString.replaceAll(PREFIX_KEYWORD.toString(), "");
-        Set<String> parsedKeywords = new HashSet<>();
-        List<String> keywordsList = keywordsMultimap.getAllValues(PREFIX_KEYWORD);
-        checkEmptyKeywords(keywordsList);
-        
-        for (String keywords : keywordsList) {
-            String[] singleWords = keywords.split("\\W+");
-            for (String word : singleWords) {
-                if (word.isBlank()) {
-                    continue;
-                }
-                parsedKeywords.add(word);
-                break; // only the first non-empty word specified after prefix is a keyword
-            }
-        }
-        return new Choice(answerTitleWithoutPrefix, true, parsedKeywords);
-    }
-
-    private void checkEmptyKeywords(List<String> keywords) throws ParseException {
-        for (String word : keywords) {
-            if (word.isBlank()) {
-                throw new ParseException(MESSAGE_KEYWORD_CONSTRAINTS);
-            }
-        }
     }
 }
