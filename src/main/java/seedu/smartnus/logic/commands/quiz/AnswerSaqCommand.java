@@ -26,7 +26,7 @@ public class AnswerSaqCommand extends Command {
     private final QuizManager quizManager;
 
     /**
-     * Creates a AnswerMcqCommand
+     * Creates a AnswerSaqCommand
      */
     public AnswerSaqCommand(String input, QuizManager quizManager) {
         assert(!input.isBlank());
@@ -58,9 +58,8 @@ public class AnswerSaqCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        // TODO: In future, check if the attributes (if any) for the QuizCommand are the same
         return other == this // short circuit if same object
-                || other instanceof AnswerMcqCommand; // instanceof handles nulls
+                || other instanceof AnswerSaqCommand; // instanceof handles nulls
     }
 
 }
