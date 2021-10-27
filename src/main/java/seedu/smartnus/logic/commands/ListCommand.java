@@ -38,26 +38,20 @@ public class ListCommand extends Command {
         }
     }
 
-    /**
-     * returns the boolean determining what to list.
-     * @return displayQuestions
-     */
-    public static boolean isDisplayQuestions() {
-        return displayQuestions;
-    }
-
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         String successMessage;
         if (displayQuestions) {
             model.updateFilteredQuestionList(PREDICATE_SHOW_ALL_QUESTIONS);
+            model.setPanel(QUESTION_KEYWORD);
             successMessage = MESSAGE_SUCCESS_QUESTIONS;
         } else {
             model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
+            model.setPanel(NOTE_KEYWORD);
             successMessage = MESSAGE_SUCCESS_NOTES;
         }
-        return new CommandResult(successMessage, false, false, false, true);
+        return new CommandResult(successMessage);
     }
 
     /**
