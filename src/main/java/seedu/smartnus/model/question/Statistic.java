@@ -50,10 +50,26 @@ public class Statistic implements Comparable<Statistic> {
     }
 
     /**
+     * Adds the number of attempts.
+     * @param attempts The number of attempts.
+     */
+    public void addAttempt(int attempts) {
+        attemptCount += attempts;
+    }
+
+    /**
      * Updates the number of correct attempt (+1)
      */
     public void addCorrect() {
         correctCount++;
+    }
+
+    /**
+     * Adds the number of correct attempts.
+     * @param corrects The number of correct attempts.
+     */
+    public void addCorrect(int corrects) {
+        correctCount += correctCount;
     }
 
     /**

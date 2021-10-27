@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Map;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -26,6 +27,8 @@ import seedu.smartnus.model.ReadOnlyUserPrefs;
 import seedu.smartnus.model.SmartNus;
 import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.question.Statistic;
+import seedu.smartnus.model.tag.Tag;
 import seedu.smartnus.testutil.QuestionBuilder;
 
 class AddMcqCommandTest {
@@ -189,6 +192,11 @@ class AddMcqCommandTest {
 
         @Override
         public Theme getTheme() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Map<Tag, Statistic> getTagStatistic() {
             throw new AssertionError("This method should not be called.");
         }
 
