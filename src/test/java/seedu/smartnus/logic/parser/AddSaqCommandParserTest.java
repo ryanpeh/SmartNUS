@@ -81,15 +81,15 @@ class AddSaqCommandParserTest {
 
     @Test
     void parse_fieldsInvalid_failure() {
-        // blank answer
-        assertParseFailure(parser, QUESTION_DESC_1 + INVALID_ANSWER_DESC + IMPORTANCE_DESC_1,
-                Choice.MESSAGE_CONSTRAINTS);
+        // answer without keywords
+        assertParseFailure(parser, QUESTION_DESC_1 + TRUE_ANSWER_DESC + IMPORTANCE_DESC_1,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddSaqCommand.MESSAGE_USAGE));
         // invalid question
         assertParseFailure(parser, INVALID_QUESTION_DESC + SAQ_ANSWER_DESC_1 + IMPORTANCE_DESC_1,
                 Name.MESSAGE_CONSTRAINTS);
         // invalid importance
         assertParseFailure(parser,
-                QUESTION_DESC_1 + TRUE_ANSWER_DESC + INVALID_IMPORTANCE_DESC,
+                QUESTION_DESC_1 + SAQ_ANSWER_DESC_1  + INVALID_IMPORTANCE_DESC,
                 Importance.MESSAGE_CONSTRAINTS);
     }
 
