@@ -69,7 +69,7 @@ public class Statistic implements Comparable<Statistic> {
      * @param corrects The number of correct attempts.
      */
     public void addCorrect(int corrects) {
-        correctCount += correctCount;
+        correctCount += corrects;
     }
 
     /**
