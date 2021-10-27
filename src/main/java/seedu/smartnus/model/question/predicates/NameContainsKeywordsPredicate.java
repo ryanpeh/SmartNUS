@@ -1,6 +1,9 @@
-package seedu.smartnus.model.question.predicate;
+package seedu.smartnus.model.question.predicates;
+
+import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 import seedu.smartnus.commons.util.StringUtil;
@@ -12,7 +15,12 @@ import seedu.smartnus.model.question.Question;
 public class NameContainsKeywordsPredicate implements Predicate<Question> {
     private final List<String> keywords;
 
+    /**
+     * Constructs the NameContainsKeywordsPredicate.
+     * @param keywords The keywords for the question name to be matched against.
+     */
     public NameContainsKeywordsPredicate(List<String> keywords) {
+        requireNonNull(keywords);
         this.keywords = keywords;
     }
 
@@ -29,4 +37,8 @@ public class NameContainsKeywordsPredicate implements Predicate<Question> {
                 && keywords.equals(((NameContainsKeywordsPredicate) other).keywords)); // state check
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(keywords);
+    }
 }

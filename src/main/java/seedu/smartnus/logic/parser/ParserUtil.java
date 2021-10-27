@@ -1,13 +1,17 @@
 package seedu.smartnus.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_LIMIT_ARG;
 import static seedu.smartnus.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.smartnus.logic.commands.ListCommand.NOTE_KEYWORD;
+import static seedu.smartnus.logic.commands.ListCommand.QUESTION_KEYWORD;
 import static seedu.smartnus.logic.commands.ThemeCommand.DARK_KEYWORD;
 import static seedu.smartnus.logic.commands.ThemeCommand.LIGHT_KEYWORD;
 import static seedu.smartnus.logic.parser.AddTfCommandParser.ANSWER_FALSE;
 import static seedu.smartnus.logic.parser.AddTfCommandParser.ANSWER_TRUE;
 import static seedu.smartnus.model.question.MultipleChoiceQuestion.NUMBER_OF_INCORRECT_CHOICES;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -18,6 +22,7 @@ import seedu.smartnus.commons.core.index.Index;
 import seedu.smartnus.commons.util.StringUtil;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
 import seedu.smartnus.model.choice.Choice;
+import seedu.smartnus.model.note.NoteName;
 import seedu.smartnus.model.question.Importance;
 import seedu.smartnus.model.question.MultipleChoiceQuestion;
 import seedu.smartnus.model.question.Name;
@@ -69,6 +74,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String name} into a {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static NoteName parseNoteName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!Name.isValidName(trimmedName)) {
+            throw new ParseException(NoteName.MESSAGE_CONSTRAINTS);
+        }
+        return new NoteName(trimmedName);
+    }
+
+    /**
      * Parses a {@code String importance} into a {@code Importance}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -111,6 +131,39 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code Collection<String> indexes} into a {@code Set<Index>}.
+     */
+    public static Set<Index> parseQuizIndexes(Collection<String> indexCollection) throws ParseException {
+        requireNonNull(indexCollection);
+        final Set<Index> indexSet = new HashSet<>();
+        for (String indexCol: indexCollection) {
+            String[] indexes = indexCol.split("\\s+");
+            for (String index : indexes) {
+                indexSet.add(parseIndex(index));
+            }
+        }
+        return indexSet;
+    }
+
+    /**
+     * Parses {@code String limit} into a {@code int} limit.
+     */
+    public static int parseQuizLimit(String limit) throws ParseException {
+        requireNonNull(limit);
+        String trimmedLimit = limit.trim();
+        int res;
+        try {
+            res = Integer.parseInt(trimmedLimit);
+        } catch (NumberFormatException e) {
+            throw new ParseException(MESSAGE_INVALID_LIMIT_ARG);
+        }
+        if (res <= 0) {
+            throw new ParseException(MESSAGE_INVALID_LIMIT_ARG);
+        }
+        return res;
+    }
+
+    /**
      * Parses {@code String choice} into a {@code Choice choice}.
      */
     public static Choice parseChoice(String choice, boolean isCorrect) throws ParseException {
@@ -146,6 +199,37 @@ public class ParserUtil {
     }
 
     /**
+     * Parses  {@code choices} into a set of Choices.
+     *
+     * @param choices List of Strings representing titles of choices.
+     * @return Set of Choices where all Choices have isCorrect set to false.
+     * @throws ParseException If any choice has an invalid title.
+     */
+    public static Set<Choice> parseWrongChoicesForEdit(List<String> choices) throws ParseException {
+        requireAllNonNull(choices);
+        Set<Choice> choiceSet = new HashSet<>();
+        for (String choice : choices) {
+            choiceSet.add(parseChoice(choice, false));
+        }
+        if (choiceSet.size() != choices.size()) {
+            throw new ParseException(MultipleChoiceQuestion.MESSAGE_DUPLICATE_CHOICES);
+        }
+        return choiceSet;
+    }
+
+    /**
+     * Parses {@code answer} into a correct Choice.
+     *
+     * @param answer Title of the correct Choice.
+     * @return Choice with title set to answer and isCorrect set to true.
+     * @throws ParseException If answer is not a valid choice title.
+     */
+    public static Choice parseAnswerForEdit(String answer) throws ParseException {
+        requireNonNull(answer);
+        return parseChoice(answer, true);
+    }
+
+    /**
      * Parses {@code String answer} (T or F) into a {@code Set<Choice> choice} of 2 (T and F) choices.
      */
     public static Set<Choice> parseTrueFalseAnswer(String answer) throws ParseException {
@@ -163,11 +247,62 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code String answer} into a {@code Set<Choice> choice} of two Choices (with titles True and False).
+     * {@code answer} may not be T or F, as the question to be edited may not be a TrueFalseQuestion.
+     * This method is used to prepare the choices for EditCommand in the event the question to be edited is
+     * a TrueFalseQuestion.
+     *
+     * @param answer The answer specified by the user.
+     * @return A set of two Choices (with titles True and False).
+     */
+    public static Set<Choice> parseTrueFalseAnswerForEdit(String answer) {
+        requireNonNull(answer);
+        String trimmedAnswer = answer.trim();
+        boolean isAnswerTrue = trimmedAnswer.equalsIgnoreCase(ANSWER_TRUE);
+        boolean isAnswerFalse = trimmedAnswer.equalsIgnoreCase(ANSWER_FALSE);
+        Set<Choice> choices = new HashSet<>();
+        choices.add(new Choice(Choice.TRUE_CHOICE_TITLE, isAnswerTrue));
+        choices.add(new Choice(Choice.FALSE_CHOICE_TITLE, isAnswerFalse));
+        return choices;
+    }
+
+    /**
+     * Returns true if there are no choices with duplicate titles in {@code choices}, false otherwise.
+     * {@code choices} should not contain null.
+     *
+     * @param choices A set of choices.
+     * @return True if there are no choices with duplicate titles, false otherwise.
+     */
+    public static boolean isValidChoiceTitles(Set<Choice> choices) {
+        requireAllNonNull(choices);
+        ArrayList<Choice> arr = new ArrayList<>(choices);
+        for (int i = 0; i < arr.size(); i++) {
+            Choice currentChoice = arr.get(i);
+            for (int j = i + 1; j < arr.size(); j++) {
+                Choice nextChoice = arr.get(j);
+                if (currentChoice.hasSameTitle(nextChoice)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
      * Returns True if the given theme is valid.
      * @param theme The given theme.
      * @return True if theme is valid, false otherwise.
      */
     public static boolean isValidTheme(String theme) {
         return theme.trim().equals(LIGHT_KEYWORD) || theme.trim().equals(DARK_KEYWORD);
+    }
+
+    /**
+     * Returns True if the given listArgument is valid.
+     * @param listArgument The given argument
+     * @return True if listArgument is valid, false otherwise.
+     */
+    public static boolean isValidListArgument(String listArgument) {
+        return listArgument.trim().equals(NOTE_KEYWORD) || listArgument.trim().equals(QUESTION_KEYWORD);
     }
 }

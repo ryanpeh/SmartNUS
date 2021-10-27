@@ -2,13 +2,12 @@ package seedu.smartnus.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.smartnus.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -16,69 +15,33 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.smartnus.commons.core.GuiSettings;
 import seedu.smartnus.commons.core.theme.Theme;
-import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.ReadOnlySmartNus;
 import seedu.smartnus.model.ReadOnlyUserPrefs;
 import seedu.smartnus.model.SmartNus;
+import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
-import seedu.smartnus.testutil.QuestionBuilder;
+import seedu.smartnus.testutil.NoteBuilder;
 
-public class AddCommandTest {
-
+public class AddNoteCommandTest {
     @Test
     public void constructor_nullQuestion_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+        assertThrows(NullPointerException.class, () -> new AddNoteCommand(null));
     }
 
     @Test
-    public void execute_questionAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingQuestionAdded modelStub = new ModelStubAcceptingQuestionAdded();
-        Question validQuestion = new QuestionBuilder().build();
+    public void execute_noteAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingNoteAdded modelStub = new ModelStubAcceptingNoteAdded();
+        Note validNote = new NoteBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validQuestion).execute(modelStub);
+        CommandResult commandResult = new AddNoteCommand(validNote).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validQuestion), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validQuestion), modelStub.questionsAdded);
+        assertEquals(String.format(AddNoteCommand.MESSAGE_SUCCESS, validNote), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validNote), modelStub.notesAdded);
     }
 
-    @Test
-    public void execute_duplicateQuestion_throwsCommandException() {
-        Question validQuestion = new QuestionBuilder().build();
-        AddCommand addCommand = new AddCommand(validQuestion);
-        ModelStub modelStub = new ModelStubWithQuestion(validQuestion);
+    // todo: if duplicate note checker is implemented, add a test here to check if it works properly
 
-        assertThrows(CommandException.class,
-                AddCommand.MESSAGE_DUPLICATE_QUESTION, () -> addCommand.execute(modelStub));
-    }
-
-    @Test
-    public void equals() {
-        Question alice = new QuestionBuilder().withName("Alice").build();
-        Question bob = new QuestionBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
-
-        // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
-
-        // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
-
-        // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
-
-        // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
-
-        // different question -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
-    }
-
-    /**
-     * A default model stub that have all of the methods failing.
-     */
     private class ModelStub implements Model {
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -156,6 +119,41 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addNote(Note note) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteNote(Note target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setNote(Note target, Note editedNote) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Note> getFilteredNoteList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredNoteList(Predicate<Note> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredQuizQuestionList(Predicate<Question> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortFilteredQuizQuestionList(Comparator<Question> comparator) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setTheme(Theme theme) {
             throw new AssertionError("This method should not be called.");
         }
@@ -164,47 +162,18 @@ public class AddCommandTest {
         public Theme getTheme() {
             throw new AssertionError("This method should not be called.");
         }
-
-        @Override
-        public void updateFilteredQuizQuestionList(Predicate<Question> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-    }
-
-    /**
-     * A Model stub that contains a single question.
-     */
-    private class ModelStubWithQuestion extends ModelStub {
-        private final Question question;
-
-        ModelStubWithQuestion(Question question) {
-            requireNonNull(question);
-            this.question = question;
-        }
-
-        @Override
-        public boolean hasQuestion(Question question) {
-            requireNonNull(question);
-            return this.question.isSameQuestion(question);
-        }
     }
 
     /**
      * A Model stub that always accept the question being added.
      */
-    private class ModelStubAcceptingQuestionAdded extends ModelStub {
-        final ArrayList<Question> questionsAdded = new ArrayList<>();
+    private class ModelStubAcceptingNoteAdded extends ModelStub {
+        final ArrayList<Note> notesAdded = new ArrayList<>();
 
         @Override
-        public boolean hasQuestion(Question question) {
-            requireNonNull(question);
-            return questionsAdded.stream().anyMatch(question::isSameQuestion);
-        }
-
-        @Override
-        public void addQuestion(Question question) {
-            requireNonNull(question);
-            questionsAdded.add(question);
+        public void addNote(Note note) {
+            requireNonNull(note);
+            notesAdded.add(note);
         }
 
         @Override
@@ -212,5 +181,4 @@ public class AddCommandTest {
             return new SmartNus();
         }
     }
-
 }

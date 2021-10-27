@@ -15,7 +15,8 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.smartnus.commons.core.GuiSettings;
-import seedu.smartnus.model.question.predicate.NameContainsKeywordsPredicate;
+import seedu.smartnus.model.question.comparator.QuestionsDefaultComparator;
+import seedu.smartnus.model.question.predicates.NameContainsKeywordsPredicate;
 import seedu.smartnus.testutil.SmartNusBuilder;
 
 public class ModelManagerTest {
@@ -94,6 +95,11 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void getFilteredNoteList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredNoteList().remove(0));
+    }
+
+    @Test
     public void equals() {
         SmartNus smartNus = new SmartNusBuilder().withQuestion(ALICE).withQuestion(BENSON).build();
         SmartNus differentSmartNus = new SmartNus();
@@ -128,5 +134,9 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setSmartNusFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(smartNus, differentUserPrefs)));
+
+        // sorted list -> returns false
+        modelManager.sortFilteredQuizQuestionList(new QuestionsDefaultComparator());
+        assertFalse(modelManager.equals(new ModelManager(smartNus, userPrefs)));
     }
 }

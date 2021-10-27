@@ -12,6 +12,8 @@ public class Messages {
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX = "The question index provided is invalid";
+    public static final String MESSAGE_NO_TAGS_AND_INDEXES = "Cannot have tags and indexes together \n%1$s";
+    public static final String MESSAGE_NO_LIMIT_AND_INDEXES = "Cannot have limit and indexes together \n%1$s";
     public static final String MESSAGE_QUESTIONS_LISTED_OVERVIEW = "%1$d questions listed!";
     public static final String MESSAGE_INVALID_MCQ_ANSWER_FORMAT = "Invalid answer format!"
             + " Acceptable answers are 'a', 'b', 'c', 'd' (Case-insensitive)\n";
@@ -22,5 +24,6 @@ public class Messages {
             + "to view the previous question.";
     public static final String MESSAGE_CONTINUE_QUIZ = "Enter '" + NextQuestionCommand.COMMAND_WORD
             + "' to proceed with the next question, or '" + ExitCommand.COMMAND_WORD + "' to exit the quiz";
+    public static final String MESSAGE_INVALID_LIMIT_ARG = "Limit must be a valid positive integer!";
 
 }

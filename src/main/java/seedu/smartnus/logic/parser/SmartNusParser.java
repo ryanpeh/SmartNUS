@@ -6,13 +6,12 @@ import static seedu.smartnus.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.smartnus.logic.commands.AddCommand;
+import seedu.smartnus.logic.commands.AddNoteCommand;
 import seedu.smartnus.logic.commands.ClearCommand;
 import seedu.smartnus.logic.commands.Command;
 import seedu.smartnus.logic.commands.DeleteCommand;
 import seedu.smartnus.logic.commands.EditCommand;
 import seedu.smartnus.logic.commands.ExitCommand;
-import seedu.smartnus.logic.commands.FindByTagCommand;
 import seedu.smartnus.logic.commands.FindCommand;
 import seedu.smartnus.logic.commands.HelpCommand;
 import seedu.smartnus.logic.commands.ListCommand;
@@ -50,9 +49,6 @@ public class SmartNusParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
-
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
@@ -65,11 +61,8 @@ public class SmartNusParser {
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
-        case FindByTagCommand.COMMAND_WORD:
-            return new FindByTagCommandParser().parse(arguments);
-
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return new ListCommandParser().parse(arguments);
 
         case AddMcqCommand.COMMAND_WORD:
             return new AddMcqCommandParser().parse(arguments);
@@ -85,6 +78,9 @@ public class SmartNusParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case AddNoteCommand.COMMAND_WORD:
+            return new AddNoteCommandParser().parse(arguments);
 
         case ThemeCommand.COMMAND_WORD:
             return new ThemeCommandParser().parse(arguments);
