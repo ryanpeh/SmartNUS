@@ -214,7 +214,8 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return smartNus.equals(other.smartNus)
                 && userPrefs.equals(other.userPrefs)
-                && filteredQuestions.equals(other.filteredQuestions);
+                && filteredQuestions.equals(other.filteredQuestions)
+                && filteredQuizQuestions.equals(other.filteredQuizQuestions);
     }
 
 }
