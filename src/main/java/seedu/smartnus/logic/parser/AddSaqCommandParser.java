@@ -9,7 +9,6 @@ import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.smartnus.logic.parser.ParserUtil.arePrefixesPresent;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import seedu.smartnus.logic.commands.questions.AddSaqCommand;

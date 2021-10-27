@@ -44,7 +44,7 @@ public class TypicalQuestions {
             .withImportance("2")
             .withChoices(new Choice(Choice.TRUE_CHOICE_TITLE, true),
                     new Choice(Choice.FALSE_CHOICE_TITLE, false)).buildTrueFalse();
-    static final Set<String> keywords = new HashSet<>(List.of("harry", "potter"));
+    private static final Set<String> keywords = new HashSet<>(List.of("harry", "potter"));
     public static final Question SAQ_QUESTION = new QuestionBuilder()
             .withName("Harry, you're a wizard. Where is this quote from?")
             .withImportance("2")
