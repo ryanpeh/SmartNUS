@@ -180,7 +180,7 @@ public class SmartNus implements ReadOnlySmartNus {
                     ? tagStatisticMap.get(tag)
                     : new Statistic();
             stats.addAttempt(question.getStatistic().getAttemptCount());
-            stats.addCorrect(question.getStatistic().getAttemptCount());
+            stats.addCorrect(question.getStatistic().getCorrectCount());
             tagStatisticMap.put(tag, stats);
         }
     }
