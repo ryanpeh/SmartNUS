@@ -1,6 +1,7 @@
 package seedu.smartnus.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_LIMIT_ARG;
 import static seedu.smartnus.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.smartnus.logic.commands.ListCommand.NOTE_KEYWORD;
 import static seedu.smartnus.logic.commands.ListCommand.QUESTION_KEYWORD;
@@ -142,6 +143,24 @@ public class ParserUtil {
             }
         }
         return indexSet;
+    }
+
+    /**
+     * Parses {@code String limit} into a {@code int} limit.
+     */
+    public static int parseQuizLimit(String limit) throws ParseException {
+        requireNonNull(limit);
+        String trimmedLimit = limit.trim();
+        int res;
+        try {
+            res = Integer.parseInt(trimmedLimit);
+        } catch (NumberFormatException e) {
+            throw new ParseException(MESSAGE_INVALID_LIMIT_ARG);
+        }
+        if (res <= 0) {
+            throw new ParseException(MESSAGE_INVALID_LIMIT_ARG);
+        }
+        return res;
     }
 
     /**

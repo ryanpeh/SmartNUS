@@ -7,8 +7,7 @@ import static seedu.smartnus.commons.util.AppUtil.checkArgument;
  * Represents a Question's importance in SmartNus.
  * Guarantees: immutable; is valid as declared in {@link #isValidImportance(String)}
  */
-public class Importance {
-
+public class Importance implements Comparable<Importance> {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Importance should only be an integer from 1-3 inclusive";
@@ -50,4 +49,10 @@ public class Importance {
         return value.hashCode();
     }
 
+    @Override
+    public int compareTo(Importance o) {
+        int importance = Integer.parseInt(value);
+        int otherImportance = Integer.parseInt(o.value);
+        return Integer.compare(importance, otherImportance);
+    }
 }

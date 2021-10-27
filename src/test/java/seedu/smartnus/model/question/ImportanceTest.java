@@ -54,4 +54,19 @@ public class ImportanceTest {
         assertEquals(importance, importance); // same object
         assertTrue(importance.equals(new Importance("1"))); // same value
     }
+
+    @Test
+    public void compareTo() {
+        Importance firstImportance = new Importance("1");
+        Importance secondImportance = new Importance("1");
+        Importance thirdImportance = new Importance("3");
+
+        // same importance
+        assertEquals(0, firstImportance.compareTo(secondImportance));
+        // first smaller than second
+        assertEquals(-1, firstImportance.compareTo(thirdImportance));
+        // first greater than second
+        assertEquals(1, thirdImportance.compareTo(secondImportance));
+
+    }
 }
