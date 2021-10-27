@@ -272,8 +272,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseQuizLimit_invalidValues_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseTrueFalseAnswer(INVALID_LIMIT_1));
-        assertThrows(ParseException.class, () -> ParserUtil.parseTrueFalseAnswer(INVALID_LIMIT_2));
-        assertThrows(ParseException.class, () -> ParserUtil.parseTrueFalseAnswer(INVALID_LIMIT_3));
+        assertThrows(ParseException.class, () -> ParserUtil.parseQuizLimit(INVALID_LIMIT_1));
+        assertThrows(ParseException.class, () -> ParserUtil.parseQuizLimit(INVALID_LIMIT_2));
+        assertThrows(ParseException.class, () -> ParserUtil.parseQuizLimit(INVALID_LIMIT_3));
     }
 }
