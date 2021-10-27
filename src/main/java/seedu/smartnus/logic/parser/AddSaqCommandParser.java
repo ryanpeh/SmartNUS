@@ -44,22 +44,41 @@ public class AddSaqCommandParser implements Parser<AddSaqCommand> {
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Set<Choice> choices = new HashSet<>();
         List<String> answerStrings = argMultimap.getAllValues(PREFIX_ANSWER);
+        if (answerStrings.size() != 1) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddSaqCommand.MESSAGE_NO_ANSWER));
+        }
         for (String answerString : answerStrings) {
             // ArgumentTokenizer expects there to be a space " " before the prefix
+            Choice answer = null;
             ArgumentMultimap keywordsMultimap = ArgumentTokenizer.tokenize(" " + answerString, PREFIX_KEYWORD);
             if (!arePrefixesPresent(keywordsMultimap, PREFIX_KEYWORD)) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        AddSaqCommand.MESSAGE_NO_KEYWORDS));
+                String[] keywordStrings = answerString.split("\\W+");
+                answer = getChoiceWithAllWordsAsKeywords(answerString, keywordStrings);
+
+            } else {
+                answer = getChoiceWithSpecifiedKeywords(answerString, keywordsMultimap, choices);
             }
-            addAnswerToChoices(answerString, keywordsMultimap, choices);
+            choices.add(answer);
         }
 
         Question toAdd = new ShortAnswerQuestion(questionName, importance, tagList, choices);
 
         return new AddSaqCommand(toAdd);
     }
-    
-    private void addAnswerToChoices(String answerString, ArgumentMultimap keywordsMultimap, Set<Choice> choices) 
+
+    private Choice getChoiceWithAllWordsAsKeywords(String answerString, String[] keywordStrings) {
+        Set<String> parsedKeywords = new HashSet<>();
+        for (String word : keywordStrings) {
+            if (word.isBlank()) {
+                continue;
+            }
+            parsedKeywords.add(word);
+        }
+        return new Choice(answerString, true, parsedKeywords);
+    }
+
+    private Choice getChoiceWithSpecifiedKeywords(String answerString, ArgumentMultimap keywordsMultimap, Set<Choice> choices) 
             throws ParseException {
         String answerTitleWithoutPrefix = answerString.replaceAll(PREFIX_KEYWORD.toString(), "");
         Set<String> parsedKeywords = new HashSet<>();
@@ -68,16 +87,15 @@ public class AddSaqCommandParser implements Parser<AddSaqCommand> {
         
         for (String keywords : keywordsList) {
             String[] singleWords = keywords.split("\\W+");
-            // only the first non-empty word specified after prefix is a keyword
             for (String word : singleWords) {
                 if (word.isBlank()) {
                     continue;
                 }
                 parsedKeywords.add(word);
-                break;
+                break; // only the first non-empty word specified after prefix is a keyword
             }
         }
-        choices.add(new Choice(answerTitleWithoutPrefix, true, parsedKeywords));
+        return new Choice(answerTitleWithoutPrefix, true, parsedKeywords);
     }
 
     private void checkEmptyKeywords(List<String> keywords) throws ParseException {

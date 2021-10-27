@@ -6,7 +6,8 @@ import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.tag.Tag;
 
 public class ShortAnswerQuestion extends Question {
-    public static final String MESSAGE_VALID_SAQ = "Short Answer Questions must have at least one correct answer.";
+    public static final String MESSAGE_VALID_SAQ = "Short Answer Questions must have exactly one choice"
+            +" which is the correct answer.";
 
     public ShortAnswerQuestion(Name name, Importance importance, Set<Tag> tags,
                                   Set<Choice> choices) {
@@ -26,20 +27,67 @@ public class ShortAnswerQuestion extends Question {
      */
     @Override
     public boolean isValidQuestion() {
-        int choiceCount = getChoices().size();
+        Set<Choice> choices = getChoices();
         int correctChoiceCount = 0;
-        for (Choice choice : getChoices()) {
+        for (Choice choice : choices) {
             if (choice.getIsCorrect()) {
                 correctChoiceCount += 1;
             }
         }
-        return correctChoiceCount >= 1;
+        return correctChoiceCount == 1 && choices.size() == 1;
     }
 
     @Override
     public String getQuestionAndOptions() {
-        String title = this.getName().toString();
-        return title;
+        return this.getName().toString();
+    }
+
+    @Override
+    public boolean attemptAndCheckAnswer(Choice choiceToCheck) {
+        getStatistic().addAttempt();
+        if (isCorrectAnswer(choiceToCheck)) {
+            getStatistic().addCorrect();
+            return true;
+        }
+        return false;
+    }
+    
+    @Override
+    public boolean isCorrectAnswer(Choice choiceToCheck) {
+        Set<Choice> saqAnswers = getChoices();
+        for (Choice answer : saqAnswers) {
+            if(hasAllKeywords(choiceToCheck, answer)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    private boolean hasAllKeywords(Choice choiceToCheck, Choice answer) {
+        String input = choiceToCheck.getTitle();
+        if (containsAllKeywords(input, answer.getKeywords())) {
+            getStatistic().addCorrect();
+            return true;
+        }
+        return false;
+    }
+
+    private boolean containsAllKeywords(String input, Set<String> keywords) {
+        for (String keyword : keywords) {
+            if (!input.contains(keyword)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public String getKeywordsFormattedString() {
+        Set<Choice> choices = getChoices();
+        assert choices.size() == 1 : "SAQ should have exactly one choice";
+        for (Choice choice : choices) {
+            return choice.getKeywordsString();
+        }
+        return "";
     }
 
     @Override

@@ -50,6 +50,11 @@ class JsonAdaptedChoice {
         if (!Choice.isValidChoiceTitle(title)) {
             throw new IllegalValueException(Choice.MESSAGE_CONSTRAINTS);
         }
+        for (String keyword : keywords) {
+            if (!Choice.isValidKeyword(keyword)) {
+                throw new IllegalValueException(Choice.MESSAGE_KEYWORD_CONSTRAINTS);
+            }
+        }
         return new Choice(title, isCorrect, keywords);
     }
 

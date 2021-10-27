@@ -115,4 +115,13 @@ public class Choice {
     public Set<String> getKeywords() {
         return Collections.unmodifiableSet(keywords);
     }
+
+    public String getKeywordsString() {
+        StringBuilder builder = new StringBuilder();
+        for (String keyword : keywords) {
+            builder.append(keyword).append(", ");
+        }
+        builder.setLength(builder.length() - 2); //remove ", " after last keyword
+        return builder.toString();
+    }
 }

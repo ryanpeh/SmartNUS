@@ -137,6 +137,10 @@ public abstract class Question {
         }
         return null;
     }
+    
+    public String getCorrectChoiceTitle() {
+        return getCorrectChoice() == null ? "" : getCorrectChoice().getTitle();
+    }
 
     /**
      * Returns true if both questions have the same name.
@@ -243,7 +247,7 @@ public abstract class Question {
 
     private StringBuilder appendChoices(StringBuilder builder) {
         Set<Choice> choices = getChoices();
-        if (!choices.isEmpty()) { // may be empty for open-ended questions
+        if (!choices.isEmpty()) {
             builder.append("; Choices: ");
             for (Choice choice: choices) {
                 builder.append(choice).append(", ");
@@ -253,4 +257,7 @@ public abstract class Question {
         return builder;
     }
 
+    public boolean isCorrectAnswer(Choice userAnswer) {
+        return userAnswer.equals(getCorrectChoice());
+    }
 }
