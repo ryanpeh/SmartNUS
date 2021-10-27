@@ -3,7 +3,6 @@ package seedu.smartnus.logic.parser;
 import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.smartnus.logic.commands.CommandTestUtil.ANSWER_DESC_2;
 import static seedu.smartnus.logic.commands.CommandTestUtil.IMPORTANCE_DESC_1;
-import static seedu.smartnus.logic.commands.CommandTestUtil.INVALID_ANSWER_DESC;
 import static seedu.smartnus.logic.commands.CommandTestUtil.INVALID_IMPORTANCE_DESC;
 import static seedu.smartnus.logic.commands.CommandTestUtil.INVALID_QUESTION_DESC;
 import static seedu.smartnus.logic.commands.CommandTestUtil.OPTIONS_DESC_1;
@@ -89,7 +88,7 @@ class AddSaqCommandParserTest {
                 Name.MESSAGE_CONSTRAINTS);
         // invalid importance
         assertParseFailure(parser,
-                QUESTION_DESC_1 + SAQ_ANSWER_DESC_1  + INVALID_IMPORTANCE_DESC,
+                QUESTION_DESC_1 + SAQ_ANSWER_DESC_1 + INVALID_IMPORTANCE_DESC,
                 Importance.MESSAGE_CONSTRAINTS);
     }
 
