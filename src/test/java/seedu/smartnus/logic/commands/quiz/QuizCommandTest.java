@@ -17,9 +17,8 @@ import seedu.smartnus.model.ModelManager;
 import seedu.smartnus.model.UserPrefs;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.question.comparator.QuestionsDefaultComparator;
-import seedu.smartnus.model.question.predicate.ShowAllQuestionsPredicate;
-import seedu.smartnus.model.question.predicate.ShowQuestionIndexPredicate;
-
+import seedu.smartnus.model.question.predicates.ShowAllQuestionsPredicate;
+import seedu.smartnus.model.question.predicates.ShowQuestionIndexPredicate;
 
 
 class QuizCommandTest {

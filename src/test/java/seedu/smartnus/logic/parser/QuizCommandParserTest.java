@@ -19,11 +19,10 @@ import seedu.smartnus.logic.commands.quiz.QuizCommand;
 import seedu.smartnus.logic.parser.quiz.QuizCommandParser;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.question.comparator.QuestionsDefaultComparator;
-import seedu.smartnus.model.question.predicate.LimitQuestionsPredicate;
-import seedu.smartnus.model.question.predicate.ShowAllQuestionsPredicate;
-import seedu.smartnus.model.question.predicate.ShowQuestionIndexPredicate;
-import seedu.smartnus.model.question.predicate.TagsContainKeywordsPredicate;
-
+import seedu.smartnus.model.question.predicates.LimitQuestionsPredicate;
+import seedu.smartnus.model.question.predicates.ShowAllQuestionsPredicate;
+import seedu.smartnus.model.question.predicates.ShowQuestionIndexPredicate;
+import seedu.smartnus.model.question.predicates.TagsContainKeywordsPredicate;
 
 class QuizCommandParserTest {
 

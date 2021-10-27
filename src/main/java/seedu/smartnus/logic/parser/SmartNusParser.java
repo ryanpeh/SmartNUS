@@ -12,7 +12,6 @@ import seedu.smartnus.logic.commands.Command;
 import seedu.smartnus.logic.commands.DeleteCommand;
 import seedu.smartnus.logic.commands.EditCommand;
 import seedu.smartnus.logic.commands.ExitCommand;
-import seedu.smartnus.logic.commands.FindByTagCommand;
 import seedu.smartnus.logic.commands.FindCommand;
 import seedu.smartnus.logic.commands.HelpCommand;
 import seedu.smartnus.logic.commands.ListCommand;
@@ -61,9 +60,6 @@ public class SmartNusParser {
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
-
-        case FindByTagCommand.COMMAND_WORD:
-            return new FindByTagCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommandParser().parse(arguments);

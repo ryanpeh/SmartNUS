@@ -14,7 +14,7 @@ import seedu.smartnus.logic.commands.CommandResult;
 import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.question.Question;
-import seedu.smartnus.model.question.predicate.ShowAllQuestionsPredicate;
+import seedu.smartnus.model.question.predicates.ShowAllQuestionsPredicate;
 
 /**
  * Starts a quiz

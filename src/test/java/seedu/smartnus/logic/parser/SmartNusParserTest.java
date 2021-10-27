@@ -23,10 +23,12 @@ import static seedu.smartnus.model.choice.Choice.TRUE_CHOICE_TITLE;
 import static seedu.smartnus.testutil.Assert.assertThrows;
 import static seedu.smartnus.testutil.TypicalIndexes.INDEX_FIRST_QUESTION;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
@@ -36,7 +38,6 @@ import seedu.smartnus.logic.commands.ClearCommand;
 import seedu.smartnus.logic.commands.DeleteCommand;
 import seedu.smartnus.logic.commands.EditCommand;
 import seedu.smartnus.logic.commands.ExitCommand;
-import seedu.smartnus.logic.commands.FindByTagCommand;
 import seedu.smartnus.logic.commands.FindCommand;
 import seedu.smartnus.logic.commands.HelpCommand;
 import seedu.smartnus.logic.commands.ListCommand;
@@ -51,8 +52,7 @@ import seedu.smartnus.model.question.MultipleChoiceQuestion;
 import seedu.smartnus.model.question.Name;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.question.TrueFalseQuestion;
-import seedu.smartnus.model.question.predicate.NameContainsKeywordsPredicate;
-import seedu.smartnus.model.question.predicate.TagsContainKeywordsPredicate;
+import seedu.smartnus.model.question.predicates.NameContainsKeywordsPredicate;
 import seedu.smartnus.testutil.EditQuestionDescriptorBuilder;
 import seedu.smartnus.testutil.QuestionBuilder;
 import seedu.smartnus.testutil.QuestionUtil;
@@ -94,21 +94,15 @@ public class SmartNusParserTest {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        ArrayList<Predicate<Question>> arr = new ArrayList<>();
+        arr.add(new NameContainsKeywordsPredicate(keywords));
+        assertEquals(new FindCommand(arr), command);
     }
 
     @Test
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
-    }
-
-    @Test
-    public void parseCommand_tag() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindByTagCommand command = (FindByTagCommand) parser.parseCommand(
-                FindByTagCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindByTagCommand(new TagsContainKeywordsPredicate(keywords)), command);
     }
 
     @Test
