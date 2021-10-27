@@ -213,9 +213,6 @@ public abstract class Question {
         return Objects.hash(name, importance, tags);
     }
 
-    // TODO: Remove maybe when UI is implemented
-    public abstract String getQuestionAndOptions();
-
     public abstract int getQuestionType();
 
     @Override

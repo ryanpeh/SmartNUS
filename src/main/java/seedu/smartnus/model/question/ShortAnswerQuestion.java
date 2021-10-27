@@ -40,11 +40,6 @@ public class ShortAnswerQuestion extends Question {
     }
 
     @Override
-    public String getQuestionAndOptions() {
-        return this.getName().toString();
-    }
-
-    @Override
     public boolean attemptAndCheckAnswer(Choice choiceToCheck) {
         getStatistic().addAttempt();
         if (isCorrectAnswer(choiceToCheck)) {

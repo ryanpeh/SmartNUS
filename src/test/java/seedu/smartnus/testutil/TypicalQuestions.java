@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import seedu.smartnus.model.SmartNus;
 import seedu.smartnus.model.choice.Choice;
@@ -44,12 +43,11 @@ public class TypicalQuestions {
             .withImportance("2")
             .withChoices(new Choice(Choice.TRUE_CHOICE_TITLE, true),
                     new Choice(Choice.FALSE_CHOICE_TITLE, false)).buildTrueFalse();
-    private static final Set<String> keywords = new HashSet<>(List.of("harry", "potter"));
     public static final Question SAQ_QUESTION = new QuestionBuilder()
             .withName("Harry, you're a wizard. Where is this quote from?")
             .withImportance("2")
             .withChoices(new Choice("Harry Potter and the Philosopher's Stone",
-                    true, keywords)).buildSaq();
+                    true, new HashSet<>(List.of("harry", "potter")))).buildSaq();
     public static final Question CARL = new QuestionBuilder().withName("Carl Kurz").withImportance("3")
             .build();
     public static final Question DANIEL = new QuestionBuilder().withName("Daniel Meier").withImportance("1")
