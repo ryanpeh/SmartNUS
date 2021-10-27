@@ -7,6 +7,9 @@ import seedu.smartnus.commons.exceptions.IllegalValueException;
 import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.question.Question;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Jackson-friendly version of {@link Question}.
  */
@@ -14,14 +17,19 @@ class JsonAdaptedChoice {
 
     private final String title;
     private final boolean isCorrect;
+    private final Set<String> keywords = new HashSet<>();
 
     /**
      * Constructs a {@code JsonAdaptedChoice} with the given choice details.
      */
     @JsonCreator
-    public JsonAdaptedChoice(@JsonProperty("title") String title, @JsonProperty("isCorrect") boolean isCorrect) {
+    public JsonAdaptedChoice(@JsonProperty("title") String title, @JsonProperty("isCorrect") boolean isCorrect,
+                             @JsonProperty("keywords") Set<String> keywords) {
         this.title = title;
         this.isCorrect = isCorrect;
+        if (keywords != null) {
+            this.keywords.addAll(keywords);
+        }
     }
 
     /**
@@ -30,6 +38,7 @@ class JsonAdaptedChoice {
     public JsonAdaptedChoice(Choice source) {
         title = source.getTitle();
         isCorrect = source.getIsCorrect();
+        keywords.addAll(source.getKeywords());
     }
 
     /**
@@ -41,7 +50,7 @@ class JsonAdaptedChoice {
         if (!Choice.isValidChoiceTitle(title)) {
             throw new IllegalValueException(Choice.MESSAGE_CONSTRAINTS);
         }
-        return new Choice(title, isCorrect);
+        return new Choice(title, isCorrect, keywords);
     }
 
 }

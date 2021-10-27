@@ -1,11 +1,18 @@
 package seedu.smartnus.model.choice;
 
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.smartnus.commons.util.AppUtil.checkArgument;
+import static seedu.smartnus.commons.util.CollectionUtil.requireAllNonNull;
 
 public class Choice {
     public static final String MESSAGE_CONSTRAINTS = "Choices can take any values, and it should not be blank";
+    public static final String MESSAGE_KEYWORD_CONSTRAINTS =
+            "Keywords can take any values, and they should not be blank";
 
     /*
      * The first character of the choice must not be a whitespace,
@@ -17,6 +24,7 @@ public class Choice {
 
     private final String title;
     private final boolean isCorrect;
+    private final Set<String> keywords = new HashSet<>();
 
     /**
      * Constructs a {@code Choice}.
@@ -32,10 +40,32 @@ public class Choice {
     }
 
     /**
+     * Constructs a {@code Choice}.
+     *
+     * @param title Title of the Choice.
+     * @param isCorrect Whether the Choice is the correct answer to a Question.
+     * @param keywords Keywords of a Choice as specified by user that must be present for the answer to be correct.
+     */
+    public Choice(String title, boolean isCorrect, Set<String> keywords) {
+        requireAllNonNull(title, keywords);
+        checkArgument(isValidChoiceTitle(title), MESSAGE_CONSTRAINTS);
+        this.title = title;
+        this.isCorrect = isCorrect;
+        this.keywords.addAll(keywords);
+    }
+
+    /**
      * Returns true if a given string is a valid choice title.
      */
     public static boolean isValidChoiceTitle(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Returns true if a given string is a valid keyword.
+     */
+    public static boolean isValidKeyword(String keyword) {
+        return keyword.matches(VALIDATION_REGEX);
     }
 
     /**
@@ -80,5 +110,9 @@ public class Choice {
     @Override
     public int hashCode() {
         return title.hashCode();
+    }
+
+    public Set<String> getKeywords() {
+        return Collections.unmodifiableSet(keywords);
     }
 }
