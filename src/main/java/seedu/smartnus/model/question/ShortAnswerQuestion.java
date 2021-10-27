@@ -7,7 +7,7 @@ import seedu.smartnus.model.tag.Tag;
 
 public class ShortAnswerQuestion extends Question {
     public static final String MESSAGE_VALID_SAQ = "Short Answer Questions must have exactly one choice"
-            +" which is the correct answer.";
+            + " which is the correct answer.";
 
     public ShortAnswerQuestion(Name name, Importance importance, Set<Tag> tags,
                                   Set<Choice> choices) {
@@ -51,20 +51,20 @@ public class ShortAnswerQuestion extends Question {
         }
         return false;
     }
-    
+
     @Override
     public boolean isCorrectAnswer(Choice choiceToCheck) {
         Set<Choice> saqAnswers = getChoices();
         for (Choice answer : saqAnswers) {
-            if(hasAllKeywords(choiceToCheck, answer)) {
+            if (hasAllKeywords(choiceToCheck, answer)) {
                 return true;
             }
         }
         return false;
     }
-    
+
     private boolean hasAllKeywords(Choice choiceToCheck, Choice answer) {
-        String input = choiceToCheck.getTitle();
+        String input = choiceToCheck.getTitle(); // user input is passed as a selected choice
         if (containsAllKeywords(input, answer.getKeywords())) {
             getStatistic().addCorrect();
             return true;
@@ -74,13 +74,13 @@ public class ShortAnswerQuestion extends Question {
 
     private boolean containsAllKeywords(String input, Set<String> keywords) {
         for (String keyword : keywords) {
-            if (!input.contains(keyword)) {
+            if (!input.toLowerCase().contains(keyword)) { // keywords are already stored in lowercase
                 return false;
             }
         }
         return true;
     }
-    
+
     public String getKeywordsFormattedString() {
         Set<Choice> choices = getChoices();
         assert choices.size() == 1 : "SAQ should have exactly one choice";

@@ -33,10 +33,10 @@ public class SaqChoiceGrid extends ChoiceGrid {
         } else {
             showSaqInstructions();
         }
-        
+
         disableButtons();
     }
-    
+
     protected void showAnswers(ShortAnswerQuestion question, Choice selectedChoice) {
         StringBuilder builder = new StringBuilder();
         if (question.isCorrectAnswer(selectedChoice)) {
@@ -51,12 +51,12 @@ public class SaqChoiceGrid extends ChoiceGrid {
         builder.append(" (Keywords that must be present: ").append(question.getKeywordsFormattedString()).append(")");
         answerInstructions.setText(builder.toString());
     }
-    
+
     protected void showSaqInstructions() {
         String saqMessage = "This is a short-answer question without options to select. Please input your answer.";
         answerInstructions.setText(saqMessage);
     }
- 
+
     // not used as SAQ do not have any options to display
     @Override
     protected void showCorrectOption(ArrayList<Choice> choices, Choice correctChoice) {

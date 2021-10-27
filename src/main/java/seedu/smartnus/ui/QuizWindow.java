@@ -169,7 +169,7 @@ public class QuizWindow extends UiPart<Stage> {
             choiceGrid = new TfqChoiceGrid(currentQuestion, selectedChoice);
         } else if (currentQuestion instanceof ShortAnswerQuestion) {
             choiceGrid = new SaqChoiceGrid((ShortAnswerQuestion) currentQuestion, selectedChoice);
-        } 
+        }
 
         assert choiceGrid != null : "Question should either be instance of MultipleChoiceQuestion or TrueFalseQuestion";
 

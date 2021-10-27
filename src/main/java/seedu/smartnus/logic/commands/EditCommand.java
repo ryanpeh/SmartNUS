@@ -132,7 +132,7 @@ public class EditCommand extends Command {
         }
         return updatedMcq;
     }
-    
+
     private ShortAnswerQuestion createEditedSaq(Question questionToEdit,
                                                    Name updatedName,
                                                    Importance updatedImportance, Set<Tag> updatedTags)
@@ -141,7 +141,7 @@ public class EditCommand extends Command {
         if (editQuestionDescriptor.getWrongChoices().isPresent()) {
             throw new CommandException(TrueFalseQuestion.MESSAGE_OPTIONS_INVALID);
         }
-        
+
         Set<Choice> updatedChoices = editQuestionDescriptor.getSaqChoices().orElse(questionToEdit.getChoices());
         ShortAnswerQuestion updatedSaq = new ShortAnswerQuestion(updatedName, updatedImportance,
                 updatedTags, updatedChoices, questionToEdit.getStatistic());

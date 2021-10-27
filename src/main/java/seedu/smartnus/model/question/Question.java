@@ -137,7 +137,7 @@ public abstract class Question {
         }
         return null;
     }
-    
+
     public String getCorrectChoiceTitle() {
         return getCorrectChoice() == null ? "" : getCorrectChoice().getTitle();
     }

@@ -1,12 +1,12 @@
 package seedu.smartnus.logic.parser.quiz;
 
+import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_SAQ_ANSWER_FORMAT;
+
 import seedu.smartnus.logic.commands.quiz.AnswerSaqCommand;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
 import seedu.smartnus.model.quiz.QuizManager;
 
-import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_SAQ_ANSWER_FORMAT;
-
-public class AnswerSaqCommandParser implements QuizParser<AnswerSaqCommand>{
+public class AnswerSaqCommandParser implements QuizParser<AnswerSaqCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the AnswerSaqCommand
      * and returns a AnswerSaqCommand object for execution.

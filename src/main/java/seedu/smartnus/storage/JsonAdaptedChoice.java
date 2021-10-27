@@ -1,14 +1,14 @@
 package seedu.smartnus.storage;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.smartnus.commons.exceptions.IllegalValueException;
 import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.question.Question;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Jackson-friendly version of {@link Question}.

@@ -290,6 +290,13 @@ public class ParserUtil {
         return true;
     }
 
+    /**
+     * Returns SAQ Choice with parsed title that does not contain keyword prefixes.
+     *
+     * @param answer Choice that contains raw user input as the title.
+     * @return SAQ Choice with parsed title that does not contain keyword prefixes.
+     * @throws ParseException
+     */
     public static Set<Choice> parseEditSaqAnswer(Choice answer) throws ParseException {
         String answerString = answer.getTitle();
         ArgumentMultimap keywordsMultimap = ArgumentTokenizer.tokenize(" " + answerString, PREFIX_KEYWORD);
@@ -311,7 +318,7 @@ public class ParserUtil {
             if (word.isBlank()) {
                 continue;
             }
-            parsedKeywords.add(word);
+            parsedKeywords.add(word.toLowerCase());
         }
         return new Choice(answerString, true, parsedKeywords);
     }
@@ -329,7 +336,7 @@ public class ParserUtil {
                 if (word.isBlank()) {
                     continue;
                 }
-                parsedKeywords.add(word);
+                parsedKeywords.add(word.toLowerCase());
                 break; // only the first non-empty word specified after prefix is a keyword
             }
         }

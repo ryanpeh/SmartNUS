@@ -126,7 +126,7 @@ class JsonAdaptedQuestion {
             return new TrueFalseQuestion(modelName, modelImportance, modelTags, modelChoices, statistic);
         } else if (questionType == SAQ_QUESTION_TYPE) {
             return new ShortAnswerQuestion(modelName, modelImportance, modelTags, modelChoices, statistic);
-        }  else {
+        } else {
             throw new IllegalValueException(INVALID_QUESTION_TYPE_MESSAGE);
         }
     }

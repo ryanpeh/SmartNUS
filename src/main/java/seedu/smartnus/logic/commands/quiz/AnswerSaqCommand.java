@@ -38,7 +38,7 @@ public class AnswerSaqCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        
+
         Choice choice = new Choice(input, true);
 
         String endMessage = quizManager.isLastQuestion() ? MESSAGE_END_OF_QUIZ : MESSAGE_CONTINUE_QUIZ;

@@ -7,7 +7,6 @@ import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_KEYWORD;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.smartnus.logic.parser.ParserUtil.arePrefixesPresent;
-import static seedu.smartnus.model.choice.Choice.MESSAGE_KEYWORD_CONSTRAINTS;
 
 import java.util.HashSet;
 import java.util.List;

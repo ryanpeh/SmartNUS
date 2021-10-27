@@ -70,7 +70,7 @@ public class SmartNusParser {
 
         case AddTfCommand.COMMAND_WORD:
             return new AddTfCommandParser().parse(arguments);
-        
+
         case AddSaqCommand.COMMAND_WORD:
             return new AddSaqCommandParser().parse(arguments);
 

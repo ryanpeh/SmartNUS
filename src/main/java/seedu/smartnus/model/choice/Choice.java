@@ -1,13 +1,12 @@
 package seedu.smartnus.model.choice;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.smartnus.commons.util.AppUtil.checkArgument;
+import static seedu.smartnus.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.smartnus.commons.util.AppUtil.checkArgument;
-import static seedu.smartnus.commons.util.CollectionUtil.requireAllNonNull;
 
 public class Choice {
     public static final String MESSAGE_CONSTRAINTS = "Choices can take any values, and it should not be blank";
