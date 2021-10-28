@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.smartnus.commons.core.Messages.MESSAGE_QUESTIONS_LISTED_OVERVIEW;
 import static seedu.smartnus.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.smartnus.testutil.TypicalQuestions.CARL;
-import static seedu.smartnus.testutil.TypicalQuestions.ELLE;
 import static seedu.smartnus.testutil.TypicalQuestions.FIONA;
 import static seedu.smartnus.testutil.TypicalSmartNus.getTypicalSmartNus;
 
