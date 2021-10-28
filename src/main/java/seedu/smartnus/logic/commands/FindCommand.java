@@ -12,7 +12,6 @@ import java.util.function.Predicate;
 import seedu.smartnus.commons.core.Messages;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.question.Question;
-import seedu.smartnus.model.question.predicates.ShowAllQuestionsPredicate;
 
 /**
  * Finds and lists all questions in SmartNUS whose name contains any of the argument keywords,
@@ -49,20 +48,7 @@ public class FindCommand extends Command {
     public FindCommand(ArrayList<Predicate<Question>> predicates) {
         requireNonNull(predicates);
         predicateSet.addAll(predicates);
-        this.combinedPredicate = getCombinedPredicate();
-    }
-
-    /**
-     * Returns a single predicate that represents a logical AND of all predicates.
-     *
-     * @return A single predicate that represents a logical AND of all predicates.
-     */
-    private Predicate<Question> getCombinedPredicate() {
-        Predicate<Question> combinedPredicate = new ShowAllQuestionsPredicate();
-        for (Predicate<Question> predicate : predicateSet) {
-            combinedPredicate = combinedPredicate.and(predicate);
-        }
-        return combinedPredicate;
+        this.combinedPredicate = CommandUtil.combinePredicates(predicateSet);
     }
 
     @Override
