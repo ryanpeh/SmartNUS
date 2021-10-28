@@ -63,7 +63,7 @@ class AnswerTfCommandTest {
         answerTfCommand = new AnswerTfCommand(Character.toString("ft".charAt(idx)), quizManager);
         assertEquals(answerTfCommand.execute(model),
                 new CommandResult("Incorrect. The correct answer is: "
-                        + question.getCorrectChoice().getTitle() + "\n" + MESSAGE_CONTINUE_QUIZ));
+                        + question.getCorrectChoiceTitle() + "\n" + MESSAGE_CONTINUE_QUIZ));
     }
 
     @Test

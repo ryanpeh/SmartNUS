@@ -3,7 +3,6 @@ package seedu.smartnus.model.question;
 import static seedu.smartnus.model.choice.Choice.FALSE_CHOICE_TITLE;
 import static seedu.smartnus.model.choice.Choice.TRUE_CHOICE_TITLE;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Set;
 
@@ -49,14 +48,6 @@ public class TrueFalseQuestion extends Question {
 
     public static boolean isValidTrueFalseChoice(Choice choice) {
         return choice.getTitle().equals(TRUE_CHOICE_TITLE) || choice.getTitle().equals(FALSE_CHOICE_TITLE);
-    }
-
-    @Override
-    public String getQuestionAndOptions() {
-        String title = this.getName().toString();
-        ArrayList<Choice> choices = this.getOrderedChoices();
-        String options = "\n " + "1. " + choices.get(0).getTitle() + " 2. " + choices.get(1).getTitle();
-        return title + options;
     }
 
     /**

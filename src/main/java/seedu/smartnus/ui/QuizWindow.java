@@ -19,6 +19,7 @@ import seedu.smartnus.logic.parser.exceptions.ParseException;
 import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.question.MultipleChoiceQuestion;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.question.ShortAnswerQuestion;
 import seedu.smartnus.model.question.TrueFalseQuestion;
 import seedu.smartnus.model.quiz.QuizManager;
 
@@ -162,10 +163,12 @@ public class QuizWindow extends UiPart<Stage> {
         Question currentQuestion = quizManager.currQuestion();
         Choice selectedChoice = quizManager.getCurrentSelectedChoice();
 
-        if (quizManager.currQuestion() instanceof MultipleChoiceQuestion) {
+        if (currentQuestion instanceof MultipleChoiceQuestion) {
             choiceGrid = new McqChoiceGrid(currentQuestion, selectedChoice);
-        } else if (quizManager.currQuestion() instanceof TrueFalseQuestion) {
+        } else if (currentQuestion instanceof TrueFalseQuestion) {
             choiceGrid = new TfqChoiceGrid(currentQuestion, selectedChoice);
+        } else if (currentQuestion instanceof ShortAnswerQuestion) {
+            choiceGrid = new SaqChoiceGrid((ShortAnswerQuestion) currentQuestion, selectedChoice);
         }
 
         assert choiceGrid != null : "Question should either be instance of MultipleChoiceQuestion or TrueFalseQuestion";

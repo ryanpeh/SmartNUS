@@ -4,8 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.smartnus.commons.core.Messages.MESSAGE_CONTINUE_QUIZ;
 import static seedu.smartnus.commons.core.Messages.MESSAGE_END_OF_QUIZ;
 
-import java.util.ArrayList;
-
 import seedu.smartnus.logic.commands.Command;
 import seedu.smartnus.logic.commands.CommandResult;
 import seedu.smartnus.model.Model;
@@ -15,9 +13,9 @@ import seedu.smartnus.model.quiz.QuizManager;
 import seedu.smartnus.model.quiz.exceptions.QuestionAlreadyAnsweredException;
 
 /**
- * Starts a quiz
+ * Command to answer SAQ
  */
-public class AnswerMcqCommand extends Command {
+public class AnswerSaqCommand extends Command {
 
     public static final String COMMAND_WORD = "quiz";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Starts a quiz, takes no arguments";
@@ -28,10 +26,10 @@ public class AnswerMcqCommand extends Command {
     private final QuizManager quizManager;
 
     /**
-     * Creates a AnswerMcqCommand
+     * Creates a AnswerSaqCommand
      */
-    public AnswerMcqCommand(String input, QuizManager quizManager) {
-        assert(input.matches("^[a-dA-D]$"));
+    public AnswerSaqCommand(String input, QuizManager quizManager) {
+        assert(!input.isBlank());
         this.input = input;
         this.currentQuestion = quizManager.currQuestion();
         this.quizManager = quizManager;
@@ -39,36 +37,9 @@ public class AnswerMcqCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        // TODO: Some additional logic here for the UI
         requireNonNull(model);
 
-        ArrayList<Choice> choices = currentQuestion.getOrderedChoices();
-        Choice choice = null;
-
-        switch (input.toLowerCase()) {
-
-        case "a":
-            choice = choices.get(0);
-            break;
-
-        case "b":
-            choice = choices.get(1);
-            break;
-
-        case "c":
-            choice = choices.get(2);
-            break;
-
-        case "d":
-            choice = choices.get(3);
-            break;
-
-        default:
-            break;
-
-        }
-
-        assert choice != null : "Choice should not be null";
+        Choice choice = new Choice(input, true);
 
         String endMessage = quizManager.isLastQuestion() ? MESSAGE_END_OF_QUIZ : MESSAGE_CONTINUE_QUIZ;
 
@@ -87,9 +58,8 @@ public class AnswerMcqCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        // TODO: In future, check if the attributes (if any) for the QuizCommand are the same
         return other == this // short circuit if same object
-                || other instanceof AnswerMcqCommand; // instanceof handles nulls
+                || other instanceof AnswerSaqCommand; // instanceof handles nulls
     }
 
 }

@@ -24,6 +24,7 @@ import seedu.smartnus.model.question.Importance;
 import seedu.smartnus.model.question.MultipleChoiceQuestion;
 import seedu.smartnus.model.question.Name;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.question.ShortAnswerQuestion;
 import seedu.smartnus.model.question.TrueFalseQuestion;
 import seedu.smartnus.model.tag.Tag;
 
@@ -90,6 +91,8 @@ public class EditCommand extends Command {
             editedQuestion = createEditedMcq(questionToEdit, updatedName, updatedImportance, updatedTags);
         } else if (questionToEdit instanceof TrueFalseQuestion) {
             editedQuestion = createEditedTf(questionToEdit, updatedName, updatedImportance, updatedTags);
+        } else if (questionToEdit instanceof ShortAnswerQuestion) {
+            editedQuestion = createEditedSaq(questionToEdit, updatedName, updatedImportance, updatedTags);
         }
         assert editedQuestion != null : MESSAGE_UNRECOGNISED_QUESTION_TYPE;
 
@@ -123,11 +126,28 @@ public class EditCommand extends Command {
         Set<Choice> updatedChoices = new HashSet<>(wrongChoices);
         updatedChoices.add(answer);
         MultipleChoiceQuestion updatedMcq = new MultipleChoiceQuestion(updatedName, updatedImportance,
-                updatedTags, updatedChoices);
+                updatedTags, updatedChoices, questionToEdit.getStatistic());
         if (!updatedMcq.isValidQuestion()) {
             throw new CommandException(MultipleChoiceQuestion.MESSAGE_VALID_MCQ);
         }
         return updatedMcq;
+    }
+
+    private ShortAnswerQuestion createEditedSaq(Question questionToEdit,
+                                                   Name updatedName,
+                                                   Importance updatedImportance, Set<Tag> updatedTags)
+            throws CommandException {
+        // Incorrect options should not be specified for SAQ
+        if (editQuestionDescriptor.getWrongChoices().isPresent()) {
+            throw new CommandException(ShortAnswerQuestion.MESSAGE_OPTIONS_INVALID);
+        }
+        Set<Choice> updatedChoices = editQuestionDescriptor.getSaqChoices().orElse(questionToEdit.getChoices());
+        ShortAnswerQuestion updatedSaq = new ShortAnswerQuestion(updatedName, updatedImportance,
+                updatedTags, updatedChoices, questionToEdit.getStatistic());
+        if (!updatedSaq.isValidQuestion()) {
+            throw new CommandException(ShortAnswerQuestion.MESSAGE_VALID_SAQ);
+        }
+        return updatedSaq;
     }
 
     private TrueFalseQuestion createEditedTf(Question questionToEdit,
@@ -138,24 +158,13 @@ public class EditCommand extends Command {
         if (editQuestionDescriptor.getWrongChoices().isPresent()) {
             throw new CommandException(TrueFalseQuestion.MESSAGE_OPTIONS_INVALID);
         }
-        Set<Choice> updatedChoices = getEditedTfChoices(questionToEdit);
+        Set<Choice> updatedChoices = editQuestionDescriptor.getTfChoices().orElse(questionToEdit.getChoices());
         TrueFalseQuestion updatedTf = new TrueFalseQuestion(updatedName, updatedImportance, updatedTags,
-                updatedChoices);
+                updatedChoices, questionToEdit.getStatistic());
         if (!updatedTf.isValidQuestion()) {
             throw new CommandException(TrueFalseQuestion.MESSAGE_ANSWER_INVALID);
         }
         return updatedTf;
-    }
-
-    private Set<Choice> getEditedTfChoices(Question questionToEdit) {
-        Set<Choice> updatedChoices;
-        if (editQuestionDescriptor.getTfChoices().isPresent()) {
-            updatedChoices = editQuestionDescriptor.getTfChoices().get();
-        } else {
-            updatedChoices = questionToEdit.getChoices();
-        }
-
-        return updatedChoices;
     }
 
     @Override
@@ -187,6 +196,7 @@ public class EditCommand extends Command {
         private Set<Choice> wrongChoices;
         private Choice answer;
         private Set<Choice> parsedTrueFalseChoices;
+        private Set<Choice> parsedSaqChoices;
 
         public EditQuestionDescriptor() {}
 
@@ -201,6 +211,7 @@ public class EditCommand extends Command {
             setWrongChoices(toCopy.wrongChoices);
             setAnswer(toCopy.answer);
             setTfChoices(toCopy.parsedTrueFalseChoices);
+            setSaqChoices(toCopy.parsedSaqChoices);
         }
 
         /**
@@ -274,6 +285,15 @@ public class EditCommand extends Command {
 
         public Optional<Set<Choice>> getTfChoices() {
             return (parsedTrueFalseChoices != null) ? Optional.of(Collections.unmodifiableSet(parsedTrueFalseChoices))
+                    : Optional.empty();
+        }
+
+        public void setSaqChoices(Set<Choice> choices) {
+            parsedSaqChoices = (choices != null) ? new HashSet<>(choices) : null;
+        }
+
+        public Optional<Set<Choice>> getSaqChoices() {
+            return (parsedSaqChoices != null) ? Optional.of(Collections.unmodifiableSet(parsedSaqChoices))
                     : Optional.empty();
         }
 

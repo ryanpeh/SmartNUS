@@ -88,10 +88,13 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_ANSWER).isPresent()) {
             Choice answer = ParserUtil.parseAnswerForEdit(argMultimap.getValue(PREFIX_ANSWER).get());
             editQuestionDescriptor.setAnswer(answer);
-            // TF choices require additional parsing as user input (e.g. T) is not the same as choice title (e.g. True)
             // this is necessary to ensure decoupling of parser and logic/model components
+            // TF choices require additional parsing as user input (e.g. T) is not the same as choice title (e.g. True)
             Set<Choice> tfChoices = ParserUtil.parseTrueFalseAnswerForEdit(answer.getTitle());
             editQuestionDescriptor.setTfChoices(tfChoices);
+            // SAQ answer also requires additional parsing
+            Set<Choice> saqChoices = ParserUtil.parseEditSaqAnswer(answer);
+            editQuestionDescriptor.setSaqChoices(saqChoices);
         }
     }
 
@@ -106,7 +109,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     /**
      * Throws ParseException if there are duplicate choice titles between the incorrect and correct choices.
      * If either the incorrect choices or correct choices are not present, the method returns immediately as
-     * duplicate titles within the incorrect options are already checked for during parsing.
+     * duplicate titles within the incorrect options are already checked for during parsing and current question
+     * types only support one answer.
      *
      * @param editQuestionDescriptor The descriptor that stores the updated correct and wrong choices.
      * @throws ParseException if there are duplicate choice titles between the incorrect and correct choices.
