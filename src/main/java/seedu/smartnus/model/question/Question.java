@@ -9,6 +9,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.smartnus.model.choice.Choice;
+import seedu.smartnus.model.statistic.Statistic;
 import seedu.smartnus.model.tag.Tag;
 
 /**
@@ -20,6 +21,7 @@ public abstract class Question {
     // Integer representation of question types
     public static final int MCQ_QUESTION_TYPE = 0;
     public static final int TF_QUESTION_TYPE = 1;
+    public static final int SAQ_QUESTION_TYPE = 2;
 
     // message on condition for validity of Question
     public static final String MESSAGE_DUPLICATE_CHOICES = "Choices (both incorrect and correct)"
@@ -137,6 +139,10 @@ public abstract class Question {
         return null;
     }
 
+    public String getCorrectChoiceTitle() {
+        return getCorrectChoice() == null ? "" : getCorrectChoice().getTitle();
+    }
+
     /**
      * Returns true if both questions have the same name.
      * This defines a weaker notion of equality between two questions.
@@ -208,9 +214,6 @@ public abstract class Question {
         return Objects.hash(name, importance, tags);
     }
 
-    // TODO: Remove maybe when UI is implemented
-    public abstract String getQuestionAndOptions();
-
     public abstract int getQuestionType();
 
     @Override
@@ -242,7 +245,7 @@ public abstract class Question {
 
     private StringBuilder appendChoices(StringBuilder builder) {
         Set<Choice> choices = getChoices();
-        if (!choices.isEmpty()) { // may be empty for open-ended questions
+        if (!choices.isEmpty()) {
             builder.append("; Choices: ");
             for (Choice choice: choices) {
                 builder.append(choice).append(", ");
@@ -252,4 +255,7 @@ public abstract class Question {
         return builder;
     }
 
+    public boolean isCorrectAnswer(Choice userAnswer) {
+        return userAnswer.equals(getCorrectChoice());
+    }
 }

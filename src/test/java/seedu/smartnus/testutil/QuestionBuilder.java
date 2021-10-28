@@ -9,8 +9,9 @@ import seedu.smartnus.model.question.Importance;
 import seedu.smartnus.model.question.MultipleChoiceQuestion;
 import seedu.smartnus.model.question.Name;
 import seedu.smartnus.model.question.Question;
-import seedu.smartnus.model.question.Statistic;
+import seedu.smartnus.model.question.ShortAnswerQuestion;
 import seedu.smartnus.model.question.TrueFalseQuestion;
+import seedu.smartnus.model.statistic.Statistic;
 import seedu.smartnus.model.tag.Tag;
 import seedu.smartnus.model.util.SampleDataUtil;
 
@@ -102,5 +103,9 @@ public class QuestionBuilder {
 
     public Question buildTrueFalse() {
         return new TrueFalseQuestion(name, importance, tags, choices, statistic);
+    }
+
+    public Question buildSaq() {
+        return new ShortAnswerQuestion(name, importance, tags, choices, statistic);
     }
 }

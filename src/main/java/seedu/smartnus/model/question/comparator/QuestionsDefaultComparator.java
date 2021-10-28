@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 import seedu.smartnus.model.question.Importance;
 import seedu.smartnus.model.question.Question;
-import seedu.smartnus.model.question.Statistic;
+import seedu.smartnus.model.statistic.Statistic;
 
 
 public class QuestionsDefaultComparator implements Comparator<Question> {

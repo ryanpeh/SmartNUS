@@ -9,6 +9,7 @@ import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import seedu.smartnus.model.SmartNus;
@@ -21,6 +22,7 @@ import seedu.smartnus.model.question.Question;
 public class TypicalQuestions {
     public static final int MCQ_ONE_BASED_INDEX = 8;
     public static final int TF_ONE_BASED_INDEX = 9;
+    public static final int SAQ_ONE_BASED_INDEX = 10;
 
     public static final Question ALICE = new QuestionBuilder().withName("Alice Pauline")
             .withImportance("1")
@@ -41,6 +43,11 @@ public class TypicalQuestions {
             .withImportance("2")
             .withChoices(new Choice(Choice.TRUE_CHOICE_TITLE, true),
                     new Choice(Choice.FALSE_CHOICE_TITLE, false)).buildTrueFalse();
+    public static final Question SAQ_QUESTION = new QuestionBuilder()
+            .withName("Harry, you're a wizard. Where is this quote from?")
+            .withImportance("2")
+            .withChoices(new Choice("Harry Potter and the Philosopher's Stone",
+                    true, new HashSet<>(List.of("harry", "potter")))).buildSaq();
     public static final Question CARL = new QuestionBuilder().withName("Carl Kurz").withImportance("3")
             .build();
     public static final Question DANIEL = new QuestionBuilder().withName("Daniel Meier").withImportance("1")
@@ -84,6 +91,6 @@ public class TypicalQuestions {
 
     public static List<Question> getTypicalQuestions() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE, MCQ_QUESTION,
-                TF_QUESTION));
+                TF_QUESTION, SAQ_QUESTION));
     }
 }

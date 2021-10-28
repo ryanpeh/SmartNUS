@@ -1,6 +1,7 @@
 package seedu.smartnus.storage;
 
 import static seedu.smartnus.model.question.Question.MCQ_QUESTION_TYPE;
+import static seedu.smartnus.model.question.Question.SAQ_QUESTION_TYPE;
 import static seedu.smartnus.model.question.Question.TF_QUESTION_TYPE;
 
 import java.util.ArrayList;
@@ -18,8 +19,9 @@ import seedu.smartnus.model.question.Importance;
 import seedu.smartnus.model.question.MultipleChoiceQuestion;
 import seedu.smartnus.model.question.Name;
 import seedu.smartnus.model.question.Question;
-import seedu.smartnus.model.question.Statistic;
+import seedu.smartnus.model.question.ShortAnswerQuestion;
 import seedu.smartnus.model.question.TrueFalseQuestion;
+import seedu.smartnus.model.statistic.Statistic;
 import seedu.smartnus.model.tag.Tag;
 
 /**
@@ -122,6 +124,8 @@ class JsonAdaptedQuestion {
             return new MultipleChoiceQuestion(modelName, modelImportance, modelTags, modelChoices, statistic);
         } else if (questionType == TF_QUESTION_TYPE) {
             return new TrueFalseQuestion(modelName, modelImportance, modelTags, modelChoices, statistic);
+        } else if (questionType == SAQ_QUESTION_TYPE) {
+            return new ShortAnswerQuestion(modelName, modelImportance, modelTags, modelChoices, statistic);
         } else {
             throw new IllegalValueException(INVALID_QUESTION_TYPE_MESSAGE);
         }

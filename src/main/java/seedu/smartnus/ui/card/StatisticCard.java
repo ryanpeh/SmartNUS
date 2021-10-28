@@ -1,17 +1,18 @@
-package seedu.smartnus.ui;
+package seedu.smartnus.ui.card;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.smartnus.model.note.Note;
+import seedu.smartnus.model.statistic.TagStatistic;
+import seedu.smartnus.ui.UiPart;
 
 /**
  * An UI component that displays information of a {@code Question}.
  */
-public class NoteCard extends UiPart<Region> {
+public class StatisticCard extends UiPart<Region> {
 
-    private static final String FXML = "NoteListCard.fxml";
+    private static final String FXML = "StatisticListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -21,23 +22,37 @@ public class NoteCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Note note;
+    public final TagStatistic statistic;
+    private int displayedIndex;
 
     @FXML
     private HBox cardPane;
     @FXML
+    private Label id;
+    @FXML
     private Label name;
     @FXML
-    private Label id;
+    private Label attempt;
+    @FXML
+    private Label correct;
+    @FXML
+    private Label percentage;
 
     /**
      * Creates a {@code QuestionCard} with the given {@code Question} and index to display.
      */
-    public NoteCard(Note note, int displayedIndex) {
+    public StatisticCard(TagStatistic statistic, int displayedIndex) {
         super(FXML);
-        this.note = note;
+        this.statistic = statistic;
+        this.displayedIndex = displayedIndex;
+
         id.setText(displayedIndex + ". ");
-        name.setText(note.getTitle());
+        name.setText(statistic.getTitle());
+        name.setWrapText(true);
+
+        attempt.setText("Attempts: " + statistic.getAttemptCount());
+        correct.setText("Correct Attempts: " + statistic.getCorrectCount());
+        percentage.setText("Performance: " + statistic.getCorrectPercentage() + "%");
     }
 
     @Override
@@ -48,13 +63,13 @@ public class NoteCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof NoteCard)) {
+        if (!(other instanceof StatisticCard)) {
             return false;
         }
 
         // state check
-        NoteCard card = (NoteCard) other;
-        return id.getText().equals(card.id.getText())
-                && note.equals(card.note);
+        StatisticCard card = (StatisticCard) other;
+        return displayedIndex == card.displayedIndex
+                && statistic.equals(card.statistic);
     }
 }

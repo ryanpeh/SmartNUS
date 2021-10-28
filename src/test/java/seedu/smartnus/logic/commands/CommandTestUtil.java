@@ -6,6 +6,7 @@ import static seedu.smartnus.logic.parser.AddTfCommandParser.ANSWER_FALSE;
 import static seedu.smartnus.logic.parser.AddTfCommandParser.ANSWER_TRUE;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_IMPORTANCE;
+import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_KEYWORD;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_OPTION;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_QUESTION;
@@ -42,10 +43,13 @@ public class CommandTestUtil {
     public static final String VALID_ANSWER_2 = "4";
     public static final String VALID_TRUE_FALSE_ANSWER_1 = ANSWER_TRUE;
     public static final String VALID_TRUE_FALSE_ANSWER_2 = ANSWER_FALSE;
+    public static final String VALID_SAQ_ANSWER_1 = "J. K. Rowling";
     public static final String VALID_OPTION_1 = "1";
     public static final String VALID_OPTION_3 = "3";
     public static final String VALID_OPTION_4 = "4";
     public static final String VALID_OPTION_5 = "5";
+    public static final String VALID_SAQ_KEYWORD_1 = "Rowling";
+    public static final String VALID_SAQ_KEYWORD_2 = "j";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_QUESTION + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_QUESTION + VALID_NAME_BOB;
@@ -65,6 +69,7 @@ public class CommandTestUtil {
     public static final String ANSWER_DESC_2 = " " + PREFIX_ANSWER + VALID_ANSWER_2;
     public static final String TRUE_ANSWER_DESC = " " + PREFIX_ANSWER + VALID_TRUE_FALSE_ANSWER_1;
     public static final String FALSE_ANSWER_DESC = " " + PREFIX_ANSWER + VALID_TRUE_FALSE_ANSWER_2;
+    public static final String SAQ_ANSWER_DESC_1 = " " + PREFIX_ANSWER + "J. K. " + PREFIX_KEYWORD + "Rowling";
     public static final String OPTION_DESC_1 = " " + PREFIX_OPTION + VALID_OPTION_1;
     public static final String OPTION_DESC_3 = " " + PREFIX_OPTION + VALID_OPTION_3;
     public static final String OPTION_DESC_4 = " " + PREFIX_OPTION + VALID_OPTION_4;

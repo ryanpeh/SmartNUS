@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.smartnus.testutil.Assert.assertThrows;
 
+import java.util.HashSet;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 public class ChoiceTest {
@@ -62,6 +65,17 @@ public class ChoiceTest {
         assertFalse(DEFAULT_CHOICE.hasSameTitle(new Choice("alpha ", true)));
         // different case
         assertFalse(DEFAULT_CHOICE.hasSameTitle(new Choice("aLPha", true)));
+    }
+
+    @Test
+    public void getKeywordsString_noKeywords_emptyString() {
+        assertEquals("", DEFAULT_CHOICE.getKeywordsString());
+    }
+
+    @Test
+    public void getKeywordsString_keywordsPresent_formattedString() {
+        Choice choice = new Choice("a b c", true, new HashSet<>(List.of("a", "b", "c")));
+        assertEquals("a, b, c", choice.getKeywordsString());
     }
 
     @Test

@@ -16,6 +16,7 @@ import seedu.smartnus.commons.core.LogsCenter;
 import seedu.smartnus.commons.core.theme.Theme;
 import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.statistic.TagStatistic;
 
 /**
  * Represents the in-memory model of SmartNus data.
@@ -149,6 +150,18 @@ public class ModelManager implements Model {
         smartNus.setNote(target, editedNote);
     }
 
+
+    @Override
+    public void setPanel(String panel) {
+        requireNonNull(panel);
+        smartNus.setPanel(panel);
+    }
+
+    @Override
+    public String getPanel() {
+        return smartNus.getPanel();
+    }
+
     //=========== Filtered Question List Accessors =============================================================
 
     /**
@@ -197,6 +210,15 @@ public class ModelManager implements Model {
         sortedQuizQuestionList.setComparator(comparator);
         filteredQuizQuestions = new FilteredList<>(sortedQuizQuestionList);
     }
+
+    //=========== Tag Statistic Accessors =============================================================
+
+    @Override
+    public ObservableList<TagStatistic> getTagStatistic() {
+        return smartNus.getTagStatistic();
+    }
+
+    //=========== Miscellaneous Accessors =============================================================
 
     @Override
     public boolean equals(Object obj) {
