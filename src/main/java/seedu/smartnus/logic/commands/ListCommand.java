@@ -24,40 +24,30 @@ public class ListCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + NOTE_KEYWORD;
 
-    private static boolean displayQuestions = true;
+    private String panel;
 
     /**
      * Instantiates a new ListCommand
      * @param listArg argument passed to the list command
      */
     public ListCommand(String listArg) {
-        if (listArg.equals(NOTE_KEYWORD)) {
-            displayQuestions = false;
-        } else {
-            displayQuestions = true;
-        }
-    }
-
-    /**
-     * returns the boolean determining what to list.
-     * @return displayQuestions
-     */
-    public static boolean isDisplayQuestions() {
-        return displayQuestions;
+        panel = listArg; // assuming given listArg is valid
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         String successMessage;
-        if (displayQuestions) {
+        if (panel.equals(QUESTION_KEYWORD)) {
             model.updateFilteredQuestionList(PREDICATE_SHOW_ALL_QUESTIONS);
+            model.setPanel(QUESTION_KEYWORD);
             successMessage = MESSAGE_SUCCESS_QUESTIONS;
         } else {
             model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
+            model.setPanel(NOTE_KEYWORD);
             successMessage = MESSAGE_SUCCESS_NOTES;
         }
-        return new CommandResult(successMessage, false, false, false, true);
+        return new CommandResult(successMessage);
     }
 
     /**
@@ -69,6 +59,6 @@ public class ListCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ListCommand // instanceof handles nulls
-                && displayQuestions == (((ListCommand) other).displayQuestions));
+                && panel.equals(((ListCommand) other).panel));
     }
 }
