@@ -52,7 +52,7 @@ The rest of the App consists of four components.
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete question 1`.
 
 <img src="images/ArchitectureSequenceDiagram.png" width="574" />
 
@@ -98,7 +98,7 @@ How the `Logic` component works:
 1. The command can communicate with the `Model` when it is executed (e.g. to add a question).
 1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
-The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("delete 1")` API call.
+The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("delete question 1")` API call.
 
 ![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)
 
@@ -110,7 +110,7 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 <img src="images/ParserClasses.png" width="600"/>
 
 How the parsing works:
-* When called upon to parse a user command, either the `SmartNusParser` class or the `QuizInputParser`class will create a `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
+* When called upon to parse a user command, either the `SmartNusParser` class or the `QuizInputParser`class will create a `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `SmartNusParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 How the `Logic` component determines which parser to use:
@@ -154,7 +154,10 @@ Types of Questions currently supported by SmartNUS and their conditions for vali
    * Has four `Choices` in total, at least one of which is correct
 4. Open-Ended Questions (coming soon)
 
+## Note class
 
+The `Note` class is a class that stores a text.
+The note of a `Note` depends on whether the note starts without a whitespace or not.
 
 ### Storage component
 
@@ -164,7 +167,7 @@ Types of Questions currently supported by SmartNUS and their conditions for vali
 
 The `Storage` component,
 * can save both address book data and user preference data in json format, and read them back into corresponding objects.
-* inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
+* inherits from both `SmartNusStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
 ### Common classes
@@ -181,37 +184,37 @@ This section describes some noteworthy details on how certain features are imple
 
 #### Proposed Implementation
 
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
+The proposed undo/redo mechanism is facilitated by `VersionedSmartNus`. It extends `SmartNus` with an undo/redo history, stored internally as an `smartNusStateList` and `currentStatePointer`. Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
+* `VersionedSmartNus#commit()` — Saves the current address book state in its history.
+* `VersionedSmartNus#undo()` — Restores the previous address book state from its history.
+* `VersionedSmartNus#redo()` — Restores a previously undone address book state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitSmartNus()`, `Model#undoSmartNus()` and `Model#redoSmartNus()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedSmartNus` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
 
 ![UndoRedoState0](images/UndoRedoState0.png)
 
-Step 2. The user executes `delete 5` command to delete the 5th question in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th question in the address book. The `delete` command calls `Model#commitSmartNus()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `SmartNusStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 ![UndoRedoState1](images/UndoRedoState1.png)
 
-Step 3. The user executes `add n/David …​` to add a new question. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David …​` to add a new question. The `add` command also calls `Model#commitSmartNus()`, causing another modified address book state to be saved into the `smartNusStateList`.
 
 ![UndoRedoState2](images/UndoRedoState2.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitSmartNus()`, so the address book state will not be saved into the `smartNusStateList`.
 
 </div>
 
-Step 4. The user now decides that adding the question was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the question was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoSmartNus()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 ![UndoRedoState3](images/UndoRedoState3.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial SmartNus state, then there are no previous SmartNus states to restore. The `undo` command uses `Model#canUndoSmartNus()` to check if this is the case. If so, it will return an error to the user rather
 than attempting to perform the undo.
 
 </div>
@@ -224,17 +227,17 @@ The following sequence diagram shows how the undo operation works:
 
 </div>
 
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite — it calls `Model#redoSmartNus()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `smartNusStateList.size() - 1`, pointing to the latest address book state, then there are no undone SmartNus states to restore. The `redo` command uses `Model#canRedoSmartNus()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
 </div>
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitSmartNus()`, `Model#undoSmartNus()` or `Model#redoSmartNus()`. Thus, the `smartNusStateList` remains unchanged.
 
 ![UndoRedoState4](images/UndoRedoState4.png)
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitSmartNus()`. Since the `currentStatePointer` is not pointing at the end of the `smartNusStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
 
 ![UndoRedoState5](images/UndoRedoState5.png)
 
@@ -298,6 +301,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
 | `* * *`  | NUS Student | add a multiple choice question to the topic         | review the question in MCQ style|
 | `* * *`  | NUS Student | add an answer to the multiple choice question       | see the correct answer during the review                                                                        |
+| `* * *`  | NUS Student | add a note to remember things about mods | remember points about modules|
 | `* * *`  | NUS Student | delete the question and at the same time delete all answers belonging to that question | remove questions and answer that are not needed|
 | `* * *`  | NUS Student | do a quiz containing only questions from a certain tag       | revise questions for the specific tag|
 | `* * *`  | NUS Student | specify the number of questions to be included in any quiz| revise the number of questions taking into account time constraints or the importance I place on that module/topic, rather than having to go through all questions|
@@ -337,6 +341,35 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ### Use cases
 
 (For all use cases below, the **System** is the `SmartNUS` and the **Actor** is the `user`, unless specified otherwise)
+
+
+**Use case: List questions**
+
+**MSS**
+
+1.  User requests to list questions.
+2.  SmartNUS displays a list of all stored questions.
+
+**Extensions**
+
+* 1a. User does not specify the keyword `question`.
+* SmartNUS shows error message.
+* 
+  Use case ends.
+
+**Use case: List notes**
+
+**MSS**
+
+1.  User requests to list notes.
+2.  SmartNUS displays a list of all stored note.
+
+**Extensions**
+
+* 1a. User does not specify the keyword `note`.
+* SmartNUS shows error message.
+
+Use case ends.
 
 
 **Use case: Add Multiple Choice question and options**
@@ -404,6 +437,29 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2a. The list is empty.
     * 2a1. SmartNUS shows message that there are no questions.
+
+      Use case ends.
+
+* 3a. The given index is invalid.
+    * 3a1. SmartNUS shows an error message.
+
+      Use case resumes at Step 2.
+
+**Use case: Delete a note**
+
+**MSS**
+
+1. User requests to list notes.
+2. SmartNUS shows a list of all notes.
+3. User requests to delete a specific note in the list.
+4. SmartNUS deletes the note.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+    * 2a1. SmartNUS shows message that there are no notes.
 
       Use case ends.
 
