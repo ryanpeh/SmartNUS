@@ -9,7 +9,7 @@ import seedu.smartnus.commons.core.GuiSettings;
 import seedu.smartnus.commons.core.theme.Theme;
 import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
-import seedu.smartnus.model.tag.TagStatistic;
+import seedu.smartnus.model.statistic.TagStatistic;
 
 /**
  * The API of the Model component.

@@ -1,4 +1,4 @@
-package seedu.smartnus.model.question;
+package seedu.smartnus.model.statistic;
 
 /**
  * Class to keep track of question statistics.

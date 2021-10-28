@@ -16,7 +16,7 @@ import seedu.smartnus.commons.core.LogsCenter;
 import seedu.smartnus.commons.core.theme.Theme;
 import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
-import seedu.smartnus.model.tag.TagStatistic;
+import seedu.smartnus.model.statistic.TagStatistic;
 
 /**
  * Represents the in-memory model of SmartNus data.

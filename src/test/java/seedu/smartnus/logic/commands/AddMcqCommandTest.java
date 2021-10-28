@@ -26,7 +26,7 @@ import seedu.smartnus.model.ReadOnlyUserPrefs;
 import seedu.smartnus.model.SmartNus;
 import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
-import seedu.smartnus.model.tag.TagStatistic;
+import seedu.smartnus.model.statistic.TagStatistic;
 import seedu.smartnus.testutil.QuestionBuilder;
 
 class AddMcqCommandTest {

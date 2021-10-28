@@ -3,7 +3,7 @@ package seedu.smartnus.model;
 import javafx.collections.ObservableList;
 import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
-import seedu.smartnus.model.tag.TagStatistic;
+import seedu.smartnus.model.statistic.TagStatistic;
 
 
 /**

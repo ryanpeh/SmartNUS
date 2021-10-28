@@ -1,4 +1,4 @@
-package seedu.smartnus.model.tag;
+package seedu.smartnus.model.statistic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.smartnus.model.question.Statistic;
+import seedu.smartnus.model.tag.Tag;
 
 public class TagStatisticTest {
 
