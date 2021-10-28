@@ -1,6 +1,7 @@
 package seedu.smartnus.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.List;
 
@@ -18,17 +19,19 @@ public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
     public static final String QUESTION_KEYWORD = "question";
+    public static final String NOTE_KEYWORD = "note";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the question identified by the index number used in the displayed question list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + ": Deletes the item identified by the index number used in the respected displayed list.\n"
+            + "Parameters: ITEM_NAME: list or note \n"
+            + "INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " " + QUESTION_KEYWORD + " 1";
 
     public static final String MESSAGE_DELETE_QUESTION_SUCCESS = "Deleted Question: %1$s";
     public static final String MESSAGE_DELETE_NOTE_SUCCESS = "Deleted Note: %1$s";
 
     private final Index targetIndex;
-    private final boolean deleteFromList;
+    private final String deleteFromList;
 
     /**
      * Instantiates a new DeleteCommand object.
@@ -36,33 +39,36 @@ public class DeleteCommand extends Command {
      * @param targetIndex index of the item to be deleted.
      */
     public DeleteCommand(String deleteItem, Index targetIndex) {
-        deleteFromList = deleteItem.equals(QUESTION_KEYWORD);
+        deleteFromList = deleteItem;
         this.targetIndex = targetIndex;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (deleteFromList) {
-            List<Question> lastShownList = model.getFilteredQuestionList();
+        switch (deleteFromList) {
+        case QUESTION_KEYWORD:
+            List<Question> lastShownQuestionList = model.getFilteredQuestionList();
 
-            if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            if (targetIndex.getZeroBased() >= lastShownQuestionList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX);
             }
 
-            Question questionToDelete = lastShownList.get(targetIndex.getZeroBased());
+            Question questionToDelete = lastShownQuestionList.get(targetIndex.getZeroBased());
             model.deleteQuestion(questionToDelete);
             return new CommandResult(String.format(MESSAGE_DELETE_QUESTION_SUCCESS, questionToDelete));
-        } else {
-            List<Note> lastShownList = model.getFilteredNoteList();
+        case NOTE_KEYWORD:
+            List<Note> lastShownNoteList = model.getFilteredNoteList();
 
-            if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            if (targetIndex.getZeroBased() >= lastShownNoteList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_NOTE_DISPLAYED_INDEX);
             }
 
-            Note noteToDelete = lastShownList.get(targetIndex.getZeroBased());
+            Note noteToDelete = lastShownNoteList.get(targetIndex.getZeroBased());
             model.deleteNote(noteToDelete);
             return new CommandResult(String.format(MESSAGE_DELETE_NOTE_SUCCESS, noteToDelete));
+        default:
+            throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
     }
 
