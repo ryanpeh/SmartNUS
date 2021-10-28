@@ -126,20 +126,21 @@ Examples:
   "potter harry", "harrypotter" and "wordthatincludesharryandpotter"
   * incorrect answers: "Harry", "Potter", "harr pottery"
 
-<!-- ### Listing all persons : `list`
+### Listing all items : `list <KEYWORD>`
 
-Shows a list of all questions in the address book.
+Shows a list of all questions or notes stored in SmartNus.
 
-Format: `list` -->
+Format: `list note` OR `list question`
 
-### Deleting a Question and Answer: `delete`
+### Deleting a Question or Note: `delete`
 
 Deletes an existing question and answer in the question bank.
 
-Format: `delete QUESTION_ID`
+Format: for questions: `delete question QUESTION_INDEX`
+for notes: `delete note NOTE_INDEX`
 
-* Deletes the question and answer with the specified `QUESTION_ID`.
-* The question id refers to the index number shown in the displayed question list. The index **must be a positive integer** 1, 2, 3, …​ -->
+* Deletes the question or note with the specified `INDEX`.
+* The INDEX refers to the index number shown in the displayed list. The index **must be a positive integer** 1, 2, 3, …​ 
 
 ### Editing a Question and Answers: `edit`
 
@@ -216,12 +217,38 @@ Exits the program.
 
 Format: `exit`
 
+### Changing the theme: `theme`
+
+Changes the theme of the app.
+
+Format: `theme THEME`
+
+Parameters:
+- `THEME`: can only be light or dark
+
+Examples:
+- `theme light`: Sets the theme to light
+- `theme dark`: Sets the theme to dark
+
 ## <a name="quiz_window_commands"></a>Quiz Window Commands
 
-### Answering a multiple choice question: `a` `b` `c` `d`
+### Answering a multiple choice question: `A` `B` `C` `D`
 Answers the multiple choice question with the options.
 
-Possible options are: `a` `b` `c` or `d`
+Possible options are: `A` `B` `C` or `D` (case-insensitive)
+
+### Answering a multiple choice question: `T` `F`
+Answers the multiple choice question with the options.
+
+Possible options are: `T` `F` `True` `False` (case-insensitive)
+
+### Answering a short answer question: `ans/`
+Answers the short answer question with the provided answer.
+
+Format: `ans/ANSWER`
+
+Examples:
+* `ans/Harry Potter` would answer the short answer question with "Harry Potter"
 
 ### Go to the next question: `next`
 Navigate to the next question.
@@ -280,10 +307,13 @@ Action | Format, Examples
 
 Action | Format, Examples
 --------|------------------
-**Option a** | `a` <br>
-**Option b** | `b` <br>
-**Option c** | `c` <br>
-**Option d** | `d` <br>
+**Option A** | `A`, `a` <br>
+**Option B** | `B`, `b` <br>
+**Option C** | `C`, `c` <br>
+**Option D** | `D`, `d` <br>
+**Option True** | `T`, `True` (Case-insensitive)<br> e.g., `T`,`t`, `true` <br>
+**Option False** | `F`, `False` (Case-insensitive)<br> e.g., `F`,`f`, `false` <br>
+**SAQ Answer** | `ans/ANSWER`<br> e.g., `ans/Harry Potter` <br>
 **Next** | `next` <br>
 **Prev** | `prev` <br>
 **Exit** | `exit` <br>

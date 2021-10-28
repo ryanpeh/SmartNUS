@@ -17,6 +17,7 @@ import seedu.smartnus.commons.core.theme.Theme;
 import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.statistic.TagStatistic;
+import seedu.smartnus.model.statistic.comparator.StatDefaultComparator;
 
 /**
  * Represents the in-memory model of SmartNus data.
@@ -29,6 +30,7 @@ public class ModelManager implements Model {
     private final FilteredList<Question> filteredQuestions;
     private final FilteredList<Note> filteredNotes;
     private FilteredList<Question> filteredQuizQuestions;
+    private FilteredList<TagStatistic> filteredTagStatistic;
 
     /**
      * Initializes a ModelManager with the given smartNus and userPrefs.
@@ -44,6 +46,7 @@ public class ModelManager implements Model {
         filteredQuestions = new FilteredList<>(this.smartNus.getQuestionList());
         filteredNotes = new FilteredList<>(this.smartNus.getNoteList());
         filteredQuizQuestions = new FilteredList<>(this.smartNus.getQuestionList());
+        filteredTagStatistic = new FilteredList<>(this.smartNus.getTagStatistic());
     }
 
     public ModelManager() {
@@ -211,11 +214,20 @@ public class ModelManager implements Model {
         filteredQuizQuestions = new FilteredList<>(sortedQuizQuestionList);
     }
 
-    //=========== Tag Statistic Accessors =============================================================
+    //=========== Filtered Tag Statistic Accessors =============================================================
 
     @Override
     public ObservableList<TagStatistic> getTagStatistic() {
-        return smartNus.getTagStatistic();
+        return filteredTagStatistic;
+    }
+
+    @Override
+    public void updateFilteredTagStatistic(Predicate<TagStatistic> predicate) {
+        requireNonNull(predicate);
+        SortedList<TagStatistic> sortedTagStatistics = new SortedList<>(this.smartNus.getTagStatistic());
+        sortedTagStatistics.setComparator(new StatDefaultComparator());
+        filteredTagStatistic = new FilteredList<>(sortedTagStatistics);
+        filteredTagStatistic.setPredicate(predicate);
     }
 
     //=========== Miscellaneous Accessors =============================================================
