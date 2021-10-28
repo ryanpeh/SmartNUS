@@ -12,10 +12,10 @@ import javafx.collections.ObservableList;
 import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.note.NoteList;
 import seedu.smartnus.model.question.Question;
-import seedu.smartnus.model.question.Statistic;
+import seedu.smartnus.model.statistic.Statistic;
 import seedu.smartnus.model.question.UniqueQuestionList;
 import seedu.smartnus.model.tag.Tag;
-import seedu.smartnus.model.tag.TagStatistic;
+import seedu.smartnus.model.statistic.TagStatistic;
 
 /**
  * Wraps all data at the SmartNus level

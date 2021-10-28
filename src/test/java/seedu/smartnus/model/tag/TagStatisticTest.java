@@ -6,7 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.smartnus.model.question.Statistic;
+import seedu.smartnus.model.statistic.Statistic;
+import seedu.smartnus.model.statistic.TagStatistic;
 
 public class TagStatisticTest {
 

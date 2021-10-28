@@ -1,6 +1,6 @@
-package seedu.smartnus.model.tag;
+package seedu.smartnus.model.statistic;
 
-import seedu.smartnus.model.question.Statistic;
+import seedu.smartnus.model.tag.Tag;
 
 public class TagStatistic {
     private final Tag tag;

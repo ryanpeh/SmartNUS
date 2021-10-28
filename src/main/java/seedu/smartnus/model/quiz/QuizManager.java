@@ -6,7 +6,7 @@ import java.util.List;
 
 import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.question.Question;
-import seedu.smartnus.model.question.Statistic;
+import seedu.smartnus.model.statistic.Statistic;
 import seedu.smartnus.model.quiz.exceptions.QuestionAlreadyAnsweredException;
 import seedu.smartnus.model.quiz.exceptions.QuizOutOfBoundException;
 
