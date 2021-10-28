@@ -216,6 +216,19 @@ Exits the program.
 
 Format: `exit`
 
+### Changing the theme: `theme`
+
+Changes the theme of the app.
+
+Format: `theme THEME`
+
+Parameters:
+- `THEME`: can only be light or dark
+
+Examples:
+- `theme light`: Sets the theme to light
+- `theme dark`: Sets the theme to dark
+
 ## <a name="quiz_window_commands"></a>Quiz Window Commands
 
 ### Answering a multiple choice question: `a` `b` `c` `d`
