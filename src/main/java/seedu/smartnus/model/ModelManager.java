@@ -17,6 +17,7 @@ import seedu.smartnus.commons.core.theme.Theme;
 import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.statistic.TagStatistic;
+import seedu.smartnus.model.statistic.comparator.StatDefaultComparator;
 
 /**
  * Represents the in-memory model of SmartNus data.
@@ -223,7 +224,9 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredTagStatistic(Predicate<TagStatistic> predicate) {
         requireNonNull(predicate);
-        filteredTagStatistic = new FilteredList<>(this.smartNus.getTagStatistic());
+        SortedList<TagStatistic> sortedTagStatistics = new SortedList<>(this.smartNus.getTagStatistic());
+        sortedTagStatistics.setComparator(new StatDefaultComparator());
+        filteredTagStatistic = new FilteredList<>(sortedTagStatistics);
         filteredTagStatistic.setPredicate(predicate);
     }
 
