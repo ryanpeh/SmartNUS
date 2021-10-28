@@ -19,6 +19,7 @@ import seedu.smartnus.logic.parser.exceptions.ParseException;
 import seedu.smartnus.ui.panel.NoteListPanel;
 import seedu.smartnus.ui.panel.PanelManager;
 import seedu.smartnus.ui.panel.QuestionListPanel;
+import seedu.smartnus.ui.panel.StatisticListPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -36,6 +37,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private QuestionListPanel questionListPanel;
     private NoteListPanel noteListPanel;
+    private StatisticListPanel statisticListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private PanelManager panelManager;
@@ -50,10 +52,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane resultDisplayPlaceholder;
 
     @FXML
-    private StackPane questionListPanelPlaceholder;
-
-    @FXML
-    private StackPane noteListPanelPlaceholder;
+    private StackPane panelPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -75,11 +74,8 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        panelManager = new PanelManager(logic);
-        questionListPanel = new QuestionListPanel(questionListPanelPlaceholder, statusbarPlaceholder);
-        noteListPanel = new NoteListPanel(noteListPanelPlaceholder, statusbarPlaceholder);
-        panelManager.addPanel(questionListPanel);
-        panelManager.addPanel(noteListPanel);
+
+        initPanelManger();
     }
 
     public Stage getPrimaryStage() {
@@ -88,6 +84,16 @@ public class MainWindow extends UiPart<Stage> {
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+    }
+
+    private void initPanelManger() {
+        panelManager = new PanelManager(logic);
+        questionListPanel = new QuestionListPanel(panelPlaceholder, statusbarPlaceholder);
+        noteListPanel = new NoteListPanel(panelPlaceholder, statusbarPlaceholder);
+        statisticListPanel = new StatisticListPanel(panelPlaceholder, statusbarPlaceholder);
+        panelManager.addPanel(questionListPanel);
+        panelManager.addPanel(noteListPanel);
+        panelManager.addPanel(statisticListPanel);
     }
 
     /**
@@ -196,6 +202,10 @@ public class MainWindow extends UiPart<Stage> {
             break;
         case NoteListPanel.NOTE_PANEL:
             panelManager.showPanel(noteListPanel);
+
+            break;
+        case StatisticListPanel.STATISTIC_PANEL:
+            panelManager.showPanel(statisticListPanel);
 
             break;
         default:

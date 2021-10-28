@@ -34,12 +34,6 @@ public class PanelManager {
      * @param panel The panel to be shown.
      */
     public void showPanel(Panel panel) {
-        for (Panel otherPanel : panelList) {
-            if (!otherPanel.equals(panel)) {
-                otherPanel.disable(logic);
-            } else {
-                otherPanel.render(logic);
-            }
-        }
+        panel.render(logic);
     }
 }

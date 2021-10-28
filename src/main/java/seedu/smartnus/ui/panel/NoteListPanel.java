@@ -58,13 +58,6 @@ public class NoteListPanel extends UiPart<Region> implements Panel {
         return noteListPanel;
     }
 
-    @Override
-    public Panel disable(Logic logic) {
-        noteListPanelPlaceholder.setVisible(false);
-        noteListPanelPlaceholder.managedProperty().bind(noteListPanelPlaceholder.visibleProperty());
-        return this;
-    }
-
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Question} using a {@code QuestionCard}.
      */

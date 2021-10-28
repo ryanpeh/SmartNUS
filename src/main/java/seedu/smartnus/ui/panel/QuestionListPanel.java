@@ -58,13 +58,6 @@ public class QuestionListPanel extends UiPart<Region> implements Panel {
         return questionListPanel;
     }
 
-    @Override
-    public Panel disable(Logic logic) {
-        questionListPanelPlaceholder.setVisible(false);
-        questionListPanelPlaceholder.managedProperty().bind(questionListPanelPlaceholder.visibleProperty());
-        return this;
-    }
-
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Question} using a {@code QuestionCard}.
      */
