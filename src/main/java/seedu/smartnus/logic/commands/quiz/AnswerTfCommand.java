@@ -1,7 +1,8 @@
 package seedu.smartnus.logic.commands.quiz;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.smartnus.logic.commands.quiz.AnswerMcqCommand.CONTINUE_QUIZ_MESSAGE;
+import static seedu.smartnus.commons.core.Messages.MESSAGE_CONTINUE_QUIZ;
+import static seedu.smartnus.commons.core.Messages.MESSAGE_END_OF_QUIZ;
 import static seedu.smartnus.model.choice.Choice.FALSE_CHOICE_TITLE;
 import static seedu.smartnus.model.choice.Choice.TRUE_CHOICE_TITLE;
 
@@ -13,6 +14,7 @@ import seedu.smartnus.model.Model;
 import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.quiz.QuizManager;
+import seedu.smartnus.model.quiz.exceptions.QuestionAlreadyAnsweredException;
 
 public class AnswerTfCommand extends Command {
 
@@ -21,7 +23,7 @@ public class AnswerTfCommand extends Command {
     private final QuizManager quizManager;
 
     /**
-     * Creates
+     * Creates a AnswerTfCommand
      */
     public AnswerTfCommand(String input, QuizManager quizManager) {
         this.input = input;
@@ -36,26 +38,35 @@ public class AnswerTfCommand extends Command {
 
         ArrayList<Choice> choices = currentQuestion.getOrderedChoices();
         Choice choice = null;
-        switch (input) {
-        case "T":
+        switch (input.toLowerCase()) {
+
+        case "true":
         case "t":
             choice = currentQuestion.findChoiceByTitle(TRUE_CHOICE_TITLE);
             break;
-        case "F":
-        case"f":
+
+        case "false":
+        case "f":
             choice = currentQuestion.findChoiceByTitle(FALSE_CHOICE_TITLE);
             break;
+
         default:
             break;
         }
 
         assert choice != null : "Choice should not be null";
 
-        if (quizManager.attemptAndCheckAnswer(choice)) {
-            return new CommandResult("Correct!\n" + CONTINUE_QUIZ_MESSAGE);
-        } else {
-            return new CommandResult("Incorrect. The correct answer is: "
-                    + currentQuestion.getCorrectChoice().getTitle() + "\n" + CONTINUE_QUIZ_MESSAGE);
+        String endMessage = quizManager.isLastQuestion() ? MESSAGE_END_OF_QUIZ : MESSAGE_CONTINUE_QUIZ;
+
+        try {
+            if (quizManager.attemptAndCheckAnswer(choice)) {
+                return new CommandResult("Correct!\n" + endMessage);
+            } else {
+                return new CommandResult("Incorrect. The correct answer is: "
+                        + currentQuestion.getCorrectChoiceTitle() + "\n" + endMessage);
+            }
+        } catch (QuestionAlreadyAnsweredException e) {
+            return new CommandResult("You have already answered this question.\n" + endMessage);
         }
     }
 

@@ -3,15 +3,17 @@ package seedu.smartnus.model.question;
 import static seedu.smartnus.model.choice.Choice.FALSE_CHOICE_TITLE;
 import static seedu.smartnus.model.choice.Choice.TRUE_CHOICE_TITLE;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Set;
 
 import seedu.smartnus.model.choice.Choice;
+import seedu.smartnus.model.statistic.Statistic;
 import seedu.smartnus.model.tag.Tag;
 
 public class TrueFalseQuestion extends Question {
 
     public static final String MESSAGE_ANSWER_INVALID = "Only T or F is allowed as an answer!";
+    public static final String MESSAGE_OPTIONS_INVALID = "Do not specify incorrect options (/opt) for T/F questions.";
     private static final int NUMBER_OF_CHOICES = 2;
 
     public TrueFalseQuestion(Name name, Importance importance, Set<Tag> tags,
@@ -48,12 +50,14 @@ public class TrueFalseQuestion extends Question {
         return choice.getTitle().equals(TRUE_CHOICE_TITLE) || choice.getTitle().equals(FALSE_CHOICE_TITLE);
     }
 
+    /**
+     * For True/False questions, instead of random order, we want True to be first and False to be second.
+     **/
     @Override
-    public String getQuestionAndOptions() {
-        String title = this.getName().toString();
-        ArrayList<Choice> choices = this.getOrderedChoices();
-        String options = "\n " + "1. " + choices.get(0).getTitle() + " 2. " + choices.get(1).getTitle();
-        return title + options;
+    public void shuffleChoices() {
+        if (orderedChoices.get(0).getTitle().equals("False")) {
+            Collections.reverse(orderedChoices);
+        }
     }
 
     @Override

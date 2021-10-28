@@ -6,7 +6,7 @@ import static seedu.smartnus.testutil.Assert.assertThrows;
 import static seedu.smartnus.testutil.TypicalQuestions.ALICE;
 import static seedu.smartnus.testutil.TypicalQuestions.HOON;
 import static seedu.smartnus.testutil.TypicalQuestions.IDA;
-import static seedu.smartnus.testutil.TypicalQuestions.getTypicalSmartNus;
+import static seedu.smartnus.testutil.TypicalSmartNus.getTypicalSmartNus;
 
 import java.io.IOException;
 import java.nio.file.Path;

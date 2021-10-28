@@ -16,7 +16,11 @@ import seedu.smartnus.logic.Logic;
 import seedu.smartnus.logic.commands.CommandResult;
 import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
+import seedu.smartnus.model.choice.Choice;
+import seedu.smartnus.model.question.MultipleChoiceQuestion;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.question.ShortAnswerQuestion;
+import seedu.smartnus.model.question.TrueFalseQuestion;
 import seedu.smartnus.model.quiz.QuizManager;
 
 
@@ -27,7 +31,7 @@ import seedu.smartnus.model.quiz.QuizManager;
 public class QuizWindow extends UiPart<Stage> {
 
     // TODO: Create new fxml for QuizWindow
-    private static final String FXML = "MainWindow.fxml";
+    private static final String FXML = "QuizWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -36,8 +40,10 @@ public class QuizWindow extends UiPart<Stage> {
     private QuizManager quizManager;
 
     // Independent Ui parts residing in this Ui container
-    private QuestionListPanel questionListPanel;
+    // private QuestionListPanel questionListPanel;
+    private ChoiceGrid choiceGrid;
     private ResultDisplay resultDisplay;
+    private QuestionDisplay questionDisplay;
     private HelpWindow helpWindow;
 
     @FXML
@@ -50,10 +56,17 @@ public class QuizWindow extends UiPart<Stage> {
     private StackPane questionListPanelPlaceholder;
 
     @FXML
+    private StackPane choiceGridPlaceholder;
+
+    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
+    private StackPane questionDisplayPlaceholder;
+
+    @FXML
     private StackPane statusbarPlaceholder;
+
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -116,13 +129,17 @@ public class QuizWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        questionListPanel = new QuestionListPanel(logic.getFilteredQuestionList());
-        questionListPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         updateStatusBar();
+
+        updateChoices();
+
+        questionDisplay = new QuestionDisplay();
+        questionDisplayPlaceholder.getChildren().add(questionDisplay.getRoot());
+
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -139,13 +156,34 @@ public class QuizWindow extends UiPart<Stage> {
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
     }
 
+    private void updateChoices() {
+        choiceGridPlaceholder.getChildren().clear();
+        choiceGrid = null;
+
+        Question currentQuestion = quizManager.currQuestion();
+        Choice selectedChoice = quizManager.getCurrentSelectedChoice();
+
+        if (currentQuestion instanceof MultipleChoiceQuestion) {
+            choiceGrid = new McqChoiceGrid(currentQuestion, selectedChoice);
+        } else if (currentQuestion instanceof TrueFalseQuestion) {
+            choiceGrid = new TfqChoiceGrid(currentQuestion, selectedChoice);
+        } else if (currentQuestion instanceof ShortAnswerQuestion) {
+            choiceGrid = new SaqChoiceGrid((ShortAnswerQuestion) currentQuestion, selectedChoice);
+        }
+
+        assert choiceGrid != null : "Question should either be instance of MultipleChoiceQuestion or TrueFalseQuestion";
+
+        choiceGridPlaceholder.getChildren().add(choiceGrid.getRoot());
+    }
+
     /**
      * Loads the first question from the list of questions
      */
     void loadQuiz() {
         String display = "Quiz Started!\n";
         Question currentQuestion = quizManager.currQuestion();
-        resultDisplay.setFeedbackToUser(display + currentQuestion.getQuestionAndOptions());
+        resultDisplay.setFeedbackToUser(display);
+        questionDisplay.displayQuestion(currentQuestion);
     }
 
 
@@ -189,10 +227,6 @@ public class QuizWindow extends UiPart<Stage> {
         mainWindow.fillInnerParts();
     }
 
-    public QuestionListPanel getQuestionListPanel() {
-        return questionListPanel;
-    }
-
     /**
      * Executes the command and returns the result.
      *
@@ -203,7 +237,9 @@ public class QuizWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText, quizManager);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            questionDisplay.displayQuestion(quizManager.currQuestion());
             updateStatusBar();
+            updateChoices();
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

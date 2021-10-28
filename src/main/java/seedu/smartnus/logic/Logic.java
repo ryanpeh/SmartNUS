@@ -9,8 +9,10 @@ import seedu.smartnus.logic.commands.CommandResult;
 import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
 import seedu.smartnus.model.ReadOnlySmartNus;
+import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.quiz.QuizManager;
+import seedu.smartnus.model.statistic.TagStatistic;
 
 /**
  * API of the Logic component
@@ -44,8 +46,16 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of questions */
     ObservableList<Question> getFilteredQuestionList();
 
+
+    /** Returns an unmodifiable view of the filtered list of questions */
+    ObservableList<Note> getFilteredNoteList();
+
     /** Returns an unmodifiable view of the filtered list of questions for quizzes */
     ObservableList<Question> getFilteredQuizQuestionList();
+
+    /** Returns an unmodifiable view of the filtered list of questions for quizzes */
+    ObservableList<TagStatistic> getFilteredTagStatisticList();
+
 
     /**
      * Returns the user prefs' SmartNUS file path.
@@ -68,7 +78,17 @@ public interface Logic {
     Theme getTheme();
 
     /**
-     * Sets the user pref's tehme.
+     * Sets the user pref's theme.
      */
     void setTheme(Theme theme);
+
+    /**
+     * Sets the current panel to be shown.
+     */
+    void setPanel(String panel);
+
+    /**
+     * Returns the current panel to be shown.
+     */
+    String getPanel();
 }

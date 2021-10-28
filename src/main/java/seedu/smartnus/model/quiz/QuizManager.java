@@ -6,9 +6,9 @@ import java.util.List;
 
 import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.question.Question;
-import seedu.smartnus.model.question.Statistic;
 import seedu.smartnus.model.quiz.exceptions.QuestionAlreadyAnsweredException;
 import seedu.smartnus.model.quiz.exceptions.QuizOutOfBoundException;
+import seedu.smartnus.model.statistic.Statistic;
 
 
 
@@ -99,6 +99,14 @@ public class QuizManager implements Quiz {
 
     public int getCurrentIndex() {
         return currentIndex;
+    }
+
+    public boolean isLastQuestion() {
+        return currentIndex == totalQuestions - 1;
+    }
+
+    public Choice getCurrentSelectedChoice() {
+        return selectedChoices.get(currentIndex);
     }
 
 }

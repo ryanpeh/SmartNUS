@@ -1,5 +1,8 @@
 package seedu.smartnus.storage;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -14,14 +17,19 @@ class JsonAdaptedChoice {
 
     private final String title;
     private final boolean isCorrect;
+    private final Set<String> keywords = new HashSet<>();
 
     /**
      * Constructs a {@code JsonAdaptedChoice} with the given choice details.
      */
     @JsonCreator
-    public JsonAdaptedChoice(@JsonProperty("title") String title, @JsonProperty("isCorrect") boolean isCorrect) {
+    public JsonAdaptedChoice(@JsonProperty("title") String title, @JsonProperty("isCorrect") boolean isCorrect,
+                             @JsonProperty("keywords") Set<String> keywords) {
         this.title = title;
         this.isCorrect = isCorrect;
+        if (keywords != null) {
+            this.keywords.addAll(keywords);
+        }
     }
 
     /**
@@ -30,6 +38,7 @@ class JsonAdaptedChoice {
     public JsonAdaptedChoice(Choice source) {
         title = source.getTitle();
         isCorrect = source.getIsCorrect();
+        keywords.addAll(source.getKeywords());
     }
 
     /**
@@ -41,7 +50,12 @@ class JsonAdaptedChoice {
         if (!Choice.isValidChoiceTitle(title)) {
             throw new IllegalValueException(Choice.MESSAGE_CONSTRAINTS);
         }
-        return new Choice(title, isCorrect);
+        for (String keyword : keywords) {
+            if (!Choice.isValidKeyword(keyword)) {
+                throw new IllegalValueException(Choice.MESSAGE_KEYWORD_CONSTRAINTS);
+            }
+        }
+        return new Choice(title, isCorrect, keywords);
     }
 
 }

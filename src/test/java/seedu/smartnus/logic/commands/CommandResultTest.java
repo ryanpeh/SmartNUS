@@ -33,6 +33,12 @@ public class CommandResultTest {
 
         // different exit value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", false, true, false)));
+
+        // different quiz value -> returns true
+        assertTrue(commandResult.equals(new CommandResult("feedback", false, false, true)));
+
+        // different list value -> returns true
+        assertTrue(commandResult.equals(new CommandResult("feedback", false, false, false)));
     }
 
     @Test
@@ -50,5 +56,8 @@ public class CommandResultTest {
 
         // different exit value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, true, false).hashCode());
+
+        // different quiz value -> returns different hashcode
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, false, true).hashCode());
     }
 }

@@ -16,6 +16,10 @@ import seedu.smartnus.logic.Logic;
 import seedu.smartnus.logic.commands.CommandResult;
 import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
+import seedu.smartnus.ui.panel.NoteListPanel;
+import seedu.smartnus.ui.panel.PanelManager;
+import seedu.smartnus.ui.panel.QuestionListPanel;
+import seedu.smartnus.ui.panel.StatisticListPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -27,13 +31,16 @@ public class MainWindow extends UiPart<Stage> {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    private Stage primaryStage;
     private Logic logic;
+    private Stage primaryStage;
 
     // Independent Ui parts residing in this Ui container
     private QuestionListPanel questionListPanel;
+    private NoteListPanel noteListPanel;
+    private StatisticListPanel statisticListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private PanelManager panelManager;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -42,10 +49,10 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane questionListPanelPlaceholder;
+    private StackPane resultDisplayPlaceholder;
 
     @FXML
-    private StackPane resultDisplayPlaceholder;
+    private StackPane panelPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -67,6 +74,8 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+
+        initPanelManger();
     }
 
     public Stage getPrimaryStage() {
@@ -75,6 +84,16 @@ public class MainWindow extends UiPart<Stage> {
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+    }
+
+    private void initPanelManger() {
+        panelManager = new PanelManager(logic);
+        questionListPanel = new QuestionListPanel(panelPlaceholder, statusbarPlaceholder);
+        noteListPanel = new NoteListPanel(panelPlaceholder, statusbarPlaceholder);
+        statisticListPanel = new StatisticListPanel(panelPlaceholder, statusbarPlaceholder);
+        panelManager.addPanel(questionListPanel);
+        panelManager.addPanel(noteListPanel);
+        panelManager.addPanel(statisticListPanel);
     }
 
     /**
@@ -111,8 +130,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        questionListPanel = new QuestionListPanel(logic.getFilteredQuestionList());
-        questionListPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
+        setPanel();
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -175,8 +193,24 @@ public class MainWindow extends UiPart<Stage> {
         quizWindow.loadQuiz();
     }
 
-    public QuestionListPanel getQuestionListPanel() {
-        return questionListPanel;
+
+    public void setPanel() {
+        switch (logic.getPanel()) {
+        case QuestionListPanel.QUESTION_PANEL:
+            panelManager.showPanel(questionListPanel);
+
+            break;
+        case NoteListPanel.NOTE_PANEL:
+            panelManager.showPanel(noteListPanel);
+
+            break;
+        case StatisticListPanel.STATISTIC_PANEL:
+            panelManager.showPanel(statisticListPanel);
+
+            break;
+        default:
+            panelManager.showPanel(questionListPanel);
+        }
     }
 
     /**
@@ -203,6 +237,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             UiUtils.setTheme(logic.getTheme(), primaryStage);
+            setPanel();
 
             return commandResult;
         } catch (CommandException | ParseException e) {

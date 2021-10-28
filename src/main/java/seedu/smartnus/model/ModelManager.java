@@ -4,15 +4,19 @@ import static java.util.Objects.requireNonNull;
 import static seedu.smartnus.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.smartnus.commons.core.GuiSettings;
 import seedu.smartnus.commons.core.LogsCenter;
 import seedu.smartnus.commons.core.theme.Theme;
+import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.statistic.TagStatistic;
 
 /**
  * Represents the in-memory model of SmartNus data.
@@ -23,7 +27,9 @@ public class ModelManager implements Model {
     private final SmartNus smartNus;
     private final UserPrefs userPrefs;
     private final FilteredList<Question> filteredQuestions;
-    private final FilteredList<Question> filteredQuizQuestions;
+    private final FilteredList<Note> filteredNotes;
+    private FilteredList<Question> filteredQuizQuestions;
+    private FilteredList<TagStatistic> filteredTagStatistic;
 
     /**
      * Initializes a ModelManager with the given smartNus and userPrefs.
@@ -37,7 +43,9 @@ public class ModelManager implements Model {
         this.smartNus = new SmartNus(smartNus);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredQuestions = new FilteredList<>(this.smartNus.getQuestionList());
+        filteredNotes = new FilteredList<>(this.smartNus.getNoteList());
         filteredQuizQuestions = new FilteredList<>(this.smartNus.getQuestionList());
+        filteredTagStatistic = new FilteredList<>(this.smartNus.getTagStatistic());
     }
 
     public ModelManager() {
@@ -114,9 +122,20 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteNote(Note target) {
+        smartNus.removeNote(target);
+    }
+
+    @Override
     public void addQuestion(Question question) {
         smartNus.addQuestion(question);
         updateFilteredQuestionList(PREDICATE_SHOW_ALL_QUESTIONS);
+    }
+
+    @Override
+    public void addNote(Note note) {
+        smartNus.addNote(note);
+        updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
     }
 
     @Override
@@ -125,6 +144,31 @@ public class ModelManager implements Model {
 
         smartNus.setQuestion(target, editedQuestion);
     }
+
+    @Override
+    public void setNote(Note target, Note editedNote) {
+        requireAllNonNull(target, editedNote);
+
+        smartNus.setNote(target, editedNote);
+    }
+
+
+    @Override
+    public void setPanel(String panel) {
+        requireNonNull(panel);
+        smartNus.setPanel(panel);
+    }
+
+    @Override
+    public String getPanel() {
+        return smartNus.getPanel();
+    }
+
+    @Override
+    public ObservableList<TagStatistic> getTagStatistic() {
+        return filteredTagStatistic;
+    }
+
 
     //=========== Filtered Question List Accessors =============================================================
 
@@ -148,11 +192,44 @@ public class ModelManager implements Model {
         filteredQuestions.setPredicate(predicate);
     }
 
+    //=========== Filtered Note List Accessors =============================================================
+
+    @Override
+    public ObservableList<Note> getFilteredNoteList() {
+        return filteredNotes;
+    }
+
+    @Override
+    public void updateFilteredNoteList(Predicate<Note> predicate) {
+        requireNonNull(predicate);
+        filteredNotes.setPredicate(predicate);
+    }
+
     @Override
     public void updateFilteredQuizQuestionList(Predicate<Question> predicate) {
         requireNonNull(predicate);
         filteredQuizQuestions.setPredicate(predicate);
     }
+
+    @Override
+    public void sortFilteredQuizQuestionList(Comparator<Question> comparator) {
+        requireNonNull(comparator);
+        SortedList<Question> sortedQuizQuestionList = new SortedList<>(this.smartNus.getQuestionList());
+        sortedQuizQuestionList.setComparator(comparator);
+        filteredQuizQuestions = new FilteredList<>(sortedQuizQuestionList);
+    }
+
+    //=========== Filtered Tag Statistic Accessors =============================================================
+
+    @Override
+    public void updateFilteredTagStatistic(Predicate<TagStatistic> predicate) {
+        requireNonNull(predicate);
+        filteredTagStatistic.setPredicate(predicate);
+    }
+
+
+
+    //=========== Miscellaneous Accessors =============================================================
 
     @Override
     public boolean equals(Object obj) {
@@ -170,7 +247,8 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return smartNus.equals(other.smartNus)
                 && userPrefs.equals(other.userPrefs)
-                && filteredQuestions.equals(other.filteredQuestions);
+                && filteredQuestions.equals(other.filteredQuestions)
+                && filteredQuizQuestions.equals(other.filteredQuizQuestions);
     }
 
 }

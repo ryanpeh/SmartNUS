@@ -9,6 +9,7 @@ import static seedu.smartnus.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -18,11 +19,14 @@ import seedu.smartnus.commons.core.GuiSettings;
 import seedu.smartnus.commons.core.theme.Theme;
 import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.logic.commands.questions.AddMcqCommand;
+import seedu.smartnus.logic.commands.questions.AddQuestionCommand;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.ReadOnlySmartNus;
 import seedu.smartnus.model.ReadOnlyUserPrefs;
 import seedu.smartnus.model.SmartNus;
+import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.statistic.TagStatistic;
 import seedu.smartnus.testutil.QuestionBuilder;
 
 class AddMcqCommandTest {
@@ -50,7 +54,7 @@ class AddMcqCommandTest {
         AddMcqCommandTest.ModelStub modelStub = new AddMcqCommandTest.ModelStubWithQuestion(validQuestion);
 
         assertThrows(CommandException.class,
-                AddCommand.MESSAGE_DUPLICATE_QUESTION, () -> addCommand.execute(modelStub));
+                AddQuestionCommand.MESSAGE_DUPLICATE_QUESTION, () -> addCommand.execute(modelStub));
     }
 
     /**
@@ -175,12 +179,62 @@ class AddMcqCommandTest {
         }
 
         @Override
+        public void sortFilteredQuizQuestionList(Comparator<Question> comparator) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setTheme(Theme theme) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public Theme getTheme() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<TagStatistic> getTagStatistic() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredTagStatistic(Predicate<TagStatistic> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setPanel(String panel) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String getPanel() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addNote(Note note) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteNote(Note target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setNote(Note target, Note editedNote) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Note> getFilteredNoteList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredNoteList(Predicate<Note> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -193,7 +247,7 @@ class AddMcqCommandTest {
     /**
      * A Model stub that always accept the question being added.
      */
-    private class ModelStubAcceptingQuestionAdded extends AddMcqCommandTest.ModelStub {
+    private class ModelStubAcceptingQuestionAdded extends ModelStub {
         final ArrayList<Question> questionsAdded = new ArrayList<>();
 
         @Override

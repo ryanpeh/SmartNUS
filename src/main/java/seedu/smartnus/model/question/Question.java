@@ -9,6 +9,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.smartnus.model.choice.Choice;
+import seedu.smartnus.model.statistic.Statistic;
 import seedu.smartnus.model.tag.Tag;
 
 /**
@@ -20,14 +21,19 @@ public abstract class Question {
     // Integer representation of question types
     public static final int MCQ_QUESTION_TYPE = 0;
     public static final int TF_QUESTION_TYPE = 1;
+    public static final int SAQ_QUESTION_TYPE = 2;
+
+    // message on condition for validity of Question
+    public static final String MESSAGE_DUPLICATE_CHOICES = "Choices (both incorrect and correct)"
+            + " should not have duplicate titles.";
 
     // Identity fields
+    protected final ArrayList<Choice> orderedChoices = new ArrayList<>();
     private final Name name;
     private final Importance importance;
 
     private final Set<Tag> tags = new HashSet<>();
     private final Set<Choice> choices = new HashSet<>();
-    private final ArrayList<Choice> orderedChoices = new ArrayList<>();
 
     // Question statistic
     private final Statistic statistic;
@@ -97,6 +103,20 @@ public abstract class Question {
     }
 
     /**
+     * Returns an immutable wrong choice set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Choice> getWrongChoices() {
+        Set<Choice> wrongChoices = new HashSet<>();
+        for (Choice choice : choices) {
+            if (!choice.getIsCorrect()) {
+                wrongChoices.add(choice);
+            }
+        }
+        return Collections.unmodifiableSet(wrongChoices);
+    }
+
+    /**
      * Returns a randomised ArrayList of choices.
      */
     public ArrayList<Choice> getOrderedChoices() {
@@ -117,6 +137,10 @@ public abstract class Question {
             }
         }
         return null;
+    }
+
+    public String getCorrectChoiceTitle() {
+        return getCorrectChoice() == null ? "" : getCorrectChoice().getTitle();
     }
 
     /**
@@ -190,9 +214,6 @@ public abstract class Question {
         return Objects.hash(name, importance, tags);
     }
 
-    // TODO: Remove maybe when UI is implemented
-    public abstract String getQuestionAndOptions();
-
     public abstract int getQuestionType();
 
     @Override
@@ -224,7 +245,7 @@ public abstract class Question {
 
     private StringBuilder appendChoices(StringBuilder builder) {
         Set<Choice> choices = getChoices();
-        if (!choices.isEmpty()) { // may be empty for open-ended questions
+        if (!choices.isEmpty()) {
             builder.append("; Choices: ");
             for (Choice choice: choices) {
                 builder.append(choice).append(", ");
@@ -234,4 +255,7 @@ public abstract class Question {
         return builder;
     }
 
+    public boolean isCorrectAnswer(Choice userAnswer) {
+        return userAnswer.equals(getCorrectChoice());
+    }
 }

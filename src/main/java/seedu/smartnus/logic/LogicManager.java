@@ -16,8 +16,10 @@ import seedu.smartnus.logic.parser.SmartNusParser;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.ReadOnlySmartNus;
+import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.quiz.QuizManager;
+import seedu.smartnus.model.statistic.TagStatistic;
 import seedu.smartnus.storage.Storage;
 
 /**
@@ -85,8 +87,18 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Note> getFilteredNoteList() {
+        return model.getFilteredNoteList();
+    }
+
+    @Override
     public ObservableList<Question> getFilteredQuizQuestionList() {
         return model.getFilteredQuizQuestionList();
+    }
+
+    @Override
+    public ObservableList<TagStatistic> getFilteredTagStatisticList() {
+        return model.getTagStatistic();
     }
 
     @Override
@@ -112,5 +124,15 @@ public class LogicManager implements Logic {
     @Override
     public void setTheme(Theme theme) {
         model.setTheme(theme);
+    }
+
+    @Override
+    public void setPanel(String panel) {
+        model.setPanel(panel);
+    }
+
+    @Override
+    public String getPanel() {
+        return model.getPanel();
     }
 }

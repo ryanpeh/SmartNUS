@@ -1,7 +1,6 @@
 package seedu.smartnus.logic.commands.questions;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.smartnus.logic.commands.AddCommand.MESSAGE_DUPLICATE_QUESTION;
 
 import seedu.smartnus.logic.commands.Command;
 import seedu.smartnus.logic.commands.CommandResult;
@@ -11,6 +10,7 @@ import seedu.smartnus.model.question.Question;
 
 public class AddQuestionCommand extends Command {
 
+    public static final String MESSAGE_DUPLICATE_QUESTION = "This question already exists in SmartNUS";
     public static final String MESSAGE_SUCCESS = "New question added: %s";
     private final Question toAdd;
 
