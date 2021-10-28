@@ -19,6 +19,7 @@ import seedu.smartnus.model.ReadOnlySmartNus;
 import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.quiz.QuizManager;
+import seedu.smartnus.model.statistic.TagStatistic;
 import seedu.smartnus.storage.Storage;
 
 /**
@@ -90,9 +91,14 @@ public class LogicManager implements Logic {
         return model.getFilteredNoteList();
     }
 
+    @Override
     public ObservableList<Question> getFilteredQuizQuestionList() {
         return model.getFilteredQuizQuestionList();
+    }
 
+    @Override
+    public ObservableList<TagStatistic> getFilteredTagStatisticList() {
+        return model.getTagStatistic();
     }
 
     @Override

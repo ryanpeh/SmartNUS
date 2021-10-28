@@ -166,7 +166,6 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<TagStatistic> getTagStatistic() {
-        filteredTagStatistic = new FilteredList<>(this.smartNus.getTagStatistic());
         return filteredTagStatistic;
     }
 
@@ -222,7 +221,11 @@ public class ModelManager implements Model {
 
     //=========== Filtered Tag Statistic Accessors =============================================================
 
-
+    @Override
+    public void updateFilteredTagStatistic(Predicate<TagStatistic> predicate) {
+        requireNonNull(predicate);
+        filteredTagStatistic.setPredicate(predicate);
+    }
 
 
 

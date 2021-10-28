@@ -97,6 +97,11 @@ public class LogicManagerTest {
     }
 
     @Test
+    public void getFilteredTagStatisticList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredTagStatisticList().remove(0));
+    }
+
+    @Test
     public void theme_test() {
         logic.setTheme(new Theme());
         assertEquals(new LightTheme(), logic.getTheme());

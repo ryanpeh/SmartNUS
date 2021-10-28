@@ -159,4 +159,10 @@ public interface Model {
      * Returns the tag-to-statistic map.
      */
     ObservableList<TagStatistic> getTagStatistic();
+
+    /**
+     * Updates the filter of the filtered tag statistic list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredTagStatistic(Predicate<TagStatistic> predicate);
 }

@@ -12,6 +12,7 @@ import seedu.smartnus.model.ReadOnlySmartNus;
 import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.quiz.QuizManager;
+import seedu.smartnus.model.statistic.TagStatistic;
 
 /**
  * API of the Logic component
@@ -51,6 +52,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of questions for quizzes */
     ObservableList<Question> getFilteredQuizQuestionList();
+
+    /** Returns an unmodifiable view of the filtered list of questions for quizzes */
+    ObservableList<TagStatistic> getFilteredTagStatisticList();
 
 
     /**
