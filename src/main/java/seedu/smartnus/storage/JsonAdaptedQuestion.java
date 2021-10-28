@@ -20,7 +20,6 @@ import seedu.smartnus.model.question.MultipleChoiceQuestion;
 import seedu.smartnus.model.question.Name;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.question.ShortAnswerQuestion;
-import seedu.smartnus.model.question.Statistic;
 import seedu.smartnus.model.question.TrueFalseQuestion;
 import seedu.smartnus.model.statistic.Statistic;
 import seedu.smartnus.model.tag.Tag;
