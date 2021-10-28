@@ -45,7 +45,7 @@ public class StatisticListPanel extends UiPart<Region> implements Panel {
 
     @Override
     public Panel render(Logic logic) {
-        StatisticListPanel statisticListPanel = new StatisticListPanel(logic.getSmartNus().getTagStatistic());
+        StatisticListPanel statisticListPanel = new StatisticListPanel(logic.getFilteredTagStatisticList());
         statisticListPanelPlaceholder.setVisible(true);
         statisticListPanelPlaceholder.getChildren().add(statisticListPanel.getRoot());
 
