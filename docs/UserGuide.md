@@ -191,7 +191,7 @@ You can search for more than one tag or keyword.
 </div>
 
 Examples:
-* `find load word t/CS2100 t/MIPS` returns questions tagged with at least one of the tags and that whose title includes "load", "word" or both.
+* `find load word t/CS2100 t/MIPS` returns questions tagged with at least one of the tags and that whose title includes "load" and "word" in any order.
   * e.g. A question titled "What is the load word instruction used for?" tagged with only CS2100 will be listed
 
 ### Start a Quiz: `quiz`
