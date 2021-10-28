@@ -49,20 +49,7 @@ public class FindCommand extends Command {
     public FindCommand(ArrayList<Predicate<Question>> predicates) {
         requireNonNull(predicates);
         predicateSet.addAll(predicates);
-        this.combinedPredicate = getCombinedPredicate();
-    }
-
-    /**
-     * Returns a single predicate that represents a logical AND of all predicates.
-     *
-     * @return A single predicate that represents a logical AND of all predicates.
-     */
-    private Predicate<Question> getCombinedPredicate() {
-        Predicate<Question> combinedPredicate = new ShowAllQuestionsPredicate();
-        for (Predicate<Question> predicate : predicateSet) {
-            combinedPredicate = combinedPredicate.and(predicate);
-        }
-        return combinedPredicate;
+        this.combinedPredicate = CommandUtil.combinePredicates(predicateSet);
     }
 
     @Override

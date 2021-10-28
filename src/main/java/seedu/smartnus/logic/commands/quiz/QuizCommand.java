@@ -11,6 +11,7 @@ import java.util.function.Predicate;
 
 import seedu.smartnus.logic.commands.Command;
 import seedu.smartnus.logic.commands.CommandResult;
+import seedu.smartnus.logic.commands.CommandUtil;
 import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.question.Question;
@@ -58,7 +59,7 @@ public class QuizCommand extends Command {
         }
 
         // TODO: Update state (model) with Quiz object?
-        model.updateFilteredQuizQuestionList(combinePredicates());
+        model.updateFilteredQuizQuestionList(CommandUtil.combinePredicates(predicates));
 
         if (model.getFilteredQuizQuestionList().isEmpty()) {
             throw new CommandException(MESSAGE_NO_QUESTIONS);
@@ -67,19 +68,6 @@ public class QuizCommand extends Command {
         // TODO: Find some other way of doing this? Making the constructor so long isn't that good as well
         //       Maybe explore overloading or something I'm not sure
         return new CommandResult(MESSAGE_SUCCESS, false, false, true);
-    }
-
-    /**
-     * Returns a single predicate that represents a logical AND of all predicates.
-     *
-     * @return A single predicate that represents a logical AND of all predicates.
-     */
-    private Predicate<Question> combinePredicates() {
-        Predicate<Question> combinedPredicates = new ShowAllQuestionsPredicate();
-        for (Predicate<Question> predicate : predicates) {
-            combinedPredicates = combinedPredicates.and(predicate);
-        }
-        return combinedPredicates;
     }
 
     @Override
