@@ -167,6 +167,14 @@ Answers the multiple choice question with the options.
 
 Possible options are: `T` `F` `True` `False` (case-insensitive)
 
+### Answering a short answer question: `ans/`
+Answers the short answer question with the provided answer.
+
+Format: `ans/ANSWER`
+
+Examples:
+* `ans/Harry Potter` would answer the short answer question with "Harry Potter"
+
 ### Go to the next question: `next`
 Navigate to the next question.
 
@@ -224,12 +232,13 @@ Action | Format, Examples
 
 Action | Format, Examples
 --------|------------------
-**Option A** | `A`, `a`  <br>
-**Option B** | `B`,`b` <br>
-**Option C** | `C`,`c` <br>
-**Option D** | `D`,`d` <br>
-**Option True** | `T`,`t`, `true` <br>
-**Option False** | `F`,`f`, `false` <br>
+**Option A** | `A`, `a` <br>
+**Option B** | `B`, `b` <br>
+**Option C** | `C`, `c` <br>
+**Option D** | `D`, `d` <br>
+**Option True** | `T`, `True` (Case-insensitive)<br> e.g., `T`,`t`, `true` <br>
+**Option False** | `F`, `False` (Case-insensitive)<br> e.g., `F`,`f`, `false` <br>
+**SAQ Answer** | `ans/ANSWER`<br> e.g., `ans/Harry Potter` <br>
 **Next** | `next` <br>
 **Prev** | `prev` <br>
 **Exit** | `exit` <br>
