@@ -3,6 +3,7 @@ package seedu.smartnus.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.smartnus.model.Model.PREDICATE_SHOW_ALL_NOTES;
 import static seedu.smartnus.model.Model.PREDICATE_SHOW_ALL_QUESTIONS;
+import static seedu.smartnus.model.Model.PREDICATE_SHOW_ALL_STATISTICS;
 
 import seedu.smartnus.model.Model;
 
@@ -57,6 +58,7 @@ public class ListCommand extends Command {
 
             break;
         case TAG_KEYWORD:
+            model.updateFilteredTagStatistic(PREDICATE_SHOW_ALL_STATISTICS);
             model.setPanel(TAG_KEYWORD);
             successMessage = MESSAGE_SUCCESS_TAGS;
 
