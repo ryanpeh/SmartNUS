@@ -223,6 +223,7 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredTagStatistic(Predicate<TagStatistic> predicate) {
         requireNonNull(predicate);
+        filteredTagStatistic = new FilteredList<>(this.smartNus.getTagStatistic());
         filteredTagStatistic.setPredicate(predicate);
     }
 
