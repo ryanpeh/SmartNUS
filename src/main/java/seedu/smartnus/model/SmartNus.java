@@ -3,13 +3,19 @@ package seedu.smartnus.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.note.NoteList;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.question.UniqueQuestionList;
+import seedu.smartnus.model.statistic.Statistic;
+import seedu.smartnus.model.statistic.TagStatistic;
+import seedu.smartnus.model.tag.Tag;
 import seedu.smartnus.ui.panel.QuestionListPanel;
 
 /**
@@ -155,6 +161,30 @@ public class SmartNus implements ReadOnlySmartNus {
     @Override
     public ObservableList<Note> getNoteList() {
         return notes.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<TagStatistic> getTagStatistic() {
+        Map<Tag, Statistic> tagStatisticMap = new HashMap<>();
+        for (Question question : questions) {
+            appendTagStatistic(tagStatisticMap, question);
+        }
+        ObservableList<TagStatistic> tagStatistics = FXCollections.observableArrayList();
+        for (Tag tag : tagStatisticMap.keySet()) {
+            tagStatistics.add(new TagStatistic(tag, tagStatisticMap.get(tag)));
+        }
+        return tagStatistics;
+    }
+
+    private void appendTagStatistic(Map<Tag, Statistic> tagStatisticMap, Question question) {
+        for (Tag tag : question.getTags()) {
+            Statistic stats = tagStatisticMap.containsKey(tag)
+                    ? tagStatisticMap.get(tag)
+                    : new Statistic();
+            stats.addAttempt(question.getStatistic().getAttemptCount());
+            stats.addCorrect(question.getStatistic().getCorrectCount());
+            tagStatisticMap.put(tag, stats);
+        }
     }
 
     @Override

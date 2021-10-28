@@ -26,6 +26,7 @@ import seedu.smartnus.model.ReadOnlyUserPrefs;
 import seedu.smartnus.model.SmartNus;
 import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.statistic.TagStatistic;
 import seedu.smartnus.testutil.QuestionBuilder;
 
 class AddMcqCommandTest {
@@ -189,6 +190,11 @@ class AddMcqCommandTest {
 
         @Override
         public Theme getTheme() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<TagStatistic> getTagStatistic() {
             throw new AssertionError("This method should not be called.");
         }
 

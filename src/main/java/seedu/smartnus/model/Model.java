@@ -9,6 +9,7 @@ import seedu.smartnus.commons.core.GuiSettings;
 import seedu.smartnus.commons.core.theme.Theme;
 import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.statistic.TagStatistic;
 
 /**
  * The API of the Model component.
@@ -153,4 +154,9 @@ public interface Model {
      * Returns the current panel to be shown.
      */
     String getPanel();
+
+    /**
+     * Returns the tag-to-statistic map.
+     */
+    ObservableList<TagStatistic> getTagStatistic();
 }

@@ -21,6 +21,7 @@ import seedu.smartnus.model.ReadOnlyUserPrefs;
 import seedu.smartnus.model.SmartNus;
 import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.statistic.TagStatistic;
 import seedu.smartnus.testutil.NoteBuilder;
 
 public class AddNoteCommandTest {
@@ -170,6 +171,11 @@ public class AddNoteCommandTest {
 
         @Override
         public String getPanel() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<TagStatistic> getTagStatistic() {
             throw new AssertionError("This method should not be called.");
         }
     }
