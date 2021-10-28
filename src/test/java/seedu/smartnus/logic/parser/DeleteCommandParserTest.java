@@ -21,12 +21,22 @@ public class DeleteCommandParserTest {
     private DeleteCommandParser parser = new DeleteCommandParser();
 
     @Test
-    public void parse_validArgs_returnsDeleteCommand() {
-        assertParseSuccess(parser, "1", new DeleteCommand(INDEX_FIRST_QUESTION));
+    public void parse_validQuestionArgs_returnsDeleteCommand() {
+        assertParseSuccess(parser, " question 1", new DeleteCommand("question", INDEX_FIRST_QUESTION));
+    }
+
+    @Test
+    public void parse_validNoteArgs_returnsDeleteCommand() {
+        assertParseSuccess(parser, " note 1", new DeleteCommand("note", INDEX_FIRST_QUESTION));
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_incompleteArgs_throwsParseException() {
+        assertParseFailure(parser, " note", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
     }
 }

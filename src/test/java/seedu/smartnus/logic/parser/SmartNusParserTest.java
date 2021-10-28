@@ -70,8 +70,8 @@ public class SmartNusParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_QUESTION.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_QUESTION), command);
+                DeleteCommand.COMMAND_WORD + " question " + INDEX_FIRST_QUESTION.getOneBased());
+        assertEquals(new DeleteCommand("question", INDEX_FIRST_QUESTION), command);
     }
 
     @Test
