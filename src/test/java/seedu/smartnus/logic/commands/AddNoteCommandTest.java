@@ -178,6 +178,11 @@ public class AddNoteCommandTest {
         public ObservableList<TagStatistic> getTagStatistic() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void updateFilteredTagStatistic(Predicate<TagStatistic> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

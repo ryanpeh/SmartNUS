@@ -29,6 +29,7 @@ public class ModelManager implements Model {
     private final FilteredList<Question> filteredQuestions;
     private final FilteredList<Note> filteredNotes;
     private FilteredList<Question> filteredQuizQuestions;
+    private FilteredList<TagStatistic> filteredTagStatistic;
 
     /**
      * Initializes a ModelManager with the given smartNus and userPrefs.
@@ -44,6 +45,7 @@ public class ModelManager implements Model {
         filteredQuestions = new FilteredList<>(this.smartNus.getQuestionList());
         filteredNotes = new FilteredList<>(this.smartNus.getNoteList());
         filteredQuizQuestions = new FilteredList<>(this.smartNus.getQuestionList());
+        filteredTagStatistic = new FilteredList<>(this.smartNus.getTagStatistic());
     }
 
     public ModelManager() {
@@ -162,6 +164,12 @@ public class ModelManager implements Model {
         return smartNus.getPanel();
     }
 
+    @Override
+    public ObservableList<TagStatistic> getTagStatistic() {
+        return filteredTagStatistic;
+    }
+
+
     //=========== Filtered Question List Accessors =============================================================
 
     /**
@@ -211,12 +219,15 @@ public class ModelManager implements Model {
         filteredQuizQuestions = new FilteredList<>(sortedQuizQuestionList);
     }
 
-    //=========== Tag Statistic Accessors =============================================================
+    //=========== Filtered Tag Statistic Accessors =============================================================
 
     @Override
-    public ObservableList<TagStatistic> getTagStatistic() {
-        return smartNus.getTagStatistic();
+    public void updateFilteredTagStatistic(Predicate<TagStatistic> predicate) {
+        requireNonNull(predicate);
+        filteredTagStatistic.setPredicate(predicate);
     }
+
+
 
     //=========== Miscellaneous Accessors =============================================================
 

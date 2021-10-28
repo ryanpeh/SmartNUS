@@ -199,6 +199,11 @@ class AddMcqCommandTest {
         }
 
         @Override
+        public void updateFilteredTagStatistic(Predicate<TagStatistic> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setPanel(String panel) {
             throw new AssertionError("This method should not be called.");
         }
