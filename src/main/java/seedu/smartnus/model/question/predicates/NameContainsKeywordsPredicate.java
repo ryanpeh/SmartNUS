@@ -26,8 +26,11 @@ public class NameContainsKeywordsPredicate implements Predicate<Question> {
 
     @Override
     public boolean test(Question question) {
+        if (keywords.isEmpty()) {
+            return false;
+        }
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(question.getName().fullName, keyword));
+                .allMatch(keyword -> StringUtil.containsWordIgnoreCase(question.getName().fullName, keyword));
     }
 
     @Override

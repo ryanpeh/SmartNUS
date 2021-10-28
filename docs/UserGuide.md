@@ -183,7 +183,7 @@ Format: `find [KEYWORDS]... [t/TAG]... [i/IMPORTANCE]`
 * At least one of the optional fields to find by must be specified
 * The search is case-insensitive for both keywords and tags (e.g. `math` will match `MaTH`).
 * Only full words will be matched for both keywords and tags (e.g. `CS2100` will not match `CS210`).
-* Any question that has at least one of the tags **AND** at least one of the keywords in its title **AND** the importance specified will be listed.
+* Any question that has at least one of the tags **AND** and all the keywords in its title (in any order) **AND** the importance specified will be listed.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 You can search for more than one tag or keyword.
@@ -191,7 +191,7 @@ You can search for more than one tag or keyword.
 
 Examples:
 * `find load word t/CS2100 t/MIPS` returns questions tagged with at least one of the tags and that whose title includes "load", "word" or both.
-  * e.g. A question titled "how long does it take to load a game?" tagged with CS2100 will be listed
+  * e.g. A question titled "What is the load word instruction used for?" tagged with only CS2100 will be listed
 
 ### Start a Quiz: `quiz`
 
