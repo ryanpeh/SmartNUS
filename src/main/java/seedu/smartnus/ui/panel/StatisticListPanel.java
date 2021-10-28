@@ -10,7 +10,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import seedu.smartnus.commons.core.LogsCenter;
 import seedu.smartnus.logic.Logic;
-import seedu.smartnus.model.tag.TagStatistic;
+import seedu.smartnus.model.statistic.TagStatistic;
 import seedu.smartnus.ui.StatusBarFooter;
 import seedu.smartnus.ui.UiPart;
 import seedu.smartnus.ui.card.StatisticCard;
