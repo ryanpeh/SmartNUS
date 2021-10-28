@@ -126,20 +126,21 @@ Examples:
   "potter harry", "harrypotter" and "wordthatincludesharryandpotter"
   * incorrect answers: "Harry", "Potter", "harr pottery"
 
-<!-- ### Listing all persons : `list`
+### Listing all items : `list <KEYWORD>`
 
-Shows a list of all questions in the address book.
+Shows a list of all questions or notes stored in SmartNus.
 
-Format: `list` -->
+Format: `list note` OR `list question`
 
-### Deleting a Question and Answer: `delete`
+### Deleting a Question or Note: `delete`
 
 Deletes an existing question and answer in the question bank.
 
-Format: `delete QUESTION_ID`
+Format: for questions: `delete question QUESTION_INDEX`
+for notes: `delete note NOTE_INDEX`
 
-* Deletes the question and answer with the specified `QUESTION_ID`.
-* The question id refers to the index number shown in the displayed question list. The index **must be a positive integer** 1, 2, 3, …​ -->
+* Deletes the question or note with the specified `INDEX`.
+* The INDEX refers to the index number shown in the displayed list. The index **must be a positive integer** 1, 2, 3, …​ 
 
 ### Editing a Question and Answers: `edit`
 
