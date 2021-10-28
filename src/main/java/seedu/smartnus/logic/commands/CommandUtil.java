@@ -1,10 +1,10 @@
 package seedu.smartnus.logic.commands;
 
-import seedu.smartnus.model.question.Question;
-import seedu.smartnus.model.question.predicates.ShowAllQuestionsPredicate;
-
 import java.util.Collection;
 import java.util.function.Predicate;
+
+import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.question.predicates.ShowAllQuestionsPredicate;
 
 /**
  * Contains utility methods used for Commands.

@@ -12,7 +12,6 @@ import java.util.function.Predicate;
 import seedu.smartnus.commons.core.Messages;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.question.Question;
-import seedu.smartnus.model.question.predicates.ShowAllQuestionsPredicate;
 
 /**
  * Finds and lists all questions in SmartNUS whose name contains any of the argument keywords,
