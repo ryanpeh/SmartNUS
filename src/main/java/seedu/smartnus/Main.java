@@ -19,7 +19,13 @@ import javafx.application.Application;
  * to be the entry point of the application, we avoid this issue.
  */
 public class Main {
+    /**
+     * Main method which launches the application.
+     * @param args The command line arguments.
+     */
     public static void main(String[] args) {
+        // Disables dpi scaling, which causes issues in the rendering of javafx components
+        System.setProperty("prism.allowhidpi", "false");
         Application.launch(MainApp.class, args);
     }
 }
