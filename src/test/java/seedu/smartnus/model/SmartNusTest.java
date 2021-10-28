@@ -24,8 +24,8 @@ import javafx.collections.ObservableList;
 import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.question.exceptions.DuplicateQuestionException;
-import seedu.smartnus.model.tag.Tag;
 import seedu.smartnus.model.statistic.TagStatistic;
+import seedu.smartnus.model.tag.Tag;
 import seedu.smartnus.testutil.QuestionBuilder;
 
 public class SmartNusTest {

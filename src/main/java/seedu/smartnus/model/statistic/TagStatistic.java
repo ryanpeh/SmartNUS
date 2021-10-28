@@ -2,9 +2,8 @@ package seedu.smartnus.model.statistic;
 
 import seedu.smartnus.model.tag.Tag;
 
-public class TagStatistic {
+public class TagStatistic extends Statistic {
     private final Tag tag;
-    private final Statistic statistic;
 
     /**
      * Constructor for a tag-statistic.
@@ -12,8 +11,8 @@ public class TagStatistic {
      * @param statistic The statistic.
      */
     public TagStatistic(Tag tag, Statistic statistic) {
+        super(statistic.getAttemptCount(), statistic.getCorrectCount());
         this.tag = tag;
-        this.statistic = statistic;
     }
 
     /**
@@ -24,35 +23,10 @@ public class TagStatistic {
         return tag.getTagName();
     }
 
-    /**
-     * Returns the number of attempts;
-     * @return The number of attempts;
-     */
-    public int getAttemptCount() {
-        return statistic.getAttemptCount();
-    }
-
-    /**
-     * Returns the number of correct attempts;
-     * @return The number of attempts;
-     */
-    public int getCorrectCount() {
-        return statistic.getCorrectCount();
-    }
-
-    /**
-     * Returns the number of correct percentage;
-     * @return The number of correct percentage;
-     */
-    public int getCorrectPercentage() {
-        return statistic.getCorrectPercentage();
-    }
-
     @Override
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof TagStatistic
-                && tag.equals(((TagStatistic) other).tag)
-                && statistic.equals(((TagStatistic) other).statistic));
+                && tag.equals(((TagStatistic) other).tag));
     }
 }
