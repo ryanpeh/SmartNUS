@@ -7,7 +7,6 @@ import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
-import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.statistic.TagStatistic;
 import seedu.smartnus.model.statistic.predicates.ShowAllStatsPredicate;
