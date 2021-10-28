@@ -24,14 +24,14 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all questions whose names contain any of "
-            + "the specified keywords (case-insensitive), and any of the specified tags (case-insensitive)"
-            + "and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "[" + PREFIX_IMPORTANCE + "IMPORTANCE]\n"
-            + "Example: " + COMMAND_WORD + " definition algorithm"
-            + PREFIX_TAG + "CS2103T " + PREFIX_TAG + "CS2100"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all questions whose names contain any of"
+            + " the specified keywords (case-insensitive), and any of the specified tags (case-insensitive)"
+            + " and displays them as a list with index numbers.\n"
+            + "Parameters: [KEYWORD]..."
+            + " [" + PREFIX_TAG + "TAG]..."
+            + " [" + PREFIX_IMPORTANCE + "IMPORTANCE]\n"
+            + "Example: " + COMMAND_WORD + " definition algorithm "
+            + PREFIX_TAG + "CS2103T " + PREFIX_TAG + "CS2100 "
             + PREFIX_IMPORTANCE + "1\n";
 
     public static final String MESSAGE_NO_FIELDS_SPECIFIED = "You must specify at least one keyword or parameter"
