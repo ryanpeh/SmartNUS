@@ -32,7 +32,7 @@ public class NextQuestionCommand extends Command {
             quizManager.nextQuestion();
         } catch (QuizOutOfBoundException e) {
             return new CommandResult(MESSAGE_END_OF_QUIZ
-                    + "\n Here is the quiz statistic: " + quizManager.getStatistic());
+                    + "\nHere is the quiz statistic: " + quizManager.getStatistic());
         }
 
         return new CommandResult(MESSAGE_SUCCESS);

@@ -63,7 +63,7 @@ public class SampleDataUtil {
             ),
             new TrueFalseQuestion(
                     new Name("Data abstraction is removing all data-related information"
-                            + "from the view to create a higher level abstraction."),
+                            + " from the view to create a higher level abstraction."),
                     new Importance("2"), getTagSet("CS2103T", "Java", "Design"),
                     getChoiceSet(new Choice("True", false), new Choice("False", true))
             ),
