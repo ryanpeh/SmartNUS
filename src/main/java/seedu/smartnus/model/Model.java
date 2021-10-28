@@ -18,6 +18,7 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Question> PREDICATE_SHOW_ALL_QUESTIONS = unused -> true;
     Predicate<Note> PREDICATE_SHOW_ALL_NOTES = unused -> true;
+    Predicate<TagStatistic> PREDICATE_SHOW_ALL_STATISTICS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.

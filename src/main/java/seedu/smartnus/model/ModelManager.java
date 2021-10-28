@@ -164,12 +164,6 @@ public class ModelManager implements Model {
         return smartNus.getPanel();
     }
 
-    @Override
-    public ObservableList<TagStatistic> getTagStatistic() {
-        return filteredTagStatistic;
-    }
-
-
     //=========== Filtered Question List Accessors =============================================================
 
     /**
@@ -222,12 +216,16 @@ public class ModelManager implements Model {
     //=========== Filtered Tag Statistic Accessors =============================================================
 
     @Override
-    public void updateFilteredTagStatistic(Predicate<TagStatistic> predicate) {
-        requireNonNull(predicate);
-        filteredTagStatistic.setPredicate(predicate);
+    public ObservableList<TagStatistic> getTagStatistic() {
+        return filteredTagStatistic;
     }
 
-
+    @Override
+    public void updateFilteredTagStatistic(Predicate<TagStatistic> predicate) {
+        requireNonNull(predicate);
+        filteredTagStatistic = new FilteredList<>(this.smartNus.getTagStatistic());
+        filteredTagStatistic.setPredicate(predicate);
+    }
 
     //=========== Miscellaneous Accessors =============================================================
 
