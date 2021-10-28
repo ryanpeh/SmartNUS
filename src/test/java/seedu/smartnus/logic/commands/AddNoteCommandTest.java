@@ -165,6 +165,16 @@ public class AddNoteCommandTest {
         }
 
         @Override
+        public void setPanel(String panel) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String getPanel() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<TagStatistic> getTagStatistic() {
             throw new AssertionError("This method should not be called.");
         }

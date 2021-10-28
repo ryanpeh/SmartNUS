@@ -146,6 +146,16 @@ public interface Model {
     Theme getTheme();
 
     /**
+     * Sets the current panel to be shown.
+     */
+    void setPanel(String panel);
+
+    /**
+     * Returns the current panel to be shown.
+     */
+    String getPanel();
+
+    /**
      * Returns the tag-to-statistic map.
      */
     ObservableList<TagStatistic> getTagStatistic();

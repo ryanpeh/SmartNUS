@@ -16,6 +16,7 @@ import seedu.smartnus.model.question.UniqueQuestionList;
 import seedu.smartnus.model.statistic.Statistic;
 import seedu.smartnus.model.statistic.TagStatistic;
 import seedu.smartnus.model.tag.Tag;
+import seedu.smartnus.ui.panel.QuestionListPanel;
 
 /**
  * Wraps all data at the SmartNus level
@@ -25,6 +26,7 @@ public class SmartNus implements ReadOnlySmartNus {
 
     private final UniqueQuestionList questions;
     private final NoteList notes;
+    private String panel = QuestionListPanel.QUESTION_PANEL;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -222,5 +224,13 @@ public class SmartNus implements ReadOnlySmartNus {
             allNotes.add(n);
         }
         return allNotes;
+    }
+
+    public void setPanel(String panel) {
+        this.panel = panel;
+    }
+
+    public String getPanel() {
+        return panel;
     }
 }
