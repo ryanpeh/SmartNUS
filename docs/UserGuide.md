@@ -157,10 +157,15 @@ Format: `exit`
 
 ## <a name="quiz_window_commands"></a>Quiz Window Commands
 
-### Answering a multiple choice question: `a` `b` `c` `d`
+### Answering a multiple choice question: `A` `B` `C` `D`
 Answers the multiple choice question with the options.
 
-Possible options are: `a` `b` `c` or `d`
+Possible options are: `A` `B` `C` or `D` (case-insensitive)
+
+### Answering a multiple choice question: `T` `F`
+Answers the multiple choice question with the options.
+
+Possible options are: `T` `F` `True` `False` (case-insensitive)
 
 ### Go to the next question: `next`
 Navigate to the next question.
@@ -219,10 +224,12 @@ Action | Format, Examples
 
 Action | Format, Examples
 --------|------------------
-**Option a** | `a` <br>
-**Option b** | `b` <br>
-**Option c** | `c` <br>
-**Option d** | `d` <br>
+**Option A** | `A`, `a`  <br>
+**Option B** | `B`,`b` <br>
+**Option C** | `C`,`c` <br>
+**Option D** | `D`,`d` <br>
+**Option True** | `T`,`t`, `true` <br>
+**Option False** | `F`,`f`, `false` <br>
 **Next** | `next` <br>
 **Prev** | `prev` <br>
 **Exit** | `exit` <br>
