@@ -5,6 +5,7 @@ import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_LIMIT_ARG;
 import static seedu.smartnus.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.smartnus.logic.commands.ListCommand.NOTE_KEYWORD;
 import static seedu.smartnus.logic.commands.ListCommand.QUESTION_KEYWORD;
+import static seedu.smartnus.logic.commands.ListCommand.TAG_KEYWORD;
 import static seedu.smartnus.logic.commands.ThemeCommand.DARK_KEYWORD;
 import static seedu.smartnus.logic.commands.ThemeCommand.LIGHT_KEYWORD;
 import static seedu.smartnus.logic.parser.AddTfCommandParser.ANSWER_FALSE;
@@ -360,6 +361,8 @@ public class ParserUtil {
      * @return True if listArgument is valid, false otherwise.
      */
     public static boolean isValidListArgument(String listArgument) {
-        return listArgument.trim().equals(NOTE_KEYWORD) || listArgument.trim().equals(QUESTION_KEYWORD);
+        return listArgument.trim().equals(NOTE_KEYWORD)
+                || listArgument.trim().equals(QUESTION_KEYWORD)
+                || listArgument.trim().equals(TAG_KEYWORD);
     }
 }

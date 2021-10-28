@@ -2,6 +2,7 @@ package seedu.smartnus.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.smartnus.model.Model.PREDICATE_SHOW_ALL_QUESTIONS;
 import static seedu.smartnus.testutil.Assert.assertThrows;
@@ -138,5 +139,11 @@ public class ModelManagerTest {
         // sorted list -> returns false
         modelManager.sortFilteredQuizQuestionList(new QuestionsDefaultComparator());
         assertFalse(modelManager.equals(new ModelManager(smartNus, userPrefs)));
+    }
+
+    @Test
+    public void getTagStatistic_correct() {
+        modelManager.addQuestion(ALICE);
+        assertNotEquals(null, modelManager.getTagStatistic());
     }
 }

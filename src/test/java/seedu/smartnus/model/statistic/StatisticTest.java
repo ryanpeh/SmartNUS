@@ -1,4 +1,4 @@
-package seedu.smartnus.model.question;
+package seedu.smartnus.model.statistic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -21,11 +21,11 @@ public class StatisticTest {
 
         assertEquals(0, defaultStat.getAttemptCount());
         assertEquals(0, defaultStat.getCorrectCount());
-        assertEquals(0.0, defaultStat.getCorrectPercentage());
+        assertEquals(0, defaultStat.getCorrectPercentage());
 
         assertEquals(10, tenAttempts.getAttemptCount());
         assertEquals(5, tenAttempts.getCorrectCount());
-        assertEquals(50.0, tenAttempts.getCorrectPercentage());
+        assertEquals(50, tenAttempts.getCorrectPercentage());
     }
 
     @Test
@@ -35,12 +35,12 @@ public class StatisticTest {
         defaultStat.addCorrect();
         assertEquals(1, defaultStat.getAttemptCount());
         assertEquals(1, defaultStat.getCorrectCount());
-        assertEquals(100.0, defaultStat.getCorrectPercentage());
+        assertEquals(100, defaultStat.getCorrectPercentage());
 
         defaultStat.addAttempt();
         assertEquals(2, defaultStat.getAttemptCount());
         assertEquals(1, defaultStat.getCorrectCount());
-        assertEquals(50.0, defaultStat.getCorrectPercentage());
+        assertEquals(50, defaultStat.getCorrectPercentage());
     }
 
     @Test

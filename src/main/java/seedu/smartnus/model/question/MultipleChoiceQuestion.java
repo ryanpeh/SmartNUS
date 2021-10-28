@@ -3,6 +3,7 @@ package seedu.smartnus.model.question;
 import java.util.Set;
 
 import seedu.smartnus.model.choice.Choice;
+import seedu.smartnus.model.statistic.Statistic;
 import seedu.smartnus.model.tag.Tag;
 
 public class MultipleChoiceQuestion extends Question {

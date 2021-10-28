@@ -2,8 +2,8 @@ package seedu.smartnus.model.quiz;
 
 import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.question.Question;
-import seedu.smartnus.model.question.Statistic;
 import seedu.smartnus.model.quiz.exceptions.QuizOutOfBoundException;
+import seedu.smartnus.model.statistic.Statistic;
 
 /**
  * The API for the Quiz component.
