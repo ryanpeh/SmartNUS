@@ -6,8 +6,6 @@ import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_NOTE_1;
 import static seedu.smartnus.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.smartnus.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import java.util.HashSet;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.smartnus.logic.commands.AddNoteCommand;
@@ -20,7 +18,7 @@ public class AddNoteCommandParserTest {
     @Test
     void parse_allFieldsValid_success() {
 
-        Note expectedNote = new Note(VALID_NOTE_1, new HashSet<>());
+        Note expectedNote = new Note(VALID_NOTE_1);
 
         AddNoteCommand expectedCommand = new AddNoteCommand(expectedNote);
 

@@ -12,48 +12,62 @@ import seedu.smartnus.model.Model;
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
+
     public static final String NOTE_KEYWORD = "note";
     public static final String QUESTION_KEYWORD = "question";
+    public static final String TAG_KEYWORD = "tag";
 
     public static final String MESSAGE_SUCCESS_QUESTIONS = "Listed all questions";
     public static final String MESSAGE_SUCCESS_NOTES = "Listed all notes";
+    public static final String MESSAGE_SUCCESS_TAGS = "Listed all tags";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": lists the contents of SmartNUS. "
             + "Parameters: "
             + NOTE_KEYWORD + ": list notes or "
-            + QUESTION_KEYWORD + ": list questions "
+            + QUESTION_KEYWORD + ": list questions or "
+            + TAG_KEYWORD + ": list tag statistics "
             + "Example: " + COMMAND_WORD + " "
-            + NOTE_KEYWORD;
+            + QUESTION_KEYWORD;
 
-    private static boolean displayQuestions = true;
+    private String panel;
 
     /**
      * Instantiates a new ListCommand
      * @param listArg argument passed to the list command
      */
     public ListCommand(String listArg) {
-        displayQuestions = !listArg.equals(NOTE_KEYWORD);
-    }
-
-    /**
-     * returns the boolean determining what to list.
-     * @return displayQuestions
-     */
-    public static boolean isDisplayQuestions() {
-        return displayQuestions;
+        panel = listArg; // assuming given listArg is valid
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         String successMessage;
-        if (displayQuestions) {
+        switch (panel) {
+        case QUESTION_KEYWORD:
             model.updateFilteredQuestionList(PREDICATE_SHOW_ALL_QUESTIONS);
+            model.setPanel(QUESTION_KEYWORD);
             successMessage = MESSAGE_SUCCESS_QUESTIONS;
-        } else {
+
+            break;
+        case NOTE_KEYWORD:
             model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
+            model.setPanel(NOTE_KEYWORD);
             successMessage = MESSAGE_SUCCESS_NOTES;
+
+            break;
+        case TAG_KEYWORD:
+            model.setPanel(TAG_KEYWORD);
+            successMessage = MESSAGE_SUCCESS_TAGS;
+
+            break;
+        default:
+            // Defensive programming
+            model.updateFilteredQuestionList(PREDICATE_SHOW_ALL_QUESTIONS);
+            model.setPanel(QUESTION_KEYWORD);
+            successMessage = MESSAGE_SUCCESS_QUESTIONS;
         }
-        return new CommandResult(successMessage, false, false, false, true);
+        return new CommandResult(successMessage);
     }
 
     /**
@@ -65,6 +79,6 @@ public class ListCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ListCommand // instanceof handles nulls
-                && displayQuestions == (((ListCommand) other).displayQuestions));
+                && panel.equals(((ListCommand) other).panel));
     }
 }

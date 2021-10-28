@@ -4,6 +4,7 @@ import static seedu.smartnus.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+
 public class TagTest {
 
     @Test

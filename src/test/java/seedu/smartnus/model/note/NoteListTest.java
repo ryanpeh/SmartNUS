@@ -1,7 +1,6 @@
 package seedu.smartnus.model.note;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_NOTE_TAG_1;
 import static seedu.smartnus.testutil.Assert.assertThrows;
 import static seedu.smartnus.testutil.TypicalNotes.CS2100_NOTE;
 import static seedu.smartnus.testutil.TypicalNotes.CS2103T_NOTE;
@@ -29,8 +28,7 @@ public class NoteListTest {
     @Test
     public void setNote_editedNoteHasSameIdentity_success() {
         noteList.add(CS2103T_NOTE);
-        Note editedCs2103t = new NoteBuilder(CS2103T_NOTE).withTags(VALID_NOTE_TAG_1)
-                .build();
+        Note editedCs2103t = new NoteBuilder(CS2103T_NOTE).build();
         noteList.setNote(CS2103T_NOTE, editedCs2103t);
         NoteList expectedNoteList = new NoteList();
         expectedNoteList.add(editedCs2103t);

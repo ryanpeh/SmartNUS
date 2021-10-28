@@ -1,6 +1,7 @@
 package seedu.smartnus.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -8,6 +9,7 @@ import seedu.smartnus.commons.core.GuiSettings;
 import seedu.smartnus.commons.core.theme.Theme;
 import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.statistic.TagStatistic;
 
 /**
  * The API of the Model component.
@@ -128,6 +130,12 @@ public interface Model {
     void updateFilteredQuizQuestionList(Predicate<Question> predicate);
 
     /**
+     * Sorts the filtered quiz question list using the given {@code comparator}
+     * @throws NullPointerException if {@code comparator} is null.
+     */
+    void sortFilteredQuizQuestionList(Comparator<Question> comparator);
+
+    /**
      * Sets the Theme.
      */
     void setTheme(Theme theme);
@@ -136,4 +144,19 @@ public interface Model {
      * Returns the Theme.
      */
     Theme getTheme();
+
+    /**
+     * Sets the current panel to be shown.
+     */
+    void setPanel(String panel);
+
+    /**
+     * Returns the current panel to be shown.
+     */
+    String getPanel();
+
+    /**
+     * Returns the tag-to-statistic map.
+     */
+    ObservableList<TagStatistic> getTagStatistic();
 }

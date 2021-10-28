@@ -1,9 +1,9 @@
-package seedu.smartnus.model.question;
+package seedu.smartnus.model.statistic;
 
 /**
  * Class to keep track of question statistics.
  */
-public class Statistic {
+public class Statistic implements Comparable<Statistic> {
 
     private int attemptCount;
     private int correctCount;
@@ -50,6 +50,14 @@ public class Statistic {
     }
 
     /**
+     * Adds the number of attempts.
+     * @param attempts The number of attempts.
+     */
+    public void addAttempt(int attempts) {
+        attemptCount += attempts;
+    }
+
+    /**
      * Updates the number of correct attempt (+1)
      */
     public void addCorrect() {
@@ -57,16 +65,24 @@ public class Statistic {
     }
 
     /**
+     * Adds the number of correct attempts.
+     * @param corrects The number of correct attempts.
+     */
+    public void addCorrect(int corrects) {
+        correctCount += corrects;
+    }
+
+    /**
      * Returns the percentage of correct attempts over total attempts.
      * @return The percentage of correct attempts.
      */
-    public double getCorrectPercentage() {
+    public int getCorrectPercentage() {
         if (attemptCount == 0) {
             return 0;
         }
         double correct = correctCount * 1.0;
         double attempt = attemptCount * 1.0;
-        return correct / attempt * 100;
+        return (int) (correct / attempt * 100);
     }
 
     @Override
@@ -97,5 +113,21 @@ public class Statistic {
                 .append(getCorrectPercentage())
                 .append("%");
         return builder;
+    }
+
+    @Override
+    public int compareTo(Statistic o) {
+        int res = 0;
+        Integer percentage = this.getCorrectPercentage();
+        Integer otherPercentage = o.getCorrectPercentage();
+        res = percentage.compareTo(otherPercentage);
+        if (res != 0) {
+            return res;
+        }
+
+        // if percentage is the same, use attempts as tiebreaker
+        Integer attempts = this.attemptCount;
+        Integer otherAttempts = o.attemptCount;
+        return -attempts.compareTo(otherAttempts);
     }
 }

@@ -38,6 +38,7 @@ public class EditQuestionDescriptorBuilder {
         descriptor.setWrongChoices(question.getWrongChoices());
         descriptor.setAnswer(question.getCorrectChoice());
         descriptor.setTfChoices(question.getChoices());
+        descriptor.setSaqChoices(question.getChoices());
     }
 
     /**
@@ -86,10 +87,18 @@ public class EditQuestionDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code choices} of the {@code EditQuestionDescriptor} that we are building.
+     * Sets the {@code parsedTfChoices} of the {@code EditQuestionDescriptor} that we are building.
      */
     public EditQuestionDescriptorBuilder withTfChoices(Set<Choice> choices) {
         descriptor.setTfChoices(choices);
+        return this;
+    }
+
+    /**
+     * Sets the {@code parsedSaqChoices} of the {@code EditQuestionDescriptor} that we are building.
+     */
+    public EditQuestionDescriptorBuilder withSaqChoices(Set<Choice> choices) {
+        descriptor.setSaqChoices(choices);
         return this;
     }
 

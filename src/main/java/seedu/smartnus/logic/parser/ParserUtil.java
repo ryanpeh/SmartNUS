@@ -1,13 +1,17 @@
 package seedu.smartnus.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_LIMIT_ARG;
 import static seedu.smartnus.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.smartnus.logic.commands.ListCommand.NOTE_KEYWORD;
 import static seedu.smartnus.logic.commands.ListCommand.QUESTION_KEYWORD;
+import static seedu.smartnus.logic.commands.ListCommand.TAG_KEYWORD;
 import static seedu.smartnus.logic.commands.ThemeCommand.DARK_KEYWORD;
 import static seedu.smartnus.logic.commands.ThemeCommand.LIGHT_KEYWORD;
 import static seedu.smartnus.logic.parser.AddTfCommandParser.ANSWER_FALSE;
 import static seedu.smartnus.logic.parser.AddTfCommandParser.ANSWER_TRUE;
+import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_KEYWORD;
+import static seedu.smartnus.model.choice.Choice.MESSAGE_KEYWORD_CONSTRAINTS;
 import static seedu.smartnus.model.question.MultipleChoiceQuestion.NUMBER_OF_INCORRECT_CHOICES;
 
 import java.util.ArrayList;
@@ -145,6 +149,24 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code String limit} into a {@code int} limit.
+     */
+    public static int parseQuizLimit(String limit) throws ParseException {
+        requireNonNull(limit);
+        String trimmedLimit = limit.trim();
+        int res;
+        try {
+            res = Integer.parseInt(trimmedLimit);
+        } catch (NumberFormatException e) {
+            throw new ParseException(MESSAGE_INVALID_LIMIT_ARG);
+        }
+        if (res <= 0) {
+            throw new ParseException(MESSAGE_INVALID_LIMIT_ARG);
+        }
+        return res;
+    }
+
+    /**
      * Parses {@code String choice} into a {@code Choice choice}.
      */
     public static Choice parseChoice(String choice, boolean isCorrect) throws ParseException {
@@ -270,6 +292,61 @@ public class ParserUtil {
     }
 
     /**
+     * Returns SAQ Choice with parsed title that does not contain keyword prefixes.
+     *
+     * @param answer Choice that contains raw user input as the title.
+     * @return SAQ Choice with parsed title that does not contain keyword prefixes.
+     * @throws ParseException
+     */
+    public static Set<Choice> parseEditSaqAnswer(Choice answer) throws ParseException {
+        String answerString = answer.getTitle();
+        ArgumentMultimap keywordsMultimap = ArgumentTokenizer.tokenize(" " + answerString, PREFIX_KEYWORD);
+        answer = ParserUtil.getChoiceWithKeywords(answerString, keywordsMultimap);
+        Set<Choice> choices = new HashSet<>();
+        choices.add(answer);
+        return choices;
+    }
+
+    /**
+     * Returns Choice with formatted title without keyword prefixes and set of keywords specified in user input.
+     *
+     * @param answerString Raw user input that includes keyword prefixes (k/).
+     * @param keywordsMultimap Multimap of keyword prefixes to their arguments.
+     * @return Choice that contains formatted title without keyword prefix and set of keywords from user input.
+     * @throws ParseException If answerString is blank or empty keywords are specified.
+     */
+    public static Choice getChoiceWithKeywords(String answerString, ArgumentMultimap keywordsMultimap)
+            throws ParseException {
+        if (answerString.isBlank()) {
+            throw new ParseException(Choice.MESSAGE_CONSTRAINTS);
+        }
+        String answerTitleWithoutPrefix = answerString.replaceAll(PREFIX_KEYWORD.toString(), "");
+        Set<String> parsedKeywords = new HashSet<>();
+        List<String> keywordsList = keywordsMultimap.getAllValues(PREFIX_KEYWORD);
+        checkEmptyKeywords(keywordsList);
+
+        for (String keywords : keywordsList) {
+            String[] singleWords = keywords.split("\\W+"); // keywords will be stored without punctuation
+            for (String word : singleWords) {
+                if (word.isBlank()) {
+                    continue;
+                }
+                parsedKeywords.add(word.toLowerCase());
+                break; // only the first non-empty word specified after prefix is a keyword
+            }
+        }
+        return new Choice(answerTitleWithoutPrefix, true, parsedKeywords);
+    }
+
+    private static void checkEmptyKeywords(List<String> keywords) throws ParseException {
+        for (String word : keywords) {
+            if (word.isBlank()) {
+                throw new ParseException(MESSAGE_KEYWORD_CONSTRAINTS);
+            }
+        }
+    }
+
+    /**
      * Returns True if the given theme is valid.
      * @param theme The given theme.
      * @return True if theme is valid, false otherwise.
@@ -284,6 +361,8 @@ public class ParserUtil {
      * @return True if listArgument is valid, false otherwise.
      */
     public static boolean isValidListArgument(String listArgument) {
-        return listArgument.trim().equals(NOTE_KEYWORD) || listArgument.trim().equals(QUESTION_KEYWORD);
+        return listArgument.trim().equals(NOTE_KEYWORD)
+                || listArgument.trim().equals(QUESTION_KEYWORD)
+                || listArgument.trim().equals(TAG_KEYWORD);
     }
 }

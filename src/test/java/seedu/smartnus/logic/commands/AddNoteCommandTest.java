@@ -7,6 +7,7 @@ import static seedu.smartnus.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -20,6 +21,7 @@ import seedu.smartnus.model.ReadOnlyUserPrefs;
 import seedu.smartnus.model.SmartNus;
 import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.statistic.TagStatistic;
 import seedu.smartnus.testutil.NoteBuilder;
 
 public class AddNoteCommandTest {
@@ -148,12 +150,32 @@ public class AddNoteCommandTest {
         }
 
         @Override
+        public void sortFilteredQuizQuestionList(Comparator<Question> comparator) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setTheme(Theme theme) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public Theme getTheme() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setPanel(String panel) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String getPanel() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<TagStatistic> getTagStatistic() {
             throw new AssertionError("This method should not be called.");
         }
     }
