@@ -24,8 +24,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_SAQ_ANSWER_FORMAT = "Invalid answer format!"
             + " Answer must start with prefix ans/\n";
     public static final String MESSAGE_END_OF_QUIZ = "You have reached the end of the quiz, enter '"
-            + ExitCommand.COMMAND_WORD + "' to exit the quiz, or enter " + PrevQuestionCommand.COMMAND_WORD
-            + "to view the previous question.";
+            + ExitCommand.COMMAND_WORD + "' to exit the quiz, or enter '" + PrevQuestionCommand.COMMAND_WORD
+            + "' to view the previous question.";
     public static final String MESSAGE_CONTINUE_QUIZ = "Enter '" + NextQuestionCommand.COMMAND_WORD
             + "' to proceed with the next question, or '" + ExitCommand.COMMAND_WORD + "' to exit the quiz";
     public static final String MESSAGE_INVALID_LIMIT_ARG = "Limit must be a valid positive integer!";

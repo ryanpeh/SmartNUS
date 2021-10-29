@@ -44,7 +44,7 @@ class NextQuestionCommandTest {
             quizManager.nextQuestion();
         }
         assertEquals(nextQuestionCommand.execute(model), new CommandResult(MESSAGE_END_OF_QUIZ
-                + "\n Here is the quiz statistic: " + quizManager.getStatistic()));
+                + "\nHere is the quiz statistic: " + quizManager.getStatistic()));
     }
 
     @Test
