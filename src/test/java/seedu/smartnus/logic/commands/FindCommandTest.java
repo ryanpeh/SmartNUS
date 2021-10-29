@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.smartnus.commons.core.Messages.MESSAGE_QUESTIONS_LISTED_OVERVIEW;
 import static seedu.smartnus.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.smartnus.testutil.TypicalQuestions.CARL;
-import static seedu.smartnus.testutil.TypicalQuestions.ELLE;
 import static seedu.smartnus.testutil.TypicalQuestions.FIONA;
 import static seedu.smartnus.testutil.TypicalSmartNus.getTypicalSmartNus;
 
@@ -74,15 +72,15 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multipleQuestionsFound() {
-        String expectedMessage = String.format(MESSAGE_QUESTIONS_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = prepareNamePredicate("Kurz Elle Kunz");
+    public void execute_multipleKeywords_oneQuestionFound() {
+        String expectedMessage = String.format(MESSAGE_QUESTIONS_LISTED_OVERVIEW, 1);
+        NameContainsKeywordsPredicate predicate = prepareNamePredicate("Fiona Kunz");
         ArrayList<Predicate<Question>> arr = new ArrayList<>();
         arr.add(predicate);
         FindCommand command = new FindCommand(arr);
         expectedModel.updateFilteredQuestionList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredQuestionList());
+        assertEquals(Arrays.asList(FIONA), model.getFilteredQuestionList());
     }
 
     /**

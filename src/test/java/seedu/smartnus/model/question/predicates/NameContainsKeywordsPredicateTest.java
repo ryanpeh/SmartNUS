@@ -49,7 +49,7 @@ public class NameContainsKeywordsPredicateTest {
         assertTrue(predicate.test(new QuestionBuilder().withName("Alice Bob").build()));
 
         // Only one matching keyword
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Carol"));
         assertTrue(predicate.test(new QuestionBuilder().withName("Alice Carol").build()));
 
         // Mixed-case keywords
