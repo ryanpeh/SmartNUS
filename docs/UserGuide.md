@@ -194,9 +194,26 @@ Examples:
 * `find load word t/CS2100 t/MIPS` returns questions tagged with at least one of the tags and that whose title includes "load" and "word" in any order.
   * e.g. A question titled "What is the load word instruction used for?" tagged with only CS2100 will be listed
 
-### Start a Quiz: `quiz`
+### Find/Search Stats: `stat [t/TAG]...`
 
-Starts a quiz session using all the questions in the question list.
+* Shows the list of statistics by Tag for the questions attempted.
+* The search is case-insentitive for tags
+* Only full words will be matched (e.g. `CS2100` will not match `CS210`)
+* Statistics for any of the tags passed in will be shown
+* If no parameters are passed in, it will show all statistics
+
+Examples:
+* `stat t/CS2100 t/MIPS` returns the overall statistics for the questions tagged with `CS2100` or `MIPS` or both.
+
+### Start a Quiz: `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX]`
+
+* If no parameters are passed, a quiz session using all the questions in the question list.
+* LIMIT is a positive, non-zero integer that will limit the number of questions in the quiz.
+  * If the total number of questions is less than the limit, it will just give all the questions.
+* TAG can be used to filter the quiz to only give questions with the tags specified, works with limit.
+
+Examples:
+* `quiz lim/5 t/CS2100 t/MIPS` quiz will select questions tagged with at least one of the tags, limited to 5 questions.
 
 Format: `quiz`
 
@@ -250,6 +267,11 @@ Format: `ans/ANSWER`
 Examples:
 * `ans/Harry Potter` would answer the short answer question with "Harry Potter"
 
+### Answering a true false question: `T` `F`
+Answers the true false question with the options
+
+Lower case is accepted as well: `t` or `f`
+
 ### Go to the next question: `next`
 Navigate to the next question.
 
@@ -299,7 +321,7 @@ Action | Format, Examples
 --------|------------------
 **MCQ** | `mcq qn/QUESTION opt/OPTION1 opt/OPTION2 opt/OPTION3 ans/ANSWER i/IMPORTANCE` <br> e.g., `mcq qn/what is 1 + 1? opt/3 opt/1 opt/0 ans/2 i/1`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Quiz** | `quiz` <br>
+**Quiz** | `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX]` <br>
 **Exit** | `exit` <br>
 **Help** | `help` <br>
 
