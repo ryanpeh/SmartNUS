@@ -158,13 +158,13 @@ public class EditCommand extends Command {
         if (editQuestionDescriptor.getWrongChoices().isPresent()) {
             throw new CommandException(TrueFalseQuestion.MESSAGE_OPTIONS_INVALID);
         }
-        Set<Choice> updatedChoices = editQuestionDescriptor.getTfChoices().orElse(questionToEdit.getChoices());
-        TrueFalseQuestion updatedTf = new TrueFalseQuestion(updatedName, updatedImportance, updatedTags,
+        Set<Choice> updatedChoices = editQuestionDescriptor.getTfqChoices().orElse(questionToEdit.getChoices());
+        TrueFalseQuestion updatedTfq = new TrueFalseQuestion(updatedName, updatedImportance, updatedTags,
                 updatedChoices, questionToEdit.getStatistic());
-        if (!updatedTf.isValidQuestion()) {
+        if (!updatedTfq.isValidQuestion()) {
             throw new CommandException(TrueFalseQuestion.MESSAGE_ANSWER_INVALID);
         }
-        return updatedTf;
+        return updatedTfq;
     }
 
     @Override
@@ -210,7 +210,7 @@ public class EditCommand extends Command {
             setTags(toCopy.tags);
             setWrongChoices(toCopy.wrongChoices);
             setAnswer(toCopy.answer);
-            setTfChoices(toCopy.parsedTrueFalseChoices);
+            setTfqChoices(toCopy.parsedTrueFalseChoices);
             setSaqChoices(toCopy.parsedSaqChoices);
         }
 
@@ -279,11 +279,11 @@ public class EditCommand extends Command {
             return (answer != null) ? Optional.of(answer) : Optional.empty();
         }
 
-        public void setTfChoices(Set<Choice> choices) {
+        public void setTfqChoices(Set<Choice> choices) {
             parsedTrueFalseChoices = (choices != null) ? new HashSet<>(choices) : null;
         }
 
-        public Optional<Set<Choice>> getTfChoices() {
+        public Optional<Set<Choice>> getTfqChoices() {
             return (parsedTrueFalseChoices != null) ? Optional.of(Collections.unmodifiableSet(parsedTrueFalseChoices))
                     : Optional.empty();
         }

@@ -228,7 +228,7 @@ public class EditCommandTest {
         Set<Choice> choices = new HashSet<>();
         choices.addAll(List.of(new Choice("abc", true), new Choice("False", false)));
         EditCommand editCommand = new EditCommand(tfIndex,
-                new EditQuestionDescriptorBuilder().withTfChoices(choices).build());
+                new EditQuestionDescriptorBuilder().withTfqChoices(choices).build());
         assertCommandFailure(editCommand, model, TrueFalseQuestion.MESSAGE_ANSWER_INVALID);
     }
 

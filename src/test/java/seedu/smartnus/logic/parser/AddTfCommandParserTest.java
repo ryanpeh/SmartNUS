@@ -24,16 +24,16 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.smartnus.logic.commands.questions.AddTfCommand;
+import seedu.smartnus.logic.commands.questions.AddTfqCommand;
 import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.question.Importance;
 import seedu.smartnus.model.question.Name;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.question.TrueFalseQuestion;
 
-class AddTfCommandParserTest {
+class AddTfqCommandParserTest {
 
-    private final AddTfCommandParser parser = new AddTfCommandParser();
+    private final AddTfqCommandParser parser = new AddTfqCommandParser();
 
     @Test
     void parse_allFieldsValid_success() {
@@ -48,7 +48,7 @@ class AddTfCommandParserTest {
         Question expectedQuestion = new TrueFalseQuestion(expectedName, expectedImportance,
                 new HashSet<>(), expectedChoices);
 
-        AddTfCommand expectedCommand = new AddTfCommand(expectedQuestion);
+        AddTfqCommand expectedCommand = new AddTfqCommand(expectedQuestion);
 
         // normal command with preamble whitespace
         assertParseSuccess(parser,
@@ -63,7 +63,7 @@ class AddTfCommandParserTest {
 
     @Test
     void parse_fieldsOrPrefixMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTfCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTfqCommand.MESSAGE_USAGE);
         // answer missing
         assertParseFailure(parser, QUESTION_DESC_1 + IMPORTANCE_DESC_1, expectedMessage);
         // question missing
