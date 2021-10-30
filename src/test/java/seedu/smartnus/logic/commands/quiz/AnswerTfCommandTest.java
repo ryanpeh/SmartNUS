@@ -18,11 +18,11 @@ import seedu.smartnus.model.quiz.QuizManager;
 import seedu.smartnus.model.util.SampleDataUtil;
 
 
-class AnswerTfCommandTest {
+class AnswerTfqCommandTest {
 
     private ReadOnlySmartNus smartNus;
     private QuizManager quizManager;
-    private AnswerTfCommand answerTfCommand;
+    private AnswerTfqCommand answerTfqCommand;
     private Model model;
 
     @BeforeEach
@@ -30,7 +30,7 @@ class AnswerTfCommandTest {
         smartNus = SampleDataUtil.getSampleSmartNus();
         quizManager = new QuizManager(smartNus.getQuestionList());
         model = new ModelManager(smartNus, new UserPrefs());
-        answerTfCommand = new AnswerTfCommand("a", quizManager);
+        answerTfqCommand = new AnswerTfqCommand("a", quizManager);
     }
 
     @Test
@@ -40,7 +40,7 @@ class AnswerTfCommandTest {
 
     @Test
     public void execute_nullModel_throwsAssertionError() {
-        assertThrows(NullPointerException.class, () -> answerTfCommand.execute(null));
+        assertThrows(NullPointerException.class, () -> answerTfqCommand.execute(null));
     }
 
     @Test
@@ -49,8 +49,8 @@ class AnswerTfCommandTest {
         Question question = quizManager.nextQuestion();
         Choice correctChoice = question.getCorrectChoice();
         int idx = question.getOrderedChoices().indexOf(correctChoice);
-        answerTfCommand = new AnswerTfCommand(Character.toString("tf".charAt(idx)), quizManager);
-        assertEquals(answerTfCommand.execute(model),
+        answerTfqCommand = new AnswerTfqCommand(Character.toString("tf".charAt(idx)), quizManager);
+        assertEquals(answerTfqCommand.execute(model),
                 new CommandResult("Correct!\n" + MESSAGE_CONTINUE_QUIZ));
     }
 
@@ -60,8 +60,8 @@ class AnswerTfCommandTest {
         Question question = quizManager.nextQuestion();
         Choice correctChoice = question.getCorrectChoice();
         int idx = question.getOrderedChoices().indexOf(correctChoice);
-        answerTfCommand = new AnswerTfCommand(Character.toString("ft".charAt(idx)), quizManager);
-        assertEquals(answerTfCommand.execute(model),
+        answerTfqCommand = new AnswerTfqCommand(Character.toString("ft".charAt(idx)), quizManager);
+        assertEquals(answerTfqCommand.execute(model),
                 new CommandResult("Incorrect. The correct answer is: "
                         + question.getCorrectChoiceTitle() + "\n" + MESSAGE_CONTINUE_QUIZ));
     }
@@ -70,9 +70,9 @@ class AnswerTfCommandTest {
     public void execute_multipleInputs_returnsAlreadyAnsweredCommandResult() {
         quizManager.nextQuestion();
         quizManager.nextQuestion();
-        answerTfCommand = new AnswerTfCommand("t", quizManager);
-        answerTfCommand.execute(model);
-        assertEquals(answerTfCommand.execute(model),
+        answerTfqCommand = new AnswerTfqCommand("t", quizManager);
+        answerTfqCommand.execute(model);
+        assertEquals(answerTfqCommand.execute(model),
                 new CommandResult("You have already answered this question.\n" + MESSAGE_CONTINUE_QUIZ));
     }
 

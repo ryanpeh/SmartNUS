@@ -91,18 +91,18 @@ A multiple choice question must have exactly three incorrect options and one cor
 Examples:
 * `mcq qn/what is 1 + 1? opt/3 opt/1 opt/0 ans/2 i/1`
 
-### Add a True False Question: `tf`
+### Add a True False Question: `tfq`
 
 Adds a true false question to the question bank.
 
-Format: `tf qn/QUESTION ans/ANSWER i/IMPORTANCE`
+Format: `tfq qn/QUESTION ans/ANSWER i/IMPORTANCE`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A true false question can only have one answer, either "T" or "F"
 </div>
 
 Examples:
-* `tf qn/Is 1+1 = 2 ? ans/T i/1`
+* `tfq qn/Is 1+1 = 2 ? ans/T i/1`
 
 ### Add a Short Answer Question: `saq`
 
