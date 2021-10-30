@@ -23,7 +23,7 @@ public class ShortAnswerQuestionTest {
     @BeforeEach
     void setUp() {
         Set<Choice> validSaqChoices = new HashSet<>();
-        validSaqChoices.add(new Choice(VALID_SAQ_ANSWER_1, false, new HashSet<>(List.of("j", "Rowling"))));
+        validSaqChoices.add(new Choice(VALID_SAQ_ANSWER_1, true, new HashSet<>(List.of("j", "Rowling"))));
         validSaq = new ShortAnswerQuestion(new Name(VALID_QUESTION_1),
                 new Importance(VALID_IMPORTANCE_1), new HashSet<>(), validSaqChoices);
     }
@@ -37,11 +37,11 @@ public class ShortAnswerQuestionTest {
     }
 
     @Test
-    public void attemptAndCheckAnswer_incorrectAnswer_false() {
-        Choice correctAns1 = new Choice("J K Rowl", true);
-        Choice correctAns2 = new Choice("J K", true);
-        assertFalse(validSaq.attemptAndCheckAnswer(correctAns1));
-        assertFalse(validSaq.attemptAndCheckAnswer(correctAns2));
+    public void attemptAndCheckAnswer_wrongAnswer_false() {
+        Choice wrongAns1 = new Choice("J K Rowl", true);
+        Choice wrongAns2 = new Choice("J K", true);
+        assertFalse(validSaq.attemptAndCheckAnswer(wrongAns1));
+        assertFalse(validSaq.attemptAndCheckAnswer(wrongAns2));
     }
 
     @Test
