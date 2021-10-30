@@ -2,8 +2,8 @@ package seedu.smartnus.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.smartnus.logic.parser.AddTfCommandParser.ANSWER_FALSE;
-import static seedu.smartnus.logic.parser.AddTfCommandParser.ANSWER_TRUE;
+import static seedu.smartnus.logic.parser.AddTfqCommandParser.ANSWER_FALSE;
+import static seedu.smartnus.logic.parser.AddTfqCommandParser.ANSWER_TRUE;
 import static seedu.smartnus.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.smartnus.model.choice.Choice.FALSE_CHOICE_TITLE;
 import static seedu.smartnus.model.choice.Choice.TRUE_CHOICE_TITLE;
