@@ -89,9 +89,9 @@ public class EditCommandParser implements Parser<EditCommand> {
             Choice answer = ParserUtil.parseAnswerForEdit(argMultimap.getValue(PREFIX_ANSWER).get());
             editQuestionDescriptor.setAnswer(answer);
             // this is necessary to ensure decoupling of parser and logic/model components
-            // TF choices require additional parsing as user input (e.g. T) is not the same as choice title (e.g. True)
-            Set<Choice> tfChoices = ParserUtil.parseTrueFalseAnswerForEdit(answer.getTitle());
-            editQuestionDescriptor.setTfChoices(tfChoices);
+            // TFQchoices require additional parsing as user input (e.g. T) is not the same as choice title (e.g. True)
+            Set<Choice> tfqChoices = ParserUtil.parseTrueFalseAnswerForEdit(answer.getTitle());
+            editQuestionDescriptor.setTfqChoices(tfqChoices);
             // SAQ answer also requires additional parsing
             Set<Choice> saqChoices = ParserUtil.parseEditSaqAnswer(answer);
             editQuestionDescriptor.setSaqChoices(saqChoices);

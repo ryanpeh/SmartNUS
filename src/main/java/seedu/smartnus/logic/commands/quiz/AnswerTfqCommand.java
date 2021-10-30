@@ -16,16 +16,16 @@ import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.quiz.QuizManager;
 import seedu.smartnus.model.quiz.exceptions.QuestionAlreadyAnsweredException;
 
-public class AnswerTfCommand extends Command {
+public class AnswerTfqCommand extends Command {
 
     private final String input;
     private final Question currentQuestion;
     private final QuizManager quizManager;
 
     /**
-     * Creates a AnswerTfCommand
+     * Creates a AnswerTfqCommand
      */
-    public AnswerTfCommand(String input, QuizManager quizManager) {
+    public AnswerTfqCommand(String input, QuizManager quizManager) {
         this.input = input;
         this.currentQuestion = quizManager.currQuestion();
         this.quizManager = quizManager;
@@ -74,6 +74,6 @@ public class AnswerTfCommand extends Command {
     public boolean equals(Object other) {
         // TODO: In future, check if the attributes (if any) for the QuizCommand are the same
         return other == this // short circuit if same object
-                || other instanceof AnswerTfCommand; // instanceof handles nulls
+                || other instanceof AnswerTfqCommand; // instanceof handles nulls
     }
 }

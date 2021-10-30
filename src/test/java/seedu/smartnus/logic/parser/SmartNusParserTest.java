@@ -43,7 +43,7 @@ import seedu.smartnus.logic.commands.HelpCommand;
 import seedu.smartnus.logic.commands.ListCommand;
 import seedu.smartnus.logic.commands.ThemeCommand;
 import seedu.smartnus.logic.commands.questions.AddMcqCommand;
-import seedu.smartnus.logic.commands.questions.AddTfCommand;
+import seedu.smartnus.logic.commands.questions.AddTfqCommand;
 import seedu.smartnus.logic.commands.quiz.QuizCommand;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
 import seedu.smartnus.model.choice.Choice;
@@ -133,16 +133,16 @@ public class SmartNusParserTest {
     }
 
     @Test
-    public void parseCommand_tf() throws Exception {
-        AddTfCommand command = (AddTfCommand) parser.parseCommand(
-                AddTfCommand.COMMAND_WORD + QUESTION_DESC_1 + FALSE_ANSWER_DESC + IMPORTANCE_DESC_1);
+    public void parseCommand_tfq() throws Exception {
+        AddTfqCommand command = (AddTfqCommand) parser.parseCommand(
+                AddTfqCommand.COMMAND_WORD + QUESTION_DESC_1 + FALSE_ANSWER_DESC + IMPORTANCE_DESC_1);
         assertNotNull(command);
         Set<Choice> correctChoices = new HashSet<>();
         correctChoices.add(new Choice(TRUE_CHOICE_TITLE, false));
         correctChoices.add(new Choice(FALSE_CHOICE_TITLE, true));
         TrueFalseQuestion expectedQuestion = new TrueFalseQuestion(new Name(VALID_QUESTION_1),
                 new Importance(VALID_IMPORTANCE_1), new HashSet<>(), correctChoices);
-        assertEquals(new AddTfCommand(expectedQuestion), command);
+        assertEquals(new AddTfqCommand(expectedQuestion), command);
     }
 
     @Test

@@ -23,7 +23,7 @@ import seedu.smartnus.logic.LogicManager;
 import seedu.smartnus.logic.commands.ExitCommand;
 import seedu.smartnus.logic.commands.HelpCommand;
 import seedu.smartnus.logic.commands.quiz.AnswerMcqCommand;
-import seedu.smartnus.logic.commands.quiz.AnswerTfCommand;
+import seedu.smartnus.logic.commands.quiz.AnswerTfqCommand;
 import seedu.smartnus.logic.commands.quiz.NextQuestionCommand;
 import seedu.smartnus.logic.commands.quiz.PrevQuestionCommand;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
@@ -102,7 +102,7 @@ public class QuizInputParserTest {
         typicalQuestions.add(new TrueFalseQuestion(new Name(VALID_QUESTION_1), new Importance(VALID_IMPORTANCE_1),
                 new HashSet<>(), validChoices));
         QuizManager oneQuestionQuiz = new QuizManager(typicalQuestions);
-        assertTrue(parser.parseCommand("T", oneQuestionQuiz) instanceof AnswerTfCommand);
+        assertTrue(parser.parseCommand("T", oneQuestionQuiz) instanceof AnswerTfqCommand);
     }
 
     @Test

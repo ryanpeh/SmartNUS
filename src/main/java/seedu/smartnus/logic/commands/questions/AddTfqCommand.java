@@ -6,8 +6,8 @@ import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_QUESTION;
 
 import seedu.smartnus.model.question.Question;
 
-public class AddTfCommand extends AddQuestionCommand {
-    public static final String COMMAND_WORD = "tf";
+public class AddTfqCommand extends AddQuestionCommand {
+    public static final String COMMAND_WORD = "tfq";
     public static final String MESSAGE_SUCCESS = "New question added: %s";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a true/false question to SmartNUS. "
             + "Parameters: "
@@ -19,7 +19,7 @@ public class AddTfCommand extends AddQuestionCommand {
             + PREFIX_ANSWER + "T "
             + PREFIX_IMPORTANCE + "1 ";
 
-    public AddTfCommand(Question question) {
+    public AddTfqCommand(Question question) {
         super(question);
     }
 }

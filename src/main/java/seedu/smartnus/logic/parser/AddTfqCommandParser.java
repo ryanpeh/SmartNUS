@@ -9,7 +9,7 @@ import static seedu.smartnus.logic.parser.ParserUtil.arePrefixesPresent;
 
 import java.util.Set;
 
-import seedu.smartnus.logic.commands.questions.AddTfCommand;
+import seedu.smartnus.logic.commands.questions.AddTfqCommand;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
 import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.question.Importance;
@@ -18,23 +18,23 @@ import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.question.TrueFalseQuestion;
 import seedu.smartnus.model.tag.Tag;
 
-public class AddTfCommandParser implements Parser<AddTfCommand> {
+public class AddTfqCommandParser implements Parser<AddTfqCommand> {
 
     public static final String ANSWER_TRUE = "T";
     public static final String ANSWER_FALSE = "F";
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddTfCommand
-     * and returns an AddTfCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddTfqCommand
+     * and returns an AddTfqCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddTfCommand parse(String args) throws ParseException {
+    public AddTfqCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_QUESTION,
                         PREFIX_ANSWER, PREFIX_IMPORTANCE, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_QUESTION, PREFIX_ANSWER, PREFIX_IMPORTANCE)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTfCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTfqCommand.MESSAGE_USAGE));
         }
 
         Name questionName = ParserUtil.parseName(argMultimap.getValue(PREFIX_QUESTION).get());
@@ -44,6 +44,6 @@ public class AddTfCommandParser implements Parser<AddTfCommand> {
 
         Question toAdd = new TrueFalseQuestion(questionName, importance, tagList, choices);
 
-        return new AddTfCommand(toAdd);
+        return new AddTfqCommand(toAdd);
     }
 }

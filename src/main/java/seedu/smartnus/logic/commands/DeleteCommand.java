@@ -2,6 +2,8 @@ package seedu.smartnus.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.smartnus.logic.commands.CommandUtil.NOTE_KEYWORD;
+import static seedu.smartnus.logic.commands.CommandUtil.QUESTION_KEYWORD;
 
 import java.util.List;
 
@@ -18,8 +20,6 @@ import seedu.smartnus.model.question.Question;
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
-    public static final String QUESTION_KEYWORD = "question";
-    public static final String NOTE_KEYWORD = "note";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the item identified by the index number used in the respected displayed list.\n"

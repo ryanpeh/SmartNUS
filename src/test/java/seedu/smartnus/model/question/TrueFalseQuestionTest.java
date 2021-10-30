@@ -21,12 +21,12 @@ class TrueFalseQuestionTest {
 
     @BeforeEach
     void setUp() {
-        Set<Choice> validTfChoices = new HashSet<>();
-        validTfChoices.add(new Choice(TRUE_CHOICE_TITLE, false));
-        validTfChoices.add(new Choice(FALSE_CHOICE_TITLE, true));
+        Set<Choice> validTfqChoices = new HashSet<>();
+        validTfqChoices.add(new Choice(TRUE_CHOICE_TITLE, false));
+        validTfqChoices.add(new Choice(FALSE_CHOICE_TITLE, true));
 
         validTfQuestion = new TrueFalseQuestion(new Name(VALID_QUESTION_1),
-                new Importance(VALID_IMPORTANCE_1), new HashSet<>(), validTfChoices);
+                new Importance(VALID_IMPORTANCE_1), new HashSet<>(), validTfqChoices);
     }
 
     @Test

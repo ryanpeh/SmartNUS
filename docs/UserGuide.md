@@ -91,18 +91,18 @@ A multiple choice question must have exactly three incorrect options and one cor
 Examples:
 * `mcq qn/what is 1 + 1? opt/3 opt/1 opt/0 ans/2 i/1`
 
-### Add a True False Question: `tf`
+### Add a True False Question: `tfq`
 
 Adds a true false question to the question bank.
 
-Format: `tf qn/QUESTION ans/ANSWER i/IMPORTANCE`
+Format: `tfq qn/QUESTION ans/ANSWER i/IMPORTANCE`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A true false question can only have one answer, either "T" or "F"
 </div>
 
 Examples:
-* `tf qn/Is 1+1 = 2 ? ans/T i/1`
+* `tfq qn/Is 1+1 = 2 ? ans/T i/1`
 
 ### Add a Short Answer Question: `saq`
 
@@ -130,7 +130,7 @@ Examples:
 
 Shows a list of all questions, notes, or tags stored in SmartNus.
 
-Format: `list note` OR `list question` OR `list tag`
+Format: `list question` OR `list note` OR `list tag`
 
 ### Delete a Question or Note: `delete`
 
@@ -159,39 +159,54 @@ Format: `edit QUESTION_ID [qn/QUESTION] [t/TAG]... [ans/CORRECT_ANSWER] [opt/INC
 
 * Edit Answers/Options 
   * If editing the answers of a question, all option(s) and answer(s) must be valid for the type of question being edited. 
-  * Multiple Choice Question: Specify all three incorrect options (`opt/`) and one correct answer (`ans/`)
-  * True/False Question: Only specify the correct answer (`ans/`), which must be “T” or “F”
-  * Short Answer Question: Only specify the correct answer (`ans/`) which must include at least one keyword (`k/`)
+  * Multiple Choice Question: Specify all three incorrect options (`opt/`) and one correct answer (`ans/`).
+  * True/False Question: Only specify the correct answer (`ans/`), which must be “T” or “F”.
+  * Short Answer Question: Only specify the correct answer (`ans/`) which must include at least one keyword (`k/`).
 
 Examples:
-* Multiple Choice Question (MCQ): `edit 1 opt/1 opt/2 opt/3 ans/4 t/` 
-  * sets the incorrect options to 1, 2, and 3, and the correct answer to 4, and removes all the tags
-  from Question 1 if it is an MCQ
-* True/False Question (TFQ): `edit 2 ans/T`
-  * sets the answer of Question 2 to True if it is a TFQ
+* Multiple Choice Question (MCQ): `edit 1 opt/1 opt/2 opt/3 ans/4 t/` sets the incorrect options to 1, 2, and 3,
+and the correct answer to 4, and removes all the tags from Question 1 if it is an MCQ
+* True/False Question (TFQ): `edit 2 ans/T` sets the answer of Question 2 to True if it is a TFQ.
 * Short Answer Question (SAQ): `edit 3 ans/k/powerhouse of the k/cell t/CS2100`
-  * sets the answer of Question 3 to powerhouse of the cell, with keywords "powerhouse" and "cell",
-  and replaces all tags with CS2100 if Question 3 is an SAQ
+sets the answer of Question 3 to powerhouse of the cell, with keywords "powerhouse" and "cell",
+and replaces all tags with CS2100 if Question 3 is an SAQ.
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+
+If you were previously in a filtered view (e.g. after running the `find CS2100` command),
+and your edited question no longer matches this filter (e.g. question title no longer contains "CS2100"),
+your edited question will not be shown on-screen. To see a list of all questions,
+run the `list question` command.
+
+</div>
 
 ### Find/Search Questions: `find`
 
-Shows a list of all questions in SmartNUS that have at least one of the specified keywords,
+Shows a list of all questions in SmartNUS that have all the specified keywords,
 at least one of the specified tags, and the importance value (if specified).
 
 Format: `find [KEYWORDS]... [t/TAG]... [i/IMPORTANCE]`
 
-* At least one of the optional fields to find by must be specified
+* At least one of the optional fields to find by must be specified.
 * The search is case-insensitive for both keywords and tags (e.g. `math` will match `MaTH`).
 * Only full words will be matched for both keywords and tags (e.g. `CS2100` will not match `CS210`).
-* Any question that has at least one of the tags **AND** and all the keywords in its title (in any order) **AND** the importance specified will be listed.
+* Any question that has at least one of the tags **AND** and all the keywords in its title (in any order)
+**AND** the importance specified will be listed.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 You can search for more than one tag or keyword.
 </div>
 
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+
+To return to the list of all questions, use the `list question` command.
+
+</div>
+
 Examples:
-* `find load word t/CS2100 t/MIPS` returns questions tagged with at least one of the tags and that whose title includes "load" and "word" in any order.
-  * e.g. A question titled "What is the load word instruction used for?" tagged with only CS2100 will be listed
+* `find load word t/CS2100 t/MIPS` returns questions tagged with at least one of the tags and that whose title
+includes "load" and "word" in any order.
+  * e.g. A question titled "What is the load word instruction used for?" tagged with only CS2100 will be listed.
 
 <!-- TODO: standardise format, remove params from header, add brief description-->
 ### Find/Search Stats: `stat [t/TAG]...`

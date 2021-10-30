@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.smartnus.commons.core.Messages.MESSAGE_QUESTIONS_LISTED_OVERVIEW;
 import static seedu.smartnus.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.smartnus.logic.commands.CommandUtil.QUESTION_KEYWORD;
 import static seedu.smartnus.testutil.TypicalQuestions.FIONA;
 import static seedu.smartnus.testutil.TypicalSmartNus.getTypicalSmartNus;
 
@@ -69,6 +70,7 @@ public class FindCommandTest {
         expectedModel.updateFilteredQuestionList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredQuestionList());
+        assertEquals(model.getPanel(), QUESTION_KEYWORD);
     }
 
     @Test
@@ -81,6 +83,7 @@ public class FindCommandTest {
         expectedModel.updateFilteredQuestionList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(FIONA), model.getFilteredQuestionList());
+        assertEquals(model.getPanel(), QUESTION_KEYWORD);
     }
 
     /**

@@ -133,7 +133,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new SmartNus(model.getSmartNus()), new UserPrefs());
         expectedModel.setQuestion(model.getFilteredQuestionList().get(0), editedQuestion);
-
+        model.updateFilteredQuestionList(Model.PREDICATE_SHOW_ALL_QUESTIONS);
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
@@ -228,7 +228,7 @@ public class EditCommandTest {
         Set<Choice> choices = new HashSet<>();
         choices.addAll(List.of(new Choice("abc", true), new Choice("False", false)));
         EditCommand editCommand = new EditCommand(tfIndex,
-                new EditQuestionDescriptorBuilder().withTfChoices(choices).build());
+                new EditQuestionDescriptorBuilder().withTfqChoices(choices).build());
         assertCommandFailure(editCommand, model, TrueFalseQuestion.MESSAGE_ANSWER_INVALID);
     }
 
