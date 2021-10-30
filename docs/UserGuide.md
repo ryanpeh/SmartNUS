@@ -126,13 +126,14 @@ Examples:
   "potter harry", "harrypotter" and "wordthatincludesharryandpotter"
   * incorrect answers: "Harry", "Potter", "harr pottery"
 
-### Listing all items : `list <KEYWORD>`
+<!--TODO: capitalise, remove param from header, be more descriptive and include list tags (?) -->
+### List all items : `list <KEYWORD>`
 
 Shows a list of all questions or notes stored in SmartNus.
 
 Format: `list note` OR `list question`
 
-### Deleting a Question or Note: `delete`
+### Delete a Question or Note: `delete`
 
 Deletes an existing question and answer in the question bank.
 
@@ -142,7 +143,7 @@ for notes: `delete note NOTE_INDEX`
 * Deletes the question or note with the specified `INDEX`.
 * The INDEX refers to the index number shown in the displayed list. The index **must be a positive integer** 1, 2, 3, …​ 
 
-### Editing a Question and Answers: `edit`
+### Edit a Question and Answers: `edit`
 
 Edits an existing question in the question bank with the specified question number.
 
@@ -153,12 +154,12 @@ Format: `edit QUESTION_ID [qn/QUESTION] [t/TAG]... [ans/CORRECT_ANSWER] [opt/INC
 * At least one of the optional fields must be provided.
 
 
-* Editing Tags 
+* Edit Tags 
   * When editing tags, the existing tags of the question will be removed i.e adding of tags is not cumulative. 
   * You can remove all the question’s tags by typing `t/` without specifying any tags after it.
 
 
-* Editing Answers/Options 
+* Edit Answers/Options 
   * If editing the answers of a question, all option(s) and answer(s) must be valid for the type of question being edited. 
   * Multiple Choice Question: Specify all three incorrect options (`opt/`) and one correct answer (`ans/`)
   * True/False Question: Only specify the correct answer (`ans/`), which must be “T” or “F”
@@ -194,6 +195,7 @@ Examples:
 * `find load word t/CS2100 t/MIPS` returns questions tagged with at least one of the tags and that whose title includes "load" and "word" in any order.
   * e.g. A question titled "What is the load word instruction used for?" tagged with only CS2100 will be listed
 
+<!-- TODO: standardise format, remove params from header, add brief description-->
 ### Find/Search Stats: `stat [t/TAG]...`
 
 * Shows the list of statistics by Tag for the questions attempted.
@@ -205,7 +207,9 @@ Examples:
 Examples:
 * `stat t/CS2100 t/MIPS` returns the overall statistics for the questions tagged with `CS2100` or `MIPS` or both.
 
-### Start a Quiz: `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX]`
+<!-- TODO: add brief description before format to standardise format-->
+### Start a Quiz: `quiz`
+Format: `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX]`
 
 * If no parameters are passed, a quiz session using all the questions in the question list.
 * LIMIT is a positive, non-zero integer that will limit the number of questions in the quiz.
@@ -222,19 +226,19 @@ Format: `quiz`
 Examples:
 *  `quiz` Opens a new quiz window and only [quiz commands](#quiz_window_commands) can be used.
 
-### Clearing all entries : `clear`
+### Clear all entries : `clear`
 
-Clears all entries from the question bank.
+Clears all entries (questions, notes and tags) from the question bank.
 
 Format: `clear`
 
-### Exiting the program : `exit`
+### Exit the program : `exit`
 
 Exits the program.
 
 Format: `exit`
 
-### Changing the theme: `theme`
+### Change the theme: `theme`
 
 Changes the theme of the app.
 
@@ -249,17 +253,17 @@ Examples:
 
 ## <a name="quiz_window_commands"></a>Quiz Window Commands
 
-### Answering a multiple choice question: `A` `B` `C` `D`
+### Answer a multiple choice question: `A` `B` `C` `D`
 Answers the multiple choice question with the options.
 
 Possible options are: `A` `B` `C` or `D` (case-insensitive)
 
-### Answering a multiple choice question: `T` `F`
+### Answer a multiple choice question: `T` `F`
 Answers the multiple choice question with the options.
 
 Possible options are: `T` `F` `True` `False` (case-insensitive)
 
-### Answering a short answer question: `ans/`
+### Answer a short answer question: `ans/`
 Answers the short answer question with the provided answer.
 
 Format: `ans/ANSWER`
@@ -267,7 +271,7 @@ Format: `ans/ANSWER`
 Examples:
 * `ans/Harry Potter` would answer the short answer question with "Harry Potter"
 
-### Answering a true false question: `T` `F`
+### Answer a true false question: `T` `F`
 Answers the true false question with the options
 
 Lower case is accepted as well: `t` or `f`
@@ -290,11 +294,11 @@ Format: `exit`
 
 ## Data File
 
-### Saving the data
+### Save the data
 
 SmartNUS data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
-### Editing the data file
+### Edit the data file
 
 SmartNUS data are saved as a JSON file `[JAR file location]/data/smartnus.json`. Advanced users are welcome to update data directly by editing that data file.
 
