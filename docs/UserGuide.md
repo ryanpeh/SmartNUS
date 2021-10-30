@@ -184,23 +184,31 @@ run the `list question` command.
 
 ### Find/Search Questions: `find`
 
-Shows a list of all questions in SmartNUS that have at least one of the specified keywords,
+Shows a list of all questions in SmartNUS that have all the specified keywords,
 at least one of the specified tags, and the importance value (if specified).
 
 Format: `find [KEYWORDS]... [t/TAG]... [i/IMPORTANCE]`
 
-* At least one of the optional fields to find by must be specified
+* At least one of the optional fields to find by must be specified.
 * The search is case-insensitive for both keywords and tags (e.g. `math` will match `MaTH`).
 * Only full words will be matched for both keywords and tags (e.g. `CS2100` will not match `CS210`).
-* Any question that has at least one of the tags **AND** and all the keywords in its title (in any order) **AND** the importance specified will be listed.
+* Any question that has at least one of the tags **AND** and all the keywords in its title (in any order)
+**AND** the importance specified will be listed.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 You can search for more than one tag or keyword.
 </div>
 
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+
+To return to the list of all questions, use the `list question` command.
+
+</div>
+
 Examples:
-* `find load word t/CS2100 t/MIPS` returns questions tagged with at least one of the tags and that whose title includes "load" and "word" in any order.
-  * e.g. A question titled "What is the load word instruction used for?" tagged with only CS2100 will be listed
+* `find load word t/CS2100 t/MIPS` returns questions tagged with at least one of the tags and that whose title
+includes "load" and "word" in any order.
+  * e.g. A question titled "What is the load word instruction used for?" tagged with only CS2100 will be listed.
 
 <!-- TODO: standardise format, remove params from header, add brief description-->
 ### Find/Search Stats: `stat [t/TAG]...`
