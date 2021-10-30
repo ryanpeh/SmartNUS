@@ -6,7 +6,6 @@ import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_IMPORTANCE;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_OPTION;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.smartnus.model.Model.PREDICATE_SHOW_ALL_QUESTIONS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -101,7 +100,6 @@ public class EditCommand extends Command {
         }
 
         model.setQuestion(questionToEdit, editedQuestion);
-        model.updateFilteredQuestionList(PREDICATE_SHOW_ALL_QUESTIONS);
         return new CommandResult(String.format(MESSAGE_EDIT_QUESTION_SUCCESS, editedQuestion));
     }
 
