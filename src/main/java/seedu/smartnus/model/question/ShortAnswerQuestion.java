@@ -55,25 +55,9 @@ public class ShortAnswerQuestion extends Question {
 
     @Override
     public boolean isCorrectAnswer(Choice choiceToCheck) {
-        Set<Choice> saqAnswers = getChoices();
-        for (Choice answer : saqAnswers) {
-            if (hasAllKeywords(choiceToCheck, answer)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean hasAllKeywords(Choice choiceToCheck, Choice answer) {
+        Choice answer = getCorrectChoice();
         String input = choiceToCheck.getTitle(); // user input is passed as a selected choice
-        if (containsAllKeywords(input, answer.getKeywords())) {
-            getStatistic().addCorrect();
-            return true;
-        }
-        return false;
-    }
-
-    private boolean containsAllKeywords(String input, Set<String> keywords) {
+        Set<String> keywords = answer.getKeywords();
         for (String keyword : keywords) {
             if (!input.toLowerCase().contains(keyword.toLowerCase())) {
                 return false;
