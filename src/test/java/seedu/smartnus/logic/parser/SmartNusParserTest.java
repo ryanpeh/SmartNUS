@@ -133,7 +133,7 @@ public class SmartNusParserTest {
     }
 
     @Test
-    public void parseCommand_tf() throws Exception {
+    public void parseCommand_tfq() throws Exception {
         AddTfqCommand command = (AddTfqCommand) parser.parseCommand(
                 AddTfqCommand.COMMAND_WORD + QUESTION_DESC_1 + FALSE_ANSWER_DESC + IMPORTANCE_DESC_1);
         assertNotNull(command);

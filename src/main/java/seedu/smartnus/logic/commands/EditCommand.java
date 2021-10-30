@@ -159,12 +159,12 @@ public class EditCommand extends Command {
             throw new CommandException(TrueFalseQuestion.MESSAGE_OPTIONS_INVALID);
         }
         Set<Choice> updatedChoices = editQuestionDescriptor.getTfqChoices().orElse(questionToEdit.getChoices());
-        TrueFalseQuestion updatedTf = new TrueFalseQuestion(updatedName, updatedImportance, updatedTags,
+        TrueFalseQuestion updatedTfq = new TrueFalseQuestion(updatedName, updatedImportance, updatedTags,
                 updatedChoices, questionToEdit.getStatistic());
-        if (!updatedTf.isValidQuestion()) {
+        if (!updatedTfq.isValidQuestion()) {
             throw new CommandException(TrueFalseQuestion.MESSAGE_ANSWER_INVALID);
         }
-        return updatedTf;
+        return updatedTfq;
     }
 
     @Override
