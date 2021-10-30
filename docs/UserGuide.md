@@ -125,23 +125,21 @@ Examples:
   * correct answers include: "haRRy PoTtEr", "Harry Potter and the Philosopher's Stone",
   "potter harry", "harrypotter" and "wordthatincludesharryandpotter"
   * incorrect answers: "Harry", "Potter", "harr pottery"
+  
+### List all items : `list`
 
-<!--TODO: capitalise, remove param from header, be more descriptive and include list tags (?) -->
-### List all items : `list <KEYWORD>`
+Shows a list of all questions, notes, or tags stored in SmartNus.
 
-Shows a list of all questions or notes stored in SmartNus.
-
-Format: `list note` OR `list question`
+Format: `list note` OR `list question` OR `list tag`
 
 ### Delete a Question or Note: `delete`
 
 Deletes an existing question and answer in the question bank.
 
-Format: for questions: `delete question QUESTION_INDEX`
-for notes: `delete note NOTE_INDEX`
+Format: `delete question QUESTION_INDEX` OR `delete note NOTE_INDEX`
 
-* Deletes the question or note with the specified `INDEX`.
-* The INDEX refers to the index number shown in the displayed list. The index **must be a positive integer** 1, 2, 3, …​ 
+* Deletes the question or note with the specified `QUESTION_INDEX` or `NOTE_INDEX`.
+* The `QUESTION_INDEX` or `NOTE_INDEX` refers to the index number shown in the displayed list. The index **must be a positive integer** 1, 2, 3, …​ 
 
 ### Edit a Question and Answers: `edit`
 
@@ -211,7 +209,7 @@ Examples:
 ### Start a Quiz: `quiz`
 Format: `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX]`
 
-* If no parameters are passed, a quiz session using all the questions in the question list.
+* If no parameters are passed, a quiz session will be created using all the questions in the question list.
 * LIMIT is a positive, non-zero integer that will limit the number of questions in the quiz.
   * If the total number of questions is less than the limit, it will just give all the questions.
 * TAG can be used to filter the quiz to only give questions with the tags specified, works with limit.
@@ -256,12 +254,12 @@ Examples:
 ### Answer a multiple choice question: `A` `B` `C` `D`
 Answers the multiple choice question with the options.
 
-Possible options are: `A` `B` `C` or `D` (case-insensitive)
+Format: `A` `B` `C` or `D` (case-insensitive)
 
-### Answer a multiple choice question: `T` `F`
+### Answer a true false question: `T` `F`
 Answers the multiple choice question with the options.
 
-Possible options are: `T` `F` `True` `False` (case-insensitive)
+Format: `T` `F` `True` `False` (case-insensitive)
 
 ### Answer a short answer question: `ans/`
 Answers the short answer question with the provided answer.
@@ -270,11 +268,6 @@ Format: `ans/ANSWER`
 
 Examples:
 * `ans/Harry Potter` would answer the short answer question with "Harry Potter"
-
-### Answer a true false question: `T` `F`
-Answers the true false question with the options
-
-Lower case is accepted as well: `t` or `f`
 
 ### Go to the next question: `next`
 Navigate to the next question.
@@ -337,8 +330,8 @@ Action | Format, Examples
 **Option B** | `B`, `b` <br>
 **Option C** | `C`, `c` <br>
 **Option D** | `D`, `d` <br>
-**Option True** | `T`, `True` (Case-insensitive)<br> e.g., `T`,`t`, `true` <br>
-**Option False** | `F`, `False` (Case-insensitive)<br> e.g., `F`,`f`, `false` <br>
+**Option True** | `T`, `True` (Case-insensitive) <br> 
+**Option False** | `F`, `False` (Case-insensitive) <br>
 **SAQ Answer** | `ans/ANSWER`<br> e.g., `ans/Harry Potter` <br>
 **Next** | `next` <br>
 **Prev** | `prev` <br>
