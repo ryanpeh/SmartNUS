@@ -10,6 +10,11 @@ import seedu.smartnus.model.question.predicates.ShowAllQuestionsPredicate;
  * Contains utility methods used for Commands.
  */
 public class CommandUtil {
+    // Panel keywords
+    public static final String NOTE_KEYWORD = "note";
+    public static final String QUESTION_KEYWORD = "question";
+    public static final String TAG_KEYWORD = "tag";
+
     /**
      * Returns a single predicate that represents a logical AND of all {@code predicates}.
      *
