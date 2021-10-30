@@ -175,6 +175,12 @@ Examples:
   * sets the answer of Question 3 to powerhouse of the cell, with keywords "powerhouse" and "cell",
   and replaces all tags with CS2100 if Question 3 is an SAQ
 
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+If you were previously in a filtered view (e.g. after running the `find CS2100` command), 
+and your edited question does not match this filter (e.g. question title no longer contains "CS2100"),
+your edited question will not be shown on-screen. To see a list of all questions, run the `list question` command.
+</div>
+
 ### Find/Search Questions: `find`
 
 Shows a list of all questions in SmartNUS that have at least one of the specified keywords,
