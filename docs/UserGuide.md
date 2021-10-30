@@ -199,6 +199,12 @@ Format: `find [KEYWORDS]... [t/TAG]... [i/IMPORTANCE]`
 You can search for more than one tag or keyword.
 </div>
 
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+
+To return to the list of all questions, use the `list question` command.
+
+</div>
+
 Examples:
 * `find load word t/CS2100 t/MIPS` returns questions tagged with at least one of the tags and that whose title
 includes "load" and "word" in any order.
