@@ -1,7 +1,7 @@
 package seedu.smartnus.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.smartnus.logic.commands.ListCommand.TAG_KEYWORD;
+import static seedu.smartnus.logic.commands.CommandUtil.TAG_KEYWORD;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
