@@ -126,7 +126,7 @@ Examples:
   "potter harry", "harrypotter" and "wordthatincludesharryandpotter"
   * incorrect answers: "Harry", "Potter", "harr pottery"
 
-<!--TODO: capitalise, remove param from header, be more descriptive and include list tags (?) -->
+<!--TODO: capitalise to List All Items, remove param from header, be more descriptive and include list tags (?) -->
 ### List all items : `list <KEYWORD>`
 
 Shows a list of all questions or notes stored in SmartNus.
@@ -161,24 +161,25 @@ Format: `edit QUESTION_ID [qn/QUESTION] [t/TAG]... [ans/CORRECT_ANSWER] [opt/INC
 
 * Edit Answers/Options 
   * If editing the answers of a question, all option(s) and answer(s) must be valid for the type of question being edited. 
-  * Multiple Choice Question: Specify all three incorrect options (`opt/`) and one correct answer (`ans/`)
-  * True/False Question: Only specify the correct answer (`ans/`), which must be “T” or “F”
-  * Short Answer Question: Only specify the correct answer (`ans/`) which must include at least one keyword (`k/`)
+  * Multiple Choice Question: Specify all three incorrect options (`opt/`) and one correct answer (`ans/`).
+  * True/False Question: Only specify the correct answer (`ans/`), which must be “T” or “F”.
+  * Short Answer Question: Only specify the correct answer (`ans/`) which must include at least one keyword (`k/`).
 
 Examples:
-* Multiple Choice Question (MCQ): `edit 1 opt/1 opt/2 opt/3 ans/4 t/` 
-  * sets the incorrect options to 1, 2, and 3, and the correct answer to 4, and removes all the tags
-  from Question 1 if it is an MCQ
-* True/False Question (TFQ): `edit 2 ans/T`
-  * sets the answer of Question 2 to True if it is a TFQ
+* Multiple Choice Question (MCQ): `edit 1 opt/1 opt/2 opt/3 ans/4 t/` sets the incorrect options to 1, 2, and 3,
+and the correct answer to 4, and removes all the tags from Question 1 if it is an MCQ
+* True/False Question (TFQ): `edit 2 ans/T` sets the answer of Question 2 to True if it is a TFQ.
 * Short Answer Question (SAQ): `edit 3 ans/k/powerhouse of the k/cell t/CS2100`
-  * sets the answer of Question 3 to powerhouse of the cell, with keywords "powerhouse" and "cell",
-  and replaces all tags with CS2100 if Question 3 is an SAQ
+sets the answer of Question 3 to powerhouse of the cell, with keywords "powerhouse" and "cell",
+and replaces all tags with CS2100 if Question 3 is an SAQ.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If you were previously in a filtered view (e.g. after running the `find CS2100` command), 
-and your edited question does not match this filter (e.g. question title no longer contains "CS2100"),
-your edited question will not be shown on-screen. To see a list of all questions, run the `list question` command.
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+
+If you were previously in a filtered view (e.g. after running the `find CS2100` command),
+and your edited question no longer matches this filter (e.g. question title no longer contains "CS2100"),
+your edited question will not be shown on-screen. To see a list of all questions,
+run the `list question` command.
+
 </div>
 
 ### Find/Search Questions: `find`
