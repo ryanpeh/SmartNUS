@@ -134,7 +134,7 @@ Format: `list question` OR `list note` OR `list tag`
 
 ### Delete a Question or Note: `delete`
 
-Deletes an existing question and answer in the question bank.
+Deletes an existing question or note from the question bank or note list.
 
 Format: `delete question QUESTION_INDEX` OR `delete note NOTE_INDEX`
 
