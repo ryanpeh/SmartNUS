@@ -65,7 +65,7 @@ public class QuizWindow extends UiPart<Stage> {
     private StackPane questionDisplayPlaceholder;
 
     @FXML
-    private StackPane statusbarPlaceholder;
+    private StackPane quizProgressBarPlaceholder;
 
 
     /**
@@ -133,7 +133,7 @@ public class QuizWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        updateStatusBar();
+        updateQuizProgressBar();
 
         updateChoices();
 
@@ -148,12 +148,12 @@ public class QuizWindow extends UiPart<Stage> {
     /**
      * Updates the status bar with the current question number.
      */
-    private void updateStatusBar() {
+    private void updateQuizProgressBar() {
         int currentQuestionNumber = quizManager.getCurrentIndex() + 1;
         int totalQuestions = quizManager.getTotalQuestions();
-        StatusBarFooter statusBarFooter = new StatusBarFooter(String.format("Question %d of %d",
+        QuizProgressBarFooter quizProgressBarFooter = new QuizProgressBarFooter(String.format("Question %d of %d",
                 currentQuestionNumber , totalQuestions));
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+        quizProgressBarPlaceholder.getChildren().add(quizProgressBarFooter.getRoot());
     }
 
     private void updateChoices() {
@@ -238,7 +238,7 @@ public class QuizWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             questionDisplay.displayQuestion(quizManager.currQuestion());
-            updateStatusBar();
+            updateQuizProgressBar();
             updateChoices();
 
             if (commandResult.isShowHelp()) {
