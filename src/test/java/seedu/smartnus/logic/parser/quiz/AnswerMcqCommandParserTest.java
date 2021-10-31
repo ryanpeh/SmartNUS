@@ -44,7 +44,14 @@ class AnswerMcqCommandParserTest {
 
     @Test
     public void parse_invalidArgs_notAlreadyAnswered() {
-        Exception exception = Assertions.assertThrows(ParseException.class, () ->
+        Exception exception;
+        exception = Assertions.assertThrows(ParseException.class, () ->
+                answerMcqCommandParser.parse("e", quizManager));
+        assertEquals(exception.getMessage(), MESSAGE_INVALID_MCQ_ANSWER_FORMAT);
+        exception = Assertions.assertThrows(ParseException.class, () ->
+                answerMcqCommandParser.parse("E", quizManager));
+        assertEquals(exception.getMessage(), MESSAGE_INVALID_MCQ_ANSWER_FORMAT);
+        exception = Assertions.assertThrows(ParseException.class, () ->
                 answerMcqCommandParser.parse("fasd", quizManager));
         assertEquals(exception.getMessage(), MESSAGE_INVALID_MCQ_ANSWER_FORMAT);
     }
