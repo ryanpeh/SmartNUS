@@ -1,6 +1,9 @@
 package seedu.smartnus.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.smartnus.logic.commands.CommandUtil.NOTE_KEYWORD;
+import static seedu.smartnus.logic.commands.CommandUtil.QUESTION_KEYWORD;
+import static seedu.smartnus.logic.commands.CommandUtil.TAG_KEYWORD;
 import static seedu.smartnus.model.Model.PREDICATE_SHOW_ALL_NOTES;
 import static seedu.smartnus.model.Model.PREDICATE_SHOW_ALL_QUESTIONS;
 import static seedu.smartnus.model.Model.PREDICATE_SHOW_ALL_STATISTICS;
@@ -13,10 +16,6 @@ import seedu.smartnus.model.Model;
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
-
-    public static final String NOTE_KEYWORD = "note";
-    public static final String QUESTION_KEYWORD = "question";
-    public static final String TAG_KEYWORD = "tag";
 
     public static final String MESSAGE_SUCCESS_QUESTIONS = "Listed all questions";
     public static final String MESSAGE_SUCCESS_NOTES = "Listed all notes";
