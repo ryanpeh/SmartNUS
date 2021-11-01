@@ -239,7 +239,7 @@ Format: `quiz`
 * Opens a new window for the quiz.
 
 Examples:
-*  `quiz` Opens a new quiz window and only [quiz commands](#quiz_window_commands) can be used.
+*  `quiz` opens a new quiz window and only [quiz commands](#quiz_window_commands) can be used.
 
 ### Clear All Entries : `clear`
 
