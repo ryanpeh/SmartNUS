@@ -17,7 +17,7 @@ public class AddSaqCommand extends AddQuestionCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an short answer question to SmartNUS. "
             + "Parameters: "
             + PREFIX_QUESTION + "QUESTION "
-            + PREFIX_ANSWER + "ANSWER MUST INCLUDE [" + PREFIX_KEYWORD + "KEYWORD]..." + "] "
+            + PREFIX_ANSWER + "ANSWER THAT MUST INCLUDE " + PREFIX_KEYWORD + "KEYWORD... "
             + PREFIX_IMPORTANCE + "IMPORTANCE "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_QUESTION + "You're a wizard, Harry. Where is this quote from? "
