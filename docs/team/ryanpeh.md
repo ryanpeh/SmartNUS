@@ -9,23 +9,28 @@ title: Ryan Peh's Project Portfolio Page
 
 Given below are my contributions to the project.
 
+* **Implemented Quiz Functionality:**
+  * Implemented quiz functionality to allow the user to quiz themselves on various question types from the question bank. This includes the navigation between questions, tracking question progress, TODO
+  * Justification: This is core feature of SmartNUS, as the application is designed to promote active recall through quizzing yourself.
+  * Highlights: This enhancement required an analysis on various design alternatives. The eventual design included the implementation of an alternative parser during to quiz to parse user inputs without affecting the main window. TODO
+  
+
+* **Designed and Implemented Quiz User Interface:**
+  * Designed and implemented a graphical user interface (UI) for the quiz feature of SmartNUS, taking into account user (UX) to ensure an intuitive and easy-to-use user experience of the quiz functionality.
+  * Justification: As one of the core features of SmartNUS, it is important for the quiz to have a well-developed UI/UX to keep the user interested in using the application.
+  * Highlights: The interface includes the support for displaying various question types during the quiz (Multiple Choice Questions, True False Questions, Short Answer Questions, etc.).
+  * Credits: The code for the user interface was adapted from the AddressBook-Level3 project by [SE-EDU initiative](https://se-education.org).
+
+* **Enhancements to existing features**:
+  * Wrote additional tests for existing features to increase coverage (Pull requests [\#abc](), [\#def]())
+
+
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/#breakdown=true&search=ryanpeh)
 
 
-* **New Feature**: Implemented quiz functionality and user interface
-  * What it does: 
-  * Justification: This is the main feature of **SmartNUS**, as the application is designed to promote active recall through quizzing yourself.
-  * Highlights: 
-
-* **New Feature**: Added a history command that allows the user to navigate to previous commands using up/down keys.
-
-* **Enhancements to existing features**:
-  * Updated the GUI color scheme (Pull requests [\#33](), [\#34]())
-  * Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests [\#36](), [\#38]())
-  
 * **Documentation**:
   * User Guide:
-    * Added documentation for the features `delete` and `find` [\#72]()
+    * Added documentation for quiz related features [\#TODO]()
     * Did cosmetic tweaks to existing documentation of features `clear`, `exit`: [\#74]()
   * Developer Guide:
     * Added implementation details of the `delete` feature.
