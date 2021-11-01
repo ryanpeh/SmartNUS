@@ -110,22 +110,24 @@ Adds a short answer question to the question bank.
 
 Format: `saq qn/QUESTION ans/ANSWER INCLUDING KEYWORDS k/KEYWORD... i/IMPORTANCE [t/TAG]...`
 
-* Each short answer question must have exactly one answer
-* An answer must include at least one keyword which is specified using `k/`
+* Each short answer question must have exactly one answer.
+* An answer must include at least one keyword which is specified using `k/` (e.g. `ans/k/powerhouse of the k/cell`).
 * During a [quiz](#start-a-quiz-quiz), any answer that contains all the keywords (case-insensitive)
 in any order is considered correct (e.g. "datastructuresandalgorithms" will be a correct answer
-to a question whose keywords are "data" and "structure")
+to a question whose keywords are "data" and "structure").
 * Keywords should be alphanumeric. If they include punctuation (e.g. `k/Harry's!'@#^e,acy?`), 
-only the first alphanumeric part of the word before any punctuation mark will be taken as the keyword i.e. "Harry"
+only the first alphanumeric part of the word before any punctuation mark will be taken as the keyword i.e. "Harry".
 
 Examples:
 * `saq qn/You're a wizard, Harry. Which book is this quote from? ans/k/Harry k/Potter and the Philosopher's Stone i/2`
-* Answer will be displayed as "Harry Potter and the Philosopher's Stone"
-* During a [quiz](#start-a-quiz-quiz), 
-  * correct answers include: "haRRy PoTtEr", "Harry Potter and the Philosopher's Stone",
+  * Answer will be displayed as "Harry Potter and the Philosopher's Stone".
+  * During a [quiz](#start-a-quiz-quiz), 
+    * correct answers include: "haRRy PoTtEr", "Harry Potter and the Philosopher's Stone",
   "potter harry", "harrypotter" and "wordthatincludesharryandpotter"
-  * incorrect answers: "Harry", "Potter", "harr pottery"
-  
+    * incorrect answers: "Harry", "Potter", "harr pottery"
+* `saq qn/What does mRNA stand for? ans/k/messenger k/ribonucleic k/acid i/1`
+* `saq qn/Who wrote The Merchant of Venice? ans/William k/Shakespeare i/2 t/literature t/classics`
+
 ### List all items : `list`
 
 Shows a list of all questions, notes, or tags stored in SmartNus.
@@ -282,7 +284,7 @@ Answers the short answer question with the provided answer.
 Format: `ans/ANSWER`
 
 Examples:
-* `ans/Harry Potter` would answer the short answer question with "Harry Potter"
+* `ans/Harry Potter` answers the short answer question with "Harry Potter".
 
 ### Go to the next question: `next`
 Navigate to the next question.

@@ -1,6 +1,6 @@
 ---
 layout: page
-title: SmartNUS Level-1
+title: SmartNUS
 ---
 
 [![CI Status](https://github.com/AY2122S1-CS2103T-F12-1/tp/workflows/Java%20CI/badge.svg)](https://github.com/AY2122S1-CS2103T-F12-1/tp/actions)
@@ -8,7 +8,7 @@ title: SmartNUS Level-1
 
 ![Ui](images/Ui.png)
 
-**SmartNUS is a desktop app specifically designed for students to revise for their exams.** It has been optimized for use via a Command Line Interface but it also incorporates a Graphical User Interface (GUI). SmartNUS is the go-to app if you’re a fast typer or if you need a tool to streamline your revision process. Download today!
+**SmartNUS is a desktop app specifically designed for students to revise for their exams.** It has been optimized for use via a Command Line Interface (CLI) but it also incorporates a Graphical User Interface (GUI). SmartNUS is the go-to app if you’re a fast typer or if you need a tool to streamline your revision process. Download today!
 
 * If you are interested in using SmartNUS, head over to the [_Quick Start_ section of the **User Guide**](UserGuide.html#quick-start).
 * If you are interested about developing SmartNUS, the [**Developer Guide**](DeveloperGuide.html) is a good place to start.
@@ -16,4 +16,5 @@ title: SmartNUS Level-1
 
 **Acknowledgements**
 
+* This project is based on the AddressBook-Level3 project by [SE-EDU initiative](https://se-education.org).
 * Libraries used: [JavaFX](https://openjfx.io/), [Jackson](https://github.com/FasterXML/jackson), [JUnit5](https://github.com/junit-team/junit5)
