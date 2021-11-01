@@ -65,6 +65,9 @@ sessions more effective and faster than traditional GUI apps.
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
+* All commands are case-sensitive unless otherwise stated.<br>
+ e.g. `help` or `/ans` is acceptable, but `Help` or `Ans/` is not acceptable.<br>
+
 </div>
 
 ## Main Window Commands
@@ -334,7 +337,7 @@ _Details coming soon ..._ -->
 Action | Format, Examples
 --------|------------------
 **MCQ** | `mcq qn/QUESTION opt/OPTION1 opt/OPTION2 opt/OPTION3 ans/ANSWER i/IMPORTANCE` <br> e.g., `mcq qn/what is 1 + 1? opt/3 opt/1 opt/0 ans/2 i/1`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
+**Delete** | `delete question QUESTION_INDEX` OR `delete note NOTE_INDEX`<br> e.g., `delete question 1`, `delete note 2`
 **Quiz** | `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX]` <br>
 **Exit** | `exit` <br>
 **Help** | `help` <br>
