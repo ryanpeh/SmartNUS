@@ -13,7 +13,7 @@ sessions more effective and faster than traditional GUI apps.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Quick start
+## Quick Start
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
@@ -69,7 +69,7 @@ sessions more effective and faster than traditional GUI apps.
 
 ## Main Window Commands
 
-### Viewing help : `help`
+### Viewing Help : `help`
 
 Shows a message explaning how to access the help page.
 
@@ -128,7 +128,7 @@ Examples:
 * `saq qn/What does mRNA stand for? ans/k/messenger k/ribonucleic k/acid i/1`
 * `saq qn/Who wrote The Merchant of Venice? ans/William k/Shakespeare i/2 t/literature t/classics`
 
-### List all items : `list`
+### List All Items : `list`
 
 Shows a list of all questions, notes, or tags stored in SmartNus.
 
@@ -241,19 +241,19 @@ Format: `quiz`
 Examples:
 *  `quiz` Opens a new quiz window and only [quiz commands](#quiz_window_commands) can be used.
 
-### Clear all entries : `clear`
+### Clear All Entries : `clear`
 
 Clears all entries (questions, notes and tags) from the question bank.
 
 Format: `clear`
 
-### Exit the program : `exit`
+### Exit the Program : `exit`
 
 Exits the program.
 
 Format: `exit`
 
-### Change the theme: `theme`
+### Change the Theme: `theme`
 
 Changes the theme of the app.
 
@@ -268,17 +268,17 @@ Examples:
 
 ## <a name="quiz_window_commands"></a>Quiz Window Commands
 
-### Answer a multiple choice question: `A` `B` `C` `D`
+### Answer a Multiple Choice Question: `A` `B` `C` `D`
 Answers the multiple choice question with the options.
 
 Format: `A` `B` `C` or `D` (case-insensitive)
 
-### Answer a true false question: `T` `F`
+### Answer a True False Question: `T` `F`
 Answers the multiple choice question with the options.
 
 Format: `T` `F` `True` `False` (case-insensitive)
 
-### Answer a short answer question: `ans/`
+### Answer a Short Answer Question: `ans/`
 Answers the short answer question with the provided answer.
 
 Format: `ans/ANSWER`
@@ -286,29 +286,29 @@ Format: `ans/ANSWER`
 Examples:
 * `ans/Harry Potter` answers the short answer question with "Harry Potter".
 
-### Go to the next question: `next`
+### Go to the Next Question: `next`
 Navigate to the next question.
 
 Format: `next`
 
-### Go to the previous question: `prev`
+### Go to the Previous Question: `prev`
 Navigate to the previous question.
 
 Format `prev`
 
 
-### Exit the quiz: `exit`
+### Exit the Quiz: `exit`
 Exits the quiz.
 
 Format: `exit`
 
 ## Data File
 
-### Save the data
+### Save the Data
 
 SmartNUS data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
-### Edit the data file
+### Edit the Data File
 
 SmartNUS data are saved as a JSON file `[JAR file location]/data/smartnus.json`. Advanced users are welcome to update data directly by editing that data file.
 
@@ -329,7 +329,7 @@ _Details coming soon ..._ -->
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Main Window Command summary
+## Main Window Command Summary
 
 Action | Format, Examples
 --------|------------------
