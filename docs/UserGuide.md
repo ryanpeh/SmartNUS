@@ -13,7 +13,7 @@ sessions more effective and faster than traditional GUI apps.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Quick start
+## Quick Start
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
@@ -65,11 +65,14 @@ sessions more effective and faster than traditional GUI apps.
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
+* All commands are case-sensitive unless otherwise stated.<br>
+ e.g. `help` or `/ans` is acceptable, but `Help` or `Ans/` is not acceptable.<br>
+
 </div>
 
 ## Main Window Commands
 
-### Viewing help : `help`
+### Viewing Help : `help`
 
 Shows a message explaning how to access the help page.
 
@@ -120,30 +123,28 @@ only the first alphanumeric part of the word before any punctuation mark will be
 
 Examples:
 * `saq qn/You're a wizard, Harry. Which book is this quote from? ans/k/Harry k/Potter and the Philosopher's Stone i/2`
-* Answer will be displayed as "Harry Potter and the Philosopher's Stone".
-* During a [quiz](#start-a-quiz-quiz), 
-  * correct answers include: "haRRy PoTtEr", "Harry Potter and the Philosopher's Stone",
+  * Answer will be displayed as "Harry Potter and the Philosopher's Stone".
+  * During a [quiz](#start-a-quiz-quiz), 
+    * correct answers include: "haRRy PoTtEr", "Harry Potter and the Philosopher's Stone",
   "potter harry", "harrypotter" and "wordthatincludesharryandpotter"
-  * incorrect answers: "Harry", "Potter", "harr pottery"
+    * incorrect answers: "Harry", "Potter", "harr pottery"
 * `saq qn/What does mRNA stand for? ans/k/messenger k/ribonucleic k/acid i/1`
 * `saq qn/Who wrote The Merchant of Venice? ans/William k/Shakespeare i/2 t/literature t/classics`
 
-<!--TODO: capitalise to List All Items, remove param from header, be more descriptive and include list tags (?) -->
-### List all items : `list <KEYWORD>`
+### List All Items : `list`
 
-Shows a list of all questions or notes stored in SmartNus.
+Shows a list of all questions, notes, or tags stored in SmartNus.
 
-Format: `list note` OR `list question`
+Format: `list question` OR `list note` OR `list tag`
 
 ### Delete a Question or Note: `delete`
 
-Deletes an existing question and answer in the question bank.
+Deletes an existing question or note from the question bank or note list.
 
-Format: for questions: `delete question QUESTION_INDEX`
-for notes: `delete note NOTE_INDEX`
+Format: `delete question QUESTION_INDEX` OR `delete note NOTE_INDEX`
 
-* Deletes the question or note with the specified `INDEX`.
-* The INDEX refers to the index number shown in the displayed list. The index **must be a positive integer** 1, 2, 3, …​ 
+* Deletes the question or note with the specified `QUESTION_INDEX` or `NOTE_INDEX`.
+* The `QUESTION_INDEX` or `NOTE_INDEX` refers to the index number shown in the displayed list. The index **must be a positive integer** 1, 2, 3, …​ 
 
 ### Edit a Question and Answers: `edit`
 
@@ -228,7 +229,7 @@ Examples:
 ### Start a Quiz: `quiz`
 Format: `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX]`
 
-* If no parameters are passed, a quiz session using all the questions in the question list.
+* If no parameters are passed, a quiz session will be created using all the questions in the question list.
 * LIMIT is a positive, non-zero integer that will limit the number of questions in the quiz.
   * If the total number of questions is less than the limit, it will just give all the questions.
 * TAG can be used to filter the quiz to only give questions with the tags specified, works with limit.
@@ -241,21 +242,21 @@ Format: `quiz`
 * Opens a new window for the quiz.
 
 Examples:
-*  `quiz` Opens a new quiz window and only [quiz commands](#quiz_window_commands) can be used.
+*  `quiz` opens a new quiz window and only [quiz commands](#quiz_window_commands) can be used.
 
-### Clear all entries : `clear`
+### Clear All Entries : `clear`
 
 Clears all entries (questions, notes and tags) from the question bank.
 
 Format: `clear`
 
-### Exit the program : `exit`
+### Exit the Program : `exit`
 
 Exits the program.
 
 Format: `exit`
 
-### Change the theme: `theme`
+### Change the Theme: `theme`
 
 Changes the theme of the app.
 
@@ -270,17 +271,17 @@ Examples:
 
 ## <a name="quiz_window_commands"></a>Quiz Window Commands
 
-### Answer a multiple choice question: `A` `B` `C` `D`
+### Answer a Multiple Choice Question: `A` `B` `C` `D`
 Answers the multiple choice question with the options.
 
-Possible options are: `A` `B` `C` or `D` (case-insensitive)
+Format: `A` `B` `C` or `D` (case-insensitive)
 
-### Answer a multiple choice question: `T` `F`
+### Answer a True False Question: `T` `F`
 Answers the multiple choice question with the options.
 
-Possible options are: `T` `F` `True` `False` (case-insensitive)
+Format: `T` `F` `True` `False` (case-insensitive)
 
-### Answer a short answer question: `ans/`
+### Answer a Short Answer Question: `ans/`
 Answers the short answer question with the provided answer.
 
 Format: `ans/ANSWER`
@@ -288,34 +289,29 @@ Format: `ans/ANSWER`
 Examples:
 * `ans/Harry Potter` answers the short answer question with "Harry Potter".
 
-### Answer a true false question: `T` `F`
-Answers the true false question with the options
-
-Lower case is accepted as well: `t` or `f`
-
-### Go to the next question: `next`
+### Go to the Next Question: `next`
 Navigate to the next question.
 
 Format: `next`
 
-### Go to the previous question: `prev`
+### Go to the Previous Question: `prev`
 Navigate to the previous question.
 
 Format `prev`
 
 
-### Exit the quiz: `exit`
+### Exit the Quiz: `exit`
 Exits the quiz.
 
 Format: `exit`
 
 ## Data File
 
-### Save the data
+### Save the Data
 
 SmartNUS data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
-### Edit the data file
+### Edit the Data File
 
 SmartNUS data are saved as a JSON file `[JAR file location]/data/smartnus.json`. Advanced users are welcome to update data directly by editing that data file.
 
@@ -336,12 +332,12 @@ _Details coming soon ..._ -->
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Main Window Command summary
+## Main Window Command Summary
 
 Action | Format, Examples
 --------|------------------
 **MCQ** | `mcq qn/QUESTION opt/OPTION1 opt/OPTION2 opt/OPTION3 ans/ANSWER i/IMPORTANCE` <br> e.g., `mcq qn/what is 1 + 1? opt/3 opt/1 opt/0 ans/2 i/1`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
+**Delete** | `delete question QUESTION_INDEX` OR `delete note NOTE_INDEX`<br> e.g., `delete question 1`, `delete note 2`
 **Quiz** | `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX]` <br>
 **Exit** | `exit` <br>
 **Help** | `help` <br>
@@ -350,12 +346,12 @@ Action | Format, Examples
 
 Action | Format, Examples
 --------|------------------
-**Option A** | `A`, `a` <br>
-**Option B** | `B`, `b` <br>
-**Option C** | `C`, `c` <br>
-**Option D** | `D`, `d` <br>
-**Option True** | `T`, `True` (Case-insensitive)<br> e.g., `T`,`t`, `true` <br>
-**Option False** | `F`, `False` (Case-insensitive)<br> e.g., `F`,`f`, `false` <br>
+**Option A** | `A` <br>
+**Option B** | `B` <br>
+**Option C** | `C` <br>
+**Option D** | `D` <br>
+**Option True** | `T`, `True` (Case-insensitive) <br> 
+**Option False** | `F`, `False` (Case-insensitive) <br>
 **SAQ Answer** | `ans/ANSWER`<br> e.g., `ans/Harry Potter` <br>
 **Next** | `next` <br>
 **Prev** | `prev` <br>
