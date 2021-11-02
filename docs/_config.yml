@@ -8,6 +8,9 @@ header_pages:
 
 markdown: kramdown
 
+kramdown:
+  input: GFM
+
 repository: "AY2122S1-CS2103T-F12-1/tp"
 github_icon: "images/github-icon.png"
 
