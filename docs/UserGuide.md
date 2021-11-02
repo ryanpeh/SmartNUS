@@ -21,7 +21,7 @@ Interested in using our app? Check out the [Quick Start section](#quick-start) t
 
 This section will provide you with the details on how to navigate and interpret the user guide. This guide includes all the features the app provides, with in-depth explanations and examples on how to use them. 
 
-### 2.1. Using the user guide
+### 2.1. Using the User Guide
 
 The user guide has been structured in a way that makes it easy for you to navigate and find what you need.
 
