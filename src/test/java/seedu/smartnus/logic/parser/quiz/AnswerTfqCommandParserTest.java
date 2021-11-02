@@ -1,14 +1,18 @@
 package seedu.smartnus.logic.parser.quiz;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.smartnus.testutil.Assert.assertThrows;
+import static seedu.smartnus.commons.core.Messages.MESSAGE_CONTINUE_QUIZ;
+import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_TF_ANSWER_FORMAT;
+import static seedu.smartnus.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.smartnus.logic.commands.quiz.AnswerTfqCommand;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
 import seedu.smartnus.model.ReadOnlySmartNus;
+import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.quiz.QuizManager;
 import seedu.smartnus.model.util.SampleDataUtil;
 
@@ -50,13 +54,28 @@ class AnswerTfqCommandParserTest {
 
     @Test
     public void parse_invalidArgs() {
-        assertThrows(ParseException.class, () -> answerTfqCommandParser.parse("E", quizManager));
-        assertThrows(ParseException.class, () -> answerTfqCommandParser.parse("asdf", quizManager));
-        assertThrows(ParseException.class, () -> answerTfqCommandParser.parse("tt", quizManager));
-        assertThrows(ParseException.class, () -> answerTfqCommandParser.parse("tf", quizManager));
-        assertThrows(ParseException.class, () -> answerTfqCommandParser.parse("truet", quizManager));
-        assertThrows(ParseException.class, () -> answerTfqCommandParser.parse("truefalse", quizManager));
-        assertThrows(ParseException.class, () -> answerTfqCommandParser.parse("truee", quizManager));
+        Exception exception;
+        exception = Assertions.assertThrows(ParseException.class, () ->
+                answerTfqCommandParser.parse("B", quizManager));
+        assertEquals(exception.getMessage(), MESSAGE_INVALID_TF_ANSWER_FORMAT);
+        exception = Assertions.assertThrows(ParseException.class, () ->
+                answerTfqCommandParser.parse("tt", quizManager));
+        assertEquals(exception.getMessage(), MESSAGE_INVALID_TF_ANSWER_FORMAT);
+        exception = Assertions.assertThrows(ParseException.class, () ->
+                answerTfqCommandParser.parse("tf", quizManager));
+        assertEquals(exception.getMessage(), MESSAGE_INVALID_TF_ANSWER_FORMAT);
+        exception = Assertions.assertThrows(ParseException.class, () ->
+                answerTfqCommandParser.parse("truee", quizManager));
+        assertEquals(exception.getMessage(), MESSAGE_INVALID_TF_ANSWER_FORMAT);
+    }
+
+    @Test
+    public void parse_invalidArgs_alreadyAnswered() {
+        Choice choice = quizManager.currQuestion().getCorrectChoice();
+        quizManager.attemptAndCheckAnswer(choice);
+        Exception exception = Assertions.assertThrows(ParseException.class, () ->
+                answerTfqCommandParser.parse("tt", quizManager));
+        assertEquals(exception.getMessage(), MESSAGE_UNKNOWN_COMMAND + "\n" + MESSAGE_CONTINUE_QUIZ);
     }
 
 
