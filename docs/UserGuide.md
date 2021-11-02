@@ -3,15 +3,19 @@ layout: page
 title: User Guide
 ---
 
+* Table of Contents
+{:toc}
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Introduction
+
 SmartNUS is a **desktop app for students to revise for their exams, optimized for use via a Command Line Interface** (CLI)
 while still having the benefits of a Graphical User Interface (GUI). SmartNUS allows you to create a question bank and
 quiz yourself, as well as add notes for revision. If you can type fast, SmartNUS can make your review
 sessions more effective and faster than traditional GUI apps.
 
-* Table of Contents
-{:toc}
-
---------------------------------------------------------------------------------------------------------------------
+Interested in using our app? Check out the [Quick Start section](#quick-start) to get started!
 
 ## Quick Start
 
