@@ -21,7 +21,7 @@ Interested in using our app? Check out the [Quick Start section](#quick-start) t
 
 This section will provide you with the details on how to navigate and interpret the user guide. This guide includes all the features the app provides, with in-depth explanations and examples on how to use them. 
 
-### 2.1. Document Structure
+### 2.1. Using the user guide
 
 The user guide has been structured in a way that makes it easy for you to navigate and find what you need.
 
@@ -35,9 +35,7 @@ Here's a quick summary of the available sections in the user guide:
 * [Section 5: FAQ](#5-faq) - Frequently asked questions about SmartNUS.
 * [Section 6: Command Summary](#6-main-window-command-summary) - Summary of available SmartNUS commands and formats.
 
-### 2.2. Navigating 
-
-### 2.3. Commands
+### 2.2. Commands
 
 <div markdown="block" class="alert alert-info">
 
@@ -95,6 +93,8 @@ Here's a quick summary of the available sections in the user guide:
 --------------------------------------------------------------------------------------------------------------------
 
 ## 4. Features
+
+This section lists all the commands SmartNUS supports, with information about the commands as well as relevant examples.
 
 ### 4.1. Main Window Commands
 
@@ -351,7 +351,7 @@ If your changes to the data file makes its format invalid, SmartNUS will discard
 --------------------------------------------------------------------------------------------------------------------
 
 ## 6. Command Summary
-
+<!-- TODO: Ensure that all commands are added below -->
 ### 6.1. Main Window Command Summary
 
 Action | Format, Examples
