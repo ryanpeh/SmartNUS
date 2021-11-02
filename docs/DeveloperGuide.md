@@ -149,19 +149,28 @@ The `Question` class is an abstract class that stores a name, importance, and an
 A `Choice` stores a name and a boolean value `isCorrect` representing if it is a correct answer to the `Question`.
 The validity of a `Question` depends on the type of question.
 
-Types of Questions currently supported by SmartNUS and their conditions for validity are:
+Types of Questions currently supported by SmartNUS, and their conditions for validity are:
 1. Multiple Choice Questions
    * Has four `Choices` in total, exactly one of which is correct
-2. True-False Questions
+1. True-False Questions
    * Has two `Choices` in total, which can only be "True" and "False", exactly one of which is correct
-3. Multiple Response Questions (coming soon)
+1. Short Answer Questions
+   *
+1. Multiple Response Questions (coming soon)
    * Has four `Choices` in total, at least one of which is correct
-4. Open-Ended Questions (coming soon)
 
 ## Note class
 
 The `Note` class is a class that stores a text.
 The note of a `Note` depends on whether the note starts without a whitespace or not.
+
+## QuizManager class
+
+[//]: # (TODO: Insert class diagram)
+
+The `QuizManager` class is the class that manages the logic behind the quiz.
+
+
 
 ### Storage component
 
