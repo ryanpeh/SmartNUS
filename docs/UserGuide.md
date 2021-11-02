@@ -17,35 +17,27 @@ sessions more effective and faster than traditional GUI apps.
 
 Interested in using our app? Check out the [Quick Start section](#quick-start) to get started!
 
-## 2. Quick Start
+## 2. About
 
-1. Ensure you have Java `11` or above installed in your Computer.
+This section will provide you with the details on how to navigate and interpret the user guide. This guide includes all the features the app provides, with in-depth explanations and examples on how to use them. 
 
-1. Download the latest `smartnus.jar` from [here](https://github.com/AY2122S1-CS2103T-F12-1/tp/releases).
+### 2.1. Document Structure
 
-1. Copy the file to the folder you want to use as the _home folder_ for your SmartNUS app.
+The user guide has been structured in a way that makes it easy for you to navigate and find what you need.
 
-1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/UiMainWindow.png)
+Here's a quick summary of the available sections in the user guide:
 
-<!-- 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
-   Some example commands you can try:
+<!-- TODO: Ensure that the numberings below are correct at the end -->
+* [Section 1: Introduction](#1-introduction) - Introduction of SmartNUS
+* [Section 2: About](#2-about) - Introduction of SmartNUS
+* [Section 3: Quick Start](#3-quick-start) - A quick start guide to get you started with using SmartNUS.
+* [Section 4: Features](#4-features) - Documentation of all available features SmartNus has to offer.
+* [Section 5: FAQ](#5-faq) - Frequently asked questions about SmartNUS.
+* [Section 6: Command Summary](#6-main-window-command-summary) - Summary of available SmartNUS commands and formats.
 
-   * **`list`** : Lists all contacts.
+### 2.2. Navigating 
 
-   * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
-
-   * **`delete`**`3` : Deletes the 3rd contact shown in the current list.
-
-   * **`clear`** : Deletes all contacts.
-
-   * **`exit`** : Exits the app. -->
-
-1. Refer to the [Features](#features) below for details of each command.
-
---------------------------------------------------------------------------------------------------------------------
-
-## 3. Features
+### 2.3. Commands
 
 <div markdown="block" class="alert alert-info">
 
@@ -74,9 +66,39 @@ Interested in using our app? Check out the [Quick Start section](#quick-start) t
 
 </div>
 
-### 3.1. Main Window Commands
+## 3. Quick Start
 
-#### 3.1.1. Viewing Help : `help`
+1. Ensure you have Java `11` or above installed in your Computer.
+
+1. Download the latest `smartnus.jar` from [here](https://github.com/AY2122S1-CS2103T-F12-1/tp/releases).
+
+1. Copy the file to the folder you want to use as the _home folder_ for your SmartNUS app.
+
+1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+   ![Ui](images/UiMainWindow.png)
+
+<!-- 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+   Some example commands you can try:
+
+   * **`list`** : Lists all contacts.
+
+   * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+
+   * **`delete`**`3` : Deletes the 3rd contact shown in the current list.
+
+   * **`clear`** : Deletes all contacts.
+
+   * **`exit`** : Exits the app. -->
+
+1. Refer to the [Features](#features) below for details of each command.
+
+--------------------------------------------------------------------------------------------------------------------
+
+## 4. Features
+
+### 4.1. Main Window Commands
+
+#### 4.1.1. Viewing Help : `help`
 
 Shows a message explaning how to access the help page.
 
@@ -85,7 +107,7 @@ Shows a message explaning how to access the help page.
 Format: `help`
 
 
-#### 3.1.2. Add a Multiple Choice Question: `mcq`
+#### 4.1.2. Add a Multiple Choice Question: `mcq`
 
 Adds a multiple choice question to the question bank.
 
@@ -98,7 +120,7 @@ A multiple choice question must have exactly three incorrect options and one cor
 Examples:
 * `mcq qn/what is 1 + 1? opt/3 opt/1 opt/0 ans/2 i/1`
 
-#### 3.1.3. Add a True False Question: `tfq`
+#### 4.1.3. Add a True False Question: `tfq`
 
 Adds a true false question to the question bank.
 
@@ -111,7 +133,7 @@ A true false question can only have one answer, either "T" or "F"
 Examples:
 * `tfq qn/Is 1+1 = 2 ? ans/T i/1`
 
-#### 3.1.4. Add a Short Answer Question: `saq`
+#### 4.1.4. Add a Short Answer Question: `saq`
 
 Adds a short answer question to the question bank.
 
@@ -135,13 +157,13 @@ Examples:
 * `saq qn/What does mRNA stand for? ans/k/messenger k/ribonucleic k/acid i/1`
 * `saq qn/Who wrote The Merchant of Venice? ans/William k/Shakespeare i/2 t/literature t/classics`
 
-#### 3.1.5. List All Items : `list`
+#### 4.1.5. List All Items : `list`
 
 Shows a list of all questions, notes, or tags stored in SmartNus.
 
 Format: `list question` OR `list note` OR `list tag`
 
-#### 3.1.6. Delete a Question or Note: `delete`
+#### 4.1.6. Delete a Question or Note: `delete`
 
 Deletes an existing question or note from the question bank or note list.
 
@@ -150,7 +172,7 @@ Format: `delete question QUESTION_INDEX` OR `delete note NOTE_INDEX`
 * Deletes the question or note with the specified `QUESTION_INDEX` or `NOTE_INDEX`.
 * The `QUESTION_INDEX` or `NOTE_INDEX` refers to the index number shown in the displayed list. The index **must be a positive integer** 1, 2, 3, …​ 
 
-#### 3.1.7. Edit a Question and Answers: `edit`
+#### 4.1.7. Edit a Question and Answers: `edit`
 
 Edits an existing question in the question bank with the specified question number.
 
@@ -189,7 +211,7 @@ run the `list question` command.
 
 </div>
 
-#### 3.1.8. Find/Search Questions: `find`
+#### 4.1.8. Find/Search Questions: `find`
 
 Shows a list of all questions in SmartNUS that have all the specified keywords,
 at least one of the specified tags, and the importance value (if specified).
@@ -218,7 +240,7 @@ includes "load" and "word" in any order.
   * e.g. A question titled "What is the load word instruction used for?" tagged with only CS2100 will be listed.
 
 <!-- TODO: standardise format, remove params from header, add brief description-->
-#### 3.1.9. Find/Search Stats: `stat [t/TAG]...`
+#### 4.1.9. Find/Search Stats: `stat [t/TAG]...`
 
 * Shows the list of statistics by Tag for the questions attempted.
 * The search is case-insentitive for tags
@@ -230,7 +252,7 @@ Examples:
 * `stat t/CS2100 t/MIPS` returns the overall statistics for the questions tagged with `CS2100` or `MIPS` or both.
 
 <!-- TODO: add brief description before format to standardise format-->
-#### 3.1.10. Start a Quiz: `quiz`
+#### 4.1.10. Start a Quiz: `quiz`
 Format: `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX]`
 
 * If no parameters are passed, a quiz session will be created using all the questions in the question list.
@@ -248,19 +270,19 @@ Format: `quiz`
 Examples:
 *  `quiz` opens a new quiz window and only [quiz commands](#quiz_window_commands) can be used.
 
-#### 3.1.11. Clear All Entries : `clear`
+#### 4.1.11. Clear All Entries : `clear`
 
 Clears all entries (questions, notes and tags) from the question bank.
 
 Format: `clear`
 
-#### 3.1.12. Exit the Program : `exit`
+#### 4.1.12. Exit the Program : `exit`
 
 Exits the program.
 
 Format: `exit`
 
-#### 3.1.13. Change the Theme: `theme`
+#### 4.1.13. Change the Theme: `theme`
 
 Changes the theme of the app.
 
@@ -273,19 +295,19 @@ Examples:
 - `theme light`: Sets the theme to light
 - `theme dark`: Sets the theme to dark
 
-### 3.2. <a name="quiz_window_commands"></a>Quiz Window Commands
+### 4.2. <a name="quiz_window_commands"></a>Quiz Window Commands
 
-#### 3.2.1. Answer a Multiple Choice Question: `A` `B` `C` `D`
+#### 4.2.1. Answer a Multiple Choice Question: `A` `B` `C` `D`
 Answers the multiple choice question with the options.
 
 Format: `A` `B` `C` or `D` (case-insensitive)
 
-#### 3.2.2. Answer a True False Question: `T` `F`
+#### 4.2.2. Answer a True False Question: `T` `F`
 Answers the multiple choice question with the options.
 
 Format: `T` `F` `True` `False` (case-insensitive)
 
-#### 3.2.3. Answer a Short Answer Question: `ans/`
+#### 4.2.3. Answer a Short Answer Question: `ans/`
 Answers the short answer question with the provided answer.
 
 Format: `ans/ANSWER`
@@ -293,50 +315,44 @@ Format: `ans/ANSWER`
 Examples:
 * `ans/Harry Potter` answers the short answer question with "Harry Potter".
 
-#### 3.2.4. Go to the Next Question: `next`
+#### 4.2.4. Go to the Next Question: `next`
 Navigate to the next question.
 
 Format: `next`
 
-#### 3.2.5. Go to the Previous Question: `prev`
+#### 4.2.5. Go to the Previous Question: `prev`
 Navigate to the previous question.
 
 Format `prev`
 
 
-#### 3.2.6. Exit the Quiz: `exit`
+#### 4.2.6. Exit the Quiz: `exit`
 Exits the quiz.
 
 Format: `exit`
-
-## 4. Data File
-
-### 4.1. Save the Data
-
-SmartNUS data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
-
-### 4.2. Edit the Data File
-
-SmartNUS data are saved as a JSON file `[JAR file location]/data/smartnus.json`. Advanced users are welcome to update data directly by editing that data file.
-
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, SmartNUS will discard all data and start with an empty data file at the next run.
-</div>
-<!--
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._ -->
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## 5. FAQ
 
+**Q**: How do I save my data?<br>
+**A**: SmartNUS data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous SmartNUS home folder.
 
+**Q**: Am I allowed to edit the data file directly?<br>
+**A**: SmartNUS data are saved as a JSON file `[JAR file location]/data/smartnus.json`. Advanced users are welcome to update data directly by editing that data file.
+
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+If your changes to the data file makes its format invalid, SmartNUS will discard all data and start with an empty data file at the next run.
+</div>
+
 --------------------------------------------------------------------------------------------------------------------
 
-## 6. Main Window Command Summary
+## 6. Command Summary
+
+### 6.1. Main Window Command Summary
 
 Action | Format, Examples
 --------|------------------
@@ -346,7 +362,7 @@ Action | Format, Examples
 **Exit** | `exit` <br>
 **Help** | `help` <br>
 
-## 7. Quiz Window Command Summary
+### 6.2. Quiz Window Command Summary
 
 Action | Format, Examples
 --------|------------------
