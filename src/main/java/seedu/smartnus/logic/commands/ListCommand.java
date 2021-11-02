@@ -5,7 +5,6 @@ import static seedu.smartnus.logic.commands.CommandUtil.NOTE_KEYWORD;
 import static seedu.smartnus.logic.commands.CommandUtil.QUESTION_KEYWORD;
 import static seedu.smartnus.logic.commands.CommandUtil.TAG_KEYWORD;
 import static seedu.smartnus.model.Model.PREDICATE_SHOW_ALL_NOTES;
-import static seedu.smartnus.model.Model.PREDICATE_SHOW_ALL_QUESTIONS;
 import static seedu.smartnus.model.Model.PREDICATE_SHOW_ALL_STATISTICS;
 
 import seedu.smartnus.model.Model;
@@ -45,7 +44,7 @@ public class ListCommand extends Command {
         String successMessage;
         switch (panel) {
         case QUESTION_KEYWORD:
-            model.updateFilteredQuestionList(PREDICATE_SHOW_ALL_QUESTIONS);
+            model.resetFilteredQuestionList();
             model.setPanel(QUESTION_KEYWORD);
             successMessage = MESSAGE_SUCCESS_QUESTIONS;
 
@@ -64,7 +63,7 @@ public class ListCommand extends Command {
             break;
         default:
             // Defensive programming
-            model.updateFilteredQuestionList(PREDICATE_SHOW_ALL_QUESTIONS);
+            model.resetFilteredQuestionList();
             model.setPanel(QUESTION_KEYWORD);
             successMessage = MESSAGE_SUCCESS_QUESTIONS;
         }

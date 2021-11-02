@@ -179,6 +179,11 @@ class AddMcqCommandTest {
         }
 
         @Override
+        public void resetFilteredQuestionList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void sortFilteredQuizQuestionList(Comparator<Question> comparator) {
             throw new AssertionError("This method should not be called.");
         }
