@@ -297,7 +297,7 @@ Examples:
 - `theme light`: Sets the theme to light
 - `theme dark`: Sets the theme to dark
 
-### 4.2. <a name="quiz_window_commands"></a>Quiz Window Commands
+### 4.2. Quiz Window Commands
 
 #### 4.2.1. Answer a Multiple Choice Question: `A` `B` `C` `D`
 Answers the multiple choice question with the options.
