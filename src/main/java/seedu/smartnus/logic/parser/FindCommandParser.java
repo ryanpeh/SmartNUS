@@ -1,6 +1,7 @@
 package seedu.smartnus.logic.parser;
 
 import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.smartnus.logic.commands.FindCommand.MESSAGE_INVALID_KEYWORDS;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_IMPORTANCE;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -78,10 +79,10 @@ public class FindCommandParser implements Parser<FindCommand> {
     private void setNamePredicate(ArgumentMultimap argMultimap, ArrayList<Predicate<Question>> predicates) throws ParseException {
         String nameInput = argMultimap.getPreamble();
         if (!nameInput.isBlank()) {
-            List<String> parsedNameKeywords = Stream.of(nameInput.trim().split("([,.?!:;*\"-()\\[\\]{}]|\\s)+"))
+            List<String> parsedNameKeywords = Stream.of(nameInput.trim().split("([,.?!:;*\"()\\[\\]{}]|\\s)+"))
                     .filter(keyword -> !keyword.isEmpty()).collect(Collectors.toList());
             if (parsedNameKeywords.isEmpty()) {
-                throw new ParseException("Please input valid keywords (characters that are considered part of a word). The following characters are not considered part of a word: ,.?!:;*-()[]{}]\"");
+                throw new ParseException(MESSAGE_INVALID_KEYWORDS);
             }
             predicates.add(new NameContainsKeywordsPredicate(parsedNameKeywords));
         }

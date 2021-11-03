@@ -223,11 +223,13 @@ Format: `find [KEYWORDS]... [t/TAG]... [i/IMPORTANCE]`
 * At least one of the optional fields to find by must be specified.
 * The search is case-insensitive for both keywords and tags (e.g. `math` will match `MaTH`).
 * Only full words will be matched for both keywords and tags (e.g. `CS2100` will not match `CS210`).
-* A word is a string of characters with a space at either the beginning or the end.
-* The following punctuation marks `,.?!:;*"()[]{}` commonly found at the beginning or end of a word are not considered part of the word
-  (i.e. `find *("literature":,;?!)]}` is the same as `find literature` and `find a b` will return a question with `(a:b)` in its title).
+* The following characters `,.?!:;*"()[]{}` which are commonly used to separate words are not considered part of a word or keyword. 
+Instead, they are considered as word separators similar to a space.
+  * `find *("literature":,;?!)]}` returns the same result as `find literature`.
+  * `find ,:;?(]` is an invalid command as it is the same as finding a blank keyword or only inputting spaces as keywords.
+  * `find first? second (third...)!` is the same as `find first second third`.
 * Hyphenated words are considered as one word (e.g. `find grey-box` will not return a question titled `grey box`).
-* Any question that has at least one of the tags **AND** and all the keywords in its title (in any order)
+* Any question that has at least one of the tags **AND** all the keywords in its title (in any order)
 **AND** the importance specified will be listed.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
@@ -241,9 +243,10 @@ To return to the list of all questions, use the `list question` command.
 </div>
 
 Examples:
-* `find load word t/CS2100 t/MIPS` returns questions tagged with at least one of the tags and that whose title
+* `find load word t/CS2100 t/MIPS i/2` returns questions tagged with at least one of the tags and whose title
 includes "load" and "word" in any order.
-  * e.g. A question titled "What is the load word instruction used for?" tagged with only CS2100 will be listed.
+  * e.g. A question titled "What is the load word instruction used for?" tagged with only CS2100 and with an importance value of 2 will be listed.
+* `find java` returns a question titled "How do you output text to the console in Java?" but not a question titled "Javascript is commonly used in web development. True or false?" (since `java` is not a full word match for `javascript`).
 
 <!-- TODO: standardise format, remove params from header, add brief description-->
 #### 4.1.9. Find/Search Stats: `stat [t/TAG]...`
