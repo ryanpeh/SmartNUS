@@ -75,11 +75,14 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
     }
 
-    private void setNamePredicate(ArgumentMultimap argMultimap, ArrayList<Predicate<Question>> predicates) {
+    private void setNamePredicate(ArgumentMultimap argMultimap, ArrayList<Predicate<Question>> predicates) throws ParseException {
         String nameInput = argMultimap.getPreamble();
         if (!nameInput.isBlank()) {
             List<String> parsedNameKeywords = Stream.of(nameInput.trim().split("([,.?!:;*\"-()\\[\\]{}]|\\s)+"))
                     .filter(keyword -> !keyword.isEmpty()).collect(Collectors.toList());
+            if (parsedNameKeywords.isEmpty()) {
+                throw new ParseException("Please input valid keywords (characters that are considered part of a word). The following characters are not considered part of a word: ,.?!:;*-()[]{}]\"");
+            }
             predicates.add(new NameContainsKeywordsPredicate(parsedNameKeywords));
         }
     }
