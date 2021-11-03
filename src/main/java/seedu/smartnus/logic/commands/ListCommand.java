@@ -20,13 +20,9 @@ public class ListCommand extends Command {
     public static final String MESSAGE_SUCCESS_NOTES = "Listed all notes";
     public static final String MESSAGE_SUCCESS_TAGS = "Listed all tags";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": lists the contents of SmartNUS. "
-            + "Parameters: "
-            + NOTE_KEYWORD + ": list notes or "
-            + QUESTION_KEYWORD + ": list questions or "
-            + TAG_KEYWORD + ": list tag statistics "
-            + "Example: " + COMMAND_WORD + " "
-            + QUESTION_KEYWORD;
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": lists the contents of SmartNUS.\n"
+            + "Parameters: " + QUESTION_KEYWORD + " / " + TAG_KEYWORD + " / " + NOTE_KEYWORD + "\n"
+            + "Example: " + COMMAND_WORD + " " + QUESTION_KEYWORD;
 
     private String panel;
 
