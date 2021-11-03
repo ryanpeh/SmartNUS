@@ -22,7 +22,7 @@ import seedu.smartnus.model.tag.Tag;
  * Contains utility methods for populating {@code SmartNus} with sample data.
  */
 public class SampleDataUtil {
-    public static final int SAQ_QUESTION_INDEX = 3;
+    public static final int SAQ_QUESTION_INDEX = 2;
     public static Question[] getSampleQuestions() {
         return new Question[] {
             new MultipleChoiceQuestion(
