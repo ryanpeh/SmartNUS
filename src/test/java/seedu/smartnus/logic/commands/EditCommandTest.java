@@ -133,7 +133,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new SmartNus(model.getSmartNus()), new UserPrefs());
         expectedModel.setQuestion(model.getFilteredQuestionList().get(0), editedQuestion);
-        model.updateFilteredQuestionList(Model.PREDICATE_SHOW_ALL_QUESTIONS);
+        model.resetFilteredQuestionList();
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 

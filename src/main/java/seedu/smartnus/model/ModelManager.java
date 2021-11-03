@@ -27,7 +27,7 @@ public class ModelManager implements Model {
 
     private final SmartNus smartNus;
     private final UserPrefs userPrefs;
-    private final FilteredList<Question> filteredQuestions;
+    private FilteredList<Question> filteredQuestions;
     private final FilteredList<Note> filteredNotes;
     private FilteredList<Question> filteredQuizQuestions;
     private FilteredList<TagStatistic> filteredTagStatistic;
@@ -130,7 +130,7 @@ public class ModelManager implements Model {
     @Override
     public void addQuestion(Question question) {
         smartNus.addQuestion(question);
-        updateFilteredQuestionList(PREDICATE_SHOW_ALL_QUESTIONS);
+        resetFilteredQuestionList();
     }
 
     @Override
@@ -185,6 +185,11 @@ public class ModelManager implements Model {
     public void updateFilteredQuestionList(Predicate<Question> predicate) {
         requireNonNull(predicate);
         filteredQuestions.setPredicate(predicate);
+    }
+
+    @Override
+    public void resetFilteredQuestionList() {
+        filteredQuestions = new FilteredList<>(this.smartNus.getQuestionList());
     }
 
     //=========== Filtered Note List Accessors =============================================================
