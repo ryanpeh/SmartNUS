@@ -76,7 +76,8 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
     }
 
-    private void setNamePredicate(ArgumentMultimap argMultimap, ArrayList<Predicate<Question>> predicates) throws ParseException {
+    private void setNamePredicate(ArgumentMultimap argMultimap, ArrayList<Predicate<Question>> predicates)
+            throws ParseException {
         String nameInput = argMultimap.getPreamble();
         if (!nameInput.isBlank()) {
             List<String> parsedNameKeywords = Stream.of(nameInput.trim().split("([,.?!:;*\"()\\[\\]{}]|\\s)+"))

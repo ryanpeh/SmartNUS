@@ -243,7 +243,7 @@ To return to the list of all questions, use the `list question` command.
 </div>
 
 Examples:
-* `find load word t/CS2100 t/MIPS i/2` returns questions tagged with at least one of the tags and whose title
+* `find load word t/CS2100 t/MIPS i/2` returns questions tagged with at least one of the tags, with importance value 2 and whose title
 includes "load" and "word" in any order.
   * e.g. A question titled "What is the load word instruction used for?" tagged with only CS2100 and with an importance value of 2 will be listed.
 * `find java` returns a question titled "How do you output text to the console in Java?" but not a question titled "Javascript is commonly used in web development. True or false?" (since `java` is not a full word match for `javascript`).
