@@ -223,6 +223,10 @@ Format: `find [KEYWORDS]... [t/TAG]... [i/IMPORTANCE]`
 * At least one of the optional fields to find by must be specified.
 * The search is case-insensitive for both keywords and tags (e.g. `math` will match `MaTH`).
 * Only full words will be matched for both keywords and tags (e.g. `CS2100` will not match `CS210`).
+* A word is a string of characters with a space at either the beginning or the end.
+* The following punctuation marks `,.?!:;*"()[]{}` commonly found at the beginning or end of a word are not considered part of the word
+  (i.e. `find *("literature":,;?!)]}` is the same as `find literature` and `find a b` will return a question with `(a:b)` in its title).
+* Hyphenated words are considered as one word (e.g. `find grey-box` will not return a question titled `grey box`).
 * Any question that has at least one of the tags **AND** and all the keywords in its title (in any order)
 **AND** the importance specified will be listed.
 
