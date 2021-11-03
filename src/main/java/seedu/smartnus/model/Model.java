@@ -96,7 +96,11 @@ public interface Model {
     void updateFilteredQuestionList(Predicate<Question> predicate);
 
     /**
+     * Resets the filtered question list to contain all questions.
+     */
+    void resetFilteredQuestionList();
 
+    /**
      * Adds the given note.
      */
     void addNote(Note note);
