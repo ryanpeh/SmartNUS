@@ -6,12 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.smartnus.commons.core.Messages.MESSAGE_QUESTIONS_LISTED_OVERVIEW;
 import static seedu.smartnus.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.smartnus.logic.commands.CommandUtil.QUESTION_KEYWORD;
-import static seedu.smartnus.testutil.Assert.assertThrows;
-import static seedu.smartnus.testutil.TypicalQuestions.FIONA;
-import static seedu.smartnus.testutil.TypicalSmartNus.getTypicalSmartNus;
 import static seedu.smartnus.model.util.SampleDataUtil.MCQ_QUESTION_INDEX;
 import static seedu.smartnus.model.util.SampleDataUtil.TFQ_QUESTION_INDEX;
 import static seedu.smartnus.model.util.SampleDataUtil.getSampleQuestions;
+import static seedu.smartnus.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -33,14 +31,14 @@ import seedu.smartnus.model.ModelManager;
 import seedu.smartnus.model.ReadOnlySmartNus;
 import seedu.smartnus.model.ReadOnlyUserPrefs;
 import seedu.smartnus.model.UserPrefs;
-import seedu.smartnus.model.question.Importance;
 import seedu.smartnus.model.note.Note;
+import seedu.smartnus.model.question.Importance;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.question.predicates.HasImportancePredicate;
 import seedu.smartnus.model.question.predicates.NameContainsKeywordsPredicate;
 import seedu.smartnus.model.question.predicates.TagsContainKeywordsPredicate;
-import seedu.smartnus.model.util.SampleDataUtil;
 import seedu.smartnus.model.statistic.TagStatistic;
+import seedu.smartnus.model.util.SampleDataUtil;
 import seedu.smartnus.ui.panel.StatisticListPanel;
 
 /**
@@ -164,6 +162,14 @@ public class FindCommandTest {
         expectedModel.updateFilteredQuestionList(namePredicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(getSampleQuestions()[MCQ_QUESTION_INDEX]), model.getFilteredQuestionList());
+    }
+
+    @Test
+    public void find_wrongPanel() {
+        ModelStub model = new FindCommandTest.ModelStub();
+        FindCommand command = new FindCommand(new ArrayList<Predicate<Question>>());
+        assertThrows(CommandException.class,
+                Messages.MESSAGE_NOT_IN_QUESTION_PANEL, () -> command.execute(model));
     }
 
     /**
