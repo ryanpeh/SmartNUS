@@ -26,7 +26,7 @@ import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.question.Importance;
 import seedu.smartnus.model.question.Name;
 import seedu.smartnus.model.question.Question;
-import seedu.smartnus.model.question.ShortAnswerQuestion;
+import seedu.smartnus.testutil.QuestionBuilder;
 
 class AddSaqCommandParserTest {
 
@@ -34,17 +34,13 @@ class AddSaqCommandParserTest {
 
     @Test
     void parse_allFieldsValid_success() {
-        // TODO: Use question builder for this instead of generating it here
         Set<String> keywords = new HashSet<>();
         keywords.add("Rowling");
-        Set<Choice> expectedChoices = new HashSet<>();
-        expectedChoices.add(new Choice("J. K. Rowling", true, keywords));
-
-        Importance expectedImportance = new Importance(VALID_IMPORTANCE_1);
-        Name expectedName = new Name(VALID_QUESTION_1);
-
-        Question expectedQuestion = new ShortAnswerQuestion(expectedName, expectedImportance,
-                new HashSet<>(), expectedChoices);
+        Question expectedQuestion = new QuestionBuilder()
+                .withName(VALID_QUESTION_1)
+                .withImportance(VALID_IMPORTANCE_1)
+                .withChoices(new Choice("J. K. Rowling", true, keywords))
+                .buildSaq();
 
         AddSaqCommand expectedCommand = new AddSaqCommand(expectedQuestion);
 

@@ -3,10 +3,12 @@ package seedu.smartnus.logic.parser;
 import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.smartnus.logic.commands.CommandTestUtil.ANSWER_DESC_1;
 import static seedu.smartnus.logic.commands.CommandTestUtil.ANSWER_DESC_2;
+import static seedu.smartnus.logic.commands.CommandTestUtil.ANSWER_DESC_3;
 import static seedu.smartnus.logic.commands.CommandTestUtil.IMPORTANCE_DESC_1;
 import static seedu.smartnus.logic.commands.CommandTestUtil.INVALID_ANSWER_DESC;
 import static seedu.smartnus.logic.commands.CommandTestUtil.INVALID_IMPORTANCE_DESC;
-import static seedu.smartnus.logic.commands.CommandTestUtil.INVALID_OPTION_DESC;
+import static seedu.smartnus.logic.commands.CommandTestUtil.INVALID_OPTION_DESC_1;
+import static seedu.smartnus.logic.commands.CommandTestUtil.INVALID_OPTION_DESC_2;
 import static seedu.smartnus.logic.commands.CommandTestUtil.INVALID_QUESTION_DESC;
 import static seedu.smartnus.logic.commands.CommandTestUtil.OPTIONS_DESC_1;
 import static seedu.smartnus.logic.commands.CommandTestUtil.OPTIONS_DESC_2;
@@ -24,11 +26,6 @@ import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_QUESTION_1;
 import static seedu.smartnus.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.smartnus.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.smartnus.logic.commands.questions.AddMcqCommand;
@@ -37,6 +34,7 @@ import seedu.smartnus.model.question.Importance;
 import seedu.smartnus.model.question.MultipleChoiceQuestion;
 import seedu.smartnus.model.question.Name;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.testutil.QuestionBuilder;
 
 
 class AddMcqCommandParserTest {
@@ -45,19 +43,12 @@ class AddMcqCommandParserTest {
 
     @Test
     void parse_allFieldsValid_success() {
-        // TODO: Use question builder for this instead of generating it here
-        List<String> choices = Arrays.asList(VALID_OPTION_1, VALID_OPTION_3, VALID_OPTION_4);
-        Set<Choice> expectedChoices = new HashSet<>();
-        for (String choice: choices) {
-            expectedChoices.add(new Choice(choice, false));
-        }
-        expectedChoices.add(new Choice(VALID_ANSWER_1, true));
-
-        Importance expectedImportance = new Importance(VALID_IMPORTANCE_1);
-        Name expectedName = new Name(VALID_QUESTION_1);
-
-        Question expectedQuestion = new MultipleChoiceQuestion(expectedName, expectedImportance,
-                new HashSet<>(), expectedChoices);
+        Question expectedQuestion = new QuestionBuilder()
+                .withName(VALID_QUESTION_1)
+                .withImportance(VALID_IMPORTANCE_1)
+                .withChoices(new Choice(VALID_OPTION_1, false), new Choice(VALID_OPTION_3, false),
+                             new Choice(VALID_OPTION_4, false), new Choice(VALID_ANSWER_1, true))
+                .build();
 
         AddMcqCommand expectedCommand = new AddMcqCommand(expectedQuestion);
 
@@ -103,12 +94,11 @@ class AddMcqCommandParserTest {
 
     @Test
     void parse_fieldsInvalid_failure() {
-        // TODO: Add tests for duplicate options and answer
         // invalid answer
         assertParseFailure(parser, QUESTION_DESC_1 + OPTIONS_DESC_1 + INVALID_ANSWER_DESC + IMPORTANCE_DESC_1,
                 Choice.MESSAGE_CONSTRAINTS);
         // 1 invalid option with 2 valid
-        assertParseFailure(parser, QUESTION_DESC_1 + OPTION_DESC_1 + INVALID_OPTION_DESC + OPTION_DESC_3
+        assertParseFailure(parser, QUESTION_DESC_1 + OPTION_DESC_1 + INVALID_OPTION_DESC_1 + OPTION_DESC_3
                 + ANSWER_DESC_1 + IMPORTANCE_DESC_1, Choice.MESSAGE_CONSTRAINTS);
         // not enough options
         assertParseFailure(parser,
@@ -124,5 +114,13 @@ class AddMcqCommandParserTest {
         assertParseFailure(parser,
                 QUESTION_DESC_1 + OPTIONS_DESC_1 + ANSWER_DESC_1 + INVALID_IMPORTANCE_DESC,
                 Importance.MESSAGE_CONSTRAINTS);
+        // duplicate options
+        assertParseFailure(parser,
+                QUESTION_DESC_1 + INVALID_OPTION_DESC_2 + ANSWER_DESC_1 + IMPORTANCE_DESC_1,
+                MultipleChoiceQuestion.MESSAGE_DUPLICATE_CHOICES);
+        // duplicate answer and option
+        assertParseFailure(parser,
+                QUESTION_DESC_1 + OPTIONS_DESC_1 + ANSWER_DESC_3 + IMPORTANCE_DESC_1,
+                MultipleChoiceQuestion.MESSAGE_DUPLICATE_CHOICES);
     }
 }
