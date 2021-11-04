@@ -75,7 +75,7 @@ Here's a quick summary of the available sections in the user guide:
 1. Copy the file to the folder you want to use as the _home folder_ for your SmartNUS app.
 
 1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/UiMainWindow.png)
+   ![Ui](images/user-guide/UiMainWindow.png)
 
 <!-- 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
@@ -104,7 +104,7 @@ This section lists all the commands SmartNUS supports, with information about th
 
 Shows a message explaning how to access the help page.
 
-![help message](images/helpMessage.png)
+![help message](images/user-guide/helpMessage.png)
 
 Format: `help`
 
