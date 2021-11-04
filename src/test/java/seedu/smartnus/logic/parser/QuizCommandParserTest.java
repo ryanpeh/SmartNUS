@@ -29,6 +29,7 @@ class QuizCommandParserTest {
     public static final String INVALID_ARGUMENT = "@TASedg";
     private final QuizCommandParser parser = new QuizCommandParser();
     private ArrayList<Predicate<Question>> filterPredicates;
+    private final Comparator<Question> defaultComparator = new QuestionsDefaultComparator();
 
     @BeforeEach
     public void setUp() {
@@ -66,7 +67,6 @@ class QuizCommandParserTest {
         String limit = "lim/ 4 lim/ 3";
         // takes the last limit passed in
         filterPredicates.add(new LimitQuestionsPredicate(3));
-        Comparator<Question> defaultComparator = new QuestionsDefaultComparator();
         assertParseSuccess(parser, tags + limit, new QuizCommand(filterPredicates, defaultComparator));
     }
 
