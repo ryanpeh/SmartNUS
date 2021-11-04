@@ -1,6 +1,9 @@
 package seedu.smartnus.logic.parser.quiz;
 
+import static seedu.smartnus.commons.core.Messages.MESSAGE_CONTINUE_QUIZ;
+import static seedu.smartnus.commons.core.Messages.MESSAGE_END_OF_QUIZ;
 import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_MCQ_ANSWER_FORMAT;
+import static seedu.smartnus.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import seedu.smartnus.logic.commands.quiz.AnswerMcqCommand;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
@@ -22,6 +25,9 @@ public class AnswerMcqCommandParser implements QuizParser<AnswerMcqCommand> {
     public AnswerMcqCommand parse(String args, QuizManager quizManager) throws ParseException {
         if (args.matches(MCQ_REGEX)) {
             return new AnswerMcqCommand(args, quizManager);
+        } else if (quizManager.isCurrentQuestionAnswered()) {
+            String endMessage = quizManager.isLastQuestion() ? MESSAGE_END_OF_QUIZ : MESSAGE_CONTINUE_QUIZ;
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND + "\n" + endMessage);
         } else {
             throw new ParseException(MESSAGE_INVALID_MCQ_ANSWER_FORMAT);
         }

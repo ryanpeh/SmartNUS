@@ -15,6 +15,8 @@ public class StatCommand extends Command {
 
     public static final String COMMAND_WORD = "stat";
     public static final String MESSAGE_FOUND_STATS_FORMAT = "%1$d stats found!";
+    public static final String MESSAGE_NO_TAG_PREFIX = "Please enter a tag prefix before the tag you want to search,"
+            + " or enter the command alone to view all stats\n";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds the statistics for a tag (case-insensitive). "
             + "Parameters: "
             + " [" + PREFIX_TAG + "TAG]..."
@@ -42,6 +44,13 @@ public class StatCommand extends Command {
             combinedPredicates = combinedPredicates.and(predicate);
         }
         return combinedPredicates;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof StatCommand // instanceof handles nulls
+                && predicates.equals(((StatCommand) other).predicates));
     }
 
 }

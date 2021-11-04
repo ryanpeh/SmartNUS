@@ -237,7 +237,7 @@ public class ParserUtil {
      */
     public static Set<Choice> parseTrueFalseAnswer(String answer) throws ParseException {
         requireNonNull(answer);
-        String trimmedAnswer = answer.trim();
+        String trimmedAnswer = answer.trim().toUpperCase();
         boolean isAnswerTrue = trimmedAnswer.equals(ANSWER_TRUE);
         boolean isAnswerFalse = trimmedAnswer.equals(ANSWER_FALSE);
         if (!isAnswerTrue && !isAnswerFalse) {

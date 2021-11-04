@@ -40,8 +40,8 @@ public class NextQuestionCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        // TODO: In future, check if the attributes (if any) for the QuizCommand are the same
         return other == this // short circuit if same object
-                || other instanceof NextQuestionCommand; // instanceof handles nulls
+                || (other instanceof NextQuestionCommand // instanceof handles nulls
+                    && quizManager.equals(((NextQuestionCommand) other).quizManager));
     }
 }

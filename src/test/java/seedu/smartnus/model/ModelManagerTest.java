@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.smartnus.model.Model.PREDICATE_SHOW_ALL_QUESTIONS;
 import static seedu.smartnus.testutil.Assert.assertThrows;
 import static seedu.smartnus.testutil.TypicalQuestions.ALICE;
 import static seedu.smartnus.testutil.TypicalQuestions.BENSON;
@@ -131,7 +130,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(smartNus, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredQuestionList(PREDICATE_SHOW_ALL_QUESTIONS);
+        modelManager.resetFilteredQuestionList();
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

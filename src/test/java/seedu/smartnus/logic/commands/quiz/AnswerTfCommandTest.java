@@ -45,7 +45,6 @@ class AnswerTfqCommandTest {
 
     @Test
     public void execute_validInput_returnsCorrectCommandResult() {
-        quizManager.nextQuestion();
         Question question = quizManager.nextQuestion();
         Choice correctChoice = question.getCorrectChoice();
         int idx = question.getOrderedChoices().indexOf(correctChoice);
@@ -56,7 +55,6 @@ class AnswerTfqCommandTest {
 
     @Test
     public void execute_validInput_returnsIncorrectCommandResult() {
-        quizManager.nextQuestion();
         Question question = quizManager.nextQuestion();
         Choice correctChoice = question.getCorrectChoice();
         int idx = question.getOrderedChoices().indexOf(correctChoice);
@@ -68,7 +66,6 @@ class AnswerTfqCommandTest {
 
     @Test
     public void execute_multipleInputs_returnsAlreadyAnsweredCommandResult() {
-        quizManager.nextQuestion();
         quizManager.nextQuestion();
         answerTfqCommand = new AnswerTfqCommand("t", quizManager);
         answerTfqCommand.execute(model);

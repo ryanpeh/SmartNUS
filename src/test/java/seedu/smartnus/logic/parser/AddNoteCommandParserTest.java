@@ -41,7 +41,7 @@ public class AddNoteCommandParserTest {
         assertParseFailure(parser, QUESTION_DESC_1 + OPTIONS_DESC_1 + INVALID_ANSWER_DESC + IMPORTANCE_DESC_1,
                 Choice.MESSAGE_CONSTRAINTS);
         // 1 invalid option with 2 valid
-        assertParseFailure(parser, QUESTION_DESC_1 + OPTION_DESC_1 + INVALID_OPTION_DESC + OPTION_DESC_3
+        assertParseFailure(parser, QUESTION_DESC_1 + OPTION_DESC_1 + INVALID_OPTION_DESC_1 + OPTION_DESC_3
                 + ANSWER_DESC_1 + IMPORTANCE_DESC_1, Choice.MESSAGE_CONSTRAINTS);
         // not enough options
         assertParseFailure(parser,
