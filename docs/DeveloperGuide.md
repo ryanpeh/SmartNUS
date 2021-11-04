@@ -121,7 +121,7 @@ How the `Logic` component determines which parser to use:
 - The `Logic` component uses either the `SmartNusParser` or the `QuizInputParser` class to parse the user command, depending on which window the user is currently on (i.e. Main Window or Quiz Window).
 - Different parsers are used due to different commands being available to the user during the quiz (i.e. the user should not be able to execute `AddMcqCommand` while in a quiz).
 - The `LogicManager` class achieves this through the usage of overloaded methods, `parseCommand(String)` and `parseCommand(String, QuizManager)`, with the latter for parsing commands while in a quiz.
-- This was implemented with the consideration that the `QuizInputParser` would require a `QuizManager` argument to be passed to various `XYZCommandParser` and `Command` classes to carry out the necessary various quiz functionality.
+- This was implemented with the consideration that the `QuizInputParser` would require a `QuizManager` argument to be passed to various `ABCCommandParser` and `Command` classes to carry out the necessary various quiz functionality.
 
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2122S1-CS2103T-F12-1/tp/blob/master/src/main/java/seedu/smartnus/model/Model.java)
@@ -155,7 +155,7 @@ Types of Questions currently supported by SmartNUS, and their conditions for val
 1. True-False Questions
    * Has two `Choices` in total, which can only be "True" and "False", exactly one of which is correct
 1. Short Answer Questions
-   *
+   * TODO
 1. Multiple Response Questions (coming soon)
    * Has four `Choices` in total, at least one of which is correct
 
@@ -168,8 +168,13 @@ The note of a `Note` depends on whether the note starts without a whitespace or 
 
 [//]: # (TODO: Insert class diagram)
 
-The `QuizManager` class is the class that manages the logic behind the quiz.
+The `QuizManager` class is the class that manages the logic behind the quiz, and is created once a quiz is started.
 
+Each `QuizManager` class stores the following information about the quiz:
+* `questions`: A list of `Question` objects for all the questions in the quiz
+* `currentIndex`: The current question index the user is currently at
+* `selectedChoices`: A list of `Choice` objects used to keep track of the choices that the user has entered so far
+* `statistic`: A `Statistic` object used to keep track of the statistics of the quiz
 
 
 ### Storage component
