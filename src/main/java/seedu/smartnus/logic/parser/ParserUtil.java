@@ -37,7 +37,8 @@ import seedu.smartnus.model.tag.Tag;
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_INDEX = "Index is invalid, "
+            + "index should be between 1-2147483647 inclusive.";
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
