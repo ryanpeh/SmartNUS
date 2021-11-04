@@ -233,7 +233,9 @@ public class ParserUtilTest {
         expectedChoices.add(new Choice(TRUE_CHOICE_TITLE, false));
         expectedChoices.add(new Choice(FALSE_CHOICE_TITLE, true));
         Set<Choice> actualChoices = ParserUtil.parseTrueFalseAnswer(ANSWER_FALSE);
+        Set<Choice> actualChoicesLower = ParserUtil.parseTrueFalseAnswer("f");
         assertEquals(actualChoices, expectedChoices);
+        assertEquals(actualChoicesLower, expectedChoices);
     }
 
     @Test
@@ -242,7 +244,9 @@ public class ParserUtilTest {
         expectedChoices.add(new Choice(TRUE_CHOICE_TITLE, true));
         expectedChoices.add(new Choice(FALSE_CHOICE_TITLE, false));
         Set<Choice> actualChoices = ParserUtil.parseTrueFalseAnswer(WHITESPACE + ANSWER_TRUE + WHITESPACE);
+        Set<Choice> actualChoicesLower = ParserUtil.parseTrueFalseAnswer(WHITESPACE + "t" + WHITESPACE);
         assertEquals(actualChoices, expectedChoices);
+        assertEquals(actualChoicesLower, expectedChoices);
     }
 
     @Test
