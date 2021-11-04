@@ -9,22 +9,22 @@ title: Ryan Peh's Project Portfolio Page
 
 Given below are my contributions to the project.
 
-* **Implemented Quiz Functionality:**
+* **New Feature**: Implemented Quiz Functionality
   * Implemented quiz functionality to allow the user to quiz themselves on various question types from the question bank. This includes answering questions, navigation between questions and tracking of quiz progress.
   * Justification: This is a core feature of SmartNUS, as the application is designed to promote active recall through quizzing yourself.
-  * Highlights: This enhancement required an analysis on various design implementations. The eventual design included the implementation of an alternative parser during to quiz to parse user inputs without affecting the main window. TODO
+  * Highlights: This enhancement required an analysis on various design implementations. The eventual design included the implementation of an alternative parser during to quiz to parse user inputs without affecting the main window.
   
 
-* **Designed and Implemented Quiz User Interface:**
+* **New Feature**: Designed and Implemented Quiz User Interface
   * Designed and implemented a graphical user interface (UI) for the quiz feature of SmartNUS, taking into account user (UX) to ensure an intuitive and easy-to-use user experience of the quiz functionality.
   * Justification: As one of the core features of SmartNUS, it is important for the quiz to have a well-developed UI/UX to keep the user interested in using the application.
-  * Highlights: The interface includes the support for displaying various question types during the quiz (Multiple Choice Questions, True False Questions, Short Answer Questions, etc.), and is easily extendable to include more question types in the future.
+  * Highlights: The interface includes the support for displaying various question types during the quiz (Multiple Choice Questions, True False Questions, Short Answer Questions), and is easily extensible to allow for easy addition of additional question types in the future.
   * Credits: The code for the user interface was adapted from the AddressBook-Level3 project by [SE-EDU initiative](https://se-education.org).
 
 
 * **Other Features and Enhancements to Existing Features**:
   * Quiz
-    * Implemented forward and navigation between quiz questions (Pull request [\#TODO]()).
+    * Implemented forward and backward navigation between quiz questions (Pull request [\#TODO]()).
     * Added quiz progress tracking to display quiz progress.
   * Wrote additional tests for existing features to increase coverage (Pull requests [\#abc](), [\#def]()).
 
@@ -34,9 +34,12 @@ Given below are my contributions to the project.
 
 * **Documentation**:
   * User Guide:
-    * Added documentation for quiz related features [\#TODO]()
+    * Added documentation for all quiz-related features [\#TODO]()
     * Did cosmetic tweaks to existing documentation of features `clear`, `exit`: [\#74]()
+    * Revised the layout of user guide to make it more intuitive and easy to use.
+    * Added the `About` section to instruct the user on how to go about understanding the user guide.
   * Developer Guide:
+    * Added implementation details of
     * Added implementation details of the `delete` feature.
 
 * **Project management**:
