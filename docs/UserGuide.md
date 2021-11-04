@@ -113,7 +113,7 @@ Format: `help`
 
 Adds a multiple choice question to the question bank.
 
-Format: `mcq qn/QUESTION opt/OPTION1 opt/OPTION2 opt/OPTION3 ans/ANSWER i/IMPORTANCE`
+Format: `mcq qn/QUESTION opt/OPTION1 opt/OPTION2 opt/OPTION3 ans/ANSWER i/IMPORTANCE [t/TAG]`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A multiple choice question must have exactly three incorrect options and one correct answer
@@ -126,7 +126,7 @@ Examples:
 
 Adds a true false question to the question bank.
 
-Format: `tfq qn/QUESTION ans/ANSWER i/IMPORTANCE`
+Format: `tfq qn/QUESTION ans/ANSWER i/IMPORTANCE [t/TAG]`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A true false question can only have one answer, either "T" or "F"
