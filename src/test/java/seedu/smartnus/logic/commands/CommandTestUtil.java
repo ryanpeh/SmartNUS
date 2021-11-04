@@ -50,6 +50,8 @@ public class CommandTestUtil {
     public static final String VALID_OPTION_5 = "5";
     public static final String VALID_SAQ_KEYWORD_1 = "Rowling";
     public static final String VALID_SAQ_KEYWORD_2 = "j";
+    public static final String VALID_STAT_1 = "CS2100";
+    public static final String VALID_STAT_2 = "ST2334";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_QUESTION + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_QUESTION + VALID_NAME_BOB;
@@ -57,6 +59,8 @@ public class CommandTestUtil {
     public static final String VALID_NOTE_2 = "CS2100 is not a fun mod";
     public static final String NOTE_DESC_1 = " " + PREFIX_NOTE + VALID_NOTE_1;
     public static final String NOTE_DESC_2 = " " + PREFIX_NOTE + VALID_NOTE_2;
+    public static final String STAT_DESC_1 = " " + PREFIX_TAG + VALID_STAT_1;
+    public static final String STAT_DESC_2 = STAT_DESC_1 + " " + PREFIX_TAG + VALID_STAT_2;
 
     public static final String IMPORTANCE_DESC_AMY = " " + PREFIX_IMPORTANCE + VALID_IMPORTANCE_AMY;
     public static final String IMPORTANCE_DESC_BOB = " " + PREFIX_IMPORTANCE + VALID_IMPORTANCE_BOB;
