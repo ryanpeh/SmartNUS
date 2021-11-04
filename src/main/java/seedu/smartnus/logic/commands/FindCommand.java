@@ -40,6 +40,11 @@ public class FindCommand extends Command {
     public static final String MESSAGE_NO_FIELDS_SPECIFIED = "You must specify at least one keyword or parameter"
             + " to filter questions by.";
 
+    public static final String MESSAGE_INVALID_KEYWORDS =
+            "Valid keywords must include characters that are considered part of a word."
+            + " The following characters commonly used to separate words"
+            + " are NOT considered part of a word: ,.?!:;*()[]{}\"";
+
     private final Set<Predicate<Question>> predicateSet = new HashSet<>();
     private final Predicate<Question> combinedPredicate;
 

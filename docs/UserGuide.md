@@ -75,7 +75,7 @@ Here's a quick summary of the available sections in the user guide:
 1. Copy the file to the folder you want to use as the _home folder_ for your SmartNUS app.
 
 1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/UiMainWindow.png)
+   ![Ui](images/user-guide/UiMainWindow.png)
 
 <!-- 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
@@ -104,7 +104,7 @@ This section lists all the commands SmartNUS supports, with information about th
 
 Shows a message explaning how to access the help page.
 
-![help message](images/helpMessage.png)
+![help message](images/user-guide/helpMessage.png)
 
 Format: `help`
 
@@ -223,7 +223,13 @@ Format: `find [KEYWORDS]... [t/TAG]... [i/IMPORTANCE]`
 * At least one of the optional fields to find by must be specified.
 * The search is case-insensitive for both keywords and tags (e.g. `math` will match `MaTH`).
 * Only full words will be matched for both keywords and tags (e.g. `CS2100` will not match `CS210`).
-* Any question that has at least one of the tags **AND** and all the keywords in its title (in any order)
+* The following characters `,.?!:;*"()[]{}` which are commonly used to separate words are not considered part of a word or keyword. 
+Instead, they are considered as word separators similar to a space.
+  * `find *("literature":,;?!)]}` returns the same result as `find literature`.
+  * `find ,:;?(]` is an invalid command as it is the same as finding a blank keyword or only inputting spaces as keywords.
+  * `find first? second (third...)!` is the same as `find first second third`.
+* Hyphenated words are considered as one word (e.g. `find grey-box` will not return a question titled `grey box`).
+* Any question that has at least one of the tags **AND** all the keywords in its title (in any order)
 **AND** the importance specified will be listed.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
@@ -237,9 +243,10 @@ To return to the list of all questions, use the `list question` command.
 </div>
 
 Examples:
-* `find load word t/CS2100 t/MIPS` returns questions tagged with at least one of the tags and that whose title
+* `find load word t/CS2100 t/MIPS i/2` returns questions tagged with at least one of the tags, with importance value 2 and whose title
 includes "load" and "word" in any order.
-  * e.g. A question titled "What is the load word instruction used for?" tagged with only CS2100 will be listed.
+  * e.g. A question titled "What is the load word instruction used for?" tagged with only CS2100 and with an importance value of 2 will be listed.
+* `find java` returns a question titled "How do you output text to the console in Java?" but not a question titled "Javascript is commonly used in web development. True or false?" (since `java` is not a full word match for `javascript`).
 
 <!-- TODO: standardise format, remove params from header, add brief description-->
 #### 4.1.9. Find/Search Stats: `stat [t/TAG]...`

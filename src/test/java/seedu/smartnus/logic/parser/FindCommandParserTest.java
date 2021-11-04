@@ -28,6 +28,22 @@ public class FindCommandParserTest {
     }
 
     @Test
+    public void parse_invalidKeyword_throwsParseException() {
+        assertParseFailure(parser, ",.?!:;*()[]{}\"", FindCommand.MESSAGE_INVALID_KEYWORDS);
+    }
+
+    @Test
+    public void parse_validArgsWithPunctuation_returnsFindCommand() {
+        ArrayList<Predicate<Question>> predicates = new ArrayList<>();
+        NameContainsKeywordsPredicate expectedNamePredicate =
+                new NameContainsKeywordsPredicate(Arrays.asList("math", "english"));
+        predicates.add(expectedNamePredicate);
+        FindCommand expectedFindCommand =
+                new FindCommand(predicates);
+        assertParseSuccess(parser, "math,english!?", expectedFindCommand);
+    }
+
+    @Test
     public void parse_validArgs_returnsFindCommand() {
         // find by question name
         // no leading and trailing whitespaces
