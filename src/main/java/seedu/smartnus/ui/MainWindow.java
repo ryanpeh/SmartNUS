@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -14,6 +15,8 @@ import seedu.smartnus.commons.core.GuiSettings;
 import seedu.smartnus.commons.core.LogsCenter;
 import seedu.smartnus.logic.Logic;
 import seedu.smartnus.logic.commands.CommandResult;
+import seedu.smartnus.logic.commands.CommandUtil;
+import seedu.smartnus.logic.commands.ListCommand;
 import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.logic.parser.exceptions.ParseException;
 import seedu.smartnus.ui.panel.NoteListPanel;
@@ -56,6 +59,15 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private Button questionsButton;
+
+    @FXML
+    private Button notesButton;
+
+    @FXML
+    private Button tagsButton;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -193,23 +205,55 @@ public class MainWindow extends UiPart<Stage> {
         quizWindow.loadQuiz();
     }
 
+    @FXML
+    private void listQuestion() throws CommandException, ParseException {
+        String command = ListCommand.COMMAND_WORD + " " + CommandUtil.QUESTION_KEYWORD;
+        executeCommand(command);
+    }
 
+    @FXML
+    private void listNote() throws CommandException, ParseException {
+        String command = ListCommand.COMMAND_WORD + " " + CommandUtil.NOTE_KEYWORD;
+        executeCommand(command);
+    }
+
+    @FXML
+    private void listTag() throws CommandException, ParseException {
+        String command = ListCommand.COMMAND_WORD + " " + CommandUtil.TAG_KEYWORD;
+        executeCommand(command);
+    }
+
+
+    /**
+     * Sets the panel (question list, note list, or tag list)
+     */
     public void setPanel() {
+
+        String chosenButton = "chosen-button";
+        String unChosenButton = "unchosen-button";
+        questionsButton.getStyleClass().set(1, unChosenButton);
+        notesButton.getStyleClass().set(1, unChosenButton);
+        tagsButton.getStyleClass().set(1, unChosenButton);
+
         switch (logic.getPanel()) {
         case QuestionListPanel.QUESTION_PANEL:
             panelManager.showPanel(questionListPanel);
+            questionsButton.getStyleClass().set(1, chosenButton);
 
             break;
         case NoteListPanel.NOTE_PANEL:
             panelManager.showPanel(noteListPanel);
+            notesButton.getStyleClass().set(1, chosenButton);
 
             break;
         case StatisticListPanel.STATISTIC_PANEL:
             panelManager.showPanel(statisticListPanel);
+            tagsButton.getStyleClass().set(1, chosenButton);
 
             break;
         default:
             panelManager.showPanel(questionListPanel);
+            questionsButton.getStyleClass().set(1, chosenButton);
         }
     }
 
