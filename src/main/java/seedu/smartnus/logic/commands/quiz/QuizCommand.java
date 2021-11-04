@@ -2,6 +2,7 @@ package seedu.smartnus.logic.commands.quiz;
 
 
 import static java.util.Objects.requireNonNull;
+import static seedu.smartnus.commons.core.Messages.MESSAGE_NOT_IN_QUESTION_PANEL;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_NUMBER;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -15,6 +16,7 @@ import seedu.smartnus.logic.commands.CommandUtil;
 import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.ui.panel.QuestionListPanel;
 
 /**
  * Starts a quiz
@@ -52,6 +54,10 @@ public class QuizCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (!model.getPanel().equals(QuestionListPanel.QUESTION_PANEL)) {
+            throw new CommandException(MESSAGE_NOT_IN_QUESTION_PANEL);
+        }
 
         if (this.comparator != null) {
             model.sortFilteredQuizQuestionList(comparator);

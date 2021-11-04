@@ -14,7 +14,9 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.smartnus.commons.core.GuiSettings;
+import seedu.smartnus.commons.core.Messages;
 import seedu.smartnus.commons.core.theme.Theme;
+import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.ReadOnlySmartNus;
 import seedu.smartnus.model.ReadOnlyUserPrefs;
@@ -23,6 +25,8 @@ import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.statistic.TagStatistic;
 import seedu.smartnus.testutil.NoteBuilder;
+import seedu.smartnus.ui.panel.NoteListPanel;
+import seedu.smartnus.ui.panel.QuestionListPanel;
 
 public class AddNoteCommandTest {
     @Test
@@ -39,6 +43,16 @@ public class AddNoteCommandTest {
 
         assertEquals(String.format(AddNoteCommand.MESSAGE_SUCCESS, validNote), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validNote), modelStub.notesAdded);
+    }
+
+    @Test
+    public void execute_inWrongPanel() throws Exception {
+        ModelStubAcceptingWrongPanel modelStub = new ModelStubAcceptingWrongPanel();
+        Note validNote = new NoteBuilder().build();
+
+
+        assertThrows(CommandException.class,
+                Messages.MESSAGE_NOT_IN_NOTE_PANEL, () -> new AddNoteCommand(validNote).execute(modelStub));
     }
 
     // todo: if duplicate note checker is implemented, add a test here to check if it works properly
@@ -176,7 +190,7 @@ public class AddNoteCommandTest {
 
         @Override
         public String getPanel() {
-            throw new AssertionError("This method should not be called.");
+            return NoteListPanel.NOTE_PANEL;
         }
 
         @Override
@@ -205,6 +219,18 @@ public class AddNoteCommandTest {
         @Override
         public ReadOnlySmartNus getSmartNus() {
             return new SmartNus();
+        }
+    }
+
+    /**
+     * A Model stub that is not in the notes panel.
+     */
+    private class ModelStubAcceptingWrongPanel extends ModelStub {
+        final ArrayList<Note> notesAdded = new ArrayList<>();
+
+        @Override
+        public String getPanel() {
+            return QuestionListPanel.QUESTION_PANEL;
         }
     }
 }

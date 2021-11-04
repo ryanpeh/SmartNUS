@@ -1,6 +1,8 @@
 package seedu.smartnus.commons.core;
 
+import seedu.smartnus.logic.commands.CommandUtil;
 import seedu.smartnus.logic.commands.ExitCommand;
+import seedu.smartnus.logic.commands.ListCommand;
 import seedu.smartnus.logic.commands.quiz.NextQuestionCommand;
 import seedu.smartnus.logic.commands.quiz.PrevQuestionCommand;
 
@@ -29,5 +31,17 @@ public class Messages {
     public static final String MESSAGE_CONTINUE_QUIZ = "Enter '" + NextQuestionCommand.COMMAND_WORD
             + "' to proceed with the next question, or '" + ExitCommand.COMMAND_WORD + "' to exit the quiz";
     public static final String MESSAGE_INVALID_LIMIT_ARG = "Limit must be a valid positive integer!";
+
+    public static final String MESSAGE_NOT_IN_QUESTION_PANEL = "This is a command for questions. Try to go to "
+            + "the question panel first:"
+            + "\n" + ListCommand.COMMAND_WORD + " " + CommandUtil.QUESTION_KEYWORD;
+
+    public static final String MESSAGE_NOT_IN_NOTE_PANEL = "This is a command for notes. Try to go to "
+            + "the note panel first:"
+            + "\n" + ListCommand.COMMAND_WORD + " " + CommandUtil.NOTE_KEYWORD;
+
+    public static final String MESSAGE_NOT_IN_TAG_PANEL = "This is a command for tags. Try to go to "
+            + "the tag panel first:"
+            + "\n" + ListCommand.COMMAND_WORD + " " + CommandUtil.TAG_KEYWORD;
 
 }

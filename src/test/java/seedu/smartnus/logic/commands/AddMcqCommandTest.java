@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.smartnus.commons.core.GuiSettings;
+import seedu.smartnus.commons.core.Messages;
 import seedu.smartnus.commons.core.theme.Theme;
 import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.logic.commands.questions.AddMcqCommand;
@@ -28,6 +29,8 @@ import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.statistic.TagStatistic;
 import seedu.smartnus.testutil.QuestionBuilder;
+import seedu.smartnus.ui.panel.NoteListPanel;
+import seedu.smartnus.ui.panel.QuestionListPanel;
 
 class AddMcqCommandTest {
     @Test
@@ -97,6 +100,16 @@ class AddMcqCommandTest {
 
         // different question -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
+    }
+
+    @Test
+    public void execute_inWrongPanel() throws Exception {
+        AddMcqCommandTest.ModelStubAcceptingWrongPanel modelStub = new AddMcqCommandTest.ModelStubAcceptingWrongPanel();
+        Question validQuestion = new QuestionBuilder().build();
+        AddMcqCommand addCommand = new AddMcqCommand(validQuestion);
+
+        assertThrows(CommandException.class,
+                Messages.MESSAGE_NOT_IN_QUESTION_PANEL, () -> addCommand.execute(modelStub));
     }
 
     /**
@@ -215,7 +228,7 @@ class AddMcqCommandTest {
 
         @Override
         public String getPanel() {
-            throw new AssertionError("This method should not be called.");
+            return QuestionListPanel.QUESTION_PANEL;
         }
 
         @Override
@@ -270,6 +283,17 @@ class AddMcqCommandTest {
         @Override
         public ReadOnlySmartNus getSmartNus() {
             return new SmartNus();
+        }
+    }
+
+    /**
+     * A Model stub that is not in the question panel.
+     */
+    private class ModelStubAcceptingWrongPanel extends AddMcqCommandTest.ModelStub {
+
+        @Override
+        public String getPanel() {
+            return NoteListPanel.NOTE_PANEL;
         }
     }
 }

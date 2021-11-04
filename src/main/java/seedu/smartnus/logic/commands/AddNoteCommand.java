@@ -1,11 +1,13 @@
 package seedu.smartnus.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.smartnus.commons.core.Messages.MESSAGE_NOT_IN_NOTE_PANEL;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_NOTE;
 
 import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.note.Note;
+import seedu.smartnus.ui.panel.NoteListPanel;
 
 public class AddNoteCommand extends Command {
 
@@ -31,6 +33,11 @@ public class AddNoteCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (!model.getPanel().equals(NoteListPanel.NOTE_PANEL)) {
+            throw new CommandException(MESSAGE_NOT_IN_NOTE_PANEL);
+        }
+
         //Todo: add a check if note already exists
 
         model.addNote(toAdd);
