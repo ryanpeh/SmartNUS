@@ -218,7 +218,7 @@ public abstract class Question {
 
     /**
      * Returns the conditions that make a Question valid in the form of a user-friendly message.
-     * 
+     *
      * @return The conditions that make a Question valid in the form of a user-friendly message.
      */
     public abstract String getValidConditions();

@@ -44,7 +44,7 @@ public class JsonSmartNusStorage implements SmartNusStorage {
      */
     public Optional<ReadOnlySmartNus> readSmartNus(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
-        
+
         Optional<JsonSerializableSmartNus> jsonSmartNus;
         try {
             jsonSmartNus = JsonUtil.readJsonFile(filePath, JsonSerializableSmartNus.class);
