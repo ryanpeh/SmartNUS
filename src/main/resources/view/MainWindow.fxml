@@ -52,11 +52,6 @@
 
 
         <VBox fx:id="panelList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
-          <HBox>
-            <Button fx:id="questionsButton" text="Questions" styleClass="chosen-button" onAction="#listQuestion"/>
-            <Button fx:id="notesButton" text="Notes" styleClass="unchosen-button" onAction="#listNote"/>
-            <Button fx:id="tagsButton" text="Tags" styleClass="unchosen-button" onAction="#listTag"/>
-          </HBox>
           <padding>
             <Insets top="10" right="10" bottom="10" left="10" />
           </padding>
