@@ -6,6 +6,7 @@ import static seedu.smartnus.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class Choice {
@@ -17,7 +18,7 @@ public class Choice {
      * The first character of the choice must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String KEYWORD_VALIDATION_REGEX = "^[a-zA-Z\\d-]+$";
+    public static final String KEYWORD_VALIDATION_REGEX = "^[a-zA-Z\\d]+$";
     public static final String VALIDATION_REGEX = "[^\\s].*";
     public static final String TRUE_CHOICE_TITLE = "True";
     public static final String FALSE_CHOICE_TITLE = "False";
@@ -112,7 +113,7 @@ public class Choice {
 
     @Override
     public int hashCode() {
-        return title.hashCode();
+        return Objects.hash(title, keywords, isCorrect);
     }
 
     public Set<String> getKeywords() {

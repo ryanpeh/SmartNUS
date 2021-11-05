@@ -142,23 +142,25 @@ Adds a short answer question to the question bank.
 Format: `saq qn/QUESTION ans/ANSWER INCLUDING KEYWORDS k/KEYWORD... i/IMPORTANCE [t/TAG]...`
 
 * Each short answer question must have exactly one answer.
-* An answer must include at least one keyword which is specified using `k/` (e.g. `ans/k/powerhouse of the k/cell`).
+* The answer must include at least one keyword which is specified using `k/` (e.g. `ans/k/powerhouse of the k/cell`).
+* Note that keywords MUST be specified within the answer to be recognised as keywords 
+  * `qn/my question? k/KEYWORDOUTSIDEANSWER ans/my answer i/2` is an invalid command.
+  * See examples given below for valid commands to try out.
 * Keywords are stored in lowercase. Specifying `k/ABC` and `k/abc` both result in "abc" being stored as the keyword. However,
   the answer will be displayed with the correct case ("ABC" and "abc" respectively).
 * During a [quiz](#start-a-quiz-quiz), any answer that contains all the keywords (case-insensitive)
 in any order is considered correct (e.g. "DatAstrUcturesandalgorithms" will be a correct answer
 to a question whose keywords are "structure" and "data").
-* Keywords can be made up of either alphanumeric characters or hyphens.
-  When specifying a keyword that includes invalid characters (not alphanumeric and not hyphens)
-  (e.g. `k/""!@#harry,!'abc@#^e,y?`), only the first valid part of the word
-  (continuous string of alphanumeric characters and/or hyphens) will be taken as the keyword i.e. "harry".
+* Keywords are made up of alphanumeric characters.
+  When specifying a keyword that includes non-alphanumeric characters
+  (e.g. `k/"harry, !'abc@#^e,y?`), only the first valid part of the word
+  (continuous string of alphanumeric characters) will be taken as the keyword i.e. "harry".
 
 Examples:
 * `saq qn/What does mRNA stand for? ans/k/messenger k/ribonucleic k/acid i/1`
 * `saq qn/Who wrote The Merchant of Venice? ans/William k/Shakespeare i/2 t/literature t/classics`
 * `saq qn/You're a wizard, Harry. Which book is this quote from? ans/k/Harry k/Potter and the Philosopher's Stone i/2`
   * Answer is displayed as "Harry Potter and the Philosopher's Stone".
-  * Keywords are displayed as "harry" and "potter".
   * During a [quiz](#start-a-quiz-quiz):
     * Correct answers include "haRRy PoTtEr", "Harry Potter and the Philosopher's Stone",
       "potter harry", "harrypotter" and "wordthatincludesharryandpotter".

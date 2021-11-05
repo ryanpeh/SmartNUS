@@ -330,7 +330,7 @@ public class ParserUtil {
 
         for (String inputAfterKeywordPrefix : keywordsList) {
             boolean validKeywordAdded = false;
-            String[] possibleKeywords = inputAfterKeywordPrefix.split("[^a-zA-Z0-9-]+");
+            String[] possibleKeywords = inputAfterKeywordPrefix.split("[^a-zA-Z0-9]+");
             for (String word : possibleKeywords) {
                 if (word.isBlank()) {
                     continue;

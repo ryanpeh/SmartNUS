@@ -37,6 +37,7 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_IMPORTANCE_1 = "1";
+    public static final String VALID_KEYWORD_1 = "...one1,";
     public static final String VALID_QUESTION_1 = "What is 1+1?";
     public static final String VALID_QUESTION_2 = "What is 2+2?";
     public static final String VALID_ANSWER_1 = "2";
@@ -63,6 +64,7 @@ public class CommandTestUtil {
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
     public static final String IMPORTANCE_DESC_1 = " " + PREFIX_IMPORTANCE + VALID_IMPORTANCE_1;
+    public static final String KEYWORD_DESC_1 = " " + PREFIX_KEYWORD + VALID_KEYWORD_1;
     public static final String QUESTION_DESC_1 = " " + PREFIX_QUESTION + VALID_QUESTION_1;
     public static final String QUESTION_DESC_2 = " " + PREFIX_QUESTION + VALID_QUESTION_2;
     public static final String ANSWER_DESC_1 = " " + PREFIX_ANSWER + VALID_ANSWER_1;
@@ -80,6 +82,9 @@ public class CommandTestUtil {
     public static final String INVALID_NAME_DESC = " " + PREFIX_QUESTION + " "; // empty string not allowed for names
     // 'a' not allowed in importance
     public static final String INVALID_IMPORTANCE_DESC = " " + PREFIX_IMPORTANCE + "1a";
+    public static final String INVALID_KEYWORD_DESC_1 = " " + PREFIX_KEYWORD + " "; // blank keyword
+    // only non-alphanumeric characters
+    public static final String INVALID_KEYWORD_DESC_2 = " " + PREFIX_KEYWORD + "!#@$%&)(^*-+.,/':|[]~<>";
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
     public static final String INVALID_QUESTION_DESC = " " + PREFIX_QUESTION; // empty string not allowed for question
     public static final String INVALID_ANSWER_DESC = " " + PREFIX_ANSWER; // empty string not allowed for answer
