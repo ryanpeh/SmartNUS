@@ -172,7 +172,7 @@ Deletes an existing question or note from the question bank or note list.
 Format: `delete question QUESTION_INDEX` OR `delete note NOTE_INDEX`
 
 * Deletes the question or note with the specified `QUESTION_INDEX` or `NOTE_INDEX`.
-* The `QUESTION_INDEX` or `NOTE_INDEX` refers to the index number shown in the displayed list. The index **must be a positive integer** 1, 2, 3, …​ 
+* The `QUESTION_INDEX` or `NOTE_INDEX` refers to the index number shown in the displayed list. The index **must be a positive integer** between 1 and 2147483647 (both inclusive) 
 
 #### 4.1.7. Edit a Question and Answers: `edit`
 
