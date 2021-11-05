@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.smartnus.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.smartnus.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.smartnus.logic.commands.CommandTestUtil.showNoteAtIndex;
 import static seedu.smartnus.logic.commands.CommandTestUtil.showQuestionAtIndex;
 import static seedu.smartnus.testutil.TypicalIndexes.INDEX_FIRST_QUESTION;
 import static seedu.smartnus.testutil.TypicalIndexes.INDEX_SECOND_QUESTION;
@@ -17,6 +18,7 @@ import seedu.smartnus.commons.core.index.Index;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.ModelManager;
 import seedu.smartnus.model.UserPrefs;
+import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
 
 /**
@@ -36,6 +38,19 @@ public class DeleteCommandTest {
 
         ModelManager expectedModel = new ModelManager(model.getSmartNus(), new UserPrefs());
         expectedModel.deleteQuestion(questionToDelete);
+
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_validIndexUnfilteredNoteList_success() {
+        Note noteToDelete = model.getFilteredNoteList().get(INDEX_FIRST_QUESTION.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand("note", INDEX_FIRST_QUESTION);
+
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_NOTE_SUCCESS, noteToDelete);
+
+        ModelManager expectedModel = new ModelManager(model.getSmartNus(), new UserPrefs());
+        expectedModel.deleteNote(noteToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
@@ -78,6 +93,43 @@ public class DeleteCommandTest {
     }
 
     @Test
+    public void execute_invalidIndexUnfilteredNoteList_throwsCommandException() {
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredNoteList().size() + 1);
+        DeleteCommand deleteCommand = new DeleteCommand("note", outOfBoundIndex);
+
+        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_NOTE_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_validIndexFilteredNoteList_success() {
+        showNoteAtIndex(model, INDEX_FIRST_QUESTION);
+
+        Note noteToDelete = model.getFilteredNoteList().get(INDEX_FIRST_QUESTION.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand("note", INDEX_FIRST_QUESTION);
+
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_NOTE_SUCCESS, noteToDelete);
+
+        Model expectedModel = new ModelManager(model.getSmartNus(), new UserPrefs());
+        expectedModel.deleteNote(noteToDelete);
+        showNoNote(expectedModel);
+
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_invalidIndexFilteredNoteList_throwsCommandException() {
+        showNoteAtIndex(model, INDEX_FIRST_QUESTION);
+
+        Index outOfBoundIndex = INDEX_SECOND_QUESTION;
+        // ensures that outOfBoundIndex is still in bounds of the SmartNus note list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getSmartNus().getNoteList().size());
+
+        DeleteCommand deleteCommand = new DeleteCommand("note", outOfBoundIndex);
+
+        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_NOTE_DISPLAYED_INDEX);
+    }
+
+    @Test
     public void equals() {
         DeleteCommand deleteFirstCommand = new DeleteCommand("question", INDEX_FIRST_QUESTION);
         DeleteCommand deleteSecondCommand = new DeleteCommand("question", INDEX_SECOND_QUESTION);
@@ -116,5 +168,14 @@ public class DeleteCommandTest {
         model.updateFilteredQuestionList(p -> false);
 
         assertTrue(model.getFilteredQuestionList().isEmpty());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show no note.
+     */
+    private void showNoNote(Model model) {
+        model.updateFilteredNoteList(p -> false);
+
+        assertTrue(model.getFilteredNoteList().isEmpty());
     }
 }
