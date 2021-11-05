@@ -50,7 +50,7 @@ Here's a quick summary of the available sections in the user guide:
   e.g `qn/QUESTION [t/TAG]` can be used as `qn/What is 1+1? t/math` or as `qn/What is 1+1?`.
 
 * Items with `…`​ after them can be used multiple times.<br>
-  e.g. `/opt…​` can be used as `opt/ OPTION1`, `opt/ OPTION1 opt/ OPTION2` etc.
+  e.g. `opt/…​` can be used as `opt/ OPTION1`, `opt/ OPTION1 opt/ OPTION2` etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `ans/ ANSWER opt/ OPTION1`, `opt/ OPTION1 ans/ ANSWER` is also acceptable.
@@ -113,7 +113,7 @@ Format: `help`
 
 Adds a multiple choice question to the question bank.
 
-Format: `mcq qn/QUESTION opt/OPTION1 opt/OPTION2 opt/OPTION3 ans/ANSWER i/IMPORTANCE`
+Format: `mcq qn/QUESTION opt/OPTION1 opt/OPTION2 opt/OPTION3 ans/ANSWER i/IMPORTANCE [t/TAG]`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A multiple choice question must have exactly three incorrect options and one correct answer
@@ -126,7 +126,7 @@ Examples:
 
 Adds a true false question to the question bank.
 
-Format: `tfq qn/QUESTION ans/ANSWER i/IMPORTANCE`
+Format: `tfq qn/QUESTION ans/ANSWER i/IMPORTANCE [t/TAG]`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A true false question can only have one answer, either "T" or "F"
