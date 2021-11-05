@@ -19,6 +19,7 @@ import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_QUESTION_1;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TRUE_FALSE_ANSWER_1;
 import static seedu.smartnus.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.smartnus.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.smartnus.testutil.TypicalQuestions.SAQ_QUESTION_4;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -27,7 +28,6 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.smartnus.logic.commands.questions.AddSaqCommand;
-import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.question.Importance;
 import seedu.smartnus.model.question.Name;
 import seedu.smartnus.model.question.Question;
@@ -39,13 +39,7 @@ class AddSaqCommandParserTest {
 
     @Test
     void parse_allFieldsValid_success() {
-        Set<String> keywords = new HashSet<>();
-        keywords.add(VALID_KEYWORD_1);
-        Question expectedQuestion = new QuestionBuilder()
-                .withName(VALID_QUESTION_1)
-                .withImportance(VALID_IMPORTANCE_1)
-                .withChoices(new Choice("J. K. Rowling", true, keywords))
-                .buildSaq();
+        Question expectedQuestion = new QuestionBuilder(SAQ_QUESTION_4).buildSaq();
 
         AddSaqCommand expectedCommand = new AddSaqCommand(expectedQuestion);
 
