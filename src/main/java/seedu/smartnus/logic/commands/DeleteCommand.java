@@ -24,7 +24,7 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the item identified by the index number used in the respective displayed list.\n"
             + "Parameters: list / note \n"
-            + "INDEX (must be a positive integer between 1 and 2147483647)\n"
+            + "INDEX (must be a positive integer between 1 and 2147483647 both inclusive)\n"
             + "Example: " + COMMAND_WORD + " " + QUESTION_KEYWORD + " 1";
 
     public static final String MESSAGE_DELETE_QUESTION_SUCCESS = "Deleted Question: %1$s";
