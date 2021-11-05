@@ -4,6 +4,8 @@ import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_IMPORTANCE_AMY
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_IMPORTANCE_BOB;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_STAT_1;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_STAT_2;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
@@ -15,6 +17,7 @@ import java.util.List;
 import seedu.smartnus.model.SmartNus;
 import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.statistic.Statistic;
 
 /**
  * A utility class containing a list of {@code Question} objects to be used in tests.
@@ -38,11 +41,15 @@ public class TypicalQuestions {
             .withImportance("1")
             .withChoices(new Choice("2", true),
                     new Choice("1", false), new Choice("4", false),
-                    new Choice("3", false)).build();
+                    new Choice("3", false))
+            .withTags(VALID_STAT_1)
+            .withStatistic(new Statistic(2, 4)).build();
     public static final Question TF_QUESTION = new QuestionBuilder().withName("Is 1+1 = 2?")
             .withImportance("2")
             .withChoices(new Choice(Choice.TRUE_CHOICE_TITLE, true),
-                    new Choice(Choice.FALSE_CHOICE_TITLE, false)).buildTrueFalse();
+                    new Choice(Choice.FALSE_CHOICE_TITLE, false))
+            .withTags(VALID_STAT_2)
+            .withStatistic(new Statistic(1, 1)).buildTrueFalse();
     public static final Question SAQ_QUESTION = new QuestionBuilder()
             .withName("Harry, you're a wizard. Where is this quote from?")
             .withImportance("2")

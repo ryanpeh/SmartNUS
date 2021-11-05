@@ -19,9 +19,6 @@ import static seedu.smartnus.model.choice.Choice.FALSE_CHOICE_TITLE;
 import static seedu.smartnus.model.choice.Choice.TRUE_CHOICE_TITLE;
 import static seedu.smartnus.model.question.TrueFalseQuestion.MESSAGE_ANSWER_INVALID;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.smartnus.logic.commands.questions.AddTfqCommand;
@@ -29,7 +26,7 @@ import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.question.Importance;
 import seedu.smartnus.model.question.Name;
 import seedu.smartnus.model.question.Question;
-import seedu.smartnus.model.question.TrueFalseQuestion;
+import seedu.smartnus.testutil.QuestionBuilder;
 
 class AddTfqCommandParserTest {
 
@@ -37,16 +34,12 @@ class AddTfqCommandParserTest {
 
     @Test
     void parse_allFieldsValid_success() {
-        // TODO: Use question builder for this instead of generating it here
-        Set<Choice> expectedChoices = new HashSet<>();
-        expectedChoices.add(new Choice(TRUE_CHOICE_TITLE, true));
-        expectedChoices.add(new Choice(FALSE_CHOICE_TITLE, false));
-
-        Importance expectedImportance = new Importance(VALID_IMPORTANCE_1);
-        Name expectedName = new Name(VALID_QUESTION_1);
-
-        Question expectedQuestion = new TrueFalseQuestion(expectedName, expectedImportance,
-                new HashSet<>(), expectedChoices);
+        Question expectedQuestion = new QuestionBuilder()
+                .withName(VALID_QUESTION_1)
+                .withImportance(VALID_IMPORTANCE_1)
+                .withChoices(new Choice(TRUE_CHOICE_TITLE, true),
+                        new Choice(FALSE_CHOICE_TITLE, false))
+                .buildTrueFalse();
 
         AddTfqCommand expectedCommand = new AddTfqCommand(expectedQuestion);
 
