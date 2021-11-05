@@ -11,12 +11,13 @@ import java.util.Set;
 public class Choice {
     public static final String MESSAGE_CONSTRAINTS = "Choices can take any values, and it should not be blank";
     public static final String MESSAGE_KEYWORD_CONSTRAINTS =
-            "Keywords can take any values, and they should not be blank";
+            "Keywords should not be blank and must contain alphanumeric characters.";
 
     /*
      * The first character of the choice must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
+    public static final String KEYWORD_VALIDATION_REGEX = "^[a-zA-Z\\d-]+$";
     public static final String VALIDATION_REGEX = "[^\\s].*";
     public static final String TRUE_CHOICE_TITLE = "True";
     public static final String FALSE_CHOICE_TITLE = "False";
@@ -48,6 +49,9 @@ public class Choice {
     public Choice(String title, boolean isCorrect, Set<String> keywords) {
         requireAllNonNull(title, keywords);
         checkArgument(isValidChoiceTitle(title), MESSAGE_CONSTRAINTS);
+        for (String keyword : keywords) {
+            checkArgument(isValidKeyword(keyword), MESSAGE_KEYWORD_CONSTRAINTS);
+        }
         this.title = title;
         this.isCorrect = isCorrect;
         this.keywords.addAll(keywords);
@@ -64,7 +68,7 @@ public class Choice {
      * Returns true if a given string is a valid keyword.
      */
     public static boolean isValidKeyword(String keyword) {
-        return keyword.matches(VALIDATION_REGEX);
+        return keyword.matches(KEYWORD_VALIDATION_REGEX);
     }
 
     /**
