@@ -80,8 +80,8 @@ public class CommandTestUtil {
     public static final String FALSE_ANSWER_DESC = " " + PREFIX_ANSWER + VALID_TRUE_FALSE_ANSWER_2;
     public static final String KEYWORD_DESC_1 = " " + PREFIX_KEYWORD + VALID_SAQ_KEYWORD_1;
     public static final String SAQ_ANSWER_DESC_1 = " " + PREFIX_ANSWER + "J. K." + KEYWORD_DESC_1;
-    public static final String SAQ_ANSWER_DESC_2 = " " + PREFIX_ANSWER + PREFIX_KEYWORD + VALID_SAQ_KEYWORD_3 + "#12 " + PREFIX_KEYWORD
-            + "#!@" + VALID_SAQ_KEYWORD_4 + "(,)><";
+    public static final String SAQ_ANSWER_DESC_2 = " " + PREFIX_ANSWER + PREFIX_KEYWORD + VALID_SAQ_KEYWORD_3 + "#12 "
+            + PREFIX_KEYWORD + "#!@" + VALID_SAQ_KEYWORD_4 + "(,)><";
     public static final String OPTION_DESC_1 = " " + PREFIX_OPTION + VALID_OPTION_1;
     public static final String OPTION_DESC_3 = " " + PREFIX_OPTION + VALID_OPTION_3;
     public static final String OPTION_DESC_4 = " " + PREFIX_OPTION + VALID_OPTION_4;

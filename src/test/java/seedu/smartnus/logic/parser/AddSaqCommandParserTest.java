@@ -18,14 +18,11 @@ import static seedu.smartnus.logic.commands.CommandTestUtil.SAQ_ANSWER_DESC_2;
 import static seedu.smartnus.logic.commands.CommandTestUtil.TRUE_ANSWER_DESC;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_IMPORTANCE_1;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_QUESTION_1;
-import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_SAQ_KEYWORD_1;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TRUE_FALSE_ANSWER_1;
 import static seedu.smartnus.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.smartnus.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.smartnus.testutil.TypicalQuestions.SAQ_QUESTION_3;
 import static seedu.smartnus.testutil.TypicalQuestions.SAQ_QUESTION_4;
-
-import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
