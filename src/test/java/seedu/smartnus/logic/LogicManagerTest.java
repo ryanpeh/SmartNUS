@@ -9,12 +9,8 @@ import static seedu.smartnus.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.smartnus.logic.commands.CommandTestUtil.OPTION_DESC_1;
 import static seedu.smartnus.logic.commands.CommandTestUtil.OPTION_DESC_3;
 import static seedu.smartnus.logic.commands.CommandTestUtil.OPTION_DESC_4;
-import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_ANSWER_1;
-import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_OPTION_1;
-import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_OPTION_3;
-import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_OPTION_4;
 import static seedu.smartnus.testutil.Assert.assertThrows;
-import static seedu.smartnus.testutil.TypicalQuestions.AMY;
+import static seedu.smartnus.testutil.TypicalQuestions.STORAGE_QUESTION_1;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -33,7 +29,6 @@ import seedu.smartnus.model.Model;
 import seedu.smartnus.model.ModelManager;
 import seedu.smartnus.model.ReadOnlySmartNus;
 import seedu.smartnus.model.UserPrefs;
-import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.storage.JsonSmartNusStorage;
 import seedu.smartnus.storage.JsonUserPrefsStorage;
@@ -84,12 +79,7 @@ public class LogicManagerTest {
         // Execute add command
         String addMcqCommand = AddMcqCommand.COMMAND_WORD + NAME_DESC_AMY + ANSWER_DESC_1
                 + OPTION_DESC_1 + OPTION_DESC_3 + OPTION_DESC_4 + IMPORTANCE_DESC_AMY;
-        Question expectedQuestion = new QuestionBuilder(AMY).withTags()
-                .withChoices(
-                        new Choice(VALID_ANSWER_1, true),
-                        new Choice(VALID_OPTION_1, false),
-                        new Choice(VALID_OPTION_3, false),
-                        new Choice(VALID_OPTION_4, false)).build();
+        Question expectedQuestion = new QuestionBuilder(STORAGE_QUESTION_1).build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addQuestion(expectedQuestion);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;

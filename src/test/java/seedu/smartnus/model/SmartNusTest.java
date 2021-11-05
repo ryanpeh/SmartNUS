@@ -4,12 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_3;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_4;
 import static seedu.smartnus.testutil.Assert.assertThrows;
-import static seedu.smartnus.testutil.TypicalQuestions.ALICE;
-import static seedu.smartnus.testutil.TypicalQuestions.BOB;
-import static seedu.smartnus.testutil.TypicalQuestions.CARL;
+import static seedu.smartnus.testutil.TypicalQuestions.MCQ_QUESTION_1;
+import static seedu.smartnus.testutil.TypicalQuestions.STORAGE_QUESTION_2;
+import static seedu.smartnus.testutil.TypicalQuestions.TF_QUESTION_2;
 import static seedu.smartnus.testutil.TypicalSmartNus.getTypicalSmartNus;
 
 import java.util.Arrays;
@@ -52,9 +52,9 @@ public class SmartNusTest {
     @Test
     public void resetData_withDuplicateQuestions_throwsDuplicateQuestionException() {
         // Two questions with the same identity fields
-        Question editedAlice = new QuestionBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+        Question editedAlice = new QuestionBuilder(MCQ_QUESTION_1).withTags(VALID_TAG_3)
                 .build();
-        List<Question> newQuestions = Arrays.asList(ALICE, editedAlice);
+        List<Question> newQuestions = Arrays.asList(MCQ_QUESTION_1, editedAlice);
         SmartNusStub newData = new SmartNusStub(newQuestions);
 
         assertThrows(DuplicateQuestionException.class, () -> smartNus.resetData(newData));
@@ -67,21 +67,21 @@ public class SmartNusTest {
 
     @Test
     public void hasQuestion_questionNotInSmartNus_returnsFalse() {
-        assertFalse(smartNus.hasQuestion(ALICE));
+        assertFalse(smartNus.hasQuestion(MCQ_QUESTION_1));
     }
 
     @Test
     public void hasQuestion_questionInSmartNus_returnsTrue() {
-        smartNus.addQuestion(ALICE);
-        assertTrue(smartNus.hasQuestion(ALICE));
+        smartNus.addQuestion(MCQ_QUESTION_1);
+        assertTrue(smartNus.hasQuestion(MCQ_QUESTION_1));
         assertNotEquals(null, smartNus.getQuestionsAsList());
         assertNotEquals(0, smartNus.hashCode());
     }
 
     @Test
     public void hasQuestion_questionWithSameIdentityFieldsInSmartNus_returnsTrue() {
-        smartNus.addQuestion(ALICE);
-        Question editedAlice = new QuestionBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+        smartNus.addQuestion(MCQ_QUESTION_1);
+        Question editedAlice = new QuestionBuilder(MCQ_QUESTION_1).withTags(VALID_TAG_3)
                 .build();
         assertTrue(smartNus.hasQuestion(editedAlice));
     }
@@ -98,15 +98,15 @@ public class SmartNusTest {
 
     @Test
     public void tagStatistic_equals() {
-        Question editedAlice = new QuestionBuilder(ALICE).withTags(VALID_TAG_FRIEND).build();
-        Question editedBob = new QuestionBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
-        Question editedCarl = new QuestionBuilder(CARL).withTags(VALID_TAG_HUSBAND).build();
+        Question editedAlice = new QuestionBuilder(MCQ_QUESTION_1).withTags(VALID_TAG_4).build();
+        Question editedBob = new QuestionBuilder(STORAGE_QUESTION_2).withTags(VALID_TAG_3).build();
+        Question editedCarl = new QuestionBuilder(TF_QUESTION_2).withTags(VALID_TAG_3).build();
         smartNus.addQuestion(editedAlice);
         smartNus.addQuestion(editedBob);
         smartNus.addQuestion(editedCarl);
         ObservableList<TagStatistic> tagStatisticMap = smartNus.getTagStatistic();
-        Tag husband = new Tag(VALID_TAG_HUSBAND);
-        Tag friend = new Tag(VALID_TAG_FRIEND);
+        Tag husband = new Tag(VALID_TAG_3);
+        Tag friend = new Tag(VALID_TAG_4);
 
         assertEquals(2, tagStatisticMap.size());
     }

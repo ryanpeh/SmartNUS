@@ -5,8 +5,8 @@ import static seedu.smartnus.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.smartnus.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.smartnus.logic.commands.CommandTestUtil.STAT_DESC_1;
 import static seedu.smartnus.logic.commands.CommandTestUtil.STAT_DESC_2;
-import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_STAT_1;
-import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_STAT_2;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_1;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_2;
 import static seedu.smartnus.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.smartnus.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -39,7 +39,7 @@ class StatCommandParserTest {
         assertParseSuccess(parser, PREAMBLE_WHITESPACE, new StatCommand(filterPredicates));
 
         // user types in 1 stat
-        tags.add(VALID_STAT_1);
+        tags.add(VALID_TAG_1);
         filterPredicates.add(new StatContainsKeywordPredicate(tags));
         assertParseSuccess(parser, STAT_DESC_1, new StatCommand(filterPredicates));
         // with whitespace
@@ -47,8 +47,8 @@ class StatCommandParserTest {
 
         // user types in 2 stats
         reset();
-        tags.add(VALID_STAT_1);
-        tags.add(VALID_STAT_2);
+        tags.add(VALID_TAG_1);
+        tags.add(VALID_TAG_2);
         filterPredicates = new ArrayList<>();
         filterPredicates.add(new StatContainsKeywordPredicate(tags));
         assertParseSuccess(parser, STAT_DESC_2, new StatCommand(filterPredicates));
