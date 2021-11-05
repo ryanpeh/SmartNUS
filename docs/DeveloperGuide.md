@@ -282,6 +282,16 @@ _{more aspects and alternatives to be added}_
 
 _{Explain here how the data archiving feature will be implemented}_
 
+### Quiz feature
+
+All features that have to do with the quiz.
+
+#### Starting a quiz
+
+##### Overview
+
+The start quiz feature allows users to start a quiz from the main window.
+
 
 --------------------------------------------------------------------------------------------------------------------
 
