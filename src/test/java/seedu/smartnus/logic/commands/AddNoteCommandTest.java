@@ -17,7 +17,6 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.smartnus.commons.core.GuiSettings;
 import seedu.smartnus.commons.core.theme.Theme;
-import seedu.smartnus.logic.commands.questions.AddMcqCommand;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.ReadOnlySmartNus;
 import seedu.smartnus.model.ReadOnlyUserPrefs;
@@ -26,7 +25,6 @@ import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.statistic.TagStatistic;
 import seedu.smartnus.testutil.NoteBuilder;
-import seedu.smartnus.testutil.QuestionBuilder;
 
 public class AddNoteCommandTest {
     @Test
@@ -36,7 +34,7 @@ public class AddNoteCommandTest {
 
     @Test
     public void execute_noteAcceptedByModel_addSuccessful() throws Exception {
-        AddNoteCommandTest.ModelStubAcceptingNoteAdded modelStub = new AddNoteCommandTest.ModelStubAcceptingNoteAdded();
+        ModelStubAcceptingNoteAdded modelStub = new ModelStubAcceptingNoteAdded();
         Note validNote = new NoteBuilder().build();
 
         CommandResult commandResult = new AddNoteCommand(validNote).execute(modelStub);
@@ -44,7 +42,6 @@ public class AddNoteCommandTest {
         assertEquals(String.format(AddNoteCommand.MESSAGE_SUCCESS, validNote), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validNote), modelStub.notesAdded);
     }
-    // todo: if duplicate note checker is implemented, add a test here to check if it works properly
 
     @Test
     public void equals() {
@@ -66,7 +63,7 @@ public class AddNoteCommandTest {
         // null -> returns false
         assertFalse(addAliceCommand.equals(null));
 
-        // different question -> returns false
+        // different note -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
@@ -232,6 +229,12 @@ public class AddNoteCommandTest {
         public void addNote(Note note) {
             requireNonNull(note);
             notesAdded.add(note);
+        }
+
+        @Override
+        public boolean hasNote(Note note) {
+            requireNonNull(note);
+            return notesAdded.stream().anyMatch(note::isSameNote);
         }
 
         @Override
