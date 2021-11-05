@@ -11,6 +11,7 @@ public class AddNoteCommand extends Command {
 
     public static final String COMMAND_WORD = "note";
     public static final String MESSAGE_SUCCESS = "New note added: %s";
+    public static final String MESSAGE_DUPLICATE_NOTE = "This note already exists in SmartNUS";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a note to SmartNUS. "
             + "Parameters: "
@@ -31,7 +32,9 @@ public class AddNoteCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        //Todo: add a check if note already exists
+        if (model.hasNote(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_NOTE);
+        }
 
         model.addNote(toAdd);
 

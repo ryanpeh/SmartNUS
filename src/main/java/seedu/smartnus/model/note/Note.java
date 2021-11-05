@@ -39,6 +39,19 @@ public class Note {
         return title;
     }
 
+    /**
+     * Returns true if both notes have the same name.
+     * This defines a weaker notion of equality between two notes.
+     */
+    public boolean isSameNote(Note otherNote) {
+        if (otherNote == this) {
+            return true;
+        }
+
+        return otherNote != null
+                && otherNote.getTitle().equals(getTitle());
+    }
+
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();

@@ -2,6 +2,8 @@ package seedu.smartnus.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.smartnus.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
@@ -41,7 +43,29 @@ public class AddNoteCommandTest {
         assertEquals(Arrays.asList(validNote), modelStub.notesAdded);
     }
 
-    // todo: if duplicate note checker is implemented, add a test here to check if it works properly
+    @Test
+    public void equals() {
+        Note alice = new NoteBuilder().withName("Alice").build();
+        Note bob = new NoteBuilder().withName("Bob").build();
+        AddNoteCommand addAliceCommand = new AddNoteCommand(alice);
+        AddNoteCommand addBobCommand = new AddNoteCommand(bob);
+
+        // same object -> returns true
+        assertTrue(addAliceCommand.equals(addAliceCommand));
+
+        // same values -> returns true
+        AddNoteCommand addAliceCommandCopy = new AddNoteCommand(alice);
+        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+
+        // different types -> returns false
+        assertFalse(addAliceCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(addAliceCommand.equals(null));
+
+        // different note -> returns false
+        assertFalse(addAliceCommand.equals(addBobCommand));
+    }
 
     private class ModelStub implements Model {
         @Override
@@ -135,6 +159,11 @@ public class AddNoteCommandTest {
         }
 
         @Override
+        public boolean hasNote(Note note) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setNote(Note target, Note editedNote) {
             throw new AssertionError("This method should not be called.");
         }
@@ -191,7 +220,7 @@ public class AddNoteCommandTest {
     }
 
     /**
-     * A Model stub that always accept the question being added.
+     * A Model stub that always accept the note being added.
      */
     private class ModelStubAcceptingNoteAdded extends ModelStub {
         final ArrayList<Note> notesAdded = new ArrayList<>();
@@ -200,6 +229,12 @@ public class AddNoteCommandTest {
         public void addNote(Note note) {
             requireNonNull(note);
             notesAdded.add(note);
+        }
+
+        @Override
+        public boolean hasNote(Note note) {
+            requireNonNull(note);
+            return notesAdded.stream().anyMatch(note::isSameNote);
         }
 
         @Override
