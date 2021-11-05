@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.smartnus.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.smartnus.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_IMPORTANCE_BOB;
-import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_IMPORTANCE_2;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_QUESTION_4;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_3;
 
 import org.junit.jupiter.api.Test;
 
@@ -35,15 +35,15 @@ public class EditQuestionDescriptorTest {
 
         // different name -> returns false
         EditCommand.EditQuestionDescriptor editedAmy = new EditQuestionDescriptorBuilder(DESC_AMY)
-                .withName(VALID_NAME_BOB).build();
+                .withName(VALID_QUESTION_4).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different importance -> returns false
-        editedAmy = new EditQuestionDescriptorBuilder(DESC_AMY).withImportance(VALID_IMPORTANCE_BOB).build();
+        editedAmy = new EditQuestionDescriptorBuilder(DESC_AMY).withImportance(VALID_IMPORTANCE_2).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different tags -> returns false
-        editedAmy = new EditQuestionDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
+        editedAmy = new EditQuestionDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_3).build();
         assertFalse(DESC_AMY.equals(editedAmy));
     }
 }
