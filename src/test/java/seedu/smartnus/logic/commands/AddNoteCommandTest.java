@@ -40,7 +40,6 @@ public class AddNoteCommandTest {
         assertEquals(String.format(AddNoteCommand.MESSAGE_SUCCESS, validNote), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validNote), modelStub.notesAdded);
     }
-
     // todo: if duplicate note checker is implemented, add a test here to check if it works properly
 
     private class ModelStub implements Model {
@@ -131,6 +130,11 @@ public class AddNoteCommandTest {
 
         @Override
         public void deleteNote(Note target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasNote(Note note) {
             throw new AssertionError("This method should not be called.");
         }
 
