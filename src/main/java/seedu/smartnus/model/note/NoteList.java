@@ -8,7 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.smartnus.model.question.exceptions.QuestionNotFoundException;
+import seedu.smartnus.model.note.exceptions.DuplicateNoteException;
+import seedu.smartnus.model.note.exceptions.NoteNotFoundException;
 
 public class NoteList implements Iterable<Note> {
     private final ObservableList<Note> internalList = FXCollections.observableArrayList();
@@ -20,8 +21,18 @@ public class NoteList implements Iterable<Note> {
      */
     public void add(Note toAdd) {
         requireNonNull(toAdd);
-        // todo: check if note is duplicated
+        if (contains(toAdd)) {
+            throw new DuplicateNoteException();
+        }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Returns true if the list contains an equivalent question as the given argument.
+     */
+    public boolean contains(Note toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::isSameNote);
     }
 
     /**
@@ -74,8 +85,7 @@ public class NoteList implements Iterable<Note> {
     public void remove(Note toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            // todo: create an exception for this.
-            throw new QuestionNotFoundException();
+            throw new NoteNotFoundException();
         }
     }
 
