@@ -81,6 +81,11 @@ public class ShortAnswerQuestion extends Question {
     }
 
     @Override
+    public String getValidConditions() {
+        return MESSAGE_VALID_SAQ;
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (!(other instanceof ShortAnswerQuestion)) {
             return false;
