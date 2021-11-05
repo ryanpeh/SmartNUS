@@ -101,11 +101,11 @@ public class QuestionBuilder {
         return new MultipleChoiceQuestion(name, importance, tags, choices, statistic);
     }
 
-    public Question buildTrueFalse() {
+    public TrueFalseQuestion buildTrueFalse() {
         return new TrueFalseQuestion(name, importance, tags, choices, statistic);
     }
 
-    public Question buildSaq() {
+    public ShortAnswerQuestion buildSaq() {
         return new ShortAnswerQuestion(name, importance, tags, choices, statistic);
     }
 }
