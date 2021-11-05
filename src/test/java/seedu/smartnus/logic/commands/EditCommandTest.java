@@ -4,12 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.smartnus.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.smartnus.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_IMPORTANCE_BOB;
-import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_IMPORTANCE_2;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_QUESTION_4;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_SAQ_ANSWER_1;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_SAQ_KEYWORD_1;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_SAQ_KEYWORD_2;
-import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_3;
 import static seedu.smartnus.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.smartnus.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.smartnus.logic.commands.CommandTestUtil.showQuestionAtIndex;
@@ -73,12 +73,12 @@ public class EditCommandTest {
                 new HashSet<>(List.of(VALID_SAQ_KEYWORD_1, VALID_SAQ_KEYWORD_2)));
         Set<Choice> validSaqChoiceSet = new HashSet<>(List.of(validSaqAnswer));
 
-        Question editedQuestion = questionInList.withName(VALID_NAME_BOB).withImportance(VALID_IMPORTANCE_BOB)
-                .withTags(VALID_TAG_HUSBAND)
+        Question editedQuestion = questionInList.withName(VALID_QUESTION_4).withImportance(VALID_IMPORTANCE_2)
+                .withTags(VALID_TAG_3)
                 .withChoices(validSaqAnswer).buildSaq();
 
-        EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withImportance(VALID_IMPORTANCE_BOB).withTags(VALID_TAG_HUSBAND)
+        EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder().withName(VALID_QUESTION_4)
+                .withImportance(VALID_IMPORTANCE_2).withTags(VALID_TAG_3)
                 .withSaqChoices(validSaqChoiceSet).build();
         EditCommand editCommand = new EditCommand(indexLastQuestion, descriptor);
 
@@ -96,11 +96,11 @@ public class EditCommandTest {
         Question lastQuestion = model.getFilteredQuestionList().get(indexSecondLastQuestion.getZeroBased());
 
         QuestionBuilder questionInList = new QuestionBuilder(lastQuestion);
-        Question editedQuestion = questionInList.withName(VALID_NAME_BOB).withImportance(VALID_IMPORTANCE_BOB)
-                .withTags(VALID_TAG_HUSBAND).buildTrueFalse();
+        Question editedQuestion = questionInList.withName(VALID_QUESTION_4).withImportance(VALID_IMPORTANCE_2)
+                .withTags(VALID_TAG_3).buildTrueFalse();
 
-        EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withImportance(VALID_IMPORTANCE_BOB).withTags(VALID_TAG_HUSBAND).build();
+        EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder().withName(VALID_QUESTION_4)
+                .withImportance(VALID_IMPORTANCE_2).withTags(VALID_TAG_3).build();
         EditCommand editCommand = new EditCommand(indexSecondLastQuestion, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_QUESTION_SUCCESS, editedQuestion);
@@ -128,9 +128,9 @@ public class EditCommandTest {
         showQuestionAtIndex(model, INDEX_FIRST_QUESTION);
 
         Question questionInFilteredList = model.getFilteredQuestionList().get(INDEX_FIRST_QUESTION.getZeroBased());
-        Question editedQuestion = new QuestionBuilder(questionInFilteredList).withName(VALID_NAME_BOB).build();
+        Question editedQuestion = new QuestionBuilder(questionInFilteredList).withName(VALID_QUESTION_4).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_QUESTION,
-                new EditQuestionDescriptorBuilder().withName(VALID_NAME_BOB).build());
+                new EditQuestionDescriptorBuilder().withName(VALID_QUESTION_4).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_QUESTION_SUCCESS, editedQuestion);
 
@@ -164,7 +164,7 @@ public class EditCommandTest {
     @Test
     public void execute_invalidQuestionIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredQuestionList().size() + 1);
-        EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder().withName(VALID_QUESTION_4).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX);
@@ -182,7 +182,7 @@ public class EditCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getSmartNus().getQuestionList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
-                new EditQuestionDescriptorBuilder().withName(VALID_NAME_BOB).build());
+                new EditQuestionDescriptorBuilder().withName(VALID_QUESTION_4).build());
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX);
     }

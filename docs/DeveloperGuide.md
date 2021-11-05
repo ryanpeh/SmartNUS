@@ -93,12 +93,14 @@ Here's a (partial) class diagram of the `Logic` component:
 <img src="images/developer-guide/LogicClassDiagram.png" width="550"/>
 
 How the `Logic` component works:
-1. When `Logic` is called upon to execute a command, it uses either the `SmartNusParser` or the `QuizInputParser` class to parse the user command.
+1. When `Logic` is called upon to execute a command, it uses either the `SmartNusParser` or the `QuizInputParser` class to parse the user command, depending on which window the user is currently on (i.e. Main Window or Quiz Window).
 1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddCommand`) which is executed by the `LogicManager`.
 1. The command can communicate with the `Model` when it is executed (e.g. to add a question).
-1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
+1. The result of the command execution is encapsulated as a `CommandResult` object which is then returned from `Logic`.
 
 The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("delete question 1")` API call.
+
+[//]: # (TODO: Update the sequence diagram below, with sequence diagrams of main and quiz window stuff)
 
 ![Interactions Inside the Logic Component for the `delete 1` Command](images/developer-guide/DeleteSequenceDiagram.png)
 
@@ -110,14 +112,16 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 <img src="images/developer-guide/ParserClasses.png" width="600"/>
 
 How the parsing works:
-* When called upon to parse a user command, either the `SmartNusParser` class or the `QuizInputParser`class will create a `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `SmartNusParser` returns back as a `Command` object.
-* All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
+* When called upon to parse a user command, the `LogicManager` class will determine whether the `SmartNusParser` class or the `QuizInputParser` class will be used to parse the user command.
+* The selected class it will create `XYZCommandParser` or `ABCCommandParser` (`XYZ` and `ABC` are placeholders for the specific command name created by `SmartNusParser` and `QuizInputParser` respectively e.g., `AddMcqCommandParser` and `AnswerMcqCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` or `ABCCommand` object (e.g., `AddMcqCommand` or `AnswerMcqCommand`) which either `SmartNusParser` or `QuizInputParser` returns as a `Command` object.
+    * All `XYZCommandParser` classes (e.g., `AddMcqCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
+    * All `ABCCommandParser` classes (e.g., `AnswerMcqCommandParser`, `AnswerTfqCommandParser`, ...) inherit from the `QuizParser` interface so that they can be treated similarly where possible e.g, during testing.
 
 How the `Logic` component determines which parser to use:
-- The `Logic` component uses either the `SmartNusParser` or the `QuizInputParser` class to parse the user command, depending on whether the user is entering the command while in a quiz.
-- Different parsers are used due to different commands being available to the user during the quiz.
+- The `Logic` component uses either the `SmartNusParser` or the `QuizInputParser` class to parse the user command, depending on which window the user is currently on (i.e. Main Window or Quiz Window).
+- Different parsers are used due to different commands being available to the user during the quiz (i.e. the user should not be able to execute `AddMcqCommand` while in a quiz).
 - The `LogicManager` class achieves this through the usage of overloaded methods, `parseCommand(String)` and `parseCommand(String, QuizManager)`, with the latter for parsing commands while in a quiz.
-- This was implemented with the consideration that the `QuizInputParser` would require a `QuizManager` argument to be passed to various `XYZCommandParser` and `Command` classes to carry out the various quiz functionality.
+- This was implemented with the consideration that the `QuizInputParser` would require a `QuizManager` argument to be passed to various `ABCCommandParser` and `Command` classes to carry out the necessary various quiz functionality.
 
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2122S1-CS2103T-F12-1/tp/blob/master/src/main/java/seedu/smartnus/model/Model.java)
@@ -145,19 +149,53 @@ The `Question` class is an abstract class that stores a name, importance, and an
 A `Choice` stores a name and a boolean value `isCorrect` representing if it is a correct answer to the `Question`.
 The validity of a `Question` depends on the type of question.
 
-Types of Questions currently supported by SmartNUS and their conditions for validity are:
+Types of Questions currently supported by SmartNUS, and their conditions for validity are:
 1. Multiple Choice Questions
    * Has four `Choices` in total, exactly one of which is correct
-2. True-False Questions
+1. True-False Questions
    * Has two `Choices` in total, which can only be "True" and "False", exactly one of which is correct
-3. Multiple Response Questions (coming soon)
+1. Short Answer Questions
+   * TODO
+1. Multiple Response Questions (coming soon)
    * Has four `Choices` in total, at least one of which is correct
-4. Open-Ended Questions (coming soon)
 
 ## Note class
 
 The `Note` class is a class that stores a text.
 The note of a `Note` depends on whether the note starts without a whitespace or not.
+
+## Statistic Class
+The `Statistic` class is a class that keeps track of the user performance in answering the questions. 
+The performance is tracked by:
+* Number of attempts
+* Number of correct attempts
+```
+performance = number of correct attempts / number of attempts
+```
+### TagStatistic Class
+The `TagStatistic` class inherits from the `Statistic` class. The `TagStatistic` class is specifically used to keep track of the statistics of each tags.
+
+Here is the class diagram for `Statistic` and `TagStatistic`:
+
+[//]: # (TODO: Insert class diagram)
+
+Here is an example of answering a question correctly:
+
+[//]: # (TODO: Insert Sequence diagram)
+
+
+## QuizManager class
+
+[//]: # (TODO: Insert class diagram)
+
+The `QuizManager` class is the class that manages the logic behind the quiz, and is created once a quiz is started.
+
+Each `QuizManager` class stores the following information about the quiz:
+* `questions`: A list of `Question` objects for all the questions in the quiz
+* `currentIndex`: The current question index the user is currently at
+* `selectedChoices`: A list of `Choice` objects used to keep track of the choices that the user has entered so far
+* `statistic`: A `Statistic` object used to keep track of the statistics of the quiz
+
 
 ### Storage component
 

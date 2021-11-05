@@ -17,16 +17,18 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteCommand parse(String args) throws ParseException {
-        // question 1
-        // note 1
-        String[] inputWords;
-        inputWords = args.split("\\s+");
-        if (inputWords.length == 3) {
-            String deleteItem = inputWords[1];
-            Index index = ParserUtil.parseIndex(inputWords[2]);
-            if (ParserUtil.isValidListArgument(deleteItem.trim())) {
-                return new DeleteCommand(deleteItem, index);
+        try {
+            String[] inputWords;
+            inputWords = args.split("\\s+");
+            if (inputWords.length == 3) {
+                String deleteItem = inputWords[1];
+                Index index = ParserUtil.parseIndex(inputWords[2]);
+                if (ParserUtil.isValidListArgument(deleteItem.trim())) {
+                    return new DeleteCommand(deleteItem, index);
+                }
             }
+        } catch (ParseException pe) {
+            throw new ParseException("The index should be a positive integer from 1 to 2147483647");
         }
 
         throw new ParseException(

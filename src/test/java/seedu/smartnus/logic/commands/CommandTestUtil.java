@@ -30,15 +30,15 @@ import seedu.smartnus.testutil.EditQuestionDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_AMY = "Amy Bee";
-    public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_IMPORTANCE_AMY = "1";
-    public static final String VALID_IMPORTANCE_BOB = "2";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_IMPORTANCE_1 = "1";
+    public static final String VALID_IMPORTANCE_2 = "2";
     public static final String VALID_QUESTION_1 = "What is 1+1?";
-    public static final String VALID_QUESTION_2 = "What is 2+2?";
+    public static final String VALID_QUESTION_2 = "2+2 = ?";
+    public static final String VALID_QUESTION_3 = "2*2 = ?";
+    public static final String VALID_QUESTION_4 = "What is the name of harry's mom?";
+    public static final String VALID_QUESTION_5 = "Is 1+1 = 2?";
+    public static final String VALID_QUESTION_6 = "Is 2*4 = 4?";
+    public static final String VALID_QUESTION_7 = "Who died in the Triwizard tournament?";
     public static final String VALID_ANSWER_1 = "2";
     public static final String VALID_ANSWER_2 = "4";
     public static final String VALID_ANSWER_3 = "3";
@@ -51,31 +51,37 @@ public class CommandTestUtil {
     public static final String VALID_OPTION_5 = "5";
     public static final String VALID_SAQ_KEYWORD_1 = "Rowling";
     public static final String VALID_SAQ_KEYWORD_2 = "j";
-    public static final String VALID_STAT_1 = "CS2100";
-    public static final String VALID_STAT_2 = "ST2334";
-
-    public static final String NAME_DESC_AMY = " " + PREFIX_QUESTION + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB = " " + PREFIX_QUESTION + VALID_NAME_BOB;
+    public static final String VALID_SAQ_KEYWORD_3 = "Cedric";
+    public static final String VALID_SAQ_KEYWORD_4 = "Diggory";
+    public static final String VALID_TAG_1 = "CS2100";
+    public static final String VALID_TAG_2 = "ST2334";
+    public static final String VALID_TAG_3 = "harry";
+    public static final String VALID_TAG_4 = "CS2103T";
     public static final String VALID_NOTE_1 = "CS2103T is a fun mod";
     public static final String VALID_NOTE_2 = "CS2100 is not a fun mod";
+
     public static final String NOTE_DESC_1 = " " + PREFIX_NOTE + VALID_NOTE_1;
     public static final String NOTE_DESC_2 = " " + PREFIX_NOTE + VALID_NOTE_2;
-    public static final String STAT_DESC_1 = " " + PREFIX_TAG + VALID_STAT_1;
-    public static final String STAT_DESC_2 = STAT_DESC_1 + " " + PREFIX_TAG + VALID_STAT_2;
-
-    public static final String IMPORTANCE_DESC_AMY = " " + PREFIX_IMPORTANCE + VALID_IMPORTANCE_AMY;
-    public static final String IMPORTANCE_DESC_BOB = " " + PREFIX_IMPORTANCE + VALID_IMPORTANCE_BOB;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String STAT_DESC_1 = " " + PREFIX_TAG + VALID_TAG_1;
+    public static final String STAT_DESC_2 = STAT_DESC_1 + " " + PREFIX_TAG + VALID_TAG_2;
+    public static final String TAG_DESC_3 = " " + PREFIX_TAG + VALID_TAG_3;
+    public static final String TAG_DESC_4 = " " + PREFIX_TAG + VALID_TAG_4;
     public static final String IMPORTANCE_DESC_1 = " " + PREFIX_IMPORTANCE + VALID_IMPORTANCE_1;
+    public static final String IMPORTANCE_DESC_2 = " " + PREFIX_IMPORTANCE + VALID_IMPORTANCE_2;
     public static final String QUESTION_DESC_1 = " " + PREFIX_QUESTION + VALID_QUESTION_1;
     public static final String QUESTION_DESC_2 = " " + PREFIX_QUESTION + VALID_QUESTION_2;
+    public static final String QUESTION_DESC_3 = " " + PREFIX_QUESTION + VALID_QUESTION_3;
+    public static final String QUESTION_DESC_4 = " " + PREFIX_QUESTION + VALID_QUESTION_6;
+    public static final String QUESTION_DESC_5 = " " + PREFIX_QUESTION + VALID_QUESTION_7;
     public static final String ANSWER_DESC_1 = " " + PREFIX_ANSWER + VALID_ANSWER_1;
     public static final String ANSWER_DESC_2 = " " + PREFIX_ANSWER + VALID_ANSWER_2;
     public static final String ANSWER_DESC_3 = " " + PREFIX_ANSWER + VALID_ANSWER_3;
     public static final String TRUE_ANSWER_DESC = " " + PREFIX_ANSWER + VALID_TRUE_FALSE_ANSWER_1;
     public static final String FALSE_ANSWER_DESC = " " + PREFIX_ANSWER + VALID_TRUE_FALSE_ANSWER_2;
-    public static final String SAQ_ANSWER_DESC_1 = " " + PREFIX_ANSWER + "J. K. " + PREFIX_KEYWORD + "Rowling";
+    public static final String KEYWORD_DESC_1 = " " + PREFIX_KEYWORD + VALID_SAQ_KEYWORD_1;
+    public static final String SAQ_ANSWER_DESC_1 = " " + PREFIX_ANSWER + "J. K." + KEYWORD_DESC_1;
+    public static final String SAQ_ANSWER_DESC_2 = " " + PREFIX_ANSWER + PREFIX_KEYWORD + VALID_SAQ_KEYWORD_3 + "#12 "
+            + PREFIX_KEYWORD + "#!@" + VALID_SAQ_KEYWORD_4 + "(,)><";
     public static final String OPTION_DESC_1 = " " + PREFIX_OPTION + VALID_OPTION_1;
     public static final String OPTION_DESC_3 = " " + PREFIX_OPTION + VALID_OPTION_3;
     public static final String OPTION_DESC_4 = " " + PREFIX_OPTION + VALID_OPTION_4;
@@ -84,6 +90,9 @@ public class CommandTestUtil {
     public static final String OPTIONS_DESC_2 = OPTIONS_DESC_1 + OPTION_DESC_5;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_QUESTION + " "; // empty string not allowed for names
+    public static final String INVALID_KEYWORD_DESC_1 = " " + PREFIX_KEYWORD + " "; // blank keyword not allowed
+    // keywords must contain alphanumeric characters
+    public static final String INVALID_KEYWORD_DESC_2 = " " + PREFIX_KEYWORD + "!@#$%^&*()-+_=+";
     // 'a' not allowed in importance
     public static final String INVALID_IMPORTANCE_DESC = " " + PREFIX_IMPORTANCE + "1a";
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
@@ -102,11 +111,11 @@ public class CommandTestUtil {
     public static final EditCommand.EditQuestionDescriptor DESC_BOB;
 
     static {
-        DESC_AMY = new EditQuestionDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withImportance(VALID_IMPORTANCE_AMY).withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditQuestionDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withImportance(VALID_IMPORTANCE_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        DESC_AMY = new EditQuestionDescriptorBuilder().withName(VALID_QUESTION_3)
+                .withImportance(VALID_IMPORTANCE_1).withTags(VALID_TAG_4).build();
+        DESC_BOB = new EditQuestionDescriptorBuilder().withName(VALID_QUESTION_4)
+                .withImportance(VALID_IMPORTANCE_2)
+                .withTags(VALID_TAG_3, VALID_TAG_4).build();
     }
 
     /**

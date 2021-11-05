@@ -11,7 +11,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ### Abhishek Gupta
 
-<img src="images/about-us/agentum07.png" width="200px">
+<img src="images/agentum07.png" width="200px">
 
 [[github](https://github.com/agentum07)]
 [[portfolio](team/johndoe.md)]
@@ -21,7 +21,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ### Arya Nagatama Giat
 
-<img src="images/about-us/aryagiat.png" width="200px">
+<img src="images/aryagiat.png" width="200px">
 
 [[github](http://github.com/aryagiat)]
 [[portfolio](team/johndoe.md)]
@@ -31,7 +31,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ### Neo Jing Xuan
 
-<img src="images/about-us/neojxuan.png" width="200px">
+<img src="images/neojxuan.png" width="200px">
 
 [[github](http://github.com/neojxuan)] [[portfolio](team/johndoe.md)]
 
@@ -40,7 +40,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ### Ong Jun Heng, Cedric
 
-<img src="images/about-us/cedricongjh.png" width="200px">
+<img src="images/cedricongjh.png" width="200px">
 
 [[github](http://github.com/cedricongjh)]
 [[portfolio](team/johndoe.md)]
@@ -50,7 +50,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ### Peh Kai Min, Ryan
 
-<img src="images/about-us/ryanpeh.png" width="200px">
+<img src="images/ryanpeh.png" width="200px">
 
 [[github](http://github.com/ryanpeh)]
 [[portfolio](team/johndoe.md)]
