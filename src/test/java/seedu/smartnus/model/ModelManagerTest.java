@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.smartnus.testutil.Assert.assertThrows;
-import static seedu.smartnus.testutil.TypicalQuestions.ALICE;
-import static seedu.smartnus.testutil.TypicalQuestions.BENSON;
+import static seedu.smartnus.testutil.TypicalQuestions.MCQ_QUESTION_1;
+import static seedu.smartnus.testutil.TypicalQuestions.MCQ_QUESTION_2;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -82,13 +82,13 @@ public class ModelManagerTest {
 
     @Test
     public void hasQuestion_questionNotInSmartNus_returnsFalse() {
-        assertFalse(modelManager.hasQuestion(ALICE));
+        assertFalse(modelManager.hasQuestion(MCQ_QUESTION_1));
     }
 
     @Test
     public void hasQuestion_questionInSmartNus_returnsTrue() {
-        modelManager.addQuestion(ALICE);
-        assertTrue(modelManager.hasQuestion(ALICE));
+        modelManager.addQuestion(MCQ_QUESTION_1);
+        assertTrue(modelManager.hasQuestion(MCQ_QUESTION_1));
     }
 
     @Test
@@ -103,7 +103,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        SmartNus smartNus = new SmartNusBuilder().withQuestion(ALICE).withQuestion(BENSON).build();
+        SmartNus smartNus = new SmartNusBuilder().withQuestion(MCQ_QUESTION_1).withQuestion(MCQ_QUESTION_2).build();
         SmartNus differentSmartNus = new SmartNus();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -125,7 +125,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentSmartNus, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
+        String[] keywords = MCQ_QUESTION_1.getName().fullName.split("\\s+");
         modelManager.updateFilteredQuestionList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(smartNus, userPrefs)));
 
@@ -153,7 +153,7 @@ public class ModelManagerTest {
 
     @Test
     public void getTagStatistic_correct() {
-        modelManager.addQuestion(ALICE);
+        modelManager.addQuestion(MCQ_QUESTION_1);
         assertNotEquals(null, modelManager.getTagStatistic());
     }
 }

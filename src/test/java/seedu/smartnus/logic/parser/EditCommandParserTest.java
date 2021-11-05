@@ -1,19 +1,19 @@
 package seedu.smartnus.logic.parser;
 
 import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.smartnus.logic.commands.CommandTestUtil.IMPORTANCE_DESC_AMY;
-import static seedu.smartnus.logic.commands.CommandTestUtil.IMPORTANCE_DESC_BOB;
+import static seedu.smartnus.logic.commands.CommandTestUtil.IMPORTANCE_DESC_1;
+import static seedu.smartnus.logic.commands.CommandTestUtil.IMPORTANCE_DESC_2;
 import static seedu.smartnus.logic.commands.CommandTestUtil.INVALID_IMPORTANCE_DESC;
 import static seedu.smartnus.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.smartnus.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.smartnus.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.smartnus.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.smartnus.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_IMPORTANCE_AMY;
-import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_IMPORTANCE_BOB;
-import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.smartnus.logic.commands.CommandTestUtil.QUESTION_DESC_3;
+import static seedu.smartnus.logic.commands.CommandTestUtil.TAG_DESC_3;
+import static seedu.smartnus.logic.commands.CommandTestUtil.TAG_DESC_4;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_IMPORTANCE_1;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_IMPORTANCE_2;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_QUESTION_3;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_3;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_4;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.smartnus.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.smartnus.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -43,7 +43,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-        assertParseFailure(parser, VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, VALID_QUESTION_3, MESSAGE_INVALID_FORMAT);
 
         // no field specified
         assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);
@@ -55,10 +55,10 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, "-5" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "-5" + QUESTION_DESC_3, MESSAGE_INVALID_FORMAT);
 
         // zero index
-        assertParseFailure(parser, "0" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "0" + QUESTION_DESC_3, MESSAGE_INVALID_FORMAT);
 
         // invalid arguments being parsed as preamble
         assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
@@ -79,14 +79,14 @@ public class EditCommandParserTest {
 
         // valid importance followed by invalid importance. The test case for invalid importance followed by
         // valid importance is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, "1" + IMPORTANCE_DESC_BOB + INVALID_IMPORTANCE_DESC,
+        assertParseFailure(parser, "1" + IMPORTANCE_DESC_2 + INVALID_IMPORTANCE_DESC,
                 Importance.MESSAGE_CONSTRAINTS);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Question} being edited,
         // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_DESC_4 + TAG_DESC_3 + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_DESC_4 + TAG_EMPTY + TAG_DESC_3, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_4 + TAG_DESC_3, Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_IMPORTANCE_DESC,
@@ -96,12 +96,12 @@ public class EditCommandParserTest {
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_QUESTION;
-        String userInput = targetIndex.getOneBased() + IMPORTANCE_DESC_BOB + TAG_DESC_HUSBAND
-                + NAME_DESC_AMY + TAG_DESC_FRIEND;
+        String userInput = targetIndex.getOneBased() + IMPORTANCE_DESC_2 + TAG_DESC_3
+                + QUESTION_DESC_3 + TAG_DESC_4;
 
-        EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withImportance(VALID_IMPORTANCE_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder().withName(VALID_QUESTION_3)
+                .withImportance(VALID_IMPORTANCE_2)
+                .withTags(VALID_TAG_3, VALID_TAG_4).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -110,9 +110,9 @@ public class EditCommandParserTest {
     @Test
     public void parse_someFieldsSpecified_success() {
         Index targetIndex = INDEX_FIRST_QUESTION;
-        String userInput = targetIndex.getOneBased() + IMPORTANCE_DESC_BOB;
+        String userInput = targetIndex.getOneBased() + IMPORTANCE_DESC_2;
 
-        EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder().withImportance(VALID_IMPORTANCE_BOB)
+        EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder().withImportance(VALID_IMPORTANCE_2)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -123,21 +123,21 @@ public class EditCommandParserTest {
     public void parse_oneFieldSpecified_success() {
         // name
         Index targetIndex = INDEX_THIRD_QUESTION;
-        String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
+        String userInput = targetIndex.getOneBased() + QUESTION_DESC_3;
         EditCommand.EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder()
-                .withName(VALID_NAME_AMY).build();
+                .withName(VALID_QUESTION_3).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // importance
-        userInput = targetIndex.getOneBased() + IMPORTANCE_DESC_AMY;
-        descriptor = new EditQuestionDescriptorBuilder().withImportance(VALID_IMPORTANCE_AMY).build();
+        userInput = targetIndex.getOneBased() + IMPORTANCE_DESC_1;
+        descriptor = new EditQuestionDescriptorBuilder().withImportance(VALID_IMPORTANCE_1).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // tags
-        userInput = targetIndex.getOneBased() + TAG_DESC_FRIEND;
-        descriptor = new EditQuestionDescriptorBuilder().withTags(VALID_TAG_FRIEND).build();
+        userInput = targetIndex.getOneBased() + TAG_DESC_4;
+        descriptor = new EditQuestionDescriptorBuilder().withTags(VALID_TAG_4).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -145,12 +145,12 @@ public class EditCommandParserTest {
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_QUESTION;
-        String userInput = targetIndex.getOneBased() + IMPORTANCE_DESC_AMY
-                + TAG_DESC_FRIEND + IMPORTANCE_DESC_AMY + TAG_DESC_FRIEND
-                + IMPORTANCE_DESC_BOB + TAG_DESC_HUSBAND;
+        String userInput = targetIndex.getOneBased() + IMPORTANCE_DESC_1
+                + TAG_DESC_4 + IMPORTANCE_DESC_1 + TAG_DESC_4
+                + IMPORTANCE_DESC_2 + TAG_DESC_3;
 
-        EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder().withImportance(VALID_IMPORTANCE_BOB)
-                .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+        EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder().withImportance(VALID_IMPORTANCE_2)
+                .withTags(VALID_TAG_4, VALID_TAG_3)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -161,15 +161,15 @@ public class EditCommandParserTest {
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_QUESTION;
-        String userInput = targetIndex.getOneBased() + INVALID_IMPORTANCE_DESC + IMPORTANCE_DESC_BOB;
+        String userInput = targetIndex.getOneBased() + INVALID_IMPORTANCE_DESC + IMPORTANCE_DESC_2;
         EditCommand.EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder()
-                .withImportance(VALID_IMPORTANCE_BOB).build();
+                .withImportance(VALID_IMPORTANCE_2).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
-        userInput = targetIndex.getOneBased() + INVALID_IMPORTANCE_DESC + IMPORTANCE_DESC_BOB;
-        descriptor = new EditQuestionDescriptorBuilder().withImportance(VALID_IMPORTANCE_BOB).build();
+        userInput = targetIndex.getOneBased() + INVALID_IMPORTANCE_DESC + IMPORTANCE_DESC_2;
+        descriptor = new EditQuestionDescriptorBuilder().withImportance(VALID_IMPORTANCE_2).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

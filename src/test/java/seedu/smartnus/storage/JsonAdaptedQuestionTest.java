@@ -7,8 +7,8 @@ import static seedu.smartnus.model.question.Question.TF_QUESTION_TYPE;
 import static seedu.smartnus.storage.JsonAdaptedQuestion.INVALID_QUESTION_TYPE_MESSAGE;
 import static seedu.smartnus.storage.JsonAdaptedQuestion.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.smartnus.testutil.Assert.assertThrows;
-import static seedu.smartnus.testutil.TypicalQuestions.BENSON;
-import static seedu.smartnus.testutil.TypicalQuestions.TF_QUESTION;
+import static seedu.smartnus.testutil.TypicalQuestions.MCQ_QUESTION_2;
+import static seedu.smartnus.testutil.TypicalQuestions.TF_QUESTION_1;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,15 +29,15 @@ public class JsonAdaptedQuestionTest {
     private static final String INVALID_TAG = "#friend";
     private static final String INVALID_CHOICE = " ";
 
-    private static final String VALID_NAME = BENSON.getName().toString();
-    private static final String VALID_IMPORTANCE = BENSON.getImportance().toString();
-    private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
+    private static final String VALID_NAME = MCQ_QUESTION_2.getName().toString();
+    private static final String VALID_IMPORTANCE = MCQ_QUESTION_2.getImportance().toString();
+    private static final List<JsonAdaptedTag> VALID_TAGS = MCQ_QUESTION_2.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
-    private static final List<JsonAdaptedChoice> VALID_CHOICES = BENSON.getChoices().stream()
+    private static final List<JsonAdaptedChoice> VALID_CHOICES = MCQ_QUESTION_2.getChoices().stream()
             .map(JsonAdaptedChoice::new)
             .collect(Collectors.toList());
-    private static final List<JsonAdaptedChoice> VALID_TF_CHOICES = TF_QUESTION.getChoices().stream()
+    private static final List<JsonAdaptedChoice> VALID_TF_CHOICES = TF_QUESTION_1.getChoices().stream()
             .map(JsonAdaptedChoice::new)
             .collect(Collectors.toList());
     private static final int DEFAULT_ATTEMPT_COUNT = 0;
@@ -47,8 +47,8 @@ public class JsonAdaptedQuestionTest {
 
     @Test
     public void toModelType_validQuestionDetails_returnsQuestion() throws Exception {
-        JsonAdaptedQuestion question = new JsonAdaptedQuestion(BENSON);
-        assertEquals(BENSON, question.toModelType());
+        JsonAdaptedQuestion question = new JsonAdaptedQuestion(MCQ_QUESTION_2);
+        assertEquals(MCQ_QUESTION_2, question.toModelType());
     }
 
     @Test

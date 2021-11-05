@@ -3,10 +3,10 @@ package seedu.smartnus.model.question;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_3;
 import static seedu.smartnus.testutil.Assert.assertThrows;
-import static seedu.smartnus.testutil.TypicalQuestions.ALICE;
-import static seedu.smartnus.testutil.TypicalQuestions.BOB;
+import static seedu.smartnus.testutil.TypicalQuestions.MCQ_QUESTION_1;
+import static seedu.smartnus.testutil.TypicalQuestions.STORAGE_QUESTION_2;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -29,19 +29,19 @@ public class UniqueQuestionListTest {
 
     @Test
     public void contains_questionNotInList_returnsFalse() {
-        assertFalse(uniqueQuestionList.contains(ALICE));
+        assertFalse(uniqueQuestionList.contains(MCQ_QUESTION_1));
     }
 
     @Test
     public void contains_questionInList_returnsTrue() {
-        uniqueQuestionList.add(ALICE);
-        assertTrue(uniqueQuestionList.contains(ALICE));
+        uniqueQuestionList.add(MCQ_QUESTION_1);
+        assertTrue(uniqueQuestionList.contains(MCQ_QUESTION_1));
     }
 
     @Test
     public void contains_questionWithSameIdentityFieldsInList_returnsTrue() {
-        uniqueQuestionList.add(ALICE);
-        Question editedAlice = new QuestionBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+        uniqueQuestionList.add(MCQ_QUESTION_1);
+        Question editedAlice = new QuestionBuilder(MCQ_QUESTION_1).withTags(VALID_TAG_3)
                 .build();
         assertTrue(uniqueQuestionList.contains(editedAlice));
     }
@@ -53,40 +53,41 @@ public class UniqueQuestionListTest {
 
     @Test
     public void add_duplicateQuestion_throwsDuplicateQuestionException() {
-        uniqueQuestionList.add(ALICE);
-        assertThrows(DuplicateQuestionException.class, () -> uniqueQuestionList.add(ALICE));
+        uniqueQuestionList.add(MCQ_QUESTION_1);
+        assertThrows(DuplicateQuestionException.class, () -> uniqueQuestionList.add(MCQ_QUESTION_1));
     }
 
     @Test
     public void setQuestion_nullTargetQuestion_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueQuestionList.setQuestion(null, ALICE));
+        assertThrows(NullPointerException.class, () -> uniqueQuestionList.setQuestion(null, MCQ_QUESTION_1));
     }
 
     @Test
     public void setQuestion_nullEditedQuestion_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueQuestionList.setQuestion(ALICE, null));
+        assertThrows(NullPointerException.class, () -> uniqueQuestionList.setQuestion(MCQ_QUESTION_1, null));
     }
 
     @Test
     public void setQuestion_targetQuestionNotInList_throwsQuestionNotFoundException() {
-        assertThrows(QuestionNotFoundException.class, () -> uniqueQuestionList.setQuestion(ALICE, ALICE));
+        assertThrows(QuestionNotFoundException.class, () ->
+                uniqueQuestionList.setQuestion(MCQ_QUESTION_1, MCQ_QUESTION_1));
     }
 
     @Test
     public void setQuestion_editedQuestionIsSameQuestion_success() {
-        uniqueQuestionList.add(ALICE);
-        uniqueQuestionList.setQuestion(ALICE, ALICE);
+        uniqueQuestionList.add(MCQ_QUESTION_1);
+        uniqueQuestionList.setQuestion(MCQ_QUESTION_1, MCQ_QUESTION_1);
         UniqueQuestionList expectedUniqueQuestionList = new UniqueQuestionList();
-        expectedUniqueQuestionList.add(ALICE);
+        expectedUniqueQuestionList.add(MCQ_QUESTION_1);
         assertEquals(expectedUniqueQuestionList, uniqueQuestionList);
     }
 
     @Test
     public void setQuestion_editedQuestionHasSameIdentity_success() {
-        uniqueQuestionList.add(ALICE);
-        Question editedAlice = new QuestionBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+        uniqueQuestionList.add(MCQ_QUESTION_1);
+        Question editedAlice = new QuestionBuilder(MCQ_QUESTION_1).withTags(VALID_TAG_3)
                 .build();
-        uniqueQuestionList.setQuestion(ALICE, editedAlice);
+        uniqueQuestionList.setQuestion(MCQ_QUESTION_1, editedAlice);
         UniqueQuestionList expectedUniqueQuestionList = new UniqueQuestionList();
         expectedUniqueQuestionList.add(editedAlice);
         assertEquals(expectedUniqueQuestionList, uniqueQuestionList);
@@ -94,18 +95,19 @@ public class UniqueQuestionListTest {
 
     @Test
     public void setQuestion_editedQuestionHasDifferentIdentity_success() {
-        uniqueQuestionList.add(ALICE);
-        uniqueQuestionList.setQuestion(ALICE, BOB);
+        uniqueQuestionList.add(MCQ_QUESTION_1);
+        uniqueQuestionList.setQuestion(MCQ_QUESTION_1, STORAGE_QUESTION_2);
         UniqueQuestionList expectedUniqueQuestionList = new UniqueQuestionList();
-        expectedUniqueQuestionList.add(BOB);
+        expectedUniqueQuestionList.add(STORAGE_QUESTION_2);
         assertEquals(expectedUniqueQuestionList, uniqueQuestionList);
     }
 
     @Test
     public void setQuestion_editedQuestionHasNonUniqueIdentity_throwsDuplicateQuestionException() {
-        uniqueQuestionList.add(ALICE);
-        uniqueQuestionList.add(BOB);
-        assertThrows(DuplicateQuestionException.class, () -> uniqueQuestionList.setQuestion(ALICE, BOB));
+        uniqueQuestionList.add(MCQ_QUESTION_1);
+        uniqueQuestionList.add(STORAGE_QUESTION_2);
+        assertThrows(DuplicateQuestionException.class, () ->
+                uniqueQuestionList.setQuestion(MCQ_QUESTION_1, STORAGE_QUESTION_2));
     }
 
     @Test
@@ -115,13 +117,13 @@ public class UniqueQuestionListTest {
 
     @Test
     public void remove_questionDoesNotExist_throwsQuestionNotFoundException() {
-        assertThrows(QuestionNotFoundException.class, () -> uniqueQuestionList.remove(ALICE));
+        assertThrows(QuestionNotFoundException.class, () -> uniqueQuestionList.remove(MCQ_QUESTION_1));
     }
 
     @Test
     public void remove_existingQuestion_removesQuestion() {
-        uniqueQuestionList.add(ALICE);
-        uniqueQuestionList.remove(ALICE);
+        uniqueQuestionList.add(MCQ_QUESTION_1);
+        uniqueQuestionList.remove(MCQ_QUESTION_1);
         UniqueQuestionList expectedUniqueQuestionList = new UniqueQuestionList();
         assertEquals(expectedUniqueQuestionList, uniqueQuestionList);
     }
@@ -133,9 +135,9 @@ public class UniqueQuestionListTest {
 
     @Test
     public void setQuestions_uniqueQuestionList_replacesOwnListWithProvidedUniqueQuestionList() {
-        uniqueQuestionList.add(ALICE);
+        uniqueQuestionList.add(MCQ_QUESTION_1);
         UniqueQuestionList expectedUniqueQuestionList = new UniqueQuestionList();
-        expectedUniqueQuestionList.add(BOB);
+        expectedUniqueQuestionList.add(STORAGE_QUESTION_2);
         uniqueQuestionList.setQuestions(expectedUniqueQuestionList);
         assertEquals(expectedUniqueQuestionList, uniqueQuestionList);
     }
@@ -147,17 +149,17 @@ public class UniqueQuestionListTest {
 
     @Test
     public void setQuestions_list_replacesOwnListWithProvidedList() {
-        uniqueQuestionList.add(ALICE);
-        List<Question> questionList = Collections.singletonList(BOB);
+        uniqueQuestionList.add(MCQ_QUESTION_1);
+        List<Question> questionList = Collections.singletonList(STORAGE_QUESTION_2);
         uniqueQuestionList.setQuestions(questionList);
         UniqueQuestionList expectedUniqueQuestionList = new UniqueQuestionList();
-        expectedUniqueQuestionList.add(BOB);
+        expectedUniqueQuestionList.add(STORAGE_QUESTION_2);
         assertEquals(expectedUniqueQuestionList, uniqueQuestionList);
     }
 
     @Test
     public void setQuestions_listWithDuplicateQuestions_throwsDuplicateQuestionException() {
-        List<Question> listWithDuplicateQuestions = Arrays.asList(ALICE, ALICE);
+        List<Question> listWithDuplicateQuestions = Arrays.asList(MCQ_QUESTION_1, MCQ_QUESTION_1);
         assertThrows(DuplicateQuestionException.class, () -> uniqueQuestionList
                 .setQuestions(listWithDuplicateQuestions));
     }

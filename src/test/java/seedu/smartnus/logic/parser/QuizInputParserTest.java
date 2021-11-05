@@ -6,7 +6,7 @@ import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMA
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_IMPORTANCE_1;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_QUESTION_1;
 import static seedu.smartnus.testutil.Assert.assertThrows;
-import static seedu.smartnus.testutil.TypicalQuestions.MCQ_QUESTION;
+import static seedu.smartnus.testutil.TypicalQuestions.MCQ_QUESTION_3;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -88,7 +88,7 @@ public class QuizInputParserTest {
     @Test
     public void parseCommand_answerMcqQuestion() throws ParseException {
         List<Question> typicalQuestions = new ArrayList<>();
-        typicalQuestions.add(MCQ_QUESTION);
+        typicalQuestions.add(MCQ_QUESTION_3);
         QuizManager oneQuestionQuiz = new QuizManager(typicalQuestions);
         assertTrue(parser.parseCommand("a", oneQuestionQuiz) instanceof AnswerMcqCommand);
     }

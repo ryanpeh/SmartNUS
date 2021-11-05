@@ -2,8 +2,8 @@ package seedu.smartnus.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_STAT_1;
-import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_STAT_2;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_1;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_2;
 import static seedu.smartnus.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.smartnus.logic.commands.StatCommand.MESSAGE_FOUND_STATS_FORMAT;
 import static seedu.smartnus.testutil.TypicalSmartNus.getTypicalSmartNus;
@@ -31,8 +31,8 @@ class StatCommandTest {
 
     @Test
     void equals() {
-        StatContainsKeywordPredicate firstPredicate = createPredicateFromUserInput(VALID_STAT_1);
-        StatContainsKeywordPredicate secondPredicate = createPredicateFromUserInput(VALID_STAT_2);
+        StatContainsKeywordPredicate firstPredicate = createPredicateFromUserInput(VALID_TAG_1);
+        StatContainsKeywordPredicate secondPredicate = createPredicateFromUserInput(VALID_TAG_2);
 
         ArrayList<Predicate<TagStatistic>> firstPredicateArr = createPredicateArr(firstPredicate);
         ArrayList<Predicate<TagStatistic>> secondPredicateArr = createPredicateArr(secondPredicate);
@@ -70,7 +70,7 @@ class StatCommandTest {
 
     @Test
     void execute_oneTag_oneTagFound() {
-        StatContainsKeywordPredicate firstTagPredicate = createPredicateFromUserInput(VALID_STAT_1);
+        StatContainsKeywordPredicate firstTagPredicate = createPredicateFromUserInput(VALID_TAG_1);
         StatCommand command = new StatCommand(createPredicateArr(firstTagPredicate));
         expectedModel.updateFilteredTagStatistic(firstTagPredicate);
         String expectedMessage = String.format(MESSAGE_FOUND_STATS_FORMAT, expectedModel.getTagStatistic().size());
