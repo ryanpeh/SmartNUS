@@ -28,6 +28,11 @@ public class NoteListTest {
     }
 
     @Test
+    public void contains_nullNote_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> noteList.contains(null));
+    }
+
+    @Test
     public void contains_noteNotInList_returnsFalse() {
         assertFalse(noteList.contains(CS2100_NOTE));
     }
@@ -83,6 +88,11 @@ public class NoteListTest {
     @Test
     public void remove_noteDoesNotExist_throwsNoteNotFoundException() {
         assertThrows(NoteNotFoundException.class, () -> noteList.remove(CS2100_NOTE));
+    }
+
+    @Test
+    public void setNotes_nullUniqueNoteList_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> noteList.setNotes((NoteList) null));
     }
 
     @Test
@@ -150,13 +160,18 @@ public class NoteListTest {
 
     @Test
     public void setNotes_nullNoteList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> noteList.setNoteList((List<Note>) null));
+        assertThrows(NullPointerException.class, () -> noteList.setNoteList(null));
     }
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
             -> noteList.asUnmodifiableObservableList().remove(0));
+    }
+
+    @Test
+    public void setNotes_nullList_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> noteList.setNotes((List<Note>) null));
     }
 
     @Test
