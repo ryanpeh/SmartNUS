@@ -45,8 +45,11 @@ public class NoteList implements Iterable<Note> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            // todo: create an exception class for notes
-            throw new RuntimeException();
+            throw new NoteNotFoundException();
+        }
+
+        if (!target.isSameNote(editedNote) && contains(editedNote)) {
+            throw new DuplicateNoteException();
         }
 
         internalList.set(index, editedNote);

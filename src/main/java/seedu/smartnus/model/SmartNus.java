@@ -157,8 +157,8 @@ public class SmartNus implements ReadOnlySmartNus {
 
     @Override
     public String toString() {
-        return questions.asUnmodifiableObservableList().size() + " questions";
-        // TODO: refine later
+        return questions.asUnmodifiableObservableList().size() + " questions"
+                + notes.asUnmodifiableObservableList().size() + "notes";
     }
 
     @Override
