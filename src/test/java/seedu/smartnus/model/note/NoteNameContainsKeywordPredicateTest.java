@@ -72,4 +72,32 @@ public class NoteNameContainsKeywordPredicateTest {
         predicate = new NoteNameContainsKeywordsPredicate(List.of("Carol"));
         assertFalse(predicate.test(new NoteBuilder().withName("Alice Bob").build()));
     }
+
+    @Test
+    public void hashCode_test() {
+        List<String> firstPredicateKeywordList = Collections.singletonList("first");
+        List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
+
+        NoteNameContainsKeywordsPredicate firstPredicate =
+                new NoteNameContainsKeywordsPredicate(firstPredicateKeywordList);
+        NoteNameContainsKeywordsPredicate secondPredicate =
+                new NoteNameContainsKeywordsPredicate(secondPredicateKeywordList);
+
+        // same object -> returns true
+        assertEquals(firstPredicate.hashCode(), firstPredicate.hashCode());
+
+        // same values -> returns true
+        NoteNameContainsKeywordsPredicate firstPredicateCopy =
+                new NoteNameContainsKeywordsPredicate(firstPredicateKeywordList);
+        assertEquals(firstPredicate.hashCode(), firstPredicateCopy.hashCode());
+
+        // different types -> returns false
+        assertNotEquals(1, firstPredicate.hashCode());
+
+        // null -> returns false
+        assertNotEquals((Double) null, firstPredicate.hashCode());
+
+        // different question -> returns false
+        assertNotEquals(firstPredicate.hashCode(), secondPredicate.hashCode());
+    }
 }
