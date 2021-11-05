@@ -164,26 +164,6 @@ Types of Questions currently supported by SmartNUS, and their conditions for val
 The `Note` class is a class that stores a text.
 The note of a `Note` depends on whether the note starts without a whitespace or not.
 
-## Statistic Class
-The `Statistic` class is a class that keeps track of the user performance in answering the questions. 
-The performance is tracked by:
-* Number of attempts
-* Number of correct attempts
-```
-performance = number of correct attempts / number of attempts
-```
-### TagStatistic Class
-The `TagStatistic` class inherits from the `Statistic` class. The `TagStatistic` class is specifically used to keep track of the statistics of each tags.
-
-Here is the class diagram for `Statistic` and `TagStatistic`:
-
-[//]: # (TODO: Insert class diagram)
-
-Here is an example of answering a question correctly:
-
-[//]: # (TODO: Insert Sequence diagram)
-
-
 ## QuizManager class
 
 [//]: # (TODO: Insert class diagram)
