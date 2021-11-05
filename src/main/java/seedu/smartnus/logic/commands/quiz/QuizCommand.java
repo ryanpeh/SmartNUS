@@ -8,6 +8,7 @@ import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 import seedu.smartnus.logic.commands.Command;
@@ -45,6 +46,7 @@ public class QuizCommand extends Command {
      * Creates a QuizCommand
      * @param filterPredicates The predicates the questions in the quiz command has to fulfill
      *                         in order to be in the quiz
+     * @param comparator The comparator used to sort the questions in the quiz
      */
     public QuizCommand(ArrayList<Predicate<Question>> filterPredicates, Comparator<Question> comparator) {
         this.predicates.addAll(filterPredicates);
@@ -63,7 +65,6 @@ public class QuizCommand extends Command {
             model.sortFilteredQuizQuestionList(comparator);
         }
 
-        // TODO: Update state (model) with Quiz object?
         model.updateFilteredQuizQuestionList(CommandUtil.combinePredicates(predicates));
 
         if (model.getFilteredQuizQuestionList().isEmpty()) {
@@ -77,10 +78,10 @@ public class QuizCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        // TODO: In future, check if the attributes (if any) for the QuizCommand are the same
         return other == this // short circuit if same object
-                || (other instanceof QuizCommand) // instanceof handles nulls
-                && predicates.equals(((QuizCommand) other).predicates);
+                || ((other instanceof QuizCommand) // instanceof handles nulls
+                && predicates.equals(((QuizCommand) other).predicates)
+                && (Objects.equals(comparator, ((QuizCommand) other).comparator)));
     }
 
 }
