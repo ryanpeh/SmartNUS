@@ -28,7 +28,7 @@ public class ShortAnswerQuestionTest {
         validSaq = new ShortAnswerQuestion(new Name(VALID_QUESTION_1),
                 new Importance(VALID_IMPORTANCE_1), new HashSet<>(), validSaqChoices);
     }
-    
+
     @Test
     public void isValidQuestion_validSaq_true() {
         assertTrue(validSaq.isValidQuestion());

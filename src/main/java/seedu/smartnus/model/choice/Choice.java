@@ -108,7 +108,8 @@ public class Choice {
 
         Choice otherChoice = (Choice) other;
         return otherChoice.getTitle().equals(getTitle())
-                && otherChoice.getIsCorrect() == getIsCorrect();
+                && otherChoice.getIsCorrect() == getIsCorrect()
+                && otherChoice.getKeywords().equals(getKeywords());
     }
 
     @Override

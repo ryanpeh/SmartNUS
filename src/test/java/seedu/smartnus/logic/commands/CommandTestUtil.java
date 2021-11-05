@@ -37,7 +37,7 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_IMPORTANCE_1 = "1";
-    public static final String VALID_KEYWORD_1 = "...one1,";
+    public static final String VALID_KEYWORD_1 = "rowling";
     public static final String VALID_QUESTION_1 = "What is 1+1?";
     public static final String VALID_QUESTION_2 = "What is 2+2?";
     public static final String VALID_ANSWER_1 = "2";

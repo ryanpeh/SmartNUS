@@ -14,9 +14,9 @@ import static seedu.smartnus.logic.commands.CommandTestUtil.QUESTION_DESC_1;
 import static seedu.smartnus.logic.commands.CommandTestUtil.SAQ_ANSWER_DESC_1;
 import static seedu.smartnus.logic.commands.CommandTestUtil.TRUE_ANSWER_DESC;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_IMPORTANCE_1;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_KEYWORD_1;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_QUESTION_1;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TRUE_FALSE_ANSWER_1;
-import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_KEYWORD;
 import static seedu.smartnus.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.smartnus.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -40,7 +40,7 @@ class AddSaqCommandParserTest {
     @Test
     void parse_allFieldsValid_success() {
         Set<String> keywords = new HashSet<>();
-        keywords.add("rowling");
+        keywords.add(VALID_KEYWORD_1);
         Question expectedQuestion = new QuestionBuilder()
                 .withName(VALID_QUESTION_1)
                 .withImportance(VALID_IMPORTANCE_1)
@@ -62,21 +62,18 @@ class AddSaqCommandParserTest {
 
     @Test
     void parse_validKeywordsWithNonAlphanumericCharacters_success() {
-        Set<String> keywords = new HashSet<>();
-        keywords.add("rowling"); // keywords are saved in lowercase
-        Set<Choice> expectedChoices = new HashSet<>();
-        expectedChoices.add(new Choice("J. K. $%^Rowling)(ABC!)#@.?", true, keywords));
-
-        Importance expectedImportance = new Importance(VALID_IMPORTANCE_1);
-        Name expectedName = new Name(VALID_QUESTION_1);
-
-        Question expectedQuestion = new ShortAnswerQuestion(expectedName, expectedImportance,
-                new HashSet<>(), expectedChoices);
+        Question expectedQuestion = new QuestionBuilder()
+                .withName(VALID_QUESTION_1)
+                .withImportance(VALID_IMPORTANCE_1)
+                .withChoices(new Choice("J. K. $%^" + VALID_KEYWORD_1 + ")(ABC!)#@.?",
+                        true, Collections.singleton(VALID_KEYWORD_1)))
+                .buildSaq();
 
         AddSaqCommand expectedCommand = new AddSaqCommand(expectedQuestion);
 
         assertParseSuccess(parser,
-                PREAMBLE_WHITESPACE + QUESTION_DESC_1 + " ans/J. K. k/$%^Rowling)(ABC!)#@.? " + IMPORTANCE_DESC_1,
+                PREAMBLE_WHITESPACE + QUESTION_DESC_1 + " ans/J. K. k/$%^" + VALID_KEYWORD_1 + ")(ABC!)#@.? "
+                        + IMPORTANCE_DESC_1,
                 expectedCommand);
     }
 
@@ -100,13 +97,6 @@ class AddSaqCommandParserTest {
         // keyword prefix missing
         assertParseFailure(parser, QUESTION_DESC_1 + IMPORTANCE_DESC_1 + TRUE_ANSWER_DESC, expectedMessage);
     }
-    
-    @Test
-    void parse_keywordsPrefixNotWithinAnswer_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddSaqCommand.MESSAGE_USAGE);
-        assertParseFailure(parser, QUESTION_DESC_1 + KEYWORD_DESC_1 + TRUE_ANSWER_DESC + IMPORTANCE_DESC_1,
-                expectedMessage);
-    }
 
     @Test
     void parse_fieldsInvalid_failure() {
@@ -126,6 +116,12 @@ class AddSaqCommandParserTest {
         // answer with invalid keyword (only contains non-alphanumeric characters)
         assertParseFailure(parser, QUESTION_DESC_1 + TRUE_ANSWER_DESC + INVALID_KEYWORD_DESC_2
                 + IMPORTANCE_DESC_1, Choice.MESSAGE_KEYWORD_CONSTRAINTS);
+        // answer with one valid and one invalid keyword
+        assertParseFailure(parser, QUESTION_DESC_1 + TRUE_ANSWER_DESC + INVALID_KEYWORD_DESC_2
+                + KEYWORD_DESC_1 + IMPORTANCE_DESC_1, Choice.MESSAGE_KEYWORD_CONSTRAINTS);
+        // keyword prefix outside answer and answer does not have keywords
+        assertParseFailure(parser, QUESTION_DESC_1 + KEYWORD_DESC_1 + TRUE_ANSWER_DESC + IMPORTANCE_DESC_1,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddSaqCommand.MESSAGE_USAGE));
     }
 
 }
