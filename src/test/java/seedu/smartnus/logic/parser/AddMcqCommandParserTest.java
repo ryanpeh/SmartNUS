@@ -25,6 +25,7 @@ import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_OPTION_4;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_QUESTION_1;
 import static seedu.smartnus.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.smartnus.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.smartnus.testutil.TypicalQuestions.MCQ_QUESTION_1;
 
 import org.junit.jupiter.api.Test;
 
@@ -43,28 +44,23 @@ class AddMcqCommandParserTest {
 
     @Test
     void parse_allFieldsValid_success() {
-        Question expectedQuestion = new QuestionBuilder()
-                .withName(VALID_QUESTION_1)
-                .withImportance(VALID_IMPORTANCE_1)
-                .withChoices(new Choice(VALID_OPTION_1, false), new Choice(VALID_OPTION_3, false),
-                             new Choice(VALID_OPTION_4, false), new Choice(VALID_ANSWER_1, true))
-                .build();
+        Question expectedQuestion = new QuestionBuilder(MCQ_QUESTION_1).build();
 
         AddMcqCommand expectedCommand = new AddMcqCommand(expectedQuestion);
 
         // normal command with preamble whitespace
         assertParseSuccess(parser,
-                PREAMBLE_WHITESPACE + QUESTION_DESC_1 + OPTIONS_DESC_1 + ANSWER_DESC_1 + IMPORTANCE_DESC_1,
+                PREAMBLE_WHITESPACE + QUESTION_DESC_2 + OPTIONS_DESC_1 + ANSWER_DESC_1 + IMPORTANCE_DESC_1,
                 expectedCommand);
 
         // accept only last argument for question
         assertParseSuccess(parser,
-                QUESTION_DESC_2 + OPTIONS_DESC_1 + ANSWER_DESC_1 + IMPORTANCE_DESC_1 + QUESTION_DESC_1,
+                QUESTION_DESC_1 + OPTIONS_DESC_1 + ANSWER_DESC_1 + IMPORTANCE_DESC_1 + QUESTION_DESC_2,
                 expectedCommand);
 
         // accept only last argument for answer
         assertParseSuccess(parser,
-                QUESTION_DESC_1 + ANSWER_DESC_2 + OPTIONS_DESC_1 + IMPORTANCE_DESC_1 + ANSWER_DESC_1,
+                QUESTION_DESC_2 + ANSWER_DESC_2 + OPTIONS_DESC_1 + IMPORTANCE_DESC_1 + ANSWER_DESC_1,
                 expectedCommand);
     }
 

@@ -13,11 +13,11 @@ public class TypicalQuiz {
     public static final Quiz FIVE_QUESTIONS_QUIZ = new QuizBuilder(
             new ArrayList<Question>() {
                 {
-                    add(TypicalQuestions.ALICE);
-                    add(TypicalQuestions.BENSON);
-                    add(TypicalQuestions.CARL);
-                    add(TypicalQuestions.DANIEL);
-                    add(TypicalQuestions.ELLE);
+                    add(TypicalQuestions.MCQ_QUESTION_1);
+                    add(TypicalQuestions.MCQ_QUESTION_2);
+                    add(TypicalQuestions.TF_QUESTION_2);
+                    add(TypicalQuestions.TF_QUESTION_3);
+                    add(TypicalQuestions.SAQ_QUESTION_1);
                 }
             }
     ).build();
