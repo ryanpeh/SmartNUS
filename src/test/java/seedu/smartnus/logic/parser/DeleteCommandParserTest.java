@@ -1,5 +1,6 @@
 package seedu.smartnus.logic.parser;
 
+import static seedu.smartnus.commons.core.Messages.MESSAGE_INDEX_ERROR;
 import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.smartnus.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.smartnus.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -39,6 +40,19 @@ public class DeleteCommandParserTest {
     @Test
     public void parse_incompleteArgs_throwsParseException() {
         assertParseFailure(parser, " note", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, " question", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " question",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_negativeIndex_throwsParseException() {
+        assertParseFailure(parser, " note -1", MESSAGE_INDEX_ERROR);
+        assertParseFailure(parser, " question -1", MESSAGE_INDEX_ERROR);
+    }
+
+    @Test
+    public void parse_valueLargerThanMaxInteger_throwsParseException() {
+        assertParseFailure(parser, " note 1234567812345", MESSAGE_INDEX_ERROR);
+        assertParseFailure(parser, " question 1234567812345", MESSAGE_INDEX_ERROR);
     }
 }
