@@ -3,7 +3,7 @@ layout: page
 title: Ryan Peh's Project Portfolio Page
 ---
 
-### Project: AddressBook Level 3
+### Project: SmartNUS
 
 **SmartNUS** is a desktop app specifically designed for students to revise for their exams. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 17 kLoC.
 
