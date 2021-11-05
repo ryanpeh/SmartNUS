@@ -172,7 +172,7 @@ Deletes an existing question or note from the question bank or note list.
 Format: `delete question QUESTION_INDEX` OR `delete note NOTE_INDEX`
 
 * Deletes the question or note with the specified `QUESTION_INDEX` or `NOTE_INDEX`.
-* The `QUESTION_INDEX` or `NOTE_INDEX` refers to the index number shown in the displayed list. The index **must be a positive integer** 1 - 2147483647
+* The `QUESTION_INDEX` or `NOTE_INDEX` refers to the index number shown in the displayed list. The index **must be a positive integer** from 1 to 2147483647
 
 #### 4.1.7. Edit a Question and Answers: `edit`
 
@@ -262,7 +262,7 @@ Format: `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX...]`
   * If the total number of questions is less than the limit, it will just give all the questions.
 * TAG can be used to filter the quiz to only give questions with the tags specified, works with limit.
 * INDEX can be used to filter the quiz to only give questions with the specified question numbers. 
-  The index **must be a positive integer** 1 - 2147483647
+  The index **must be a positive integer** from 1 to 2147483647
 
 Examples:
 * `quiz lim/5 t/CS2100 t/MIPS` quiz will select questions tagged with at least one of the tags, limited to 5 questions.
