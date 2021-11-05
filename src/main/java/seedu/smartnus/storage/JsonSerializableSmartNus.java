@@ -54,7 +54,10 @@ class JsonSerializableSmartNus {
         SmartNus smartNus = new SmartNus();
         for (JsonAdaptedQuestion jsonAdaptedQuestion : questions) {
             Question question = jsonAdaptedQuestion.toModelType();
-            if (smartNus.hasQuestion(question)) {
+            if (!question.isValidQuestion()) {
+                throw new IllegalValueException("Invalid question found: " + question + "\n"
+                        + question.getValidConditions());
+            } else if (smartNus.hasQuestion(question)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_QUESTION);
             }
             smartNus.addQuestion(question);

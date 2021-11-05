@@ -44,9 +44,15 @@ public class JsonSmartNusStorage implements SmartNusStorage {
      */
     public Optional<ReadOnlySmartNus> readSmartNus(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
+        
+        Optional<JsonSerializableSmartNus> jsonSmartNus;
+        try {
+            jsonSmartNus = JsonUtil.readJsonFile(filePath, JsonSerializableSmartNus.class);
+        } catch (NullPointerException e) { // user replaced file contents with null
+            logger.info("Illegal values found in " + filePath + ": " + e.getMessage());
+            throw new DataConversionException(e);
+        }
 
-        Optional<JsonSerializableSmartNus> jsonSmartNus = JsonUtil.readJsonFile(
-                filePath, JsonSerializableSmartNus.class);
         if (!jsonSmartNus.isPresent()) {
             return Optional.empty();
         }
