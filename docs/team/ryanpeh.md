@@ -5,15 +5,15 @@ title: Ryan Peh's Project Portfolio Page
 
 ### Project: AddressBook Level 3
 
-**SmartNUS** is a desktop app specifically designed for students to revise for their exams. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 15 kLoC.
+**SmartNUS** is a desktop app specifically designed for students to revise for their exams. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 17 kLoC.
 
 Given below are my contributions to the project.
 
-* **New Feature**: Implemented Quiz Functionality
+* **New Feature**: Implemented Overall Quiz Functionality
   * Implemented quiz functionality to allow the user to quiz themselves on various question types from the question bank. This includes answering questions, navigation between questions and tracking of quiz progress.
   * Justification: This is a core feature of SmartNUS, as the application is designed to promote active recall through quizzing yourself.
-  * Highlights: This enhancement required an analysis on various design implementations. The eventual design included the implementation of an alternative parser during to quiz to parse user inputs without affecting the main window.
-  
+  * Highlights: This enhancement required an analysis on various design implementations. The eventual design included the implementation of an alternative parser during to quiz to parse user inputs without affecting the main window, as well as a `QuizManager` class to manage the logic behind the quiz.
+
 
 * **New Feature**: Designed and Implemented Quiz User Interface
   * Designed and implemented a graphical user interface (UI) for the quiz feature of SmartNUS, taking into account user (UX) to ensure an intuitive and easy-to-use user experience of the quiz functionality.
@@ -23,10 +23,8 @@ Given below are my contributions to the project.
 
 
 * **Other Features and Enhancements to Existing Features**:
-  * Quiz
-    * Implemented forward and backward navigation between quiz questions (Pull request [\#TODO]()).
-    * Added quiz progress tracking to display quiz progress.
-  * Wrote additional tests for existing features to increase coverage (Pull requests [\#abc](), [\#def]()).
+  * Wrote additional tests for existing features to increase coverage (Pull requests [\#TODO](), [\#TODO]()).
+  * Resolved issues raised during Practical Exam Dry Run (Pull requests [\#194](https://github.com/AY2122S1-CS2103T-F12-1/tp/pull/194), [\#206](https://github.com/AY2122S1-CS2103T-F12-1/tp/pull/206), [\#216](https://github.com/AY2122S1-CS2103T-F12-1/tp/pull/216), [\#221](https://github.com/AY2122S1-CS2103T-F12-1/tp/pull/221))
 
 
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/#breakdown=true&search=ryanpeh)
@@ -35,22 +33,17 @@ Given below are my contributions to the project.
 * **Documentation**:
   * User Guide:
     * Added documentation for all quiz-related features [\#TODO]()
-    * Did cosmetic tweaks to existing documentation of features `clear`, `exit`: [\#74]()
     * Revised the layout of user guide to make it more intuitive and easy to use.
     * Added the `About` section to instruct the user on how to go about understanding the user guide.
   * Developer Guide:
-    * Added implementation details of
-    * Added implementation details of the `delete` feature.
+    * Added implementation details of [\#TODO]()
 
 * **Project management**:
-  * Managed deadlines and deliverables for the group, including updating the issue tracker and milestones.
-
-* **Community**:
-  * PRs reviewed (with non-trivial review comments): [\#12](), [\#32](), [\#19](), [\#42]().
-  * Reported bugs and suggestions for other teams in the class (examples: [1](), [2](), [3]()).
-  * Some parts of the history feature I added was adopted by several other class mates ([1](), [2]()).
-
-* **Team Based Tasks**:
   * Set up team GitHub organisation, repository and project website.
   * Integrated a new Github plugin (CodeCov) to the team repo.
+  * Managed deadlines and deliverables for the group, including updating the issue tracker and milestones.
+  * Managed issues raised during the Practical Issue Dry Run.
+
+* **Community**:
+  * PRs reviewed (with non-trivial review comments): [\#TODO]()
   

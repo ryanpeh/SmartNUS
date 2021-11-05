@@ -53,7 +53,7 @@ We are a team based in the [School of Computing, National University of Singapor
 <img src="images/ryanpeh.png" width="200px">
 
 [[github](http://github.com/ryanpeh)]
-[[portfolio](team/johndoe.md)]
+[[portfolio](team/ryanpeh.md)]
 
 * Role: Developer
 * Responsibilities: Implementation of quiz features
