@@ -1,14 +1,20 @@
 package seedu.smartnus.model.note;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.smartnus.testutil.Assert.assertThrows;
 import static seedu.smartnus.testutil.TypicalNotes.CS2100_NOTE;
 import static seedu.smartnus.testutil.TypicalNotes.CS2103T_NOTE;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.smartnus.model.note.exceptions.DuplicateNoteException;
+import seedu.smartnus.model.note.exceptions.NoteNotFoundException;
 import seedu.smartnus.testutil.NoteBuilder;
 
 
@@ -18,6 +24,90 @@ public class NoteListTest {
     @Test
     public void add_nullNote_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> noteList.add(null));
+    }
+
+    @Test
+    public void contains_noteNotInList_returnsFalse() {
+        assertFalse(noteList.contains(CS2100_NOTE));
+    }
+
+    @Test
+    public void contains_noteInList_returnsTrue() {
+        noteList.add(CS2100_NOTE);
+        assertTrue(noteList.contains(CS2100_NOTE));
+    }
+
+    @Test
+    public void contains_noteWithSameIdentityFieldsInList_returnsTrue() {
+        noteList.add(CS2100_NOTE);
+        Note editedAlice = new NoteBuilder(CS2100_NOTE)
+                .build();
+        assertTrue(noteList.contains(editedAlice));
+    }
+
+    @Test
+    public void add_duplicateNote_throwsDuplicateNoteException() {
+        noteList.add(CS2103T_NOTE);
+        assertThrows(DuplicateNoteException.class, () -> noteList.add(CS2103T_NOTE));
+    }
+
+    @Test
+    public void setNote_nullTargetNote_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> noteList.setNote(null, CS2103T_NOTE));
+    }
+
+    @Test
+    public void setNote_targetNoteNotInList_throwsNoteNotFoundException() {
+        assertThrows(NoteNotFoundException.class, () ->
+                noteList.setNote(CS2103T_NOTE, CS2103T_NOTE));
+    }
+
+    @Test
+    public void setNote_editedNoteIsSameNote_success() {
+        noteList.add(CS2103T_NOTE);
+        noteList.setNote(CS2103T_NOTE, CS2103T_NOTE);
+        NoteList expectedUniqueNoteList = new NoteList();
+        expectedUniqueNoteList.add(CS2103T_NOTE);
+        assertEquals(expectedUniqueNoteList, noteList);
+    }
+
+    @Test
+    public void setNote_editedNoteHasNonUniqueIdentity_throwsDuplicateNoteException() {
+        noteList.add(CS2103T_NOTE);
+        noteList.add(CS2100_NOTE);
+        assertThrows(DuplicateNoteException.class, () ->
+                noteList.setNote(CS2103T_NOTE, CS2100_NOTE));
+    }
+
+    @Test
+    public void remove_noteDoesNotExist_throwsNoteNotFoundException() {
+        assertThrows(NoteNotFoundException.class, () -> noteList.remove(CS2100_NOTE));
+    }
+
+    @Test
+    public void setNotes_uniqueNoteList_replacesOwnListWithProvidedUniqueNoteList() {
+        noteList.add(CS2100_NOTE);
+        NoteList expectedUniqueNoteList = new NoteList();
+        expectedUniqueNoteList.add(CS2103T_NOTE);
+        noteList.setNotes(expectedUniqueNoteList);
+        assertEquals(expectedUniqueNoteList, noteList);
+    }
+
+    @Test
+    public void setNotes_list_replacesOwnListWithProvidedList() {
+        noteList.add(CS2103T_NOTE);
+        List<Note> uniqueNoteList = Collections.singletonList(CS2100_NOTE);
+        noteList.setNotes(uniqueNoteList);
+        NoteList expectedUniqueNoteList = new NoteList();
+        expectedUniqueNoteList.add(CS2100_NOTE);
+        assertEquals(expectedUniqueNoteList, noteList);
+    }
+
+    @Test
+    public void setNotes_listWithDuplicateNotes_throwsDuplicateNoteException() {
+        List<Note> listWithDuplicateNotes = Arrays.asList(CS2100_NOTE, CS2100_NOTE);
+        assertThrows(DuplicateNoteException.class, () -> noteList
+                .setNotes(listWithDuplicateNotes));
     }
 
     @Test
