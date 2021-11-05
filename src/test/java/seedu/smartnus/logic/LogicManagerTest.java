@@ -4,11 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX;
 import static seedu.smartnus.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.smartnus.logic.commands.CommandTestUtil.ANSWER_DESC_1;
-import static seedu.smartnus.logic.commands.CommandTestUtil.IMPORTANCE_DESC_AMY;
-import static seedu.smartnus.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.smartnus.logic.commands.CommandTestUtil.IMPORTANCE_DESC_1;
 import static seedu.smartnus.logic.commands.CommandTestUtil.OPTION_DESC_1;
 import static seedu.smartnus.logic.commands.CommandTestUtil.OPTION_DESC_3;
 import static seedu.smartnus.logic.commands.CommandTestUtil.OPTION_DESC_4;
+import static seedu.smartnus.logic.commands.CommandTestUtil.QUESTION_DESC_3;
 import static seedu.smartnus.testutil.Assert.assertThrows;
 import static seedu.smartnus.testutil.TypicalQuestions.STORAGE_QUESTION_1;
 
@@ -77,8 +77,8 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addMcqCommand = AddMcqCommand.COMMAND_WORD + NAME_DESC_AMY + ANSWER_DESC_1
-                + OPTION_DESC_1 + OPTION_DESC_3 + OPTION_DESC_4 + IMPORTANCE_DESC_AMY;
+        String addMcqCommand = AddMcqCommand.COMMAND_WORD + QUESTION_DESC_3 + ANSWER_DESC_1
+                + OPTION_DESC_1 + OPTION_DESC_3 + OPTION_DESC_4 + IMPORTANCE_DESC_1;
         Question expectedQuestion = new QuestionBuilder(STORAGE_QUESTION_1).build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addQuestion(expectedQuestion);

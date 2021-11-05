@@ -37,6 +37,7 @@ public class CommandTestUtil {
     public static final String VALID_QUESTION_3 = "2*2 = ?";
     public static final String VALID_QUESTION_4 = "What is the name of harry's mom?";
     public static final String VALID_QUESTION_5 = "Is 1+1 = 2?";
+    public static final String VALID_QUESTION_6 = "Is 2*4 = 4?";
     public static final String VALID_ANSWER_1 = "2";
     public static final String VALID_ANSWER_2 = "4";
     public static final String VALID_ANSWER_3 = "3";
@@ -53,23 +54,21 @@ public class CommandTestUtil {
     public static final String VALID_TAG_2 = "ST2334";
     public static final String VALID_TAG_3 = "harry";
     public static final String VALID_TAG_4 = "CS2103T";
-
-    public static final String NAME_DESC_AMY = " " + PREFIX_QUESTION + VALID_QUESTION_3;
-    public static final String NAME_DESC_BOB = " " + PREFIX_QUESTION + VALID_QUESTION_4;
     public static final String VALID_NOTE_1 = "CS2103T is a fun mod";
     public static final String VALID_NOTE_2 = "CS2100 is not a fun mod";
+
     public static final String NOTE_DESC_1 = " " + PREFIX_NOTE + VALID_NOTE_1;
     public static final String NOTE_DESC_2 = " " + PREFIX_NOTE + VALID_NOTE_2;
     public static final String STAT_DESC_1 = " " + PREFIX_TAG + VALID_TAG_1;
     public static final String STAT_DESC_2 = STAT_DESC_1 + " " + PREFIX_TAG + VALID_TAG_2;
-
-    public static final String IMPORTANCE_DESC_AMY = " " + PREFIX_IMPORTANCE + VALID_IMPORTANCE_1;
-    public static final String IMPORTANCE_DESC_BOB = " " + PREFIX_IMPORTANCE + VALID_IMPORTANCE_2;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_4;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_3;
+    public static final String TAG_DESC_3 = " " + PREFIX_TAG + VALID_TAG_3;
+    public static final String TAG_DESC_4 = " " + PREFIX_TAG + VALID_TAG_4;
     public static final String IMPORTANCE_DESC_1 = " " + PREFIX_IMPORTANCE + VALID_IMPORTANCE_1;
+    public static final String IMPORTANCE_DESC_2 = " " + PREFIX_IMPORTANCE + VALID_IMPORTANCE_2;
     public static final String QUESTION_DESC_1 = " " + PREFIX_QUESTION + VALID_QUESTION_1;
     public static final String QUESTION_DESC_2 = " " + PREFIX_QUESTION + VALID_QUESTION_2;
+    public static final String QUESTION_DESC_3 = " " + PREFIX_QUESTION + VALID_QUESTION_3;
+    public static final String QUESTION_DESC_4 = " " + PREFIX_QUESTION + VALID_QUESTION_6;
     public static final String ANSWER_DESC_1 = " " + PREFIX_ANSWER + VALID_ANSWER_1;
     public static final String ANSWER_DESC_2 = " " + PREFIX_ANSWER + VALID_ANSWER_2;
     public static final String ANSWER_DESC_3 = " " + PREFIX_ANSWER + VALID_ANSWER_3;

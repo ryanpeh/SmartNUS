@@ -12,6 +12,7 @@ import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_QUESTION_2;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_QUESTION_3;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_QUESTION_4;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_QUESTION_5;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_QUESTION_6;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_1;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_2;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_3;
@@ -61,7 +62,7 @@ public class TypicalQuestions {
                     new Choice(Choice.FALSE_CHOICE_TITLE, false))
             .withTags(VALID_TAG_2)
             .withStatistic(new Statistic(1, 1)).buildTrueFalse();
-    public static final Question TF_QUESTION_2 = new QuestionBuilder().withName("Is 2*4 = 4?")
+    public static final Question TF_QUESTION_2 = new QuestionBuilder().withName(VALID_QUESTION_6)
             .withChoices(new Choice(Choice.TRUE_CHOICE_TITLE, false),
                     new Choice(Choice.FALSE_CHOICE_TITLE, true))
             .withImportance(VALID_IMPORTANCE_2)
