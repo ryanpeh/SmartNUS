@@ -38,6 +38,7 @@ public class CommandTestUtil {
     public static final String VALID_QUESTION_4 = "What is the name of harry's mom?";
     public static final String VALID_QUESTION_5 = "Is 1+1 = 2?";
     public static final String VALID_QUESTION_6 = "Is 2*4 = 4?";
+    public static final String VALID_QUESTION_7 = "Who died in the Triwizard tournament?";
     public static final String VALID_ANSWER_1 = "2";
     public static final String VALID_ANSWER_2 = "4";
     public static final String VALID_ANSWER_3 = "3";
@@ -50,6 +51,8 @@ public class CommandTestUtil {
     public static final String VALID_OPTION_5 = "5";
     public static final String VALID_SAQ_KEYWORD_1 = "Rowling";
     public static final String VALID_SAQ_KEYWORD_2 = "j";
+    public static final String VALID_SAQ_KEYWORD_3 = "Cedric";
+    public static final String VALID_SAQ_KEYWORD_4 = "Diggory";
     public static final String VALID_TAG_1 = "CS2100";
     public static final String VALID_TAG_2 = "ST2334";
     public static final String VALID_TAG_3 = "harry";
@@ -69,12 +72,16 @@ public class CommandTestUtil {
     public static final String QUESTION_DESC_2 = " " + PREFIX_QUESTION + VALID_QUESTION_2;
     public static final String QUESTION_DESC_3 = " " + PREFIX_QUESTION + VALID_QUESTION_3;
     public static final String QUESTION_DESC_4 = " " + PREFIX_QUESTION + VALID_QUESTION_6;
+    public static final String QUESTION_DESC_5 = " " + PREFIX_QUESTION + VALID_QUESTION_7;
     public static final String ANSWER_DESC_1 = " " + PREFIX_ANSWER + VALID_ANSWER_1;
     public static final String ANSWER_DESC_2 = " " + PREFIX_ANSWER + VALID_ANSWER_2;
     public static final String ANSWER_DESC_3 = " " + PREFIX_ANSWER + VALID_ANSWER_3;
     public static final String TRUE_ANSWER_DESC = " " + PREFIX_ANSWER + VALID_TRUE_FALSE_ANSWER_1;
     public static final String FALSE_ANSWER_DESC = " " + PREFIX_ANSWER + VALID_TRUE_FALSE_ANSWER_2;
-    public static final String SAQ_ANSWER_DESC_1 = " " + PREFIX_ANSWER + "J. K. " + PREFIX_KEYWORD + "Rowling";
+    public static final String KEYWORD_DESC_1 = " " + PREFIX_KEYWORD + VALID_SAQ_KEYWORD_1;
+    public static final String SAQ_ANSWER_DESC_1 = " " + PREFIX_ANSWER + "J. K." + KEYWORD_DESC_1;
+    public static final String SAQ_ANSWER_DESC_2 = " " + PREFIX_ANSWER + PREFIX_KEYWORD + VALID_SAQ_KEYWORD_3 + "#12 "
+            + PREFIX_KEYWORD + "#!@" + VALID_SAQ_KEYWORD_4 + "(,)><";
     public static final String OPTION_DESC_1 = " " + PREFIX_OPTION + VALID_OPTION_1;
     public static final String OPTION_DESC_3 = " " + PREFIX_OPTION + VALID_OPTION_3;
     public static final String OPTION_DESC_4 = " " + PREFIX_OPTION + VALID_OPTION_4;
@@ -83,6 +90,9 @@ public class CommandTestUtil {
     public static final String OPTIONS_DESC_2 = OPTIONS_DESC_1 + OPTION_DESC_5;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_QUESTION + " "; // empty string not allowed for names
+    public static final String INVALID_KEYWORD_DESC_1 = " " + PREFIX_KEYWORD + " "; // blank keyword not allowed
+    // keywords must contain alphanumeric characters
+    public static final String INVALID_KEYWORD_DESC_2 = " " + PREFIX_KEYWORD + "!@#$%^&*()-+_=+";
     // 'a' not allowed in importance
     public static final String INVALID_IMPORTANCE_DESC = " " + PREFIX_IMPORTANCE + "1a";
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags

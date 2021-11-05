@@ -8,7 +8,7 @@ import seedu.smartnus.model.tag.Tag;
 
 public class ShortAnswerQuestion extends Question {
     public static final String MESSAGE_VALID_SAQ = "Short Answer Questions must have exactly one choice"
-            + " which is the correct answer, with at least one keyword.";
+            + " which is the correct answer, with at least one keyword. " + Choice.MESSAGE_KEYWORD_CONSTRAINTS;
     public static final String MESSAGE_OPTIONS_INVALID = "Short Answer Questions should not have"
         + " wrong options specified";
 
