@@ -145,12 +145,20 @@ public class SmartNus implements ReadOnlySmartNus {
         notes.remove(key);
     }
 
+    /**
+     * Returns true if a ntoe with the same identity as {@code note} exists in the SmarNus.
+     */
+    public boolean hasNote(Note note) {
+        requireNonNull(note);
+        return notes.contains(note);
+    }
+
     //// util methods
 
     @Override
     public String toString() {
-        return questions.asUnmodifiableObservableList().size() + " questions";
-        // TODO: refine later
+        return questions.asUnmodifiableObservableList().size() + " questions"
+                + notes.asUnmodifiableObservableList().size() + "notes";
     }
 
     @Override
