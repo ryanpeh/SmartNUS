@@ -34,14 +34,14 @@ public class Messages {
 
     public static final String MESSAGE_NOT_IN_QUESTION_PANEL = "This is a command for questions. Try to go to "
             + "the question panel first:"
-            + "\n" + ListCommand.COMMAND_WORD + " " + CommandUtil.QUESTION_KEYWORD;
+            + "\n DO: " + ListCommand.COMMAND_WORD + " " + CommandUtil.QUESTION_KEYWORD;
 
     public static final String MESSAGE_NOT_IN_NOTE_PANEL = "This is a command for notes. Try to go to "
             + "the note panel first:"
-            + "\n" + ListCommand.COMMAND_WORD + " " + CommandUtil.NOTE_KEYWORD;
+            + "\n DO: " + ListCommand.COMMAND_WORD + " " + CommandUtil.NOTE_KEYWORD;
 
     public static final String MESSAGE_NOT_IN_TAG_PANEL = "This is a command for tags. Try to go to "
             + "the tag panel first:"
-            + "\n" + ListCommand.COMMAND_WORD + " " + CommandUtil.TAG_KEYWORD;
+            + "\n DO: " + ListCommand.COMMAND_WORD + " " + CommandUtil.TAG_KEYWORD;
 
 }
