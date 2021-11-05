@@ -13,6 +13,7 @@ import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_QUESTION_3;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_QUESTION_4;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_QUESTION_5;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_QUESTION_6;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_QUESTION_7;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_1;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_2;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_3;
@@ -83,15 +84,15 @@ public class TypicalQuestions {
                     true, new HashSet<>(List.of("sirius", "black"))))
             .buildSaq();
     public static final Question SAQ_QUESTION_3 = new QuestionBuilder()
-            .withName("Who died in the Triwizard tournament?")
+            .withName(VALID_QUESTION_7)
             .withImportance(VALID_IMPORTANCE_2)
-            .withChoices(new Choice("Cedric Diggory",
+            .withChoices(new Choice("Cedric#12 #!@Diggory(,)><",
                     true, new HashSet<>(List.of("cedric", "diggory"))))
             .buildSaq();
     public static final Question SAQ_QUESTION_4 = new QuestionBuilder()
             .withName(VALID_QUESTION_1)
             .withImportance(VALID_IMPORTANCE_1)
-            .withChoices(new Choice("J. K. Rowling", true, new HashSet<>(List.of("Rowling"))))
+            .withChoices(new Choice("J. K. Rowling", true, new HashSet<>(List.of("rowling"))))
             .buildSaq();
 
     // Manually added - Question's details found in {@code CommandTestUtil}
