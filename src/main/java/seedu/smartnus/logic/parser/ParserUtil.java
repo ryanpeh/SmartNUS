@@ -337,7 +337,7 @@ public class ParserUtil {
                 }
                 parsedKeywords.add(word.toLowerCase());
                 validKeywordAdded = true;
-                break; // only the first non-empty, alphanumeric/hyphen part specified after k/ is a keyword
+                break; // only the first non-empty, alphanumeric part specified after k/ is a keyword
             }
             if (!validKeywordAdded) {
                 throw new ParseException(MESSAGE_KEYWORD_CONSTRAINTS);
