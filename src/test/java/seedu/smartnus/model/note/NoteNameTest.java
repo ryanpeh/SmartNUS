@@ -53,4 +53,15 @@ public class NoteNameTest {
         NoteName aliceCopy = new NoteName("alice");
         assertEquals(alice, aliceCopy);
     }
+
+    @Test
+    public void hashCode_test() {
+        NoteName alice = new NoteName("alice");
+        NoteName bob = new NoteName("bob");
+
+        assertNotEquals(alice.hashCode(), bob.hashCode());
+
+        NoteName aliceCopy = new NoteName("alice");
+        assertEquals(alice.hashCode(), aliceCopy.hashCode());
+    }
 }
