@@ -108,4 +108,24 @@ public class JsonSmartNusStorageTest {
     public void saveSmartNus_nullFilePath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> saveSmartNus(new SmartNus(), null));
     }
+
+    @Test
+    public void readSmartNus_invalidMcq_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readSmartNus("invalidMcqSmartNus.json"));
+    }
+
+    @Test
+    public void readSmartNus_invalidTfq_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readSmartNus("invalidTfqSmartNus.json"));
+    }
+
+    @Test
+    public void readSmartNus_invalidSaq_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readSmartNus("invalidSaqSmartNus.json"));
+    }
+
+    @Test
+    public void readSmartNus_nullInJsonFile_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readSmartNus("onlyNullValue.json"));
+    }
 }
