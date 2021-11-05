@@ -20,6 +20,7 @@ import seedu.smartnus.model.ModelManager;
 import seedu.smartnus.model.UserPrefs;
 import seedu.smartnus.model.statistic.TagStatistic;
 import seedu.smartnus.model.statistic.predicates.StatContainsKeywordPredicate;
+import seedu.smartnus.ui.panel.StatisticListPanel;
 
 
 /**
@@ -64,6 +65,8 @@ class StatCommandTest {
     @Test
     void execute_noTags_allTagsFound() {
         StatCommand command = new StatCommand(new ArrayList<>());
+        model.setPanel(StatisticListPanel.STATISTIC_PANEL);
+        expectedModel.setPanel(StatisticListPanel.STATISTIC_PANEL);
         String expectedMessage = String.format(MESSAGE_FOUND_STATS_FORMAT, expectedModel.getTagStatistic().size());
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
@@ -73,6 +76,8 @@ class StatCommandTest {
         StatContainsKeywordPredicate firstTagPredicate = createPredicateFromUserInput(VALID_STAT_1);
         StatCommand command = new StatCommand(createPredicateArr(firstTagPredicate));
         expectedModel.updateFilteredTagStatistic(firstTagPredicate);
+        model.setPanel(StatisticListPanel.STATISTIC_PANEL);
+        expectedModel.setPanel(StatisticListPanel.STATISTIC_PANEL);
         String expectedMessage = String.format(MESSAGE_FOUND_STATS_FORMAT, expectedModel.getTagStatistic().size());
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
