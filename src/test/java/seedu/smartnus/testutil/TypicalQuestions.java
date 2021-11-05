@@ -88,6 +88,11 @@ public class TypicalQuestions {
             .withChoices(new Choice("Cedric Diggory",
                     true, new HashSet<>(List.of("cedric", "diggory"))))
             .buildSaq();
+    public static final Question SAQ_QUESTION_4 = new QuestionBuilder()
+            .withName(VALID_QUESTION_1)
+            .withImportance(VALID_IMPORTANCE_1)
+            .withChoices(new Choice("J. K. Rowling", true, new HashSet<>(List.of("Rowling"))))
+            .buildSaq();
 
     // Manually added - Question's details found in {@code CommandTestUtil}
     public static final Question STORAGE_QUESTION_1 = new QuestionBuilder().withName(VALID_QUESTION_3)
