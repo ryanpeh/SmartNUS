@@ -9,7 +9,7 @@ import seedu.smartnus.logic.commands.quiz.PrevQuestionCommand;
  */
 public class Messages {
 
-    public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
+    public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command, type 'help' to get a list of all commands";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX =
             "The index provided is larger than the number of questions in the list";
