@@ -11,8 +11,10 @@ public class Messages {
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
-    public static final String MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX = "The question index provided is invalid";
-    public static final String MESSAGE_INVALID_NOTE_DISPLAYED_INDEX = "The note index provided is invalid";
+    public static final String MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX =
+            "The index provided is larger than the number of questions in the list";
+    public static final String MESSAGE_INVALID_NOTE_DISPLAYED_INDEX =
+            "The index provided is larger than the number of notes in the list";
     public static final String MESSAGE_TOO_MANY_ARGUMENTS = "Inserted too many arguments! \n%1$s";
     public static final String MESSAGE_NO_TAGS_AND_INDEXES = "Cannot have tags and indexes together \n%1$s";
     public static final String MESSAGE_NO_LIMIT_AND_INDEXES = "Cannot have limit and indexes together \n%1$s";
