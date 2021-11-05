@@ -3,6 +3,7 @@ package seedu.smartnus.logic.parser;
 import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.smartnus.logic.commands.CommandTestUtil.ANSWER_DESC_2;
 import static seedu.smartnus.logic.commands.CommandTestUtil.IMPORTANCE_DESC_1;
+import static seedu.smartnus.logic.commands.CommandTestUtil.IMPORTANCE_DESC_2;
 import static seedu.smartnus.logic.commands.CommandTestUtil.INVALID_IMPORTANCE_DESC;
 import static seedu.smartnus.logic.commands.CommandTestUtil.INVALID_KEYWORD_DESC_1;
 import static seedu.smartnus.logic.commands.CommandTestUtil.INVALID_KEYWORD_DESC_2;
@@ -11,23 +12,25 @@ import static seedu.smartnus.logic.commands.CommandTestUtil.KEYWORD_DESC_1;
 import static seedu.smartnus.logic.commands.CommandTestUtil.OPTIONS_DESC_1;
 import static seedu.smartnus.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.smartnus.logic.commands.CommandTestUtil.QUESTION_DESC_1;
+import static seedu.smartnus.logic.commands.CommandTestUtil.QUESTION_DESC_5;
 import static seedu.smartnus.logic.commands.CommandTestUtil.SAQ_ANSWER_DESC_1;
+import static seedu.smartnus.logic.commands.CommandTestUtil.SAQ_ANSWER_DESC_2;
 import static seedu.smartnus.logic.commands.CommandTestUtil.TRUE_ANSWER_DESC;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_IMPORTANCE_1;
-import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_KEYWORD_1;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_QUESTION_1;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_SAQ_KEYWORD_1;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TRUE_FALSE_ANSWER_1;
 import static seedu.smartnus.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.smartnus.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.smartnus.testutil.TypicalQuestions.SAQ_QUESTION_3;
 import static seedu.smartnus.testutil.TypicalQuestions.SAQ_QUESTION_4;
 
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.smartnus.logic.commands.questions.AddSaqCommand;
+import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.question.Importance;
 import seedu.smartnus.model.question.Name;
 import seedu.smartnus.model.question.Question;
@@ -56,18 +59,12 @@ class AddSaqCommandParserTest {
 
     @Test
     void parse_validKeywordsWithNonAlphanumericCharacters_success() {
-        Question expectedQuestion = new QuestionBuilder()
-                .withName(VALID_QUESTION_1)
-                .withImportance(VALID_IMPORTANCE_1)
-                .withChoices(new Choice("J. K. $%^" + VALID_KEYWORD_1 + ")(ABC!)#@.?",
-                        true, Collections.singleton(VALID_KEYWORD_1)))
-                .buildSaq();
+        Question expectedQuestion = new QuestionBuilder(SAQ_QUESTION_3).buildSaq();
 
         AddSaqCommand expectedCommand = new AddSaqCommand(expectedQuestion);
 
         assertParseSuccess(parser,
-                PREAMBLE_WHITESPACE + QUESTION_DESC_1 + " ans/J. K. k/$%^" + VALID_KEYWORD_1 + ")(ABC!)#@.? "
-                        + IMPORTANCE_DESC_1,
+                PREAMBLE_WHITESPACE + QUESTION_DESC_5 + SAQ_ANSWER_DESC_2 + IMPORTANCE_DESC_2,
                 expectedCommand);
     }
 
