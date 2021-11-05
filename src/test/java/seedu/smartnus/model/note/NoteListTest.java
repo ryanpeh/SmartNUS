@@ -2,6 +2,7 @@ package seedu.smartnus.model.note;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.smartnus.testutil.Assert.assertThrows;
 import static seedu.smartnus.testutil.TypicalNotes.CS2100_NOTE;
@@ -156,5 +157,16 @@ public class NoteListTest {
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
             -> noteList.asUnmodifiableObservableList().remove(0));
+    }
+
+    @Test
+    public void hashCode_test() {
+        Note aliceNote = new NoteBuilder(CS2100_NOTE).build();
+        Note aliceCopy = new NoteBuilder(CS2100_NOTE).build();
+
+        assertEquals(aliceNote.hashCode(), aliceCopy.hashCode());
+
+        Note bobNote = new NoteBuilder(CS2103T_NOTE).build();
+        assertNotEquals(aliceNote.hashCode(), bobNote.hashCode());
     }
 }
