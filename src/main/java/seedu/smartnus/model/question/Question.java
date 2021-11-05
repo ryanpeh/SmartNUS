@@ -205,13 +205,14 @@ public abstract class Question {
         // TODO: Add Choice comparison after Choices can be saved and loaded from storage
         return otherQuestion.getName().equals(getName())
                 && otherQuestion.getImportance().equals(getImportance())
-                && otherQuestion.getTags().equals(getTags());
+                && otherQuestion.getTags().equals(getTags())
+                && otherQuestion.getChoices().equals(getChoices());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, importance, tags);
+        return Objects.hash(name, importance, tags, choices);
     }
 
     public abstract int getQuestionType();

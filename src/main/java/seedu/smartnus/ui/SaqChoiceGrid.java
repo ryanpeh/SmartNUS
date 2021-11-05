@@ -53,7 +53,9 @@ public class SaqChoiceGrid extends ChoiceGrid {
     }
 
     protected void showSaqInstructions() {
-        String saqMessage = "This is a short-answer question without options to select. Please input your answer.";
+        String saqMessage = "This is a short-answer question without options to select."
+                + "Please input your answer starting with ans/ "
+                + "(e.g. ans/This is my answer).";
         answerInstructions.setText(saqMessage);
     }
 
