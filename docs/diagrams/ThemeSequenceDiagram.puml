@@ -61,7 +61,7 @@ destroy ThemeCommandParser
 SmartNusParser --> LogicManager : t
 deactivate SmartNusParser
 
-LogicManager -> ThemeCommand : execute()
+LogicManager -> ThemeCommand : t.execute()
 activate ThemeCommand LOGIC_COLOR
 
 ThemeCommand -> Model : setTheme(l)
