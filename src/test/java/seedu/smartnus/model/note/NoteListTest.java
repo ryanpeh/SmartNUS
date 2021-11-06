@@ -201,5 +201,8 @@ public class NoteListTest {
         assertTrue(alice.equals(aliceCopy));
 
         assertFalse(alice.equals(2));
+
+        //equal to itself
+        assertTrue(alice.equals(alice));
     }
 }

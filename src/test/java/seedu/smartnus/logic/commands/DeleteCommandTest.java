@@ -130,6 +130,14 @@ public class DeleteCommandTest {
     }
 
     @Test
+    public void execute_invalidArgument_throwsCommandException() {
+        DeleteCommand deleteCommand = new DeleteCommand("wrong", INDEX_FIRST_QUESTION);
+        String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
+
+        assertCommandFailure(deleteCommand, model, expectedMessage);
+    }
+
+    @Test
     public void equals() {
         DeleteCommand deleteFirstCommand = new DeleteCommand("question", INDEX_FIRST_QUESTION);
         DeleteCommand deleteSecondCommand = new DeleteCommand("question", INDEX_SECOND_QUESTION);

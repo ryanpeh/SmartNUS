@@ -52,6 +52,12 @@ public class NoteNameTest {
 
         NoteName aliceCopy = new NoteName("alice");
         assertEquals(alice, aliceCopy);
+
+        //check if 2 different types of objects return false
+        assertNotEquals(alice, 2);
+
+        //check if object is equal to itself
+        assertEquals(alice, alice);
     }
 
     @Test

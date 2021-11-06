@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_3;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_4;
 import static seedu.smartnus.testutil.Assert.assertThrows;
+import static seedu.smartnus.testutil.TypicalNotes.CS2100_NOTE;
 import static seedu.smartnus.testutil.TypicalNotes.CS2103T_NOTE;
 import static seedu.smartnus.testutil.TypicalQuestions.MCQ_QUESTION_1;
 import static seedu.smartnus.testutil.TypicalQuestions.STORAGE_QUESTION_2;
@@ -43,6 +44,22 @@ public class SmartNusTest {
     @Test
     public void resetData_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> smartNus.resetData(null));
+    }
+
+    @Test
+    public void setNote_null_throwsNullPointerException() {
+        smartNus.addNote(CS2103T_NOTE);
+        assertThrows(NullPointerException.class, () -> smartNus.setNote(CS2103T_NOTE, null));
+    }
+
+    @Test
+    public void setNote_withValidNote_replacesNote() {
+        smartNus.addNote(CS2103T_NOTE);
+        smartNus.setNote(CS2103T_NOTE, CS2100_NOTE);
+        // smartNus contains the note
+        assertTrue(smartNus.hasNote(CS2100_NOTE));
+        // original note has been deleted
+        assertFalse(smartNus.hasNote(CS2103T_NOTE));
     }
 
     @Test

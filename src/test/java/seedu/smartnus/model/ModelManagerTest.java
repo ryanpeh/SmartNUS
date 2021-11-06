@@ -163,6 +163,13 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void setNote_nullArgs_throwsNullPointerException() {
+        modelManager.addNote(CS2103T_NOTE);
+        assertThrows(NullPointerException.class, () -> modelManager.setNote(CS2103T_NOTE, null));
+        assertThrows(NullPointerException.class, () -> modelManager.setNote(null, CS2103T_NOTE));
+    }
+
+    @Test
     public void getTagStatistic_correct() {
         modelManager.addQuestion(MCQ_QUESTION_1);
         assertNotEquals(null, modelManager.getTagStatistic());
