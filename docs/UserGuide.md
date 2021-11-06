@@ -215,13 +215,21 @@ Examples:
       "potter harry", "harrypotter" and "wordthatincludesharryandpotter".
     * Incorrect answers include "Potter" and "harr pottery".
 
-#### 4.1.5. List All Items : `list`
+#### 4.1.5. Add notes: `note`
+Adds a note to the note list.
+Format: `note note/NOTE`
+
+Required Parameters:
+* `note/` The note statement
+
+Notes accept all text and numbers. 
+#### 4.1.6. List All Items : `list`
 
 Shows a list of all questions, notes, or tags stored in SmartNus.
 
 Format: `list question` OR `list note` OR `list tag`
 
-#### 4.1.6. Delete a Question or Note: `delete`
+#### 4.1.7. Delete a Question or Note: `delete`
 
 Deletes an existing question or note from the question bank or note list.
 
@@ -233,7 +241,7 @@ Format: `delete question QUESTION_INDEX` OR `delete note NOTE_INDEX`
   * **a positive integer** between 1 and 2147483647 (both inclusive)
   * Equal to or smaller than the number of items in the list. Eg. If a list contains 5 questions, `6` is not a valid index but `3` is.
 
-#### 4.1.7. Edit a Question and Answers: `edit`
+#### 4.1.8. Edit a Question and Answers: `edit`
 
 Edits an existing question in the question bank with the specified question number.
 
@@ -277,7 +285,7 @@ run the `list question` command.
 
 </div>
 
-#### 4.1.8. Find/Search Questions: `find`
+#### 4.1.9. Find/Search Questions: `find`
 
 Shows a list of all questions in SmartNUS that have all the specified keywords,
 at least one of the specified tags, and the importance value (if specified).
@@ -313,7 +321,7 @@ Examples:
 * `find java` returns a question titled "How do you output text to the console in Java?" but not a question titled "Javascript is commonly used in web development. True or false?" (since `java` is not a full word match for `javascript`).
 
 <!-- TODO: standardise format, remove params from header, add brief description-->
-#### 4.1.9. Find/Search Stats: `stat [t/TAG]...`
+#### 4.1.10. Find/Search Stats: `stat [t/TAG]...`
 
 * Shows the list of statistics by Tag for the questions attempted.
 * The search is case-insentitive for tags
@@ -325,7 +333,7 @@ Examples:
 * `stat t/CS2100 t/MIPS` returns the overall statistics for the questions tagged with `CS2100` or `MIPS` or both.
 
 <!-- TODO: add brief description before format to standardise format-->
-#### 4.1.10. Start a Quiz: `quiz`
+#### 4.1.11. Start a Quiz: `quiz`
 Format: `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX]`
 
 * If no parameters are passed, a quiz session will be created using all the questions in the question list.
@@ -343,19 +351,19 @@ Format: `quiz`
 Examples:
 *  `quiz` opens a new quiz window and only [quiz commands](#quiz_window_commands) can be used.
 
-#### 4.1.11. Clear All Entries : `clear`
+#### 4.1.12. Clear All Entries : `clear`
 
 Clears all entries (questions, notes and tags) from the question bank.
 
 Format: `clear`
 
-#### 4.1.12. Exit the Program : `exit`
+#### 4.1.13. Exit the Program : `exit`
 
 Exits the program.
 
 Format: `exit`
 
-#### 4.1.13. Change the Theme: `theme`
+#### 4.1.14. Change the Theme: `theme`
 
 Changes the theme of the app.
 
@@ -432,6 +440,7 @@ Action | Format, Examples
 **MCQ** | `mcq qn/QUESTION opt/OPTION1 opt/OPTION2 opt/OPTION3 ans/ANSWER i/IMPORTANCE` <br> e.g., `mcq qn/what is 1 + 1? opt/3 opt/1 opt/0 ans/2 i/1`
 **TFQ** | `tfq qn/QUESTION ans/ANSWER i/IMPORTANCE` <br> e.g., `mcq qn/Is 1 + 1 = 2? ans/t i/1`
 **SAQ** | `saq qn/QUESTION ans/ANSWER INCLUDING KEYWORDS k/KEYWORD... i/IMPORTANCE [t/TAG]...` <br> e.g., `saq qn/what is Shakespeare's first name? ans/k/William i/1`
+**Note** | `note note/NOTE` <br> e.g., `note note/This is a note`
 **Delete** | `delete question QUESTION_INDEX` OR `delete note NOTE_INDEX`<br> e.g., `delete question 1`, `delete note 2`
 **Quiz** | `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX]` <br>
 **Exit** | `exit` <br>
