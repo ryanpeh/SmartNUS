@@ -109,6 +109,14 @@ Format: `help`
 #### 4.1.2. Add a Multiple Choice Question: `mcq`
 
 Adds a multiple choice question to the question bank.
+Required Parameters:
+* `qn/` The MC Question statement
+* `opt/` The incorrect choices. 3 in total.
+* `ans/` The correct choice. 1 in total.
+* `i/` The importance of the question for the user. An integer between 1 and 3. 3 signifies the highest importance and 1 signifies the lowest importance.
+
+Optional Parameters:
+* `t/` The tags of the question 
 
 Format: `mcq qn/QUESTION opt/OPTION1 opt/OPTION2 opt/OPTION3 ans/ANSWER i/IMPORTANCE [t/TAG]`
 
@@ -148,6 +156,13 @@ Adds a true false question to the question bank.
 * Answers are case-insensitive. `T` and `t` both will be accepted as `True`.
 
 Format: `tfq qn/QUESTION ans/ANSWER i/IMPORTANCE [t/TAG]`
+Required Parameters:
+* `qn/` The TF Question statement
+* `ans/` The correct choice. 1 in total, can only be either true or false.
+* `i/` The importance of the question for the user. An integer between 1 and 3. 3 signifies the highest importance and 1 signifies the lowest importance.
+
+Optional Parameters:
+* `t/` The tags of the question
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A true false question can only have one answer, either "T" or "F"
@@ -164,6 +179,17 @@ Adds a short answer question to the question bank.
 
 Format: `saq qn/QUESTION ans/ANSWER INCLUDING KEYWORDS k/KEYWORD... i/IMPORTANCE [t/TAG]...`
 
+Required Parameters:
+* `qn/` The TF Question statement
+* `ans/` The correct answer. 1 in total.
+* `k/` The keywords for evaluating the answer. **Need to be included inside the `ans/` parameter.**
+* `i/` The importance of the question for the user. An integer between 1 and 3. 3 signifies the highest importance and 1 signifies the lowest importance.
+
+Optional Parameters:
+* `t/` The tags of the question
+<br>
+
+Caveats:
 * Each short answer question must have exactly one answer.
 * The answer must include at least one keyword which is specified using `k/` (e.g. `ans/k/powerhouse of the k/cell`).
 * Note that keywords **MUST be specified within the answer** to be recognised as keywords
