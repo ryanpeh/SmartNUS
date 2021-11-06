@@ -443,7 +443,7 @@ Use case ends.
 
       Use case ends.
       
-* 1b. User does not specify an appropriate answer.
+* 1b. User specifies a blank answer.
     * 1b1. SmartNUS shows error message.
     
         Use case ends.
