@@ -172,16 +172,26 @@ The performance is tracked by:
 ```
 performance = number of correct attempts / number of attempts
 ```
+
+Here is a sequence diagram of answering a question correctly:
+
+![Statistic Sequence Diagram](images/developer-guide/StatisticSequenceDiagram.png)
+
+During a quiz, when a user answers a question, the `Statistic` of the `Question` is updated.
+It will increment the number of attempts by 1 and also increment the number of correct attempts by 1
+given that the user answered correctly. If the user does not answer correctly, the number of correct attempts does not increase.
+Below is an activity diagram to show the process:
+
+![Statistic Activity Diagram](images/developer-guide/StatisticActivityDiagram.png)
+
 ### TagStatistic Class
 The `TagStatistic` class inherits from the `Statistic` class. The `TagStatistic` class is specifically used to keep track of the statistics of each tags.
 
 Here is the class diagram for `Statistic` and `TagStatistic`:
 
-[//]: # (TODO: Insert class diagram)
+![Statistic and TagStatistic Class Diagram](images/developer-guide/StatisticClassDiagram.png)
 
-Here is an example of answering a question correctly:
 
-[//]: # (TODO: Insert Sequence diagram)
 
 
 ## QuizManager class
