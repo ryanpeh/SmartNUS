@@ -37,7 +37,6 @@ public class FindCommandTest {
 
     @Test
     public void equals() {
-        // TODO: add tags and importance predicates
         NameContainsKeywordsPredicate firstNamePredicate =
                 new NameContainsKeywordsPredicate(Collections.singletonList("first"));
         NameContainsKeywordsPredicate secondNamePredicate =
