@@ -106,10 +106,15 @@ public interface Model {
     void addNote(Note note);
 
     /**
-     * Deletes the given question.
+     * Deletes the given note.
      * The note must exist in SmartNus.
      */
     void deleteNote(Note target);
+
+    /**
+     * Returns true if a note with the same identity as {@code note} exists in SmartNus.
+     */
+    boolean hasNote(Note note);
 
     /**
      * Replaces the given note {@code target} with {@code editedNote}.

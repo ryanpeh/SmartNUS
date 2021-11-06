@@ -67,12 +67,12 @@ public class TypicalQuestions {
             .withChoices(new Choice(Choice.TRUE_CHOICE_TITLE, false),
                     new Choice(Choice.FALSE_CHOICE_TITLE, true))
             .withImportance(VALID_IMPORTANCE_2)
-            .build();
+            .buildTrueFalse();
     public static final Question TF_QUESTION_3 = new QuestionBuilder().withName("Is MIPS CISC?")
             .withChoices(new Choice(Choice.TRUE_CHOICE_TITLE, false),
                     new Choice(Choice.FALSE_CHOICE_TITLE, true))
             .withImportance(VALID_IMPORTANCE_1)
-            .build();
+            .buildTrueFalse();
     public static final Question SAQ_QUESTION_1 = new QuestionBuilder()
             .withName("Harry, you're a wizard. Where is this quote from?")
             .withImportance(VALID_IMPORTANCE_2)

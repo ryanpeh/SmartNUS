@@ -39,7 +39,6 @@ public class StatCommandParser implements Parser<StatCommand> {
         return new StatCommand(predicates);
     }
 
-    // TODO: This is similar to the one in find command, should refactor
     private void setTagsPredicate(ArgumentMultimap argMultimap, ArrayList<Predicate<TagStatistic>> predicates)
             throws ParseException {
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));

@@ -140,6 +140,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasNote(Note note) {
+        requireNonNull(note);
+        return smartNus.hasNote(note);
+    }
+
+    @Override
     public void setQuestion(Question target, Question editedQuestion) {
         requireAllNonNull(target, editedQuestion);
 
