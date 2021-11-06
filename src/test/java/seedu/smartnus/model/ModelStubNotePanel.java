@@ -142,6 +142,11 @@ public class ModelStubNotePanel implements Model {
     }
 
     @Override
+    public boolean hasNote(Note note) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void setNote(Note target, Note editedNote) {
         throw new AssertionError("This method should not be called.");
     }
