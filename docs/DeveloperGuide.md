@@ -222,6 +222,26 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.smartnus.commons` package.
 
+### Theme Class
+The `Theme` class is a class that stores the `css` file of a theme.
+Currently, there are two available themes: `LightTheme` and `DarkTheme`which inherits from `Theme`:
+
+![Theme Class Diagram](images/developer-guide/ThemeClassDiagram.png)
+
+The `Theme` class is used by the `UI` component to update the theme and is stored in the `Model` component as a user preference.
+The theme can be changed by executing the `ThemeCommand`.
+
+Here is a sequence diagram when the `ThemeCommand` is executed with a given `Theme` object called `theme` inside the `ThemeCommand`:
+
+![Theme Sequence Diagram](images/developer-guide/ThemeSequenceDiagram.png)
+
+Once a `Theme` is kept inside the `Model`, the `UI` component can fetch the `Theme` and render it accordingly:
+
+![UI Theme Sequence Diagram](images/developer-guide/UiThemeSequenceDiagram.png)
+
+The reason why a `Theme` is kept inside the `Model`'s `UserPrefs` is because it allows the current theme to be saved in the storage as a user preference.
+Without saving it in the storage, the user will have to keep changing the theme every time the user opens the app.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Implementation**

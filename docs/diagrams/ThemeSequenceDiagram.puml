@@ -2,15 +2,8 @@
 !include style.puml
 
 box Logic LOGIC_COLOR_T1
-participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":SmartNusParser" as SmartNusParser LOGIC_COLOR
-participant ":ThemeCommandParser" as ThemeCommandParser LOGIC_COLOR
 participant "t:ThemeCommand" as ThemeCommand LOGIC_COLOR
 participant "c:CommandResult" as CommandResult LOGIC_COLOR
-end box
-
-box Commons COMMON_COLOR_T1
-participant "l:LightTheme" as LightTheme COMMON_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -18,56 +11,13 @@ participant ":Model" as Model MODEL_COLOR
 participant ":UserPrefs" as UserPrefs MODEL_COLOR
 end box
 
-[->LogicManager : execute("theme light")
-activate LogicManager LOGIC_COLOR
-
-LogicManager -> SmartNusParser : parseCommand("theme light")
-activate SmartNusParser LOGIC_COLOR
-
-create ThemeCommandParser
-SmartNusParser -> ThemeCommandParser
-activate ThemeCommandParser LOGIC_COLOR
-
-ThemeCommandParser --> SmartNusParser
-deactivate ThemeCommandParser LOGIC_COLOR
-
-SmartNusParser -> ThemeCommandParser : parse("light")
-activate ThemeCommandParser LOGIC_COLOR
-
-ThemeCommandParser -> ThemeCommandParser : getThemeClass("light")
-activate ThemeCommandParser LOGIC_COLOR
-
-create LightTheme
-ThemeCommandParser -> LightTheme
-activate LightTheme COMMON_COLOR
-LightTheme --> ThemeCommandParser : l
-deactivate LightTheme
-
-ThemeCommandParser --> ThemeCommandParser : l
-deactivate ThemeCommandParser
-
-create ThemeCommand
-ThemeCommandParser -> ThemeCommand
+[-> ThemeCommand : t.execute()
 activate ThemeCommand LOGIC_COLOR
 
-ThemeCommand --> ThemeCommandParser : t
-deactivate ThemeCommand
-
-ThemeCommandParser --> SmartNusParser : t
-deactivate ThemeCommandParser
-ThemeCommandParser -[hidden]-> SmartNusParser
-destroy ThemeCommandParser
-
-SmartNusParser --> LogicManager : t
-deactivate SmartNusParser
-
-LogicManager -> ThemeCommand : t.execute()
-activate ThemeCommand LOGIC_COLOR
-
-ThemeCommand -> Model : setTheme(l)
+ThemeCommand -> Model : setTheme(theme)
 activate Model MODEL_COLOR
 
-Model -> UserPrefs : setTheme(l)
+Model -> UserPrefs : setTheme(theme)
 activate UserPrefs MODEL_COLOR
 UserPrefs --> Model
 deactivate UserPrefs
@@ -82,10 +32,7 @@ activate CommandResult LOGIC_COLOR
 CommandResult --> ThemeCommand : c
 deactivate CommandResult
 
-ThemeCommand --> LogicManager : c
+[<-- ThemeCommand : c
 deactivate ThemeCommand
-
-[<-- LogicManager : c
-deactivate LogicManager
 
 @enduml
