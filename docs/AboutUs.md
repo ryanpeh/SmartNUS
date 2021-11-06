@@ -14,10 +14,10 @@ We are a team based in the [School of Computing, National University of Singapor
 <img src="images/agentum07.png" width="200px">
 
 [[github](https://github.com/agentum07)]
-[[portfolio](team/johndoe.md)]
+[[portfolio](team/abhishekgupta.md)]
 
 * Role: Developer
-* Responsibilities:
+* Responsibilities: Implementation of note features, refactoring storage
 
 ### Arya Nagatama Giat
 
