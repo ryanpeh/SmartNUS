@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.smartnus.testutil.Assert.assertThrows;
+import static seedu.smartnus.testutil.TypicalNotes.CS2103T_NOTE;
 import static seedu.smartnus.testutil.TypicalQuestions.MCQ_QUESTION_1;
 import static seedu.smartnus.testutil.TypicalQuestions.MCQ_QUESTION_2;
 
@@ -86,9 +87,19 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasQuestion_questionInSmartNus_returnsTrue() {
-        modelManager.addQuestion(MCQ_QUESTION_1);
-        assertTrue(modelManager.hasQuestion(MCQ_QUESTION_1));
+    public void hasNote_noteInSmartNus_returnsTrue() {
+        modelManager.addNote(CS2103T_NOTE);
+        assertTrue(modelManager.hasNote(CS2103T_NOTE));
+    }
+
+    @Test
+    public void hasNote_nullNote_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasNote(null));
+    }
+
+    @Test
+    public void hasNote_noteNotInSmartNus_returnsFalse() {
+        assertFalse(modelManager.hasNote(CS2103T_NOTE));
     }
 
     @Test

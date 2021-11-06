@@ -194,10 +194,12 @@ public class NoteListTest {
         alice.add(CS2100_NOTE);
         NoteList bob = new NoteList();
         bob.add(CS2103T_NOTE);
-        assertNotEquals(alice, bob);
+        assertFalse(alice.equals(bob));
 
         NoteList aliceCopy = new NoteList();
         aliceCopy.setNotes(alice);
-        assertEquals(alice, aliceCopy);
+        assertTrue(alice.equals(aliceCopy));
+
+        assertFalse(alice.equals(2));
     }
 }

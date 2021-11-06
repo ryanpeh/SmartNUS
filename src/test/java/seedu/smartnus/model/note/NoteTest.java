@@ -50,4 +50,13 @@ public class NoteTest {
         Note cs2100Note = new NoteBuilder(CS2100_NOTE).build();
         assertNotEquals(cs2103tNote.hashCode(), cs2100Note.hashCode());
     }
+
+    @Test
+    public void equals() {
+        assertEquals(CS2100_NOTE, CS2100_NOTE);
+        assertNotEquals(CS2100_NOTE, CS2103T_NOTE);
+
+        //different classes, returns false
+        assertNotEquals(CS2100_NOTE, 2);
+    }
 }

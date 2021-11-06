@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_3;
 import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_4;
 import static seedu.smartnus.testutil.Assert.assertThrows;
+import static seedu.smartnus.testutil.TypicalNotes.CS2103T_NOTE;
 import static seedu.smartnus.testutil.TypicalQuestions.MCQ_QUESTION_1;
 import static seedu.smartnus.testutil.TypicalQuestions.STORAGE_QUESTION_2;
 import static seedu.smartnus.testutil.TypicalQuestions.TF_QUESTION_2;
@@ -26,11 +27,14 @@ import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.question.exceptions.DuplicateQuestionException;
 import seedu.smartnus.model.statistic.TagStatistic;
 import seedu.smartnus.model.tag.Tag;
+import seedu.smartnus.testutil.NoteBuilder;
 import seedu.smartnus.testutil.QuestionBuilder;
 
 public class SmartNusTest {
 
     private final SmartNus smartNus = new SmartNus();
+    private final List<Question> genericQuestions = List.of(MCQ_QUESTION_1);
+    private final List<Note> genericNotes = List.of(CS2103T_NOTE);
 
     @Test
     public void constructor() {
@@ -55,7 +59,7 @@ public class SmartNusTest {
         Question editedAlice = new QuestionBuilder(MCQ_QUESTION_1).withTags(VALID_TAG_3)
                 .build();
         List<Question> newQuestions = Arrays.asList(MCQ_QUESTION_1, editedAlice);
-        SmartNusStub newData = new SmartNusStub(newQuestions);
+        SmartNusStub newData = new SmartNusStub(newQuestions, genericNotes);
 
         assertThrows(DuplicateQuestionException.class, () -> smartNus.resetData(newData));
     }
@@ -92,6 +96,31 @@ public class SmartNusTest {
     }
 
     @Test
+    public void hasNote_nullNote_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> smartNus.hasNote(null));
+    }
+
+    @Test
+    public void hasNote_noteNotInSmartNus_returnsFalse() {
+        assertFalse(smartNus.hasNote(CS2103T_NOTE));
+    }
+
+    @Test
+    public void hasNote_noteInSmartNus_returnsTrue() {
+        smartNus.addNote(CS2103T_NOTE);
+        assertTrue(smartNus.hasNote(CS2103T_NOTE));
+        assertNotEquals(null, smartNus.getNotesAsList());
+        assertNotEquals(0, smartNus.hashCode());
+    }
+
+    @Test
+    public void hasNote_noteWithSameIdentityFieldsInSmartNus_returnsTrue() {
+        smartNus.addNote(CS2103T_NOTE);
+        Note editedAlice = new NoteBuilder(CS2103T_NOTE).build();
+        assertTrue(smartNus.hasNote(editedAlice));
+    }
+
+    @Test
     public void getNoteList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> smartNus.getNoteList().remove(0));
     }
@@ -105,8 +134,6 @@ public class SmartNusTest {
         smartNus.addQuestion(editedBob);
         smartNus.addQuestion(editedCarl);
         ObservableList<TagStatistic> tagStatisticMap = smartNus.getTagStatistic();
-        Tag husband = new Tag(VALID_TAG_3);
-        Tag friend = new Tag(VALID_TAG_4);
 
         assertEquals(2, tagStatisticMap.size());
     }
@@ -119,8 +146,9 @@ public class SmartNusTest {
         private final ObservableList<Note> notes = FXCollections.observableArrayList();
         private final ObservableList<TagStatistic> tagStatisticMap = FXCollections.observableArrayList();
 
-        SmartNusStub(Collection<Question> questions) {
+        SmartNusStub(Collection<Question> questions, Collection<Note> notes) {
             this.questions.setAll(questions);
+            this.notes.setAll(notes);
         }
 
         @Override
