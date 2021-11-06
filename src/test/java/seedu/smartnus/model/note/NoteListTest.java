@@ -176,12 +176,28 @@ public class NoteListTest {
 
     @Test
     public void hashCode_test() {
-        Note aliceNote = new NoteBuilder(CS2100_NOTE).build();
-        Note aliceCopy = new NoteBuilder(CS2100_NOTE).build();
+        NoteList alice = new NoteList();
+        NoteList bob = new NoteList();
+        alice.add(CS2100_NOTE);
+        bob.add(CS2103T_NOTE);
 
-        assertEquals(aliceNote.hashCode(), aliceCopy.hashCode());
+        NoteList aliceCopy = new NoteList();
+        aliceCopy.setNotes(alice);
 
-        Note bobNote = new NoteBuilder(CS2103T_NOTE).build();
-        assertNotEquals(aliceNote.hashCode(), bobNote.hashCode());
+        assertEquals(alice.hashCode(), aliceCopy.hashCode());
+        assertNotEquals(alice.hashCode(), bob.hashCode());
+    }
+
+    @Test
+    public void equals() {
+        NoteList alice = new NoteList();
+        alice.add(CS2100_NOTE);
+        NoteList bob = new NoteList();
+        bob.add(CS2103T_NOTE);
+        assertNotEquals(alice, bob);
+
+        NoteList aliceCopy = new NoteList();
+        aliceCopy.setNotes(alice);
+        assertEquals(alice, aliceCopy);
     }
 }
