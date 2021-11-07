@@ -360,13 +360,8 @@ As different commands are available to the user at the `QuizWindow` and the `Mai
 
 **Aspect: How commands are determined to be valid for each mode:**
 
-* **Alternative 1 (current choice):** Command Parsers
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
-
-* **Alternative 2:** Saves the entire address book.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
+* **Alternative 1 (current choice):** Having separate parsers for input for from `MainWindow` and `QuizWindow`
+* **Alternative 2:** Having a list of acceptable commands for both windows, and checking
 
 #### Answering of questions
 
@@ -377,8 +372,8 @@ The answering of questions feature allows users to select their desired choice f
 
 1. User input and the current `QuizManager` object are passed to the `LogicManager` to execute.
 2. `LogicManager` will then call `QuizInputParser`, which will identify type of the current `Question` from `QuizManager`, which will return a `AnswerMcqCommandParser`.
-3. Once parsed, `QuizCommandParser` will return a `QuizCommand`, and when executed, will update the questions available in the model with the questions to be displayed in the quiz as well as return a `CommandResult` that indicates to start the quiz.
-4. The `CommandResult` is then returned back to `MainWindow` which will then create a new `QuizWindow` to be displayed.
+3. The `AnswerMcqCommandParser` will return a `QuizCommand`, and when executed, will update `QuizManager` with the choice selected by the user, as well as return a `CommandResult` with the response to be displayed to the user.
+4. The `CommandResult` is then returned back to the `QuizWindow` which will then update the Ui with the updated message and the selected choice from `QuizManager`.
 
 
 
