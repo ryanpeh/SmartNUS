@@ -242,6 +242,7 @@ Format: `delete question QUESTION_INDEX` OR `delete note NOTE_INDEX`
   * **a positive integer** between 1 and 2147483647 (both inclusive)
   * Equal to or smaller than the number of items in the list. Eg. If a list contains 5 questions, `6` is not a valid index but `3` is.
 
+
 #### 4.1.8. Edit a Question and Answers: `edit`
 
 Edits an existing question in the question bank with the specified question number.
@@ -345,8 +346,8 @@ Examples:
 * `stat t/CS2100 t/MIPS` returns the overall statistics for the questions tagged with `CS2100` or `MIPS` or both.
 
 <!-- TODO: add brief description before format to standardise format-->
-#### 4.1.11. Start a Quiz: `quiz`
-Format: `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX]`
+#### 4.1.10. Start a Quiz: `quiz`
+Format: `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX...]`
 
 #####Optional Parameters
 * `lim/` positive, non-zero integer that will limit the number of questions in the quiz.
@@ -355,6 +356,8 @@ Format: `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX]`
 * If no parameters are passed, a quiz session will be created using all the questions in the question list.
   * If the total number of questions is less than the limit, it will just give all the questions.
 * TAG can be used to filter the quiz to only give questions with the tags specified, works with limit.
+* INDEX can be used to filter the quiz to only give questions with the specified question numbers. 
+  The index **must be a positive integer** from 1 to 2147483647
 
 Examples:
 * `quiz lim/5 t/CS2100 t/MIPS` quiz will select questions tagged with at least one of the tags, limited to 5 questions.
@@ -457,7 +460,7 @@ Action | Format, Examples
 **SAQ** | `saq qn/QUESTION ans/ANSWER INCLUDING KEYWORDS k/KEYWORD... i/IMPORTANCE [t/TAG]...` <br> e.g., `saq qn/what is Shakespeare's first name? ans/k/William i/1`
 **Note** | `note note/NOTE` <br> e.g., `note note/This is a note`
 **Delete** | `delete question QUESTION_INDEX` OR `delete note NOTE_INDEX`<br> e.g., `delete question 1`, `delete note 2`
-**Quiz** | `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX]` <br>
+**Quiz** | `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX...]` <br>
 **Exit** | `exit` <br>
 **Help** | `help` <br>
 

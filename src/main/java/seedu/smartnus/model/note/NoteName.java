@@ -48,8 +48,8 @@ public class NoteName {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.smartnus.model.question.Name // instanceof handles nulls
-                && fullName.equals(((seedu.smartnus.model.question.Name) other).fullName)); // state check
+                || (other instanceof NoteName // instanceof handles nulls
+                && fullName.equals(((NoteName) other).fullName)); // state check
     }
 
     @Override

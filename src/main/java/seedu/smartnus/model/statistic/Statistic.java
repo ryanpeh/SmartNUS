@@ -85,6 +85,16 @@ public class Statistic implements Comparable<Statistic> {
         return (int) (correct / attempt * 100);
     }
 
+    /**
+     * Returns if the statistic is valid.
+     * @return If the statistic is valid.
+     */
+    public boolean isValidStatistic() {
+        return correctCount <= attemptCount
+                && correctCount >= 0
+                && attemptCount >= 0;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

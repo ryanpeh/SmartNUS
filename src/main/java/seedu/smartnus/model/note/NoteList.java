@@ -61,6 +61,19 @@ public class NoteList implements Iterable<Note> {
     }
 
     /**
+     * Replaces the contents of this list with {@code notes}.
+     * {@code notes} must not contain duplicate notes.
+     */
+    public void setNotes(List<Note> notes) {
+        requireAllNonNull(notes);
+        if (!notesAreUnique(notes)) {
+            throw new DuplicateNoteException();
+        }
+
+        internalList.setAll(notes);
+    }
+
+    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Note> asUnmodifiableObservableList() {
@@ -102,5 +115,19 @@ public class NoteList implements Iterable<Note> {
     @Override
     public int hashCode() {
         return internalList.hashCode();
+    }
+
+    /**
+     * Returns true if {@code notes} contains only unique questions.
+     */
+    private boolean notesAreUnique(List<Note> notes) {
+        for (int i = 0; i < notes.size() - 1; i++) {
+            for (int j = i + 1; j < notes.size(); j++) {
+                if (notes.get(i).isSameNote(notes.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
