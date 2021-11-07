@@ -6,19 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.smartnus.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.function.Predicate;
-
-import org.junit.jupiter.api.Test;
-
-import javafx.collections.ObservableList;
-import seedu.smartnus.commons.core.GuiSettings;
-import seedu.smartnus.commons.core.theme.Theme;
-import seedu.smartnus.logic.commands.exceptions.CommandException;
-import seedu.smartnus.model.Model;
-
-import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
@@ -56,11 +44,11 @@ public class AddNoteCommandTest {
         ModelStub modelStub = new ModelStubWithNote(validNote);
 
         assertThrows(CommandException.class,
-                AddNoteCommand.MESSAGE_DUPLICATE_NOTE, () -> addCommand.execute(modelStub));
+                Messages.MESSAGE_NOT_IN_NOTE_PANEL, () -> addCommand.execute(modelStub));
     }
 
     @Test
-    public void execute_inWrongPanel() throws Exception {
+    public void execute_inWrongPanel_throwsException() {
         ModelStubTagPanel modelStub = new ModelStubTagPanel();
         Note validNote = new NoteBuilder().build();
 

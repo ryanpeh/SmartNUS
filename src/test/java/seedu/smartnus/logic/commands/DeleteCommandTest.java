@@ -51,12 +51,12 @@ public class DeleteCommandTest {
         Note noteToDelete = model.getFilteredNoteList().get(INDEX_FIRST_QUESTION.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand("note", INDEX_FIRST_QUESTION);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_NOTE_SUCCESS, noteToDelete);
+        String expectedMessage = Messages.MESSAGE_NOT_IN_NOTE_PANEL;
 
         ModelManager expectedModel = new ModelManager(model.getSmartNus(), new UserPrefs());
         expectedModel.deleteNote(noteToDelete);
 
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        assertCommandFailure(deleteCommand, model, expectedMessage);
     }
 
     @Test
@@ -101,7 +101,7 @@ public class DeleteCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredNoteList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand("note", outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_NOTE_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_NOT_IN_NOTE_PANEL);
     }
 
     @Test
@@ -111,13 +111,13 @@ public class DeleteCommandTest {
         Note noteToDelete = model.getFilteredNoteList().get(INDEX_FIRST_QUESTION.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand("note", INDEX_FIRST_QUESTION);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_NOTE_SUCCESS, noteToDelete);
+        String expectedMessage = Messages.MESSAGE_NOT_IN_NOTE_PANEL;
 
         Model expectedModel = new ModelManager(model.getSmartNus(), new UserPrefs());
         expectedModel.deleteNote(noteToDelete);
         showNoNote(expectedModel);
 
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        assertCommandFailure(deleteCommand, model, expectedMessage);
     }
 
     @Test
@@ -130,7 +130,7 @@ public class DeleteCommandTest {
 
         DeleteCommand deleteCommand = new DeleteCommand("note", outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_NOTE_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_NOT_IN_NOTE_PANEL);
     }
 
     @Test
