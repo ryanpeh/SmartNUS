@@ -55,6 +55,9 @@ Here's a quick summary of the available sections in the user guide:
 * Parameters can be in any order.<br>
   e.g. if the command specifies `ans/ ANSWER opt/ OPTION1`, `opt/ OPTION1 ans/ ANSWER` is also acceptable.
 
+* If a parameter is expected only once in the command but you specified it multiple times, only the last occurrence of the parameter will be taken.<br>
+  e.g. if you specify `ans/t ans/abc`, only `ans/abc` will be taken.
+
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
@@ -109,19 +112,16 @@ Format: `help`
 #### 4.1.2. Add a Multiple Choice Question: `mcq`
 
 Adds a multiple choice question to the question bank.
-Required Parameters:
+
+Format: `mcq qn/QUESTION opt/INCORRECT_OPTION1 opt/INCORRECT_OPTION2 opt/INCORRECT_OPTION3 ans/ANSWER i/IMPORTANCE [t/TAG]`
+#####Required Parameters:
 * `qn/` The MC Question statement
 * `opt/` The incorrect choices. 3 in total.
 * `ans/` The correct choice. 1 in total.
 * `i/` The importance of the question for the user. An integer between 1 and 3. 3 signifies the highest importance and 1 signifies the lowest importance.
 
-Optional Parameters:
-* `t/` The tags of the question 
-
-Format: `mcq qn/QUESTION opt/OPTION1 opt/OPTION2 opt/OPTION3 ans/ANSWER i/IMPORTANCE [t/TAG]`
-
-* `ANSWER` is expected only once in the command, but if you specify it multiple times, only the last occurrence will be taken.<br>
-  e.g. if you specify `ans/t ans/abc`, only `ans/abc` will be taken.
+#####Optional Parameters:
+* `t/` The tags of the question
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A multiple choice question must have exactly three incorrect options and one correct answer
 </div>
@@ -151,17 +151,13 @@ Examples:
 
 Adds a true false question to the question bank.
 
-* `ANSWER` is expected only once in the command, but if you specify it multiple times, only the last occurrence will be taken.<br>
-  e.g. if you specify `ans/t ans/f`, only `ans/f` will be taken.
-* Answers are case-insensitive. `T` and `t` both will be accepted as `True`.
-
 Format: `tfq qn/QUESTION ans/ANSWER i/IMPORTANCE [t/TAG]`
-Required Parameters:
+#####Required Parameters:
 * `qn/` The TF Question statement
 * `ans/` The correct choice. 1 in total, can only be either true or false.
 * `i/` The importance of the question for the user. An integer between 1 and 3. 3 signifies the highest importance and 1 signifies the lowest importance.
 
-Optional Parameters:
+#####Optional Parameters:
 * `t/` The tags of the question
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
@@ -179,13 +175,13 @@ Adds a short answer question to the question bank.
 
 Format: `saq qn/QUESTION ans/ANSWER INCLUDING KEYWORDS k/KEYWORD... i/IMPORTANCE [t/TAG]...`
 
-Required Parameters:
+#####Required Parameters:
 * `qn/` The TF Question statement
 * `ans/` The correct answer. 1 in total.
 * `k/` The keywords for evaluating the answer. **Need to be included inside the `ans/` parameter.**
 * `i/` The importance of the question for the user. An integer between 1 and 3. 3 signifies the highest importance and 1 signifies the lowest importance.
 
-Optional Parameters:
+#####Optional Parameters:
 * `t/` The tags of the question
 <br>
 
@@ -219,7 +215,7 @@ Examples:
 Adds a note to the note list.
 Format: `note note/NOTE`
 
-Required Parameters:
+#####Required Parameters:
 * `note/` The note statement
 
 Notes accept all text and numbers. 
@@ -229,12 +225,17 @@ Shows a list of all questions, notes, or tags stored in SmartNus.
 
 Format: `list question` OR `list note` OR `list tag`
 
+#####Required Parameters:
+* `question` or `note` or `tag` to specify what to list
 #### 4.1.7. Delete a Question or Note: `delete`
 
 Deletes an existing question or note from the question bank or note list.
 
 Format: `delete question QUESTION_INDEX` OR `delete note NOTE_INDEX`
 
+#####Required Parameters:
+* `question` and `QUESTION_INDEX` OR `note` and `NOTE_INDEX`
+<div>
 * Deletes the question or note with the specified `QUESTION_INDEX` or `NOTE_INDEX`, if the index is valid.
 * The `QUESTION_INDEX` or `NOTE_INDEX` refers to the index number shown in the displayed list.
 * A valid index is:
@@ -247,7 +248,16 @@ Edits an existing question in the question bank with the specified question numb
 
 Format: `edit QUESTION_ID [qn/QUESTION] [t/TAG]... [ans/CORRECT_ANSWER] [opt/INCORRECT_OPTION]... [i/IMPORTANCE]`
 
-The `QUESTION_ID` refers to the index number shown in the displayed question list.
+#####Required Parameters
+* `QUESTION_ID` refers to the index number shown in the displayed question list.
+
+#####Optional Parameters
+* `qn/` The new question statement
+* `t/` The new question tags
+* `ans/` The new correct answer
+* `opt/` The new incorrect options (if question is a `MCQ`)
+* `i/`The new importance
+<div>
 * Existing values will be updated to the input values.
 * You cannot edit question type (e.g. cannot edit a Multiple Choice Question to a True-False Question)
 * At least one of the optional fields must be provided.
@@ -261,11 +271,7 @@ The `QUESTION_ID` refers to the index number shown in the displayed question lis
 * Edit Answers/Options
   * If editing the answers of a question, all option(s) and answer(s) must be valid for the type of question being edited.
   * Multiple Choice Question: Specify all three incorrect options (`opt/`) and one correct answer (`ans/`).
-    * `ANSWER` is expected only once in the command, but if you specify it multiple times, only the last occurrence will be taken.<br>
-    e.g. if you specify `ans/t ans/abc`, only `ans/abc` will be taken. 
   * True/False Question: Only specify the correct answer (`ans/`), which must be “T” or “F”.
-    * `ANSWER` is expected only once in the command, but if you specify it multiple times, only the last occurrence will be taken.<br>
-      e.g. if you specify `ans/t ans/f`, only `ans/f` will be taken. 
   * Short Answer Question: Only specify the correct answer (`ans/`) which must include at least one keyword (`k/`).
 
 Examples:
@@ -292,7 +298,13 @@ at least one of the specified tags, and the importance value (if specified).
 
 Format: `find [KEYWORDS]... [t/TAG]... [i/IMPORTANCE]`
 
-* At least one of the optional fields to find by must be specified.
+#####Parameters
+* `KEYWORDS` The specific keyword(s) to be searched
+* `TAG` The specific tag(s) to be searched
+* `IMPORTANCE` The importance to be searched
+<div>
+
+* **At least** one of the optional fields to find by must be specified.
 * The search is case-insensitive for both keywords and tags (e.g. `math` will match `MaTH`).
 * Only full words will be matched for both keywords and tags (e.g. `CS2100` will not match `CS210`).
 * The following characters `,.?!:;*"()[]{}` which are commonly used to separate words are not considered part of a word or keyword.
@@ -324,7 +336,7 @@ Examples:
 #### 4.1.10. Find/Search Stats: `stat [t/TAG]...`
 
 * Shows the list of statistics by Tag for the questions attempted.
-* The search is case-insentitive for tags
+* The search is case-insensitive for tags
 * Only full words will be matched (e.g. `CS2100` will not match `CS210`)
 * Statistics for any of the tags passed in will be shown
 * If no parameters are passed in, it will show all statistics
@@ -336,8 +348,11 @@ Examples:
 #### 4.1.11. Start a Quiz: `quiz`
 Format: `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX]`
 
+#####Optional Parameters
+* `lim/` positive, non-zero integer that will limit the number of questions in the quiz.
+* `t/` quiz will be formed from questions with the specified tag. If such a tag does not exist, quiz will not start.
+* `n/` quiz just one question - `INDEX` refers to the index number shown in the displayed question list.
 * If no parameters are passed, a quiz session will be created using all the questions in the question list.
-* LIMIT is a positive, non-zero integer that will limit the number of questions in the quiz.
   * If the total number of questions is less than the limit, it will just give all the questions.
 * TAG can be used to filter the quiz to only give questions with the tags specified, works with limit.
 
@@ -369,7 +384,7 @@ Changes the theme of the app.
 
 Format: `theme THEME`
 
-Parameters:
+#####Parameters:
 - `THEME`: can only be light or dark
 
 Examples:
