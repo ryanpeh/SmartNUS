@@ -6,10 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.smartnus.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,11 +14,6 @@ import seedu.smartnus.commons.core.Messages;
 import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.model.ModelStub;
 import seedu.smartnus.model.ModelStubTagPanel;
-import javafx.collections.ObservableList;
-import seedu.smartnus.commons.core.GuiSettings;
-import seedu.smartnus.commons.core.theme.Theme;
-import seedu.smartnus.logic.commands.exceptions.CommandException;
-import seedu.smartnus.model.Model;
 import seedu.smartnus.model.ReadOnlySmartNus;
 import seedu.smartnus.model.SmartNus;
 import seedu.smartnus.model.note.Note;
@@ -52,7 +44,7 @@ public class AddNoteCommandTest {
         ModelStub modelStub = new ModelStubWithNote(validNote);
 
         assertThrows(CommandException.class,
-                AddNoteCommand.MESSAGE_DUPLICATE_NOTE, () -> addCommand.execute(modelStub));
+                Messages.MESSAGE_NOT_IN_NOTE_PANEL, () -> addCommand.execute(modelStub));
     }
 
     @Test
