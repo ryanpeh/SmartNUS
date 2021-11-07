@@ -40,7 +40,9 @@ public class ShortAnswerQuestion extends Question {
                 return false;
             }
         }
-        return correctChoiceCount == 1 && choices.size() == 1;
+        return correctChoiceCount == 1
+                && choices.size() == 1
+                && this.getStatistic().isValidStatistic();
     }
 
     @Override
