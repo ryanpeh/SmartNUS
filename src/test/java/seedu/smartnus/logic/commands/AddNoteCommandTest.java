@@ -44,7 +44,7 @@ public class AddNoteCommandTest {
         ModelStub modelStub = new ModelStubWithNote(validNote);
 
         assertThrows(CommandException.class,
-                Messages.MESSAGE_NOT_IN_NOTE_PANEL, () -> addCommand.execute(modelStub));
+                AddNoteCommand.MESSAGE_DUPLICATE_NOTE, () -> addCommand.execute(modelStub));
     }
 
     @Test
@@ -119,6 +119,11 @@ public class AddNoteCommandTest {
         ModelStubWithNote(Note note) {
             requireNonNull(note);
             this.note = note;
+        }
+
+        @Override
+        public String getPanel() {
+            return NoteListPanel.NOTE_PANEL;
         }
 
         @Override

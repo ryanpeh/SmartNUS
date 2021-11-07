@@ -23,6 +23,7 @@ import seedu.smartnus.model.ModelStubTagPanel;
 import seedu.smartnus.model.UserPrefs;
 import seedu.smartnus.model.note.Note;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.ui.panel.NoteListPanel;
 
 
 /**
@@ -47,16 +48,16 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_validIndexUnfilteredNoteList_failure() {
+    public void execute_validIndexUnfilteredNoteList_success() {
         Note noteToDelete = model.getFilteredNoteList().get(INDEX_FIRST_QUESTION.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand("note", INDEX_FIRST_QUESTION);
-
-        String expectedMessage = Messages.MESSAGE_NOT_IN_NOTE_PANEL;
+        model.setPanel(NoteListPanel.NOTE_PANEL);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_NOTE_SUCCESS, noteToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getSmartNus(), new UserPrefs());
         expectedModel.deleteNote(noteToDelete);
 
-        assertCommandFailure(deleteCommand, model, expectedMessage);
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -108,16 +109,17 @@ public class DeleteCommandTest {
     public void execute_validIndexFilteredNoteList_success() {
         showNoteAtIndex(model, INDEX_FIRST_QUESTION);
 
+        model.setPanel(NoteListPanel.NOTE_PANEL);
         Note noteToDelete = model.getFilteredNoteList().get(INDEX_FIRST_QUESTION.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand("note", INDEX_FIRST_QUESTION);
 
-        String expectedMessage = Messages.MESSAGE_NOT_IN_NOTE_PANEL;
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_NOTE_SUCCESS, noteToDelete.toString());
 
         Model expectedModel = new ModelManager(model.getSmartNus(), new UserPrefs());
         expectedModel.deleteNote(noteToDelete);
         showNoNote(expectedModel);
 
-        assertCommandFailure(deleteCommand, model, expectedMessage);
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -125,12 +127,13 @@ public class DeleteCommandTest {
         showNoteAtIndex(model, INDEX_FIRST_QUESTION);
 
         Index outOfBoundIndex = INDEX_SECOND_QUESTION;
+        model.setPanel(NoteListPanel.NOTE_PANEL);
         // ensures that outOfBoundIndex is still in bounds of the SmartNus note list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getSmartNus().getNoteList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand("note", outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_NOT_IN_NOTE_PANEL);
+        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_NOTE_DISPLAYED_INDEX);
     }
 
     @Test
