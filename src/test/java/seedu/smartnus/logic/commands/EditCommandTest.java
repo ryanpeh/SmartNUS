@@ -13,6 +13,7 @@ import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_3;
 import static seedu.smartnus.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.smartnus.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.smartnus.logic.commands.CommandTestUtil.showQuestionAtIndex;
+import static seedu.smartnus.testutil.Assert.assertThrows;
 import static seedu.smartnus.testutil.TypicalIndexes.INDEX_FIRST_QUESTION;
 import static seedu.smartnus.testutil.TypicalIndexes.INDEX_SECOND_QUESTION;
 import static seedu.smartnus.testutil.TypicalSmartNus.getTypicalSmartNus;
@@ -26,8 +27,10 @@ import org.junit.jupiter.api.Test;
 import seedu.smartnus.commons.core.Messages;
 import seedu.smartnus.commons.core.index.Index;
 import seedu.smartnus.logic.commands.EditCommand.EditQuestionDescriptor;
+import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.ModelManager;
+import seedu.smartnus.model.ModelStubTagPanel;
 import seedu.smartnus.model.SmartNus;
 import seedu.smartnus.model.UserPrefs;
 import seedu.smartnus.model.choice.Choice;
@@ -275,6 +278,14 @@ public class EditCommandTest {
 
         // different descriptor -> returns false
         assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_QUESTION, DESC_BOB)));
+    }
+
+    @Test
+    public void edit_wrongPanel() {
+        ModelStubTagPanel model = new ModelStubTagPanel();
+        EditCommand qnCmd = new EditCommand(INDEX_FIRST_QUESTION, DESC_AMY);
+        assertThrows(CommandException.class,
+                Messages.MESSAGE_NOT_IN_QUESTION_PANEL, () -> qnCmd.execute(model));
     }
 
 }

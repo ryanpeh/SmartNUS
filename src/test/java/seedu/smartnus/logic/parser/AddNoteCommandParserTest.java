@@ -32,5 +32,4 @@ public class AddNoteCommandParserTest {
         // note prefix missing
         assertParseFailure(parser, INVALID_NOTE_DESC , expectedMessage);
     }
-    // TODO: Add tests for duplicate options and answer
 }

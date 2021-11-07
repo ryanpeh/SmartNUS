@@ -1,7 +1,9 @@
 package seedu.smartnus.model.statistic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -47,6 +49,33 @@ public class StatisticTest {
     public void string_test() {
         Statistic defaultStat = new Statistic();
         assertNotEquals(null, defaultStat.toString());
+    }
+
+    @Test
+    public void isValidStatistic_returnsTrue() {
+        Statistic statistic = new Statistic();
+
+        statistic.addAttempt(5);
+        statistic.addCorrect(2);
+        assertTrue(statistic.isValidStatistic());
+
+        statistic.addCorrect(3);
+        assertTrue(statistic.isValidStatistic());
+    }
+
+    @Test
+    public void isValidStatistic_returnsFalse() {
+        Statistic statistic = new Statistic();
+
+        statistic.addAttempt(-1);
+        assertFalse(statistic.isValidStatistic());
+
+        statistic.addAttempt(3);
+        statistic.addCorrect(-1);
+        assertFalse(statistic.isValidStatistic());
+
+        statistic.addCorrect(5);
+        assertFalse(statistic.isValidStatistic());
     }
 
     @Test

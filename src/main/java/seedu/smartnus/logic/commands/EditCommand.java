@@ -1,6 +1,7 @@
 package seedu.smartnus.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.smartnus.commons.core.Messages.MESSAGE_NOT_IN_QUESTION_PANEL;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_IMPORTANCE;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_OPTION;
@@ -26,6 +27,7 @@ import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.question.ShortAnswerQuestion;
 import seedu.smartnus.model.question.TrueFalseQuestion;
 import seedu.smartnus.model.tag.Tag;
+import seedu.smartnus.ui.panel.QuestionListPanel;
 
 /**
  * Edits the details of an existing question in SmartNus.
@@ -73,6 +75,11 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (!model.getPanel().equals(QuestionListPanel.QUESTION_PANEL)) {
+            throw new CommandException(MESSAGE_NOT_IN_QUESTION_PANEL);
+        }
+
         List<Question> lastShownList = model.getFilteredQuestionList();
 
         if (index.getZeroBased() >= lastShownList.size()) {

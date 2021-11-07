@@ -1,5 +1,6 @@
 package seedu.smartnus.logic.parser;
 
+import static seedu.smartnus.commons.core.Messages.MESSAGE_INDEX_ERROR;
 import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.smartnus.commons.core.index.Index;
@@ -28,7 +29,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
                 }
             }
         } catch (ParseException pe) {
-            throw new ParseException("The index should be a positive integer from 1 to 2147483647");
+            throw new ParseException(MESSAGE_INDEX_ERROR);
         }
 
         throw new ParseException(
