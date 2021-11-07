@@ -28,7 +28,7 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 ### Architecture
 
-<img src="images/ArchitectureDiagram.png" width="280" />
+<img src="images/developer-guide/ArchitectureDiagram.png" width="280" />
 
 The ***Architecture Diagram*** given above explains the high-level design of the App.
 
@@ -54,7 +54,7 @@ The rest of the App consists of four components.
 
 The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete question 1`.
 
-<img src="images/ArchitectureSequenceDiagram.png" width="574" />
+<img src="images/developer-guide/ArchitectureSequenceDiagram.png" width="574" />
 
 Each of the four main components (also shown in the diagram above),
 
@@ -63,7 +63,7 @@ Each of the four main components (also shown in the diagram above),
 
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
-<img src="images/ComponentManagers.png" width="300" />
+<img src="images/developer-guide/ComponentManagers.png" width="300" />
 
 The sections below give more details of each component.
 
@@ -71,7 +71,7 @@ The sections below give more details of each component.
 
 The **API** of this component is specified in [`Ui.java`](https://github.com/AY2122S1-CS2103T-F12-1/tp/blob/master/src/main/java/seedu/smartnus/ui/Ui.java)
 
-![Structure of the UI Component](images/UiClassDiagram.png)
+![Structure of the UI Component](images/developer-guide/UiClassDiagram.png)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `QuestionListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
@@ -90,39 +90,43 @@ The `UI` component,
 
 Here's a (partial) class diagram of the `Logic` component:
 
-<img src="images/LogicClassDiagram.png" width="550"/>
+<img src="images/developer-guide/LogicClassDiagram.png" width="550"/>
 
 How the `Logic` component works:
-1. When `Logic` is called upon to execute a command, it uses either the `SmartNusParser` or the `QuizInputParser` class to parse the user command.
+1. When `Logic` is called upon to execute a command, it uses either the `SmartNusParser` or the `QuizInputParser` class to parse the user command, depending on which window the user is currently on (i.e. Main Window or Quiz Window).
 1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddCommand`) which is executed by the `LogicManager`.
 1. The command can communicate with the `Model` when it is executed (e.g. to add a question).
-1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
+1. The result of the command execution is encapsulated as a `CommandResult` object which is then returned from `Logic`.
 
 The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("delete question 1")` API call.
 
-![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)
+[//]: # (TODO: Update the sequence diagram below, with sequence diagrams of main and quiz window stuff)
+
+![Interactions Inside the Logic Component for the `delete 1` Command](images/developer-guide/DeleteSequenceDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 </div>
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
 
-<img src="images/ParserClasses.png" width="600"/>
+<img src="images/developer-guide/ParserClasses.png" width="600"/>
 
 How the parsing works:
-* When called upon to parse a user command, either the `SmartNusParser` class or the `QuizInputParser`class will create a `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `SmartNusParser` returns back as a `Command` object.
-* All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
+* When called upon to parse a user command, the `LogicManager` class will determine whether the `SmartNusParser` class or the `QuizInputParser` class will be used to parse the user command.
+* The selected class it will create `XYZCommandParser` or `ABCCommandParser` (`XYZ` and `ABC` are placeholders for the specific command name created by `SmartNusParser` and `QuizInputParser` respectively e.g., `AddMcqCommandParser` and `AnswerMcqCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` or `ABCCommand` object (e.g., `AddMcqCommand` or `AnswerMcqCommand`) which either `SmartNusParser` or `QuizInputParser` returns as a `Command` object.
+    * All `XYZCommandParser` classes (e.g., `AddMcqCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
+    * All `ABCCommandParser` classes (e.g., `AnswerMcqCommandParser`, `AnswerTfqCommandParser`, ...) inherit from the `QuizParser` interface so that they can be treated similarly where possible e.g, during testing.
 
 How the `Logic` component determines which parser to use:
-- The `Logic` component uses either the `SmartNusParser` or the `QuizInputParser` class to parse the user command, depending on whether the user is entering the command while in a quiz.
-- Different parsers are used due to different commands being available to the user during the quiz.
+- The `Logic` component uses either the `SmartNusParser` or the `QuizInputParser` class to parse the user command, depending on which window the user is currently on (i.e. Main Window or Quiz Window).
+- Different parsers are used due to different commands being available to the user during the quiz (i.e. the user should not be able to execute `AddMcqCommand` while in a quiz).
 - The `LogicManager` class achieves this through the usage of overloaded methods, `parseCommand(String)` and `parseCommand(String, QuizManager)`, with the latter for parsing commands while in a quiz.
-- This was implemented with the consideration that the `QuizInputParser` would require a `QuizManager` argument to be passed to various `XYZCommandParser` and `Command` classes to carry out the various quiz functionality.
+- This was implemented with the consideration that the `QuizInputParser` would require a `QuizManager` argument to be passed to various `ABCCommandParser` and `Command` classes to carry out the necessary various quiz functionality.
 
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2122S1-CS2103T-F12-1/tp/blob/master/src/main/java/seedu/smartnus/model/Model.java)
 
-<img src="images/ModelClassDiagram.png" width="450" />
+<img src="images/developer-guide/ModelClassDiagram.png" width="450" />
 
 
 The `Model` component,
@@ -135,7 +139,7 @@ The `Model` component,
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `SmartNus` model, which `Question` references. This allows `SmartNus` to only require one `Tag` object per unique tag, instead of each `Question` needing their own `Tag` objects.<br>
 
-<img src="images/BetterModelClassDiagram.png" width="450" />
+<img src="images/developer-guide/BetterModelClassDiagram.png" width="450" />
 
 </div>
 
@@ -145,25 +149,59 @@ The `Question` class is an abstract class that stores a name, importance, and an
 A `Choice` stores a name and a boolean value `isCorrect` representing if it is a correct answer to the `Question`.
 The validity of a `Question` depends on the type of question.
 
-Types of Questions currently supported by SmartNUS and their conditions for validity are:
+Types of Questions currently supported by SmartNUS, and their conditions for validity are:
 1. Multiple Choice Questions
    * Has four `Choices` in total, exactly one of which is correct
-2. True-False Questions
+1. True-False Questions
    * Has two `Choices` in total, which can only be "True" and "False", exactly one of which is correct
-3. Multiple Response Questions (coming soon)
+1. Short Answer Questions
+   * TODO
+1. Multiple Response Questions (coming soon)
    * Has four `Choices` in total, at least one of which is correct
-4. Open-Ended Questions (coming soon)
 
 ## Note class
 
 The `Note` class is a class that stores a text.
 The note of a `Note` depends on whether the note starts without a whitespace or not.
 
+## Statistic Class
+The `Statistic` class is a class that keeps track of the user performance in answering the questions. 
+The performance is tracked by:
+* Number of attempts
+* Number of correct attempts
+```
+performance = number of correct attempts / number of attempts
+```
+### TagStatistic Class
+The `TagStatistic` class inherits from the `Statistic` class. The `TagStatistic` class is specifically used to keep track of the statistics of each tags.
+
+Here is the class diagram for `Statistic` and `TagStatistic`:
+
+[//]: # (TODO: Insert class diagram)
+
+Here is an example of answering a question correctly:
+
+[//]: # (TODO: Insert Sequence diagram)
+
+
+## QuizManager class
+
+[//]: # (TODO: Insert class diagram)
+
+The `QuizManager` class is the class that manages the logic behind the quiz, and is created once a quiz is started.
+
+Each `QuizManager` class stores the following information about the quiz:
+* `questions`: A list of `Question` objects for all the questions in the quiz
+* `currentIndex`: The current question index the user is currently at
+* `selectedChoices`: A list of `Choice` objects used to keep track of the choices that the user has entered so far
+* `statistic`: A `Statistic` object used to keep track of the statistics of the quiz
+
+
 ### Storage component
 
 **API** : [`Storage.java`](https://github.com/AY2122S1-CS2103T-F12-1/tp/blob/master/src/main/java/seedu/smartnus/storage/Storage.java)
 
-<img src="images/StorageClassDiagram.png" width="550" />
+<img src="images/developer-guide/StorageClassDiagram.png" width="550" />
 
 The `Storage` component,
 * can save both address book data and user preference data in json format, and read them back into corresponding objects.
@@ -196,15 +234,15 @@ Given below is an example usage scenario and how the undo/redo mechanism behaves
 
 Step 1. The user launches the application for the first time. The `VersionedSmartNus` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
 
-![UndoRedoState0](images/UndoRedoState0.png)
+![UndoRedoState0](images/developer-guide/UndoRedoState0.png)
 
 Step 2. The user executes `delete 5` command to delete the 5th question in the address book. The `delete` command calls `Model#commitSmartNus()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `SmartNusStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
-![UndoRedoState1](images/UndoRedoState1.png)
+![UndoRedoState1](images/developer-guide/UndoRedoState1.png)
 
 Step 3. The user executes `add n/David …​` to add a new question. The `add` command also calls `Model#commitSmartNus()`, causing another modified address book state to be saved into the `smartNusStateList`.
 
-![UndoRedoState2](images/UndoRedoState2.png)
+![UndoRedoState2](images/developer-guide/UndoRedoState2.png)
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitSmartNus()`, so the address book state will not be saved into the `smartNusStateList`.
 
@@ -212,7 +250,7 @@ Step 3. The user executes `add n/David …​` to add a new question. The `add` 
 
 Step 4. The user now decides that adding the question was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoSmartNus()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
-![UndoRedoState3](images/UndoRedoState3.png)
+![UndoRedoState3](images/developer-guide/UndoRedoState3.png)
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial SmartNus state, then there are no previous SmartNus states to restore. The `undo` command uses `Model#canUndoSmartNus()` to check if this is the case. If so, it will return an error to the user rather
 than attempting to perform the undo.
@@ -221,7 +259,7 @@ than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
-![UndoSequenceDiagram](images/UndoSequenceDiagram.png)
+![UndoSequenceDiagram](images/developer-guide/UndoSequenceDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
@@ -235,15 +273,15 @@ The `redo` command does the opposite — it calls `Model#redoSmartNus()`, wh
 
 Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitSmartNus()`, `Model#undoSmartNus()` or `Model#redoSmartNus()`. Thus, the `smartNusStateList` remains unchanged.
 
-![UndoRedoState4](images/UndoRedoState4.png)
+![UndoRedoState4](images/developer-guide/UndoRedoState4.png)
 
 Step 6. The user executes `clear`, which calls `Model#commitSmartNus()`. Since the `currentStatePointer` is not pointing at the end of the `smartNusStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
 
-![UndoRedoState5](images/UndoRedoState5.png)
+![UndoRedoState5](images/developer-guide/UndoRedoState5.png)
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-<img src="images/CommitActivityDiagram.png" width="250" />
+<img src="images/developer-guide/CommitActivityDiagram.png" width="250" />
 
 #### Design considerations:
 

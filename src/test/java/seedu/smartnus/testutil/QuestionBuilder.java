@@ -94,18 +94,26 @@ public class QuestionBuilder {
     }
 
     /**
+     * Sets the {@code Statistic} of the {@code Question} that we are building
+     *
+     */
+    public QuestionBuilder withStatistic(Statistic statistic) {
+        this.statistic = statistic;
+        return this;
+    }
+
+    /**
      * Builds the the {@code Question} that we are building.
      */
     public Question build() {
-        // TODO: edit when more Question types are supported
         return new MultipleChoiceQuestion(name, importance, tags, choices, statistic);
     }
 
-    public Question buildTrueFalse() {
+    public TrueFalseQuestion buildTrueFalse() {
         return new TrueFalseQuestion(name, importance, tags, choices, statistic);
     }
 
-    public Question buildSaq() {
+    public ShortAnswerQuestion buildSaq() {
         return new ShortAnswerQuestion(name, importance, tags, choices, statistic);
     }
 }

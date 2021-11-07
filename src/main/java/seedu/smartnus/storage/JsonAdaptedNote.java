@@ -41,8 +41,6 @@ public class JsonAdaptedNote {
             throw new IllegalValueException(NoteName.MESSAGE_CONSTRAINTS);
         }
         final NoteName modelName = new NoteName(title);
-
-        // TODO: save question type in json and instantiate correct Question type when more types are supported
         return new Note(modelName.fullName);
     }
 

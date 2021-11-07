@@ -6,7 +6,6 @@ import seedu.smartnus.model.question.Importance;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.statistic.Statistic;
 
-
 public class QuestionsDefaultComparator implements Comparator<Question> {
     @Override
     public int compare(Question q1, Question q2) {
@@ -20,5 +19,11 @@ public class QuestionsDefaultComparator implements Comparator<Question> {
             res = q1Statistic.compareTo(q2Statistic);
         }
         return res;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || other instanceof QuestionsDefaultComparator; // instanceof handles nulls
     }
 }

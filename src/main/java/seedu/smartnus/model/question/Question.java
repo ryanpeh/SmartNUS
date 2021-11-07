@@ -202,19 +202,26 @@ public abstract class Question {
         }
 
         Question otherQuestion = (Question) other;
-        // TODO: Add Choice comparison after Choices can be saved and loaded from storage
         return otherQuestion.getName().equals(getName())
                 && otherQuestion.getImportance().equals(getImportance())
-                && otherQuestion.getTags().equals(getTags());
+                && otherQuestion.getTags().equals(getTags())
+                && otherQuestion.getChoices().equals(getChoices());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, importance, tags);
+        return Objects.hash(name, importance, tags, choices);
     }
 
     public abstract int getQuestionType();
+
+    /**
+     * Returns the conditions that make a Question valid in the form of a user-friendly message.
+     *
+     * @return The conditions that make a Question valid in the form of a user-friendly message.
+     */
+    public abstract String getValidConditions();
 
     @Override
     public String toString() {

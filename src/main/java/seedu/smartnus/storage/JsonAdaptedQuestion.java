@@ -120,15 +120,21 @@ class JsonAdaptedQuestion {
 
         final Statistic statistic = new Statistic(attemptCount, correctCount);
 
+        Question question;
         if (questionType == MCQ_QUESTION_TYPE) {
-            return new MultipleChoiceQuestion(modelName, modelImportance, modelTags, modelChoices, statistic);
+            question = new MultipleChoiceQuestion(modelName, modelImportance, modelTags, modelChoices, statistic);
         } else if (questionType == TF_QUESTION_TYPE) {
-            return new TrueFalseQuestion(modelName, modelImportance, modelTags, modelChoices, statistic);
+            question = new TrueFalseQuestion(modelName, modelImportance, modelTags, modelChoices, statistic);
         } else if (questionType == SAQ_QUESTION_TYPE) {
-            return new ShortAnswerQuestion(modelName, modelImportance, modelTags, modelChoices, statistic);
+            question = new ShortAnswerQuestion(modelName, modelImportance, modelTags, modelChoices, statistic);
         } else {
             throw new IllegalValueException(INVALID_QUESTION_TYPE_MESSAGE);
         }
+        if (!question.isValidQuestion()) {
+            throw new IllegalValueException("Invalid question found: " + question + "\n"
+                    + question.getValidConditions());
+        }
+        return question;
     }
 
 }

@@ -1,6 +1,8 @@
 package seedu.smartnus.logic.parser;
 
+import static seedu.smartnus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.smartnus.logic.parser.ParserUtil.arePrefixesPresent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,12 @@ public class StatCommandParser implements Parser<StatCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TAG);
 
+        String trimmedArgs = args.trim();
+        if (!trimmedArgs.isEmpty() && !arePrefixesPresent(argMultimap, PREFIX_TAG)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    StatCommand.MESSAGE_NO_TAG_PREFIX + StatCommand.MESSAGE_USAGE));
+        }
+
         ArrayList<Predicate<TagStatistic>> predicates = new ArrayList<>();
 
         setTagsPredicate(argMultimap, predicates);
@@ -31,7 +39,6 @@ public class StatCommandParser implements Parser<StatCommand> {
         return new StatCommand(predicates);
     }
 
-    // TODO: This is similar to the one in find command, should refactor
     private void setTagsPredicate(ArgumentMultimap argMultimap, ArrayList<Predicate<TagStatistic>> predicates)
             throws ParseException {
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));

@@ -1,6 +1,7 @@
 package seedu.smartnus.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.smartnus.commons.core.Messages.MESSAGE_NOT_IN_QUESTION_PANEL;
 import static seedu.smartnus.logic.commands.CommandUtil.QUESTION_KEYWORD;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_IMPORTANCE;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_TAG;
@@ -11,8 +12,10 @@ import java.util.Set;
 import java.util.function.Predicate;
 
 import seedu.smartnus.commons.core.Messages;
+import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.ui.panel.QuestionListPanel;
 
 /**
  * Finds and lists all questions in SmartNUS whose name contains any of the argument keywords,
@@ -37,6 +40,11 @@ public class FindCommand extends Command {
     public static final String MESSAGE_NO_FIELDS_SPECIFIED = "You must specify at least one keyword or parameter"
             + " to filter questions by.";
 
+    public static final String MESSAGE_INVALID_KEYWORDS =
+            "Valid keywords must include characters that are considered part of a word."
+            + " The following characters commonly used to separate words"
+            + " are NOT considered part of a word: ,.?!:;*()[]{}\"";
+
     private final Set<Predicate<Question>> predicateSet = new HashSet<>();
     private final Predicate<Question> combinedPredicate;
 
@@ -53,8 +61,13 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (!model.getPanel().equals(QuestionListPanel.QUESTION_PANEL)) {
+            throw new CommandException(MESSAGE_NOT_IN_QUESTION_PANEL);
+        }
+
         model.updateFilteredQuestionList(combinedPredicate);
         model.setPanel(QUESTION_KEYWORD);
         return new CommandResult(

@@ -238,7 +238,7 @@ public class ParserUtil {
      */
     public static Set<Choice> parseTrueFalseAnswer(String answer) throws ParseException {
         requireNonNull(answer);
-        String trimmedAnswer = answer.trim();
+        String trimmedAnswer = answer.trim().toUpperCase();
         boolean isAnswerTrue = trimmedAnswer.equals(ANSWER_TRUE);
         boolean isAnswerFalse = trimmedAnswer.equals(ANSWER_FALSE);
         if (!isAnswerTrue && !isAnswerFalse) {
@@ -297,12 +297,15 @@ public class ParserUtil {
      *
      * @param answer Choice that contains raw user input as the title.
      * @return SAQ Choice with parsed title that does not contain keyword prefixes.
-     * @throws ParseException
      */
-    public static Set<Choice> parseEditSaqAnswer(Choice answer) throws ParseException {
+    public static Set<Choice> parseEditSaqAnswer(Choice answer) {
         String answerString = answer.getTitle();
         ArgumentMultimap keywordsMultimap = ArgumentTokenizer.tokenize(" " + answerString, PREFIX_KEYWORD);
-        answer = ParserUtil.getChoiceWithKeywords(answerString, keywordsMultimap);
+        try {
+            answer = ParserUtil.getChoiceWithKeywords(answerString, keywordsMultimap);
+        } catch (ParseException e) {
+            // empty catch block as question to be edited may not be an SAQ and may not require keywords
+        }
         Set<Choice> choices = new HashSet<>();
         choices.add(answer);
         return choices;
@@ -326,14 +329,19 @@ public class ParserUtil {
         List<String> keywordsList = keywordsMultimap.getAllValues(PREFIX_KEYWORD);
         checkEmptyKeywords(keywordsList);
 
-        for (String keywords : keywordsList) {
-            String[] singleWords = keywords.split("\\W+"); // keywords will be stored without punctuation
-            for (String word : singleWords) {
+        for (String inputAfterKeywordPrefix : keywordsList) {
+            boolean validKeywordAdded = false;
+            String[] possibleKeywords = inputAfterKeywordPrefix.split("[^a-zA-Z0-9]+");
+            for (String word : possibleKeywords) {
                 if (word.isBlank()) {
                     continue;
                 }
                 parsedKeywords.add(word.toLowerCase());
-                break; // only the first non-empty word specified after prefix is a keyword
+                validKeywordAdded = true;
+                break; // only the first non-empty, alphanumeric part specified after k/ is a keyword
+            }
+            if (!validKeywordAdded) {
+                throw new ParseException(MESSAGE_KEYWORD_CONSTRAINTS);
             }
         }
         return new Choice(answerTitleWithoutPrefix, true, parsedKeywords);

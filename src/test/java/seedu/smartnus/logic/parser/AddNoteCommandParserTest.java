@@ -32,31 +32,5 @@ public class AddNoteCommandParserTest {
         // note prefix missing
         assertParseFailure(parser, INVALID_NOTE_DESC , expectedMessage);
     }
-
-    /*
-    @Test
-    void parse_fieldsInvalid_failure() {
-        // TODO: Add tests for duplicate options and answer
-        // invalid answer
-        assertParseFailure(parser, QUESTION_DESC_1 + OPTIONS_DESC_1 + INVALID_ANSWER_DESC + IMPORTANCE_DESC_1,
-                Choice.MESSAGE_CONSTRAINTS);
-        // 1 invalid option with 2 valid
-        assertParseFailure(parser, QUESTION_DESC_1 + OPTION_DESC_1 + INVALID_OPTION_DESC + OPTION_DESC_3
-                + ANSWER_DESC_1 + IMPORTANCE_DESC_1, Choice.MESSAGE_CONSTRAINTS);
-        // not enough options
-        assertParseFailure(parser,
-                QUESTION_DESC_1 + OPTION_DESC_1 + OPTION_DESC_3 + ANSWER_DESC_1 + IMPORTANCE_DESC_1,
-                MultipleChoiceQuestion.MESSAGE_INCORRECT_NUMBER_OF_CHOICES);
-        // too many options
-        assertParseFailure(parser, QUESTION_DESC_1 + ANSWER_DESC_1 + IMPORTANCE_DESC_1 + OPTIONS_DESC_2,
-                MultipleChoiceQuestion.MESSAGE_INCORRECT_NUMBER_OF_CHOICES);
-        // invalid question
-        assertParseFailure(parser, INVALID_QUESTION_DESC + OPTIONS_DESC_1 + ANSWER_DESC_1 + IMPORTANCE_DESC_1,
-                Name.MESSAGE_CONSTRAINTS);
-        // invalid importance
-        assertParseFailure(parser,
-                QUESTION_DESC_1 + OPTIONS_DESC_1 + ANSWER_DESC_1 + INVALID_IMPORTANCE_DESC,
-                Importance.MESSAGE_CONSTRAINTS);
-    }
-    */
+    // TODO: Add tests for duplicate options and answer
 }

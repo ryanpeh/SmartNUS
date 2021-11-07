@@ -50,7 +50,7 @@ Here's a quick summary of the available sections in the user guide:
   e.g `qn/QUESTION [t/TAG]` can be used as `qn/What is 1+1? t/math` or as `qn/What is 1+1?`.
 
 * Items with `…`​ after them can be used multiple times.<br>
-  e.g. `/opt…​` can be used as `opt/ OPTION1`, `opt/ OPTION1 opt/ OPTION2` etc.
+  e.g. `opt/…​` can be used as `opt/ OPTION1`, `opt/ OPTION1 opt/ OPTION2` etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `ans/ ANSWER opt/ OPTION1`, `opt/ OPTION1 ans/ ANSWER` is also acceptable.
@@ -75,7 +75,7 @@ Here's a quick summary of the available sections in the user guide:
 1. Copy the file to the folder you want to use as the _home folder_ for your SmartNUS app.
 
 1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/UiMainWindow.png)
+   ![Ui](images/user-guide/UiMainWindow.png)
 
 <!-- 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
@@ -104,7 +104,7 @@ This section lists all the commands SmartNUS supports, with information about th
 
 Shows a message explaning how to access the help page.
 
-![help message](images/helpMessage.png)
+![help message](images/user-guide/helpMessage.png)
 
 Format: `help`
 
@@ -113,7 +113,7 @@ Format: `help`
 
 Adds a multiple choice question to the question bank.
 
-Format: `mcq qn/QUESTION opt/OPTION1 opt/OPTION2 opt/OPTION3 ans/ANSWER i/IMPORTANCE`
+Format: `mcq qn/QUESTION opt/OPTION1 opt/OPTION2 opt/OPTION3 ans/ANSWER i/IMPORTANCE [t/TAG]`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A multiple choice question must have exactly three incorrect options and one correct answer
@@ -126,7 +126,7 @@ Examples:
 
 Adds a true false question to the question bank.
 
-Format: `tfq qn/QUESTION ans/ANSWER i/IMPORTANCE`
+Format: `tfq qn/QUESTION ans/ANSWER i/IMPORTANCE [t/TAG]`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A true false question can only have one answer, either "T" or "F"
@@ -142,22 +142,29 @@ Adds a short answer question to the question bank.
 Format: `saq qn/QUESTION ans/ANSWER INCLUDING KEYWORDS k/KEYWORD... i/IMPORTANCE [t/TAG]...`
 
 * Each short answer question must have exactly one answer.
-* An answer must include at least one keyword which is specified using `k/` (e.g. `ans/k/powerhouse of the k/cell`).
+* The answer must include at least one keyword which is specified using `k/` (e.g. `ans/k/powerhouse of the k/cell`).
+* Note that keywords MUST be specified within the answer to be recognised as keywords 
+  * `qn/my question? k/KEYWORDOUTSIDEANSWER ans/my answer i/2` is an invalid command.
+  * See examples given below for valid commands to try out.
+* Keywords are stored in lowercase. Specifying `k/ABC` and `k/abc` both result in "abc" being stored as the keyword. However,
+  the answer will be displayed with the correct case ("ABC" and "abc" respectively).
 * During a [quiz](#start-a-quiz-quiz), any answer that contains all the keywords (case-insensitive)
-in any order is considered correct (e.g. "datastructuresandalgorithms" will be a correct answer
-to a question whose keywords are "data" and "structure").
-* Keywords should be alphanumeric. If they include punctuation (e.g. `k/Harry's!'@#^e,acy?`), 
-only the first alphanumeric part of the word before any punctuation mark will be taken as the keyword i.e. "Harry".
+in any order is considered correct (e.g. "DatAstrUcturesandalgorithms" will be a correct answer
+to a question whose keywords are "structure" and "data").
+* Keywords are made up of alphanumeric characters.
+  When specifying a keyword that includes non-alphanumeric characters
+  (e.g. `k/"harry, !'abc@#^e,y?`), only the first valid part of the word
+  (continuous string of alphanumeric characters) will be taken as the keyword i.e. "harry".
 
 Examples:
-* `saq qn/You're a wizard, Harry. Which book is this quote from? ans/k/Harry k/Potter and the Philosopher's Stone i/2`
-  * Answer will be displayed as "Harry Potter and the Philosopher's Stone".
-  * During a [quiz](#start-a-quiz-quiz), 
-    * correct answers include: "haRRy PoTtEr", "Harry Potter and the Philosopher's Stone",
-  "potter harry", "harrypotter" and "wordthatincludesharryandpotter"
-    * incorrect answers: "Harry", "Potter", "harr pottery"
 * `saq qn/What does mRNA stand for? ans/k/messenger k/ribonucleic k/acid i/1`
 * `saq qn/Who wrote The Merchant of Venice? ans/William k/Shakespeare i/2 t/literature t/classics`
+* `saq qn/You're a wizard, Harry. Which book is this quote from? ans/k/Harry k/Potter and the Philosopher's Stone i/2`
+  * Answer is displayed as "Harry Potter and the Philosopher's Stone".
+  * During a [quiz](#start-a-quiz-quiz):
+    * Correct answers include "haRRy PoTtEr", "Harry Potter and the Philosopher's Stone",
+      "potter harry", "harrypotter" and "wordthatincludesharryandpotter".
+    * Incorrect answers include "Potter" and "harr pottery".
 
 #### 4.1.5. List All Items : `list`
 
@@ -223,7 +230,13 @@ Format: `find [KEYWORDS]... [t/TAG]... [i/IMPORTANCE]`
 * At least one of the optional fields to find by must be specified.
 * The search is case-insensitive for both keywords and tags (e.g. `math` will match `MaTH`).
 * Only full words will be matched for both keywords and tags (e.g. `CS2100` will not match `CS210`).
-* Any question that has at least one of the tags **AND** and all the keywords in its title (in any order)
+* The following characters `,.?!:;*"()[]{}` which are commonly used to separate words are not considered part of a word or keyword. 
+Instead, they are considered as word separators similar to a space.
+  * `find *("literature":,;?!)]}` returns the same result as `find literature`.
+  * `find ,:;?(]` is an invalid command as it is the same as finding a blank keyword or only inputting spaces as keywords.
+  * `find first? second (third...)!` is the same as `find first second third`.
+* Hyphenated words are considered as one word (e.g. `find grey-box` will not return a question titled `grey box`).
+* Any question that has at least one of the tags **AND** all the keywords in its title (in any order)
 **AND** the importance specified will be listed.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
@@ -237,9 +250,10 @@ To return to the list of all questions, use the `list question` command.
 </div>
 
 Examples:
-* `find load word t/CS2100 t/MIPS` returns questions tagged with at least one of the tags and that whose title
+* `find load word t/CS2100 t/MIPS i/2` returns questions tagged with at least one of the tags, with importance value 2 and whose title
 includes "load" and "word" in any order.
-  * e.g. A question titled "What is the load word instruction used for?" tagged with only CS2100 will be listed.
+  * e.g. A question titled "What is the load word instruction used for?" tagged with only CS2100 and with an importance value of 2 will be listed.
+* `find java` returns a question titled "How do you output text to the console in Java?" but not a question titled "Javascript is commonly used in web development. True or false?" (since `java` is not a full word match for `javascript`).
 
 <!-- TODO: standardise format, remove params from header, add brief description-->
 #### 4.1.9. Find/Search Stats: `stat [t/TAG]...`
@@ -361,6 +375,7 @@ If your changes to the data file makes its format invalid, SmartNUS will discard
 Action | Format, Examples
 --------|------------------
 **MCQ** | `mcq qn/QUESTION opt/OPTION1 opt/OPTION2 opt/OPTION3 ans/ANSWER i/IMPORTANCE` <br> e.g., `mcq qn/what is 1 + 1? opt/3 opt/1 opt/0 ans/2 i/1`
+**SAQ** | `saq qn/QUESTION ans/ANSWER INCLUDING KEYWORDS k/KEYWORD... i/IMPORTANCE [t/TAG]...` <br> e.g., `saq qn/what is Shakespeare's first name? ans/k/William i/1`
 **Delete** | `delete question QUESTION_INDEX` OR `delete note NOTE_INDEX`<br> e.g., `delete question 1`, `delete note 2`
 **Quiz** | `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX...]` <br>
 **Exit** | `exit` <br>

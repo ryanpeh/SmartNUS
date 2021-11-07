@@ -3,9 +3,9 @@ package seedu.smartnus.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.smartnus.testutil.Assert.assertThrows;
-import static seedu.smartnus.testutil.TypicalQuestions.ALICE;
-import static seedu.smartnus.testutil.TypicalQuestions.HOON;
-import static seedu.smartnus.testutil.TypicalQuestions.IDA;
+import static seedu.smartnus.testutil.TypicalQuestions.MCQ_QUESTION_1;
+import static seedu.smartnus.testutil.TypicalQuestions.SAQ_QUESTION_3;
+import static seedu.smartnus.testutil.TypicalQuestions.STORAGE_QUESTION_2;
 import static seedu.smartnus.testutil.TypicalSmartNus.getTypicalSmartNus;
 
 import java.io.IOException;
@@ -73,14 +73,14 @@ public class JsonSmartNusStorageTest {
         assertEquals(original, new SmartNus(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addQuestion(HOON);
-        original.removeQuestion(ALICE);
+        original.addQuestion(STORAGE_QUESTION_2);
+        original.removeQuestion(MCQ_QUESTION_1);
         jsonSmartNusStorage.saveSmartNus(original, filePath);
         readBack = jsonSmartNusStorage.readSmartNus(filePath).get();
         assertEquals(original, new SmartNus(readBack));
 
         // Save and read without specifying file path
-        original.addQuestion(IDA);
+        original.addQuestion(SAQ_QUESTION_3);
         jsonSmartNusStorage.saveSmartNus(original); // file path not specified
         readBack = jsonSmartNusStorage.readSmartNus().get(); // file path not specified
         assertEquals(original, new SmartNus(readBack));
@@ -107,5 +107,25 @@ public class JsonSmartNusStorageTest {
     @Test
     public void saveSmartNus_nullFilePath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> saveSmartNus(new SmartNus(), null));
+    }
+
+    @Test
+    public void readSmartNus_invalidMcq_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readSmartNus("invalidMcqSmartNus.json"));
+    }
+
+    @Test
+    public void readSmartNus_invalidTfq_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readSmartNus("invalidTfqSmartNus.json"));
+    }
+
+    @Test
+    public void readSmartNus_invalidSaq_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readSmartNus("invalidSaqSmartNus.json"));
+    }
+
+    @Test
+    public void readSmartNus_nullInJsonFile_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readSmartNus("onlyNullValue.json"));
     }
 }

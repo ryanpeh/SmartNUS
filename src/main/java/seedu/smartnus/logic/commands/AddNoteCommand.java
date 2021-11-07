@@ -1,16 +1,19 @@
 package seedu.smartnus.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.smartnus.commons.core.Messages.MESSAGE_NOT_IN_NOTE_PANEL;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_NOTE;
 
 import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.note.Note;
+import seedu.smartnus.ui.panel.NoteListPanel;
 
 public class AddNoteCommand extends Command {
 
     public static final String COMMAND_WORD = "note";
     public static final String MESSAGE_SUCCESS = "New note added: %s";
+    public static final String MESSAGE_DUPLICATE_NOTE = "This note already exists in SmartNUS";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a note to SmartNUS. "
             + "Parameters: "
@@ -31,7 +34,14 @@ public class AddNoteCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        //Todo: add a check if note already exists
+
+        if (!model.getPanel().equals(NoteListPanel.NOTE_PANEL)) {
+            throw new CommandException(MESSAGE_NOT_IN_NOTE_PANEL);
+        }
+
+        if (model.hasNote(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_NOTE);
+        }
 
         model.addNote(toAdd);
 

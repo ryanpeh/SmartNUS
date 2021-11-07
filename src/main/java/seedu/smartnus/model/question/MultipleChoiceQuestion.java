@@ -47,6 +47,11 @@ public class MultipleChoiceQuestion extends Question {
     }
 
     @Override
+    public String getValidConditions() {
+        return MESSAGE_VALID_MCQ;
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (!(other instanceof MultipleChoiceQuestion)) {
             return false;

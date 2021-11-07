@@ -9,7 +9,6 @@ import seedu.smartnus.model.Model;
 import seedu.smartnus.model.quiz.QuizManager;
 import seedu.smartnus.model.quiz.exceptions.QuizOutOfBoundException;
 
-
 public class PrevQuestionCommand extends Command {
     public static final String COMMAND_WORD = "prev";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Quizzes the previous question, takes no arguments";
@@ -37,8 +36,8 @@ public class PrevQuestionCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        // TODO: In future, check if the attributes (if any) for the QuizCommand are the same
         return other == this // short circuit if same object
-                || other instanceof PrevQuestionCommand; // instanceof handles nulls
+                || (other instanceof PrevQuestionCommand // instanceof handles nulls
+                && quizManager.equals(((PrevQuestionCommand) other).quizManager));
     }
 }

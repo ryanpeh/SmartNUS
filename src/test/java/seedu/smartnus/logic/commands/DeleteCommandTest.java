@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.smartnus.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.smartnus.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.smartnus.logic.commands.CommandTestUtil.showQuestionAtIndex;
+import static seedu.smartnus.testutil.Assert.assertThrows;
 import static seedu.smartnus.testutil.TypicalIndexes.INDEX_FIRST_QUESTION;
 import static seedu.smartnus.testutil.TypicalIndexes.INDEX_SECOND_QUESTION;
 import static seedu.smartnus.testutil.TypicalIndexes.INDEX_THIRD_QUESTION;
@@ -14,10 +15,13 @@ import org.junit.jupiter.api.Test;
 
 import seedu.smartnus.commons.core.Messages;
 import seedu.smartnus.commons.core.index.Index;
+import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.ModelManager;
+import seedu.smartnus.model.ModelStubTagPanel;
 import seedu.smartnus.model.UserPrefs;
 import seedu.smartnus.model.question.Question;
+
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -107,6 +111,20 @@ public class DeleteCommandTest {
 
         // different index, deleteItems -> returns false
         assertFalse(deleteFirstCommand.equals(deleteFourthCommand));
+    }
+
+    @Test
+    public void delete_wrongPanel() {
+        // Delete notes
+        ModelStubTagPanel model = new ModelStubTagPanel();
+        DeleteCommand noteCmd = new DeleteCommand("note", INDEX_FIRST_QUESTION);
+        assertThrows(CommandException.class,
+                Messages.MESSAGE_NOT_IN_NOTE_PANEL, () -> noteCmd.execute(model));
+
+        // Delete question
+        DeleteCommand qnCmd = new DeleteCommand("question", INDEX_FIRST_QUESTION);
+        assertThrows(CommandException.class,
+                Messages.MESSAGE_NOT_IN_QUESTION_PANEL, () -> qnCmd.execute(model));
     }
 
     /**

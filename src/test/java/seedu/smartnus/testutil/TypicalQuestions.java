@@ -1,11 +1,23 @@
 package seedu.smartnus.testutil;
 
-import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_IMPORTANCE_AMY;
-import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_IMPORTANCE_BOB;
-import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_ANSWER_1;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_ANSWER_2;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_IMPORTANCE_1;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_IMPORTANCE_2;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_OPTION_1;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_OPTION_3;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_OPTION_4;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_QUESTION_1;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_QUESTION_2;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_QUESTION_3;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_QUESTION_4;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_QUESTION_5;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_QUESTION_6;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_QUESTION_7;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_1;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_2;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_3;
+import static seedu.smartnus.logic.commands.CommandTestUtil.VALID_TAG_4;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,66 +27,88 @@ import java.util.List;
 import seedu.smartnus.model.SmartNus;
 import seedu.smartnus.model.choice.Choice;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.model.statistic.Statistic;
 
 /**
  * A utility class containing a list of {@code Question} objects to be used in tests.
  */
 public class TypicalQuestions {
-    public static final int MCQ_ONE_BASED_INDEX = 8;
-    public static final int TF_ONE_BASED_INDEX = 9;
-    public static final int SAQ_ONE_BASED_INDEX = 10;
+    public static final int MCQ_ONE_BASED_INDEX = 6;
+    public static final int TF_ONE_BASED_INDEX = 7;
+    public static final int SAQ_ONE_BASED_INDEX = 8;
 
-    public static final Question ALICE = new QuestionBuilder().withName("Alice Pauline")
-            .withImportance("1")
-            .withTags("friends").build();
-    public static final Question BENSON = new QuestionBuilder().withName("Benson Meier")
-            .withImportance("2")
-            .withTags("owesMoney", "friends")
+    public static final Question MCQ_QUESTION_1 = new QuestionBuilder().withName(VALID_QUESTION_2)
+            .withImportance(VALID_IMPORTANCE_1)
+            .withChoices(new Choice(VALID_OPTION_1, false), new Choice(VALID_OPTION_3, false),
+                    new Choice(VALID_OPTION_4, false), new Choice(VALID_ANSWER_1, true))
+            .build();
+    public static final Question MCQ_QUESTION_2 = new QuestionBuilder().withName(VALID_QUESTION_3)
+            .withChoices(new Choice(VALID_OPTION_1, false), new Choice(VALID_OPTION_3, false),
+                    new Choice(VALID_OPTION_4, false), new Choice(VALID_ANSWER_2, true))
+            .withImportance(VALID_IMPORTANCE_2)
             .withChoices(new Choice("good guy", true),
                     new Choice("wrong good guy", false),
                     new Choice("wrong 2", false),
                     new Choice("wrong 3", false)).build();
-    public static final Question MCQ_QUESTION = new QuestionBuilder().withName("What is 1+1?")
-            .withImportance("1")
-            .withChoices(new Choice("2", true),
-                    new Choice("1", false), new Choice("4", false),
-                    new Choice("3", false)).build();
-    public static final Question TF_QUESTION = new QuestionBuilder().withName("Is 1+1 = 2?")
-            .withImportance("2")
+    public static final Question MCQ_QUESTION_3 = new QuestionBuilder().withName(VALID_QUESTION_1)
+            .withImportance(VALID_IMPORTANCE_1)
+            .withChoices(new Choice(VALID_ANSWER_1, true),
+                    new Choice(VALID_OPTION_1, false), new Choice(VALID_OPTION_4, false),
+                    new Choice(VALID_OPTION_3, false))
+            .withTags(VALID_TAG_1)
+            .withStatistic(new Statistic(2, 4)).build();
+    public static final Question TF_QUESTION_1 = new QuestionBuilder().withName(VALID_QUESTION_5)
+            .withImportance(VALID_IMPORTANCE_2)
             .withChoices(new Choice(Choice.TRUE_CHOICE_TITLE, true),
-                    new Choice(Choice.FALSE_CHOICE_TITLE, false)).buildTrueFalse();
-    public static final Question SAQ_QUESTION = new QuestionBuilder()
+                    new Choice(Choice.FALSE_CHOICE_TITLE, false))
+            .withTags(VALID_TAG_2)
+            .withStatistic(new Statistic(1, 1)).buildTrueFalse();
+    public static final Question TF_QUESTION_2 = new QuestionBuilder().withName(VALID_QUESTION_6)
+            .withChoices(new Choice(Choice.TRUE_CHOICE_TITLE, false),
+                    new Choice(Choice.FALSE_CHOICE_TITLE, true))
+            .withImportance(VALID_IMPORTANCE_2)
+            .buildTrueFalse();
+    public static final Question TF_QUESTION_3 = new QuestionBuilder().withName("Is MIPS CISC?")
+            .withChoices(new Choice(Choice.TRUE_CHOICE_TITLE, false),
+                    new Choice(Choice.FALSE_CHOICE_TITLE, true))
+            .withImportance(VALID_IMPORTANCE_1)
+            .buildTrueFalse();
+    public static final Question SAQ_QUESTION_1 = new QuestionBuilder()
             .withName("Harry, you're a wizard. Where is this quote from?")
-            .withImportance("2")
+            .withImportance(VALID_IMPORTANCE_2)
             .withChoices(new Choice("Harry Potter and the Philosopher's Stone",
                     true, new HashSet<>(List.of("harry", "potter")))).buildSaq();
-    public static final Question CARL = new QuestionBuilder().withName("Carl Kurz").withImportance("3")
-            .build();
-    public static final Question DANIEL = new QuestionBuilder().withName("Daniel Meier").withImportance("1")
-            .withTags("friends").build();
-    public static final Question ELLE = new QuestionBuilder().withName("Elle Meyer").withImportance("2")
-            .build();
-    public static final Question FIONA = new QuestionBuilder().withName("Fiona Kunz").withImportance("3")
-            .build();
-    public static final Question GEORGE = new QuestionBuilder().withName("George Best").withImportance("1")
-            .build();
-
-    // Manually added
-    public static final Question HOON = new QuestionBuilder().withName("Hoon Meier").withImportance("2")
-            .build();
-    public static final Question IDA = new QuestionBuilder().withName("Ida Mueller").withImportance("3")
-            .build();
+    public static final Question SAQ_QUESTION_2 = new QuestionBuilder().withName("Who is harry potter's godfather?")
+            .withImportance(VALID_IMPORTANCE_2)
+            .withChoices(new Choice("Sirius Black",
+                    true, new HashSet<>(List.of("sirius", "black"))))
+            .buildSaq();
+    public static final Question SAQ_QUESTION_3 = new QuestionBuilder()
+            .withName(VALID_QUESTION_7)
+            .withImportance(VALID_IMPORTANCE_2)
+            .withChoices(new Choice("Cedric#12 #!@Diggory(,)><",
+                    true, new HashSet<>(List.of("cedric", "diggory"))))
+            .buildSaq();
+    public static final Question SAQ_QUESTION_4 = new QuestionBuilder()
+            .withName(VALID_QUESTION_1)
+            .withImportance(VALID_IMPORTANCE_1)
+            .withChoices(new Choice("J. K. Rowling", true, new HashSet<>(List.of("rowling"))))
+            .buildSaq();
 
     // Manually added - Question's details found in {@code CommandTestUtil}
-    public static final Question AMY = new QuestionBuilder().withName(VALID_NAME_AMY)
-            .withImportance(VALID_IMPORTANCE_AMY)
-            .withTags(VALID_TAG_FRIEND).build();
-    public static final Question BOB = new QuestionBuilder().withName(VALID_NAME_BOB)
-            .withImportance(VALID_IMPORTANCE_BOB)
-            .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
-            .build();
-
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+    public static final Question STORAGE_QUESTION_1 = new QuestionBuilder().withName(VALID_QUESTION_3)
+            .withImportance(VALID_IMPORTANCE_1)
+            .withChoices(
+                    new Choice(VALID_ANSWER_1, true),
+                    new Choice(VALID_OPTION_1, false),
+                    new Choice(VALID_OPTION_3, false),
+                    new Choice(VALID_OPTION_4, false)).build();
+    public static final Question STORAGE_QUESTION_2 = new QuestionBuilder().withName(VALID_QUESTION_4)
+            .withImportance(VALID_IMPORTANCE_2)
+            .withTags(VALID_TAG_3, VALID_TAG_4)
+            .withChoices(new Choice("Lily Potter",
+                    true, new HashSet<>(List.of("lily", "potter"))))
+            .buildSaq();
 
     private TypicalQuestions() {} // prevents instantiation
 
@@ -90,7 +124,7 @@ public class TypicalQuestions {
     }
 
     public static List<Question> getTypicalQuestions() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE, MCQ_QUESTION,
-                TF_QUESTION, SAQ_QUESTION));
+        return new ArrayList<>(Arrays.asList(MCQ_QUESTION_1, MCQ_QUESTION_2, TF_QUESTION_2, TF_QUESTION_3,
+                SAQ_QUESTION_2, MCQ_QUESTION_3, TF_QUESTION_1, SAQ_QUESTION_1));
     }
 }
