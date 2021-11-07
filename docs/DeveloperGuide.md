@@ -248,6 +248,33 @@ Without saving it in the storage, the user will have to keep changing the theme 
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Find questions feature
+
+The find questions feature allows users to search for `Question`s by three parameters: name, tags and importance.
+
+#### Implementation
+The find questions feature is implemented using `FindCommandParser`, `FindCommand` and `Predicate`s that implement the `Predicate<Question>` interface.
+Given below is a class diagram of the main classes involved in the implementation of this feature.
+
+![Find Command Class Diagram](images/developer-guide/FindClassDiagram.png)
+
+The FindCommandParser parses the user input into predicates that the `Question`s must match to be included in the `FilteredQuestionList`.
+Each condition is represented by a predicate that extends from Predicate<Question>. The three search parameters in the user input, name, tags and importance,
+are parsed and used to create the NameContainsKeywordsPredicate, TagsContainKeywordsPredicate and HasImportancePredicate respectively.
+`NameContainsKeywordsPredicate`: Checks if a `Question`'s `Name` contains all the given keywords
+`TagsContainKeywordsPredicate`: Checks if a `Question` contains at least one of the tags
+`HasImportancePredicate`: Checks if a `Question` has a particular `Importance` value
+
+These predicates are passed from the `FindCommandParser` to the `FindCommand`.
+`FindCommand` composes these predicates into a logical AND of all predicates. When the `FindCommand` is executed,
+it updates the `FilteredQuestionList` with `Question`s that match this composed predicate, and hence satisfy all the
+user’s search conditions. Given below is a sequence diagram that shows the execution of a FindCommand when a user
+executes `"find class t/CS2103T"`.
+
+![Find Command Sequence Diagram](images/developer-guide/FindSequenceDiagram.png)
+
+
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
