@@ -67,7 +67,13 @@ public class StatisticTest {
     public void isValidStatistic_returnsFalse() {
         Statistic statistic = new Statistic();
 
-        statistic.addAttempt(2);
+        statistic.addAttempt(-1);
+        assertFalse(statistic.isValidStatistic());
+
+        statistic.addAttempt(3);
+        statistic.addCorrect(-1);
+        assertFalse(statistic.isValidStatistic());
+
         statistic.addCorrect(5);
         assertFalse(statistic.isValidStatistic());
     }

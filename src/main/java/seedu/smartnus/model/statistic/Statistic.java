@@ -90,7 +90,9 @@ public class Statistic implements Comparable<Statistic> {
      * @return If the statistic is valid.
      */
     public boolean isValidStatistic() {
-        return correctCount <= attemptCount;
+        return correctCount <= attemptCount
+                && correctCount >= 0
+                && attemptCount >= 0;
     }
 
     @Override
