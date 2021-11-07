@@ -1,12 +1,14 @@
 package seedu.smartnus.logic.commands.questions;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.smartnus.commons.core.Messages.MESSAGE_NOT_IN_QUESTION_PANEL;
 
 import seedu.smartnus.logic.commands.Command;
 import seedu.smartnus.logic.commands.CommandResult;
 import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.question.Question;
+import seedu.smartnus.ui.panel.QuestionListPanel;
 
 public class AddQuestionCommand extends Command {
 
@@ -25,6 +27,10 @@ public class AddQuestionCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (!model.getPanel().equals(QuestionListPanel.QUESTION_PANEL)) {
+            throw new CommandException(MESSAGE_NOT_IN_QUESTION_PANEL);
+        }
 
         if (model.hasQuestion(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_QUESTION);

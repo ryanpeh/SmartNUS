@@ -179,7 +179,7 @@ Deletes an existing question or note from the question bank or note list.
 Format: `delete question QUESTION_INDEX` OR `delete note NOTE_INDEX`
 
 * Deletes the question or note with the specified `QUESTION_INDEX` or `NOTE_INDEX`.
-* The `QUESTION_INDEX` or `NOTE_INDEX` refers to the index number shown in the displayed list. The index **must be a positive integer** between 1 and 2147483647 (both inclusive) 
+* The `QUESTION_INDEX` or `NOTE_INDEX` refers to the index number shown in the displayed list. The index **must be a positive integer** from 1 to 2147483647
 
 #### 4.1.7. Edit a Question and Answers: `edit`
 
@@ -269,12 +269,14 @@ Examples:
 
 <!-- TODO: add brief description before format to standardise format-->
 #### 4.1.10. Start a Quiz: `quiz`
-Format: `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX]`
+Format: `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX...]`
 
 * If no parameters are passed, a quiz session will be created using all the questions in the question list.
 * LIMIT is a positive, non-zero integer that will limit the number of questions in the quiz.
   * If the total number of questions is less than the limit, it will just give all the questions.
 * TAG can be used to filter the quiz to only give questions with the tags specified, works with limit.
+* INDEX can be used to filter the quiz to only give questions with the specified question numbers. 
+  The index **must be a positive integer** from 1 to 2147483647
 
 Examples:
 * `quiz lim/5 t/CS2100 t/MIPS` quiz will select questions tagged with at least one of the tags, limited to 5 questions.
@@ -375,7 +377,7 @@ Action | Format, Examples
 **MCQ** | `mcq qn/QUESTION opt/OPTION1 opt/OPTION2 opt/OPTION3 ans/ANSWER i/IMPORTANCE` <br> e.g., `mcq qn/what is 1 + 1? opt/3 opt/1 opt/0 ans/2 i/1`
 **SAQ** | `saq qn/QUESTION ans/ANSWER INCLUDING KEYWORDS k/KEYWORD... i/IMPORTANCE [t/TAG]...` <br> e.g., `saq qn/what is Shakespeare's first name? ans/k/William i/1`
 **Delete** | `delete question QUESTION_INDEX` OR `delete note NOTE_INDEX`<br> e.g., `delete question 1`, `delete note 2`
-**Quiz** | `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX]` <br>
+**Quiz** | `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX...]` <br>
 **Exit** | `exit` <br>
 **Help** | `help` <br>
 

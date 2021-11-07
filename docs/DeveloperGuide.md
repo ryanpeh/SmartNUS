@@ -164,6 +164,36 @@ Types of Questions currently supported by SmartNUS, and their conditions for val
 The `Note` class is a class that stores a text.
 The note of a `Note` depends on whether the note starts without a whitespace or not.
 
+## Statistic Class
+The `Statistic` class is a class that keeps track of the user performance in answering the questions. 
+The performance is tracked by:
+* Number of attempts
+* Number of correct attempts
+```
+performance = number of correct attempts / number of attempts
+```
+
+Here is a sequence diagram of answering a question correctly:
+
+![Statistic Sequence Diagram](images/developer-guide/StatisticSequenceDiagram.png)
+
+During a quiz, when a user answers a question, the `Statistic` of the `Question` is updated.
+It will increment the number of attempts by 1 and also increment the number of correct attempts by 1
+given that the user answered correctly. If the user does not answer correctly, the number of correct attempts does not increase.
+Below is an activity diagram to show the process:
+
+![Statistic Activity Diagram](images/developer-guide/StatisticActivityDiagram.png)
+
+### TagStatistic Class
+The `TagStatistic` class inherits from the `Statistic` class. The `TagStatistic` class is specifically used to keep track of the statistics of each tags.
+
+Here is the class diagram for `Statistic` and `TagStatistic`:
+
+![Statistic and TagStatistic Class Diagram](images/developer-guide/StatisticClassDiagram.png)
+
+
+
+
 ## QuizManager class
 
 [//]: # (TODO: Insert class diagram)
@@ -191,6 +221,26 @@ The `Storage` component,
 ### Common classes
 
 Classes used by multiple components are in the `seedu.smartnus.commons` package.
+
+### Theme Class
+The `Theme` class is a class that stores the `css` file of a theme.
+Currently, there are two available themes: `LightTheme` and `DarkTheme`which inherits from `Theme`:
+
+![Theme Class Diagram](images/developer-guide/ThemeClassDiagram.png)
+
+The `Theme` class is used by the `UI` component to update the theme and is stored in the `Model` component as a user preference.
+The theme can be changed by executing the `ThemeCommand`.
+
+Here is a sequence diagram when the `ThemeCommand` is executed with a given `Theme` object called `theme` inside the `ThemeCommand`:
+
+![Theme Sequence Diagram](images/developer-guide/ThemeSequenceDiagram.png)
+
+Once a `Theme` is kept inside the `Model`, the `UI` component can fetch the `Theme` and render it accordingly:
+
+![UI Theme Sequence Diagram](images/developer-guide/UiThemeSequenceDiagram.png)
+
+The reason why a `Theme` is kept inside the `Model`'s `UserPrefs` is because it allows the current theme to be saved in the storage as a user preference.
+Without saving it in the storage, the user will have to keep changing the theme every time the user opens the app.
 
 --------------------------------------------------------------------------------------------------------------------
 
