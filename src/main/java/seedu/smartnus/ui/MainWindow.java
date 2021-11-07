@@ -194,7 +194,11 @@ public class MainWindow extends UiPart<Stage> {
     }
 
 
+    /**
+     * Sets the panel (question list, note list, or tag list)
+     */
     public void setPanel() {
+
         switch (logic.getPanel()) {
         case QuestionListPanel.QUESTION_PANEL:
             panelManager.showPanel(questionListPanel);
