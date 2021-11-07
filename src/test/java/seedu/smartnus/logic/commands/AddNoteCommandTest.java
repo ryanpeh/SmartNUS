@@ -48,7 +48,7 @@ public class AddNoteCommandTest {
     }
 
     @Test
-    public void execute_inWrongPanel() throws Exception {
+    public void execute_inWrongPanel_throwsException() {
         ModelStubTagPanel modelStub = new ModelStubTagPanel();
         Note validNote = new NoteBuilder().build();
 
