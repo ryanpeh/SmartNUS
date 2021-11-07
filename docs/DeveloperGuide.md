@@ -288,9 +288,48 @@ All features that have to do with the quiz.
 
 #### Starting a quiz
 
-##### Overview
-
 The start quiz feature allows users to start a quiz from the main window.
+
+##### Implementation
+
+The quiz feature is facilitated by `MainWindow`, `LogicManager`, `SmartNusParser` and `QuizCommand`. Given below is an example usage scenario of how the start quiz mechanism behaves at each step.
+
+1. User input from `MainWindow` class in the Ui component is passed to the `LogicManager` to execute.
+2. `LogicManager` will then call `SmartNusParser`, which will parse the user input to return a `QuizCommandParser`.
+3. Once parsed, `QuizCommandParser` will return a `QuizCommand`, and when executed, will update the questions available in the model with the questions to be displayed in the quiz as well as return a `CommandResult` that indicates to start the quiz.
+4. The `CommandResult` is then returned back to `MainWindow` which will then create a new `QuizWindow` to be displayed.
+
+Below is the sequence diagram to show how the quiz is started.
+<!-- TODO: Insert quiz diagram -->
+
+#### Parsing of user input
+
+As different commands are available to the user at the `QuizWindow` and the `MainWindow`, it is necessary to determine which commands are valid for the user to execute based on which window the user is at.
+
+##### Design considerations
+
+**Aspect: How commands are determined to be valid for each mode:**
+
+* **Alternative 1 (current choice):** Command Parsers
+  * Pros: Easy to implement.
+  * Cons: May have performance issues in terms of memory usage.
+
+* **Alternative 2:** Saves the entire address book.
+  * Pros: Easy to implement.
+  * Cons: May have performance issues in terms of memory usage.
+
+#### Answering of questions
+
+The answering of questions feature allows users to select their desired choice for questions during a quiz.
+
+##### Implementation
+ Given below is an example usage scenario of how the mechanism of answering a multiple choice question behaves at each step.
+
+1. User input and the current `QuizManager` object are passed to the `LogicManager` to execute.
+2. `LogicManager` will then call `QuizInputParser`, which will identify type of the current `Question` from `QuizManager`, which will return a `AnswerMcqCommandParser`.
+3. Once parsed, `QuizCommandParser` will return a `QuizCommand`, and when executed, will update the questions available in the model with the questions to be displayed in the quiz as well as return a `CommandResult` that indicates to start the quiz.
+4. The `CommandResult` is then returned back to `MainWindow` which will then create a new `QuizWindow` to be displayed.
+
 
 
 --------------------------------------------------------------------------------------------------------------------
