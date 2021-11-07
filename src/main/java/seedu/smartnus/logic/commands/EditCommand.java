@@ -44,7 +44,8 @@ public class EditCommand extends Command {
             + "[" + PREFIX_ANSWER + "ANSWER] "
             + "[" + PREFIX_OPTION + "OPTION]... \n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_IMPORTANCE + "3 ";
+            + PREFIX_IMPORTANCE + "3 "
+            + PREFIX_TAG + "CS2103T ";
 
     public static final String MESSAGE_UNRECOGNISED_QUESTION_TYPE = "Unrecognised question type to edit.";
     public static final String MESSAGE_EDIT_QUESTION_SUCCESS = "Edited Question: %1$s";
@@ -191,9 +192,9 @@ public class EditCommand extends Command {
         private Name name;
         private Importance importance;
         private Set<Tag> tags;
-        private Set<Choice> wrongChoices;
-        private Choice answer;
-        private Set<Choice> parsedTrueFalseChoices;
+        private Set<Choice> wrongChoices; // options specified after opt/ that do not need additional parsing
+        private Choice answer; // answer specified after ans/ that does not need additional parsing
+        private Set<Choice> parsedTfqChoices;
         private Set<Choice> parsedSaqChoices;
 
         public EditQuestionDescriptor() {}
@@ -208,7 +209,7 @@ public class EditCommand extends Command {
             setTags(toCopy.tags);
             setWrongChoices(toCopy.wrongChoices);
             setAnswer(toCopy.answer);
-            setTfqChoices(toCopy.parsedTrueFalseChoices);
+            setTfqChoices(toCopy.parsedTfqChoices);
             setSaqChoices(toCopy.parsedSaqChoices);
         }
 
@@ -278,11 +279,11 @@ public class EditCommand extends Command {
         }
 
         public void setTfqChoices(Set<Choice> choices) {
-            parsedTrueFalseChoices = (choices != null) ? new HashSet<>(choices) : null;
+            parsedTfqChoices = (choices != null) ? new HashSet<>(choices) : null;
         }
 
         public Optional<Set<Choice>> getTfqChoices() {
-            return (parsedTrueFalseChoices != null) ? Optional.of(Collections.unmodifiableSet(parsedTrueFalseChoices))
+            return (parsedTfqChoices != null) ? Optional.of(Collections.unmodifiableSet(parsedTfqChoices))
                     : Optional.empty();
         }
 

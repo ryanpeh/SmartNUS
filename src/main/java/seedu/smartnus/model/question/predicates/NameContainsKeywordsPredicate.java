@@ -10,7 +10,7 @@ import seedu.smartnus.commons.util.StringUtil;
 import seedu.smartnus.model.question.Question;
 
 /**
- * Tests that a {@code Question}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Question}'s {@code Name} matches all the keywords given.
  */
 public class NameContainsKeywordsPredicate implements Predicate<Question> {
     private final List<String> keywords;
