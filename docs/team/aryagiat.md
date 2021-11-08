@@ -33,13 +33,14 @@ Here are the things I have done in this project:
 
 * **Documentation**:
     * User Guide:
-        * Refactored the user guide from the previous address book app version to the review app version
+        * Refactored the user guide from the previous address book app version to the review app version. This includes updating the `mcq`, `edit`, `delete`
         * Added documentation for the features `list`, `theme`, and get started section ([\#46](https://github.com/AY2122S1-CS2103T-F12-1/tp/pull/46), [\#1](https://github.com/AY2122S1-CS2103T-F12-1/tp/pull/1))
 
     * Developer Guide:
         * Updated the old links to an updated one ([\#70](https://github.com/AY2122S1-CS2103T-F12-1/tp/pull/70))
-        * Created class diagrams for `[coming soon]`
-        * Created sequence diagrams for `[coming soon]`
+        * Created class diagrams for `note`, `theme`, `statistic`
+        * Created sequence diagrams for `statistic`, and 'theme'
+        * Updated the tutorial for `SmartNus`. Tutorial includes (`AddRemark` and `TracingCode`)
     
 * **Team-Based Tasks**:
     * PRs reviewed and merged: [PRs](https://github.com/AY2122S1-CS2103T-F12-1/tp/pulls?q=is%3Apr+reviewed-by%3Aaryagiat)
