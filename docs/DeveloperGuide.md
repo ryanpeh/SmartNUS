@@ -136,11 +136,19 @@ How the `Logic` component determines which parser to use:
 
 The `Model` component,
 
+<<<<<<< HEAD
 - stores the smartNUS data i.e., all [`Question`](#question-class) and `Quiz` objects (which are contained in a `UniqueQuestionList` object).
 - stores the currently 'selected' `Question` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Question>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 - stores another list of the currently 'selected' `Question` objects for a `Quiz` as a separate _filtered_ list which is also exposed to outsiders as an unmodifiable `ObservableList<Question>` that can be used in the Quiz UI
 - stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 - does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
+=======
+* stores the smartNUS data i.e., all `Question` and `Quiz` objects (which are contained in a `UniqueQuestionList` object).
+* stores the currently 'selected' `Question` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Question>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores another list of the currently 'selected' `Question` objects for a `Quiz` as a separate _filtered_ list which is also exposed to outsiders as an unmodifiable `ObservableList<Question>` that can be used in the Quiz UI
+* stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
+* does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
+>>>>>>> 189a0d08966552bde224faef308ba223dccf1e32
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `SmartNus` model, which `Question` references. This allows `SmartNus` to only require one `Tag` object per unique tag, instead of each `Question` needing their own `Tag` objects.<br>
 
@@ -150,13 +158,17 @@ The `Model` component,
 
 ## Question class
 
-The `Question` class is an abstract class that stores a name, importance, and any number of tags and `Choices`.
-A `Choice` stores a name and a boolean value `isCorrect` representing if it is a correct answer to the `Question`.
-The validity of a `Question` depends on the type of question.
+The `Question` class is an abstract class that stores a `Name`, `Importance`, `Statistic`, `Tag`s and `Choice`s.
+A `Choice` stores a `title` String, a boolean value `isCorrect` representing if it is a correct answer to the `Question`,
+and a Set of Strings representing `keywords` used for evaluating answers to Short Answer Questions.
 
+![Question Class Diagram](images/developer-guide/QuestionClassDiagram.png)
+
+The validity of a `Question` depends on the type of question.
 Types of Questions currently supported by SmartNUS, and their conditions for validity are:
 
 1. Multiple Choice Questions
+<<<<<<< HEAD
    - Has four `Choices` in total, exactly one of which is correct
 1. True-False Questions
    - Has two `Choices` in total, which can only be "True" and "False", exactly one of which is correct
@@ -164,11 +176,18 @@ Types of Questions currently supported by SmartNUS, and their conditions for val
    - TODO
 1. Multiple Response Questions (coming soon)
    - Has four `Choices` in total, at least one of which is correct
+=======
+   * Has four `Choice`s in total, exactly one of which is correct
+1. True-False Questions
+   * Has two `Choice`s in total, which can only be "True" and "False", exactly one of which is correct
+1. Short Answer Questions
+   * Has one `Choice` in total which is correct and contains at least one `keyword`
+>>>>>>> 189a0d08966552bde224faef308ba223dccf1e32
 
 ## Note class
 
-The `Note` class is a class that stores a text.
-The note of a `Note` depends on whether the note starts without a whitespace or not.
+The `Note` class is the class that stores a text - defined as a `title`. The condition for validity of notes is:
+* It should not be empty.
 
 ## Statistic Class
 
@@ -256,6 +275,48 @@ Without saving it in the storage, the user will have to keep changing the theme 
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented.
+
+### Find questions feature
+
+The find questions feature allows users to search for `Question`s by three parameters: name, tags and importance.
+
+#### Implementation
+The find questions feature is implemented using `FindCommandParser`, `FindCommand` and `Predicate`s that implement the `Predicate<Question>` interface.
+Given below is a class diagram of the main classes involved in the implementation of this feature.
+
+![Find Command Class Diagram](images/developer-guide/FindClassDiagram.png)
+
+The FindCommandParser parses the user input into predicates that the `Question`s must match to be included in the `FilteredQuestionList`.
+Each condition is represented by a predicate that extends from `Predicate<Question>`. The three search parameters in the user input, name, tags and importance,
+are parsed and used to create the `NameContainsKeywordsPredicate`, `TagsContainKeywordsPredicate` and `HasImportancePredicate` respectively.
+
+| Predicate | Function                                | 
+| -------- | ------------------------------------------ | 
+|`NameContainsKeywordsPredicate` | Checks if a `Question`'s `Name` contains all the given keywords |
+|`TagsContainKeywordsPredicate`| Checks if a `Question` contains at least one `Tag`s whose name matches a keywords |
+|`HasImportancePredicate`| Checks if a `Question` has a particular `Importance` value |
+
+These predicates are passed from the `FindCommandParser` to the `FindCommand`.
+`FindCommand` composes these predicates into a logical AND of all predicates. When the `FindCommand` is executed,
+it updates the `FilteredQuestionList` with `Question`s that match this composed predicate, and hence satisfy all the
+user’s search conditions. Given below is a sequence diagram that shows the execution of a FindCommand when a user
+executes `"find class t/CS2103T"`.
+
+![Find Command Sequence Diagram](images/developer-guide/FindSequenceDiagram.png)
+
+#### Proposed Extensions
+The find feature currently only supports finding questions. It can be extended to search for both `Question`s and `Note`s.
+Here is the proposed implementation of such a feature: 
+1. The `FindCommandParser` will take in an additional
+parameter, either "note" or "question". 
+2. Depending on which item the user wants to search for, the `FindCommandParser`
+will create a `FindNoteParser` or a `FindQuestionParser`. 
+3. The parsers will parse user inputs into either `Predicate<Note>`
+or `Predicate<Question>`, depending on the item that the user is searching for. 
+4. If the user is searching for `Note`s, a `FindNoteCommand` will be generated. If the user is searching for `Question`s, a `FindQuestionCommand` is created.
+The activity diagram below illustrates this implementation.
+
+![Find Command Activity Diagram](images/developer-guide/FindActivityDiagram.png)
 
 ### \[Proposed\] Undo/redo feature
 
@@ -485,7 +546,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to list notes.
-2.  SmartNUS displays a list of all stored note.
+2.  SmartNUS displays a list of all stored notes.
 
 **Extensions**
 
@@ -494,6 +555,24 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 Use case ends.
 
+<<<<<<< HEAD
+=======
+**Use case: List tag**
+
+**MSS**
+
+1.  User requests to list tag.
+2.  SmartNUS displays a list of all stored tags.
+
+**Extensions**
+
+* 1a. User does not specify the keyword `tag`.
+* SmartNUS shows error message.
+
+Use case ends.
+
+
+>>>>>>> 189a0d08966552bde224faef308ba223dccf1e32
 **Use case: Add Multiple Choice question and options**
 
 **MSS**
@@ -513,8 +592,13 @@ Use case ends.
 
   Use case ends.
 
+<<<<<<< HEAD
 - 1c. User specifies more than one correct answer.
 - SmartNUS shows error message.
+=======
+* 1c. User specifies more than 3 incorrect options.
+* SmartNUS shows error message.
+>>>>>>> 189a0d08966552bde224faef308ba223dccf1e32
 
   Use case ends.
 
@@ -529,6 +613,7 @@ Use case ends.
 
 - 1a. User does not specify the correct answer.
 
+<<<<<<< HEAD
   - 1a1. SmartNUS shows error message.
 
     Use case ends.
@@ -538,6 +623,14 @@ Use case ends.
   - 1b1. SmartNUS shows error message.
 
     Use case ends.
+=======
+      Use case ends.
+      
+* 1b. User specifies a blank answer.
+    * 1b1. SmartNUS shows error message.
+    
+        Use case ends.
+>>>>>>> 189a0d08966552bde224faef308ba223dccf1e32
 
 - 1c. User does not specify an appropriate answer.
 
@@ -593,6 +686,7 @@ Use case ends.
 
   - 3a1. SmartNUS shows an error message.
 
+<<<<<<< HEAD
     Use case resumes at Step 2.
 
 **Use case: Tag a question**
@@ -625,6 +719,8 @@ Use case ends.
 
     Use case resumes at Step 4.
 
+=======
+>>>>>>> 189a0d08966552bde224faef308ba223dccf1e32
 **Use case: List questions containing specific tags**
 
 **MSS**
@@ -692,7 +788,7 @@ Use case ends.
 ### Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2. Should be able to hold up to 1000 questions without a noticeable sluggishness in performance for typical usage.
+2. Should be able to hold up to 500 questions and 500 notes without a noticeable sluggishness in performance for typical usage.
 3. A student with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 4. The data should be stored locally and should be in an editable json file.
 5. The product should be for a single user at a time.
@@ -736,15 +832,15 @@ testers are expected to do more *exploratory* testing.
 
 1. Deleting a question while all questions are being shown
 
-   1. Prerequisites: List all questions using the `list` command. Multiple questions in the list.
+   1. Prerequisites: List all questions using the `list question` command. Multiple questions in the list.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   1. Test case: `delete question 1`<br>
+      Expected: First question is deleted from the list. Details of the deleted question shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete 0`<br>
+   1. Test case: `delete question 0`<br>
       Expected: No question is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+   1. Other incorrect delete commands to try: `delete`, `delete note x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
 1. _{ more test cases …​ }_
