@@ -32,10 +32,10 @@ Here's a quick summary of the available sections in the user guide:
 <!-- TODO: Ensure that the numberings below are correct at the end -->
 * [Section 1: Introduction](#1-introduction) - Introduction to SmartNUS
 * [Section 2: About](#2-about) - About SmartNUS
-* [Section 3: Quick Start](#3-quick-start) - A quick start guide to get you started with using SmartNUS.
-* [Section 4: Features](#4-features) - Documentation of all available features SmartNus has to offer.
-* [Section 5: FAQ](#5-faq) - Frequently asked questions about SmartNUS.
-* [Section 6: Command Summary](#6-main-window-command-summary) - Summary of all available SmartNUS commands and formats.
+* [Section 3: Quick Start](#3-quick-start) - A quick start guide to get you started with using SmartNUS
+* [Section 4: Features](#4-features) - Documentation of all available features SmartNus has to offer
+* [Section 5: FAQ](#5-faq) - Frequently asked questions about SmartNUS
+* [Section 6: Command Summary](#6-main-window-command-summary) - Summary of all available SmartNUS commands and formats
 
 ### 2.2. Commands
 
@@ -44,25 +44,25 @@ Here's a quick summary of the available sections in the user guide:
 **:information_source: Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `mcq qn/QUESTION ans/ANSWER opt/OPTION1 i/IMPORTANCE`, `QUESTION`, `ANSWER`, `OPTION1`, `IMPORTANCE` is a parameter which can be used as `mcq qn/what is 1 + 1? opt/3 opt/1 opt/0 ans/2 i/1`.
+  e.g. in `mcq qn/QUESTION ans/ANSWER opt/OPTION1 i/IMPORTANCE`, `QUESTION`, `ANSWER`, `OPTION1`, `IMPORTANCE` is a parameter which can be used as `mcq qn/what is 1 + 1? opt/3 opt/1 opt/0 ans/2 i/1`
 
-* Items in square brackets are optional.<br>
-  e.g `qn/QUESTION [t/TAG]` can be used as `qn/What is 1+1? t/math` or as `qn/What is 1+1?`.
+* Items in square brackets are optional<br>
+  e.g `qn/QUESTION [t/TAG]` can be used as `qn/What is 1+1? t/math` or as `qn/What is 1+1?`
 
-* Items with `…`​ after them can be used multiple times.<br>
+* Items with `…`​ after them can be used multiple times<br>
   e.g. `opt/…​` can be used as `opt/ OPTION1`, `opt/ OPTION1 opt/ OPTION2` etc.
 
-* Parameters can be in any order.<br>
+* Parameters can be in any order<br>
   e.g. if the command specifies `ans/ ANSWER opt/ OPTION1`, `opt/ OPTION1 ans/ ANSWER` is also acceptable.
 
-* If a parameter is expected only once in the command but you specified it multiple times, only the last occurrence of the parameter will be taken.<br>
-  e.g. if you specify `ans/t ans/abc`, only `ans/abc` will be taken.
+* If a parameter is expected only once in the command but you specified it multiple times, only the last occurrence of the parameter will be taken<br>
+  e.g. if you specify `ans/t ans/abc`, only `ans/abc` will be taken
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `exit` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+* Extraneous parameters for commands that do not take in parameters (such as `help`, `exit` and `clear`) will be ignored<br>
+  e.g. if the command specifies `help 123`, it will be interpreted as `help`
 
-* All commands are case-sensitive unless otherwise stated.<br>
-  e.g. `help` or `ans/` is acceptable, but `Help` or `Ans/` is not acceptable.<br>
+* All commands are case-sensitive unless otherwise stated<br>
+  e.g. `help` or `ans/` is acceptable, but `Help` or `Ans/` is not acceptable<br>
 
 * Parameters *SHOULD NOT* contain any slash "/".
 
@@ -70,13 +70,13 @@ Here's a quick summary of the available sections in the user guide:
 
 ## 3. Quick Start
 
-1. Ensure you have Java `11` or above installed in your Computer.
+1. Ensure you have Java `11` or above installed in your Computer
 
-1. Download the latest `smartnus.jar` from [here](https://github.com/AY2122S1-CS2103T-F12-1/tp/releases).
+1. Download the latest `smartnus.jar` from [here](https://github.com/AY2122S1-CS2103T-F12-1/tp/releases)
 
-1. Copy the file to the folder you want to use as the _home folder_ for your SmartNUS app.
+1. Copy the file to the folder you want to use as the _home folder_ for your SmartNUS app
 
-1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data<br>
    ![Ui](images/user-guide/UiMainWindow.png)
 
 <!-- 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
@@ -92,7 +92,7 @@ Here's a quick summary of the available sections in the user guide:
 
    * **`exit`** : Exits the app. -->
 
-1. Refer to the [Features](#features) below for details of each command.
+5. Refer to the [Features](#features) below for details of each command
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -104,12 +104,11 @@ This section lists all the commands that SmartNUS supports, with syntax and info
 
 #### 4.1.1. Viewing Help : `help`
 
-Shows a message explaning how to access the help page.
+Shows a message explaining how to access the help page.
 
 ![help message](images/user-guide/helpMessage.png)
 
 Format: `help`
-
 
 #### 4.1.2. Add a Multiple Choice Question: `mcq`
 
@@ -126,7 +125,7 @@ Format: `mcq qn/QUESTION opt/INCORRECT_OPTION1 opt/INCORRECT_OPTION2 opt/INCORRE
 **Optional Parameters:**
 * `t/` The tags of the question. Tags should be a single alphanumeric word.
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A multiple choice question must have exactly three incorrect options and one correct answer
+A multiple choice question must have exactly three incorrect options and one correct answer.
 </div>
 
 Examples:
@@ -158,19 +157,20 @@ Format: `tfq qn/QUESTION ans/ANSWER i/IMPORTANCE [t/TAG]`
 
 **Required Parameters:**
 * `qn/` The TF Question statement
-* `ans/` The correct choice. 1 in total, can only be either true or false.
-* `i/` The importance of the question for the user. An integer between 1 and 3. 3 signifies the highest importance and 1 signifies the lowest importance.
+* `ans/` The correct choice. 1 in total, can only be either true or false
+* `i/` The importance of the question for the user. An integer between 1 and 3. 3 signifies the highest importance and 1 signifies the lowest importance
 
 **Optional Parameters:**
 * `t/` The tags of the question. Tags should be a single alphanumeric word.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A true false question can only have one answer, either "T" or "F"
-</div>
+A true false question can only have one answer, either "T" or "F".
+</div> 
+
 
 Examples:
-* `tfq qn/Is 1+1 = 2? ans/T i/1` : Is 1+1 = 2? True.
-* `tfq qn/Is CS2103T a fun module? ans/t i/2`: Is CS2103T a fun module? True.
+* `tfq qn/Is 1+1 = 2? ans/T i/1` : Is 1+1 = 2? True
+* `tfq qn/Is CS2103T a fun module? ans/t i/2`: Is CS2103T a fun module? True
 * `tfq qn/Will entering multiple valid answers create problems? ans/t ans/f i/2`: Will entering multiple valid answers create problems? False
 
 #### 4.1.4. Add a Short Answer Question: `saq`
@@ -181,25 +181,25 @@ Format: `saq qn/QUESTION ans/ANSWER INCLUDING KEYWORDS k/KEYWORD... i/IMPORTANCE
 
 **Required Parameters:**
 * `qn/` The TF Question statement
-* `ans/` The correct answer. 1 in total.
-* `k/` The keywords for evaluating the answer. **Need to be included inside the `ans/` parameter.**
-* `i/` The importance of the question for the user. An integer between 1 and 3. 3 signifies the highest importance and 1 signifies the lowest importance.
+* `ans/` The correct answer - 1 in total
+* `k/` The keywords for evaluating the answer. **Need to be included inside the `ans/` parameter**
+* `i/` The importance of the question for the user. An integer between 1 and 3. 3 signifies the highest importance and 1 signifies the lowest importance
 
 **Optional Parameters:**
 * `t/` The tags of the question. Tags should be a single alphanumeric word.
 <br>
 
 Caveats:
-* Each short answer question must have exactly one answer.
-* The answer must include at least one keyword which is specified using `k/` (e.g. `ans/k/powerhouse of the k/cell`).
+* Each short answer question must have exactly one answer
+* The answer must include at least one keyword which is specified using `k/` (e.g. `ans/k/powerhouse of the k/cell`)
 * Note that keywords **MUST be specified within the answer** to be recognised as keywords
-  * `qn/my question? k/KEYWORDOUTSIDEANSWER ans/my answer i/2` is an invalid command.
+  * `qn/my question? k/KEYWORDOUTSIDEANSWER ans/my answer i/2` is an invalid command
   * See examples given below for valid commands to try out.
 * Keywords are stored in lowercase. Specifying `k/ABC` and `k/abc` both result in "abc" being stored as the keyword. However,
-  the answer will be displayed with the correct case ("ABC" and "abc" respectively).
+  the answer will be displayed with the correct case ("ABC" and "abc" respectively)
 * During a [quiz](#start-a-quiz-quiz), any answer that contains all the keywords (case-insensitive)
   in any order is considered correct (e.g. "DatAstrUcturesandalgorithms" will be a correct answer
-  to a question whose keywords are "structure" and "data").
+  to a question whose keywords are "structure" and "data")
 * Keywords are made up of alphanumeric characters.
   When specifying a keyword that includes non-alphanumeric characters
   (e.g. `k/"harry, !'abc@#^e,y?`), only the first valid part of the word
@@ -212,8 +212,8 @@ Examples:
   * Answer is displayed as "Harry Potter and the Philosopher's Stone".
   * During a [quiz](#start-a-quiz-quiz):
     * Correct answers include "haRRy PoTtEr", "Harry Potter and the Philosopher's Stone",
-      "potter harry", "harrypotter" and "wordthatincludesharryandpotter".
-    * Incorrect answers include "Potter" and "harr pottery".
+      "potter harry", "harrypotter" and "wordthatincludesharryandpotter"
+    * Incorrect answers include "Potter" and "harr pottery"
 
 #### 4.1.5. Add notes: `note`
 Adds a note to the note list.
@@ -221,6 +221,7 @@ Format: `note note/NOTE`
 
 **Required Parameters:**
 * `note/` The note statement
+
 
 Notes accept all text and numbers.
 #### 4.1.6. List All Items : `list`
@@ -278,19 +279,19 @@ Format: `edit QUESTION_ID [qn/QUESTION] [t/TAG]... [ans/CORRECT_ANSWER] [opt/INC
 
 
 * Edit Tags
-  * When editing tags, the existing tags of the question will be removed i.e adding of tags is not cumulative.
-  * You can remove all the question’s tags by typing `t/` without specifying any tags after it.
+  * When editing tags, the existing tags of the question will be removed i.e adding of tags is not cumulative
+  * You can remove all the question’s tags by typing `t/` without specifying any tags after it
 
 
 * Edit Answers/Options
-  * If editing the answers of a question, all option(s) and answer(s) must be valid for the type of question being edited.
-  * Multiple Choice Question: Specify all three incorrect options (`opt/`) and one correct answer (`ans/`).
-  * True/False Question: Only specify the correct answer (`ans/`), which must be “T” or “F”.
-  * Short Answer Question: Only specify the correct answer (`ans/`) which must include at least one keyword (`k/`).
+  * If editing the answers of a question, all option(s) and answer(s) must be valid for the type of question being edited
+  * Multiple Choice Question: Specify all three incorrect options (`opt/`) and one correct answer (`ans/`)
+  * True/False Question: Only specify the correct answer (`ans/`), which must be “T” or “F”
+  * Short Answer Question: Only specify the correct answer (`ans/`) which must include at least one keyword (`k/`)
 
 Examples:
 * Multiple Choice Question (MCQ): `edit 1 opt/1 opt/2 opt/3 ans/4 t/` sets the incorrect options to 1, 2, and 3,
-  and the correct answer to 4, and removes all the tags from Question 1 if it is an MCQ
+  and the correct answer to 4, and removes all the tags from Question 1 if it is an MCQ.
 * True/False Question (TFQ): `edit 2 ans/T` sets the answer of Question 2 to True if it is a TFQ.
 * Short Answer Question (SAQ): `edit 3 ans/k/powerhouse of the k/cell t/CS2100`
   sets the answer of Question 3 to powerhouse of the cell, with keywords "powerhouse" and "cell",
