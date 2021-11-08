@@ -852,9 +852,8 @@ testers are expected to do more *exploratory* testing.
     1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-### Main Window
+### Adding a short answer question
 
-1. Adding a short answer question
    1. Prerequisites: On the Question panel/viewing questions (e.g. after running the `list question` or `find` commands).
    2. Test case: `saq qn/What is the name of this app? ans/k/SmartNUS i/3`
       Expected: A new short answer question with the specified details is added and shown on the displayed list of questions.
@@ -864,7 +863,8 @@ testers are expected to do more *exploratory* testing.
       Expected: No new question is added and an error message is thrown as the user failed to specify the importance (`i/`) of the question.
 
 
-2. Editing a question
+### Editing a question
+
    1. Prerequisites: On the Question panel/viewing questions (e.g. after running the `list question` or `find` commands). List displayed contains at least 3 questions. The first one is a Multiple Choice Question, the second is a True False Question and the third is a Short Answer Question.
    2. Test case: `edit 1 qn/This is my new question ans/1 opt/2 opt/3 opt/4 t/`
       Expected: First question in the list is edited with the new title, new answer and options, and all tags (if the question had any) are removed.
@@ -878,7 +878,8 @@ testers are expected to do more *exploratory* testing.
       Expected: No question is edited. Error mesesage is shown as `qn/` parameter cannot be empty.
 
 
-3. Finding questions
+### Finding questions
+
    1. Prerequisites: On the Question panel/viewing questions (e.g. after running the `list question` or `find` commands).
    2. Test case: `find t/Java t/CS2103T`
       Expected: All questions in SmartNUS tagged with Java, CS2103T or both are shown.
@@ -888,7 +889,7 @@ testers are expected to do more *exploratory* testing.
       Expected: An error message is shown as user did not specify any parameters to find by.
 
 
-4. Deleting a question while all questions are being shown
+### Deleting a question while all questions are being shown
 
     1. Prerequisites: List all questions using the `list question` command. Multiple questions in the list.
 
@@ -900,8 +901,6 @@ testers are expected to do more *exploratory* testing.
 
     1. Other incorrect delete commands to try: `delete`, `delete note x`, `...` (where x is larger than the list size)<br>
        Expected: Similar to previous.
-
-5. _{ more test cases …​ }_
 
 ### Saving data
 
