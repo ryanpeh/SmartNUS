@@ -170,7 +170,7 @@ The `Note` class is the class that stores a text - defined as a `title`. The con
 * It should not be empty.
 
 ## Statistic Class
-The `Statistic` class is a class that keeps track of the user performance in answering the questions. 
+The `Statistic` class is a class that keeps track of the user performance in answering the questions.
 The performance is tracked by:
 * Number of attempts
 * Number of correct attempts
@@ -265,7 +265,7 @@ The relevant classes, part of the [`Logic`](#logic-component) component, are sho
 
 ![AddQuestionCommandClassDiagramm](images/developer-guide/AddQuestionCommandClassDiagram.png)
 
-* `AddSaqCommand`, `AddTfqCommand` and `AddMcqCommand` inherits from `AddQuestionCommand`, which inherits from the abstract `Command` class. 
+* `AddSaqCommand`, `AddTfqCommand` and `AddMcqCommand` inherits from `AddQuestionCommand`, which inherits from the abstract `Command` class.
 * `AddQuestionCommand` implements the `execute` method as required by the `Command` abstract class, which adds a question to SmartNus.
 * `AddSaqCommand`, `AddTfqCommand` and `AddMcqCommand` all have the same `execute` method. (i.e. They do not override `AddQuestionCommand#execute`)
 * `SmartNusParser` creates the appropriate subtype (`AddSaqCommand`, `AddTfqCommand` or `AddMcqCommand`) of `AddQuestionCommand` based on the user's input. (e.g. User tells SmartNus to add an `mcq` question, `AddMcqCommand` is created by `SmartNusParser`, the same goes for the other question types)
@@ -302,8 +302,8 @@ The FindCommandParser parses the user input into predicates that the `Question`s
 Each condition is represented by a predicate that extends from `Predicate<Question>`. The three search parameters in the user input, name, tags and importance,
 are parsed and used to create the `NameContainsKeywordsPredicate`, `TagsContainKeywordsPredicate` and `HasImportancePredicate` respectively.
 
-| Predicate | Function                                | 
-| -------- | ------------------------------------------ | 
+| Predicate | Function                                |
+| -------- | ------------------------------------------ |
 |`NameContainsKeywordsPredicate` | Checks if a `Question`'s `Name` contains all the given keywords |
 |`TagsContainKeywordsPredicate`| Checks if a `Question` contains at least one `Tag`s whose name matches a keywords |
 |`HasImportancePredicate`| Checks if a `Question` has a particular `Importance` value |
@@ -318,13 +318,13 @@ executes `"find class t/CS2103T"`.
 
 #### Proposed Extensions
 The find feature currently only supports finding questions. It can be extended to search for both `Question`s and `Note`s.
-Here is the proposed implementation of such a feature: 
+Here is the proposed implementation of such a feature:
 1. The `FindCommandParser` will take in an additional
-parameter, either "note" or "question". 
+parameter, either "note" or "question".
 2. Depending on which item the user wants to search for, the `FindCommandParser`
-will create a `FindNoteParser` or a `FindQuestionParser`. 
+will create a `FindNoteParser` or a `FindQuestionParser`.
 3. The parsers will parse user inputs into either `Predicate<Note>`
-or `Predicate<Question>`, depending on the item that the user is searching for. 
+or `Predicate<Question>`, depending on the item that the user is searching for.
 4. If the user is searching for `Note`s, a `FindNoteCommand` will be generated. If the user is searching for `Question`s, a `FindQuestionCommand` is created.
 The activity diagram below illustrates this implementation.
 
@@ -553,7 +553,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. User does not specify the keyword `question`.
 * SmartNUS shows error message.
-* 
+
   Use case ends.
 
 **Use case: List notes**
@@ -601,7 +601,7 @@ Use case ends.
 
 * 1b. User does not specify the correct answer.
 * SmartNUS shows error message.
-  
+
   Use case ends.
 
 * 1c. User specifies more than 3 incorrect options.
@@ -623,10 +623,10 @@ Use case ends.
     * 1a1. SmartNUS shows error message.
 
       Use case ends.
-      
+
 * 1b. User specifies a blank answer.
     * 1b1. SmartNUS shows error message.
-    
+
         Use case ends.
 
 
