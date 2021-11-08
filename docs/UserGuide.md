@@ -66,6 +66,9 @@ Here's a quick summary of the available sections in the user guide:
 
 * Parameters *SHOULD NOT* contain any slash "/".
 
+* If a parameter is not expected by the command, it will be read as part of the closest valid parameter to its left.
+  * e.g. For `tfq ans/t i/3 opt/5 qn/What is 1+1?`, as `opt/` is not expected by the command, the parser reads it as part of the `i/` parameter, and takes it as the user is entering `3 opt/5` as a parameter for `i/`.
+
 </div>
 
 ## 3. Quick Start
@@ -344,8 +347,8 @@ Format: `find [KEYWORDS]... [t/TAG]... [i/IMPORTANCE]`
 
 **Parameters**
 * `KEYWORDS` The specific keyword(s) to be searched
-* `TAG` The specific tag(s) to be searched
-* `IMPORTANCE` The importance to be searched
+* `t/` The specific tag(s) to be searched
+* `i/` The importance to be searched
 <div>
 
 * **At least** one of the optional fields to find by must be specified.
@@ -386,21 +389,22 @@ The total number of attempts and correct attempts for questions under each tag w
 Format: `stat [t/TAG]...`
 
 **Parameters**
-* `TAG` The specific tag(s) to be searched
+* `t/` The specific tag(s) to be searched
 
 Caveats:
-* The search is case-insensitive for tags
-* Only full words will be matched (e.g. `CS2100` will not match `CS210`)
-* Statistics for any of the tags passed in will be shown
-* If no parameters are passed in, it will show all statistics
+* The search is case-insensitive for tags.
+* Only full words will be matched. (e.g. `CS2100` will not match `CS210`)
+* Statistics for any of the tags passed in will be shown.
+* If no parameters are passed in, it will show all statistics.
+* Statistics are shown from worst to best.
 * For questions that have multiple tags, SmartNus will count its attempts and correct attempts under all its tags.
 
 Examples:
 * `stat t/CS2100 t/MIPS` returns the overall statistics for the questions tagged with `CS2100` or `MIPS` or both.
 
-<!-- TODO: add brief description before format to standardise format-->
-#### 4.1.9. Start a Quiz: `quiz`
-Format: `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX...]`
+#### 4.1.11. Start a Quiz: `quiz`
+Format: `quiz [lim/ LIMIT] [t/TAG]...` or `quiz [n/INDEX...]`
+
 
 **Optional Parameters**
 * `lim/` positive, non-zero integer that will limit the number of questions in the quiz.
@@ -411,10 +415,15 @@ Format: `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX...]`
 * TAG can be used to filter the quiz to only give questions with at least one of the tags specified, works with limit.
 * INDEX can be used to filter the quiz to only give questions with the specified question numbers. Does not work with tag or limit.
   The index **must be a positive integer** from 1 to 2147483647
+* LIMIT can be used to limit the number of questions in the quiz. Does not work with index. Works with tag.
+   * The limit **must be a positive integer** from 1 to 2147483647
+   * Questions will be prioritised and sorted if LIMIT is passed in: The questions with the highest importance (`3`) will be shown.
+   * In the case of questions with the same importance, their performance is used as a tiebreaker.
 
 * A valid index is:
   * **a positive integer** between 1 and 2147483647 (both inclusive)
-  * Equal to or smaller than the number of items in the list. Eg. If a list contains 5 questions, `6` is not a valid index but `3` is.
+  * Eg. If the displayed question list contains 5 questions, `quiz n/1 2 3 6` will result in a quiz with question index numbers 1, 2 and 3.
+  * If no valid index exists, (e.g. `quiz n/7` in a list that contains 6 questions), the quiz will not start.
 
 * A valid limit is:
   * **a positive integer** between 1 and 2147483647 (both inclusive)
@@ -422,7 +431,7 @@ Format: `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX...]`
 
 Examples:
 * `quiz lim/5 t/CS2100 t/MIPS` quiz will select questions tagged with at least one of the tags, limited to 5 questions.
-* `quiz n/1 2 3` quiz will select the questions with index number 1 2 3.
+* `quiz n/1 2 3` quiz will select the questions with index number 1 2 3 from the current displayed list.
 
 Expected Outcome:
 ![QuizCommand](images/user-guide/QuizCommand.png)
@@ -533,10 +542,10 @@ If your changes to the data file makes its format invalid, SmartNUS will discard
 
 Action | Format, Examples | Which Panel? |
 --------|------------------|-------------
-**MCQ** | `mcq qn/QUESTION opt/OPTION1 opt/OPTION2 opt/OPTION3 ans/ANSWER i/IMPORTANCE` <br> e.g., `mcq qn/what is 1 + 1? opt/3 opt/1 opt/0 ans/2 i/1` | question
-**TFQ** | `tfq qn/QUESTION ans/ANSWER i/IMPORTANCE` <br> e.g., `mcq qn/Is 1 + 1 = 2? ans/t i/1` | question
-**SAQ** | `saq qn/QUESTION ans/ANSWER INCLUDING KEYWORDS k/KEYWORD... i/IMPORTANCE [t/TAG]...` <br> e.g., `saq qn/what is Shakespeare's first name? ans/k/William i/1` | question
-**Note** | `note note/NOTE` <br> e.g., `note note/This is a note` | note
+**Add MCQ** | `mcq qn/QUESTION opt/OPTION1 opt/OPTION2 opt/OPTION3 ans/ANSWER i/IMPORTANCE` <br> e.g., `mcq qn/what is 1 + 1? opt/3 opt/1 opt/0 ans/2 i/1` | question
+**Add TFQ** | `tfq qn/QUESTION ans/ANSWER i/IMPORTANCE` <br> e.g., `mcq qn/Is 1 + 1 = 2? ans/t i/1` | question
+**Add SAQ** | `saq qn/QUESTION ans/ANSWER INCLUDING KEYWORDS k/KEYWORD... i/IMPORTANCE [t/TAG]...` <br> e.g., `saq qn/what is Shakespeare's first name? ans/k/William i/1` | question
+**Add Note** | `note note/NOTE` <br> e.g., `note note/This is a note` | note
 **Delete** | `delete question QUESTION_INDEX` OR `delete note NOTE_INDEX`<br> e.g., `delete question 1`, `delete note 2` | question or note
 **Edit** | `edit QUESTION_ID [qn/QUESTION] [t/TAG]... [ans/CORRECT_ANSWER] [opt/INCORRECT_OPTION]... [i/IMPORTANCE]` <br> e.g., `edit 1 qn/Who wrote Pride and Prejudice? i/3 t/literature` <br> | question
 **Find** | `find [KEYWORDS]... [t/TAG]... [i/IMPORTANCE]` <br> e.g., `find load word t/CS2100 t/MIPS i/2` | question
