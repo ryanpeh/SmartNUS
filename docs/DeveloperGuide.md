@@ -1125,7 +1125,7 @@ testers are expected to do more *exploratory* testing.
    2. Test case `delete note 2103`
       Expected: An error message pops up and note list is unchanged. SmartNus looks like:
       ![image](images/user-guide/NoteDeletionFailure.PNG)
->>>>>>> 76a4e0328516dd14dd1cd3cdd7f5fc335acb1c7d
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files
