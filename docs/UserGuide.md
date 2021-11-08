@@ -407,7 +407,7 @@ Format: `quiz [lim/ LIMIT] [t/TAG]...` or `quiz [n/INDEX...]`
 
 
 **Optional Parameters**
-* `lim/` positive, non-zero integer that will limit the number of questions in the quiz.
+* `lim/` positive, non-zero integer that will limit the number of questions in the quiz. Works with tag.
 * `t/` quiz will be formed from questions with at least one of the specified tag(s).
 * `n/` quiz specific questions - `INDEX` refers to the index number shown in the displayed question list.
   * Multiple indexes can be entered, with a space between them. (e.g. `n/ 1 2 3`)
