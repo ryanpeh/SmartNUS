@@ -36,7 +36,7 @@ We are a team based in the [School of Computing, National University of Singapor
 [[github](http://github.com/neojxuan)] [[portfolio](team/neojxuan.md)]
 
 * Role: Developer
-* Responsibilities:
+* Responsibilities: Morphed AB3 into a question bank app, implementation of find and short answer question features
 
 ### Ong Jun Heng, Cedric
 
