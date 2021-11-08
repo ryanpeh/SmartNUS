@@ -869,8 +869,22 @@ testers are expected to do more *exploratory* testing.
     1. Other incorrect delete commands to try: `delete`, `delete note x`, `...` (where x is larger than the list size)<br>
        Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+### Switching Panels and Listing
+1. Switching Panels
+    1. Test case: `list question` <br>
+       Expected: A list of questions shown. The status bar at the bottom says `Questions` and the UI looks like this:
+        ![Question Panel](images/user-guide/UiMainWindow.png)
+    
+    1. Test case: `list note` <br>
+       Expected: A list of notes shown. The status bar at the bottom says `Notes` and the UI looks like this:
+       ![Note Panel](images/user-guide/UiNotesPanel.png)
+    
+    1. Test case: `list tag` <br>
+       Expected: A list of tags and their statistics shown. The status bar at the bottom says `Tags` and the UI looksl ike this:
+       ![Tag Panel](images/user-guide/UiTagsPanel.png)
 
+    1. Test case: `list abc` <br>
+       Expected: Stay in the current panel and an error message is shown saying `Invalid command format`.
 ### Saving data
 
 1. Dealing with missing/corrupted data files
