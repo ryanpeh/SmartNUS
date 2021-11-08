@@ -141,12 +141,6 @@ The `Model` component,
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `SmartNus` model, which `Question` references. This allows `SmartNus` to only require one `Tag` object per unique tag, instead of each `Question` needing their own `Tag` objects.<br>
-
-<img src="images/developer-guide/BetterModelClassDiagram.png" width="450" />
-
-</div>
-
 #### Question class
 
 The `Question` class is an abstract class that stores a `Name`, `Importance`, `Statistic`, `Tag`s and `Choice`s.
@@ -360,10 +354,6 @@ The quiz feature is facilitated by `MainWindow`, `LogicManager`, `SmartNusParser
 Below is the sequence diagram to show how the quiz is started.
 
 ![QuizSequenceDiagram](images/developer-guide/QuizSequenceDiagram.png)
-
-#### Parsing of user input
-
-As different commands are available to the user at the `QuizWindow` and the `MainWindow`, it is necessary to determine which commands are valid for the user to execute based on which window the user is at.
 
 #### Answering of questions
 
@@ -843,7 +833,7 @@ testers are expected to do more *exploratory* testing.
 
 2. Download the jar file and copy into an empty folder
 
-  3. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+3. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 4. Saving window preferences
 
@@ -852,24 +842,121 @@ testers are expected to do more *exploratory* testing.
     1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-5. _{ more test cases …​ }_
+### Adding a short answer question
 
-### Deleting a question
+   1. Prerequisites: On the Question panel/viewing questions (e.g. after running the `list question` or `find` commands).
 
-1. Deleting a question while all questions are being shown
+   2. Test case: `saq qn/What is the name of this app? ans/k/SmartNUS i/3`
+      
+      Expected: A new short answer question with the specified details is added and shown on the displayed list of questions.
+   3. Test case: `saq qn/What is the name of this app? ans/SmartNUS i/3`
+   
+      Expected: No new question is added and an error message is thrown as the answer must contain at least one keyword (specified by `k/`).
+   4. Test case: `saq qn/What is the name of this app? ans/k/SmartNUS`
 
-    1. Prerequisites: List all questions using the `list question` command. Multiple questions in the list.
+      Expected: No new question is added and an error message is thrown as the user failed to specify the importance (`i/`) of the question.
 
-    1. Test case: `delete question 1`<br>
-       Expected: First question is deleted from the list. Details of the deleted question shown in the status message. Timestamp in the status bar is updated.
 
-    1. Test case: `delete question 0`<br>
-       Expected: No question is deleted. Error details shown in the status message. Status bar remains the same.
+### Editing a question
 
-    1. Other incorrect delete commands to try: `delete`, `delete note x`, `...` (where x is larger than the list size)<br>
-       Expected: Similar to previous.
+   1. Prerequisites: On the Question panel/viewing questions (e.g. after running the `list question` or `find` commands). List displayed contains at least 3 questions. The first one is a Multiple Choice Question, the second is a True False Question and the third is a Short Answer Question.
 
-1. _{ more test cases …​ }_
+   2. Test case: `edit 1 qn/This is my new question ans/1 opt/2 opt/3 opt/4 t/`
+
+      Expected: First question in the list is edited with the new title, new answer and options, and all tags (if the question had any) are removed.
+   3. Test case: `edit 2 ans/T t/Java`
+
+      Expected: Second question in the list is updated with the new answer (True) and now has one tag titled Java
+   4. Test case: `edit 3 ans/k/mitochondria i/3`
+
+      Expected: Third question in the list is updated with a new answer, keyword and importance.
+   5. Test case: `edit 1`
+
+      Expected: No question is edited. Error message is shown as no parameters to be edited are specified.
+   6. Test case: `edit 1 qn/`
+
+      Expected: No question is edited. Error mesesage is shown as `qn/` parameter cannot be empty.
+
+
+### Finding questions
+
+   1. Prerequisites: On the Question panel/viewing questions (e.g. after running the `list question` or `find` commands).
+
+   2. Test case: `find t/Java t/CS2103T`
+
+      Expected: All questions in SmartNUS tagged with Java, CS2103T or both are shown.
+   3. Test case: `find coding standard t/cs2103t i/2`
+   
+      Expected: All questions that contain the full words "coding" and "standard" in their titles (in any order) AND are tagged with "cs2103t" AND have importance of 2 are shown.
+   4. Test case: `find`
+
+      Expected: An error message is shown as user did not specify any parameters to find by.
+
+
+### Deleting a question while all questions are being shown
+1. Prerequisites: List all questions using the `list question` command. Multiple questions in the list.
+
+2. Test case: `delete question 1`<br>
+   Expected: First question is deleted from the list. Details of the deleted question shown in the status message. Timestamp in the status bar is updated.
+
+3. Test case: `delete question 0`<br>
+   Expected: No question is deleted. Error details shown in the status message. Status bar remains the same.
+
+4. Other incorrect delete commands to try: `delete`, `delete note x`, `...` (where x is larger than the list size)<br>
+   Expected: Similar to previous.
+
+### Switching Panels and Listing
+1. Switch panel to view all questions
+    1. Test case: `list question` <br>
+       Expected: A list of questions shown. The status bar at the bottom says `Questions` and the UI looks like this:
+        ![Question Panel](images/user-guide/UiMainWindow.png)
+    
+1. Switch panel to view all notes
+    1. Test case: `list note` <br>
+       Expected: A list of notes shown. The status bar at the bottom says `Notes` and the UI looks like this:
+       ![Note Panel](images/user-guide/UiNotesPanel.png)
+
+1. Switch panel to view all tags
+    1. Test case: `list tag` <br>
+       Expected: A list of tags and their statistics shown. The status bar at the bottom says `Tags` and the UI looksl ike this:
+       ![Tag Panel](images/user-guide/UiTagsPanel.png)
+
+1. Don't switch panel
+    1. Test case: `list abc` <br>
+       Expected: Stay in the current panel and an error message is shown saying `Invalid command format`.
+
+### Changing Theme
+1. Change theme to light Theme
+    1. Test case: `theme light` <br>
+       Expected: The color scheme of the app will have light colors. The UI will have this color scheme:
+       ![Light theme](images/user-guide/UiLightTheme.png)
+
+1. Change theme to dark theme
+    1. Test case: `theme dark` <br>
+        Expected: The color scheme of the app will have dark colors. The UI will have this color scheme:
+       ![Light theme](images/user-guide/UiDarkTheme.png)
+    
+1. Don't change theme
+    1. Test case: `theme not a theme` <br>
+       Expected: The theme will not change and an error message will be shown saying `Invalid command format`.
+
+### Quiz specific questions
+1. Prerequisites: There needs to be at least 5 questions in the question list. And the user needs to be in the question panel by doing `list question`.
+
+1. Quiz single question    
+    1. Test case: `quiz n/1`
+        Expected: A quiz window will open and only 1 question will be tested, particularly the first question in the question list you saw earlier. The status bar of the quiz window should state that there is only 1 question in the quiz.
+    
+    1. Test case: `quiz n/100`
+        Expected: A quiz window will not open and an error message will say that `Quiz has no questions`.
+    
+1. Quiz multiple question
+    1. Test case: `quiz n/1 2`
+        Expected: A quiz window will open and 2 questions will be tested, particularly the first and second question in the question list you saw earler. Do `next` command to confirm that the second question is indeed the second question in the list. The status bar of the quiz window should state that there are 2 questions in the quiz.
+
+    1. Test case: `quiz n/1 500`
+        Expected: A quiz window will open but only 1 question will be tested, specifically the first question. Since there is no question 500, only question 1 will be tested. The status bar of the quiz window should state that there is only 1 question in the quiz.
+
 
 
 ### Quiz
@@ -945,6 +1032,76 @@ testers are expected to do more *exploratory* testing.
     4. Other incorrect delete commands to try: `p`, `prevv`, `pre v`<br>
        Expected: Similar to previous.
 
+### Adding an MCQ
+
+1. Prerequisites: List all questions using the `list question` command. Multiple questions in the list.
+
+1. Test case: `mcq qn/What is 5+2? ans/7 opt/1 opt/2 opt/3 i/2 t/Math`<br>
+   Expected: An mcq `What is 5+2?` with options `1, 2, 3` and answer `7` with importance `2` and tag `Math` is created.
+
+1. Test case: `mcq qn/What is 5+3? ans/8 opt/2 opt/2 opt/3 i/2 t/Math`<br>
+   Expected: Question is not created as options are duplicates
+
+1. Other incorrect mcq commands to try: `mcq`, `mcq ans/3`, `...`
+   Expected: Question is not created as there are missing compulsory parameters.
+
+### Adding a TFQ
+
+1. Prerequisites: List all questions using the `list question` command. Multiple questions in the list.
+
+1. Test case: `tfq qn/Is 5+2 = 8? ans/f i/2 t/Math`<br>
+   Expected: An tfq `What is 5+2?` with answer `false`,importance `2` and tag `Math` is created.
+
+1. Test case: `tfq qn/Is 5+2 = 8? ans/yes i/2 t/Math`<br>
+   Expected: Question is not created as answer needs to be either `T` or `F`
+
+1. Other incorrect mcq commands to try: `tfq`, `tfq qn/Is 5+2 = 8?`, `...`
+   Expected: Question is not created as there are missing compulsory parameters.
+
+### Stat
+
+1. Prerequisites: 
+   * List all questions using the `list question` command. Multiple questions in the list.
+   * [Add](#adding-an-mcq) a few questions if there are none.
+   * Add tags A and B to different questions, using the edit command. e.g.`edit 1 t/A`   
+   * Do a few quizzes using the `quiz` command.
+   * List all statistics using the `list tag` command.
+    
+1. Test case: `stat t/A`<br>
+   Expected: Overall statistics for questions tagged with A are shown.
+   
+1. Test case: `stat t/A t/B`<br>
+   Expected: Overall statistics for questions tagged with A and questions tagged with B are shown.
+   The lower performance statistic is shown first.
+   
+1. Other incorrect stat commands to try: `stat adfas`
+   Expected: Error message is shown as this in an invalid command format.
+
+
+
+### Adding a note
+1. Successfully add a note in english.
+   1. Prerequisite: On the Note panel/viewing notes (if not, run the `list note` command)
+   2. Test case `note note/this is a test note`
+       Expected: A new note will be added and SmartNus will look like:
+       ![image](images/user-guide/UiSuccessfulEnglishNote.PNG)
+2. Successfully add a note in another language
+   1. Prerequisite: On the Note panel/viewing notes (if not, run the `list note` command)
+   2. Test case `note note/Hello in hindi is: नमस्ते`
+      Expected: A new note will be added and SmartNus will look like:
+      ![image](images/user-guide/SuccessfulNoteInAnotherLanguage.PNG)
+
+3. Successfully delete a note
+    1. Prerequisite: On the Note panel/viewing notes (if not, run the `list note` command) and there are at least 3 notes in the note list.
+    2. Test case `delete note 3`
+       Expected: A success message comes and the 3rd note gets deleted. SmartNus looks like:
+       ![image](images/user-guide/SuccessfulNoteDeletion.PNG)
+   
+4. Give an invalid index for note deletion
+   1. Prerequisite: On the Note panel/viewing notes (if not, run the `list note` command) and there are at least 3 notes in the note list.
+   2. Test case `delete note 2103`
+      Expected: An error message pops up and note list is unchanged. SmartNus looks like:
+      ![image](images/user-guide/NoteDeletionFailure.PNG)
 ### Saving data
 
 1. Dealing with missing data files

@@ -27,7 +27,7 @@ Given below are my contributions to the project.
   - Wrote additional tests for existing features to increase coverage (Pull requests [\#60](https://github.com/AY2122S1-CS2103T-F12-1/tp/pull/60/files), [\#78](https://github.com/AY2122S1-CS2103T-F12-1/tp/pull/78)).
   - Resolved issues raised during Practical Exam Dry Run (Pull requests [\#194](https://github.com/AY2122S1-CS2103T-F12-1/tp/pull/194), [\#206](https://github.com/AY2122S1-CS2103T-F12-1/tp/pull/206), [\#216](https://github.com/AY2122S1-CS2103T-F12-1/tp/pull/216), [\#221](https://github.com/AY2122S1-CS2103T-F12-1/tp/pull/221))
 
-- **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/#breakdown=true&search=ryanpeh)
+- **Code Contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/#breakdown=true&search=ryanpeh)
 
 - **Documentation**:
 
@@ -41,12 +41,13 @@ Given below are my contributions to the project.
     - Added design details for `Quiz` component.
     - Added documentation for quiz related features.
 
-- **Project management**:
+- **Project Management**:
 
   - Set up team GitHub organisation, repository and project website.
   - Integrated a new Github plugin (CodeCov) to the team repo.
   - Managed deadlines and deliverables for the group, including updating the issue tracker and milestones.
   - Managed issues raised during the Practical Examination Dry Run.
 
-- **Community**:
-  - PRs reviewed (with non-trivial review comments): [\#TODO]()
+- **Team-Based Tasks**:
+  - PRs reviewed (with non-trivial review comments): Pull requests [\#96](https://github.com/AY2122S1-CS2103T-F12-1/tp/pull/96), [\#207](https://github.com/AY2122S1-CS2103T-F12-1/tp/pull/207)
+  - Reported bugs for other teams ([bugs reported](https://github.com/ryanpeh/ped/issues))
