@@ -1134,4 +1134,3 @@ testers are expected to do more *exploratory* testing.
 
     1. Test case: Update the `importance` of the first question in the saved data (`docs/smartnus.json`) into a valud of `"300"`. This will cause the saved data file to be corrupted.  <br>
       Expected: When launching the app all the data will not be shown.
-1. _{ more test cases …​ }_
