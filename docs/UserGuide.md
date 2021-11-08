@@ -481,16 +481,10 @@ Navigate to the next question.
 
 Format: `next`
 
-Expected Outcome:
-![NextQuestionCommand](images/user-guide/NextQuestionCommand.png)
-
 #### 4.2.5. Go to the Previous Question: `prev`
 Navigate to the previous question.
 
 Format `prev`
-
-Expected Outcome:
-![PrevQuestionCommand](images/user-guide/PrevQuestionCommand.png)
 
 #### 4.2.6. Exit the Quiz: `exit`
 Exits the quiz.
