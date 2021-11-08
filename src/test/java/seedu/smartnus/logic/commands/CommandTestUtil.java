@@ -21,6 +21,8 @@ import seedu.smartnus.commons.core.index.Index;
 import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.SmartNus;
+import seedu.smartnus.model.note.Note;
+import seedu.smartnus.model.note.NoteNameContainsKeywordsPredicate;
 import seedu.smartnus.model.question.Question;
 import seedu.smartnus.model.question.predicates.NameContainsKeywordsPredicate;
 import seedu.smartnus.testutil.EditQuestionDescriptorBuilder;
@@ -172,6 +174,20 @@ public class CommandTestUtil {
         model.updateFilteredQuestionList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredQuestionList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the note at the given {@code targetIndex} in the
+     * {@code model}'s list of notes.
+     */
+    public static void showNoteAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredNoteList().size());
+
+        Note note = model.getFilteredNoteList().get(targetIndex.getZeroBased());
+        final String[] splitName = note.getTitle().split("\\s+");
+        model.updateFilteredNoteList(new NoteNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredNoteList().size());
     }
 
 }
