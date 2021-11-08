@@ -62,7 +62,7 @@ Here's a quick summary of the available sections in the user guide:
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * All commands are case-sensitive unless otherwise stated.<br>
-  e.g. `help` or `/ans` is acceptable, but `Help` or `Ans/` is not acceptable.<br>
+  e.g. `help` or `ans/` is acceptable, but `Help` or `Ans/` is not acceptable.<br>
 
 </div>
 
@@ -114,13 +114,14 @@ Format: `help`
 Adds a multiple choice question to the question bank.
 
 Format: `mcq qn/QUESTION opt/INCORRECT_OPTION1 opt/INCORRECT_OPTION2 opt/INCORRECT_OPTION3 ans/ANSWER i/IMPORTANCE [t/TAG]`
-#####Required Parameters:
+
+**Required Parameters:**
 * `qn/` The MC Question statement
 * `opt/` The incorrect choices. 3 in total.
 * `ans/` The correct choice. 1 in total.
 * `i/` The importance of the question for the user. An integer between 1 and 3. 3 signifies the highest importance and 1 signifies the lowest importance.
 
-#####Optional Parameters:
+**Optional Parameters:**
 * `t/` The tags of the question
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A multiple choice question must have exactly three incorrect options and one correct answer
@@ -152,12 +153,13 @@ Examples:
 Adds a true false question to the question bank.
 
 Format: `tfq qn/QUESTION ans/ANSWER i/IMPORTANCE [t/TAG]`
-#####Required Parameters:
+
+**Required Parameters:**
 * `qn/` The TF Question statement
 * `ans/` The correct choice. 1 in total, can only be either true or false.
 * `i/` The importance of the question for the user. An integer between 1 and 3. 3 signifies the highest importance and 1 signifies the lowest importance.
 
-#####Optional Parameters:
+**Optional Parameters:**
 * `t/` The tags of the question
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
@@ -175,13 +177,13 @@ Adds a short answer question to the question bank.
 
 Format: `saq qn/QUESTION ans/ANSWER INCLUDING KEYWORDS k/KEYWORD... i/IMPORTANCE [t/TAG]...`
 
-#####Required Parameters:
+**Required Parameters:**
 * `qn/` The TF Question statement
 * `ans/` The correct answer. 1 in total.
 * `k/` The keywords for evaluating the answer. **Need to be included inside the `ans/` parameter.**
 * `i/` The importance of the question for the user. An integer between 1 and 3. 3 signifies the highest importance and 1 signifies the lowest importance.
 
-#####Optional Parameters:
+**Optional Parameters:**
 * `t/` The tags of the question
 <br>
 
@@ -215,7 +217,7 @@ Examples:
 Adds a note to the note list.
 Format: `note note/NOTE`
 
-#####Required Parameters:
+**Required Parameters:**
 * `note/` The note statement
 
 Notes accept all text and numbers. 
@@ -225,7 +227,7 @@ Shows a list of all questions, notes, or tags stored in SmartNus.
 
 Format: `list question` OR `list note` OR `list tag`
 
-#####Required Parameters:
+**Required Parameters:**
 * `question` or `note` or `tag` to specify what to list
 #### 4.1.7. Delete a Question or Note: `delete`
 
@@ -233,11 +235,12 @@ Deletes an existing question or note from the question bank or note list.
 
 Format: `delete question QUESTION_INDEX` OR `delete note NOTE_INDEX`
 
-#####Required Parameters:
+**Required Parameters:**
 * `question` and `QUESTION_INDEX` OR `note` and `NOTE_INDEX`
 <div>
-* Deletes the question or note with the specified `QUESTION_INDEX` or `NOTE_INDEX`, if the index is valid.
-* The `QUESTION_INDEX` or `NOTE_INDEX` refers to the index number shown in the displayed list.
+Deletes the question or note with the specified `QUESTION_INDEX` or `NOTE_INDEX`, if the index is valid.
+
+The `QUESTION_INDEX` or `NOTE_INDEX` refers to the index number shown in the displayed list.
 * A valid index is:
   * **a positive integer** between 1 and 2147483647 (both inclusive)
   * Equal to or smaller than the number of items in the list. Eg. If a list contains 5 questions, `6` is not a valid index but `3` is.
@@ -248,10 +251,10 @@ Edits an existing question in the question bank with the specified question numb
 
 Format: `edit QUESTION_ID [qn/QUESTION] [t/TAG]... [ans/CORRECT_ANSWER] [opt/INCORRECT_OPTION]... [i/IMPORTANCE]`
 
-#####Required Parameters
+**Required Parameters**
 * `QUESTION_ID` refers to the index number shown in the displayed question list.
 
-#####Optional Parameters
+**Optional Parameters**
 * `qn/` The new question statement
 * `t/` The new question tags
 * `ans/` The new correct answer
@@ -298,7 +301,7 @@ at least one of the specified tags, and the importance value (if specified).
 
 Format: `find [KEYWORDS]... [t/TAG]... [i/IMPORTANCE]`
 
-#####Parameters
+**Parameters**
 * `KEYWORDS` The specific keyword(s) to be searched
 * `TAG` The specific tag(s) to be searched
 * `IMPORTANCE` The importance to be searched
@@ -348,7 +351,7 @@ Examples:
 #### 4.1.11. Start a Quiz: `quiz`
 Format: `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX...]`
 
-#####Optional Parameters
+**Optional Parameters**
 * `lim/` positive, non-zero integer that will limit the number of questions in the quiz.
 * `t/` quiz will be formed from questions with the specified tag. If such a tag does not exist, quiz will not start.
 * `n/` quiz just one question - `INDEX` refers to the index number shown in the displayed question list.
