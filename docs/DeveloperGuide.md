@@ -361,10 +361,6 @@ Below is the sequence diagram to show how the quiz is started.
 
 ![QuizSequenceDiagram](images/developer-guide/QuizSequenceDiagram.png)
 
-#### Parsing of user input
-
-As different commands are available to the user at the `QuizWindow` and the `MainWindow`, it is necessary to determine which commands are valid for the user to execute based on which window the user is at.
-
 #### Answering of questions
 
 The answering of questions feature allows users to select their desired choice for questions during a quiz.
@@ -945,7 +941,99 @@ testers are expected to do more *exploratory* testing.
     
 1. Don't change theme
     1. Test case: `theme not a theme` <br>
-       Expected: The theme will not change and an error message will be shown saying `Invalid command format`
+       Expected: The theme will not change and an error message will be shown saying `Invalid command format`.
+
+### Quiz specific questions
+1. Prerequisites: There needs to be at least 5 questions in the question list. And the user needs to be in the question panel by doing `list question`.
+
+1. Quiz single question    
+    1. Test case: `quiz n/1`
+        Expected: A quiz window will open and only 1 question will be tested, particularly the first question in the question list you saw earlier. The status bar of the quiz window should state that there is only 1 question in the quiz.
+    
+    1. Test case: `quiz n/100`
+        Expected: A quiz window will not open and an error message will say that `Quiz has no questions`.
+    
+1. Quiz multiple question
+    1. Test case: `quiz n/1 2`
+        Expected: A quiz window will open and 2 questions will be tested, particularly the first and second question in the question list you saw earler. Do `next` command to confirm that the second question is indeed the second question in the list. The status bar of the quiz window should state that there are 2 questions in the quiz.
+
+    1. Test case: `quiz n/1 500`
+        Expected: A quiz window will open but only 1 question will be tested, specifically the first question. Since there is no question 500, only question 1 will be tested. The status bar of the quiz window should state that there is only 1 question in the quiz.
+
+
+
+### Quiz
+
+1. Answering a multiple choice question
+
+    1. Prerequisites: The question being displayed is a multiple choice question.
+
+    1. Test case: `A`<br>
+       Expected: The question is answered with option 'A'. Details of whether the option is correct or incorrect is displayed.
+
+    1. Test case: `a`<br>
+       Expected: Similar to previous.
+
+    1. Test case: `E`<br>
+       Expected: Question is not answered. Error details shown in the status message.
+
+    2. Other incorrect delete commands to try: `e`, `asdf`, `ans`<br>
+       Expected: Similar to previous.
+
+2. Answering a true false question
+
+    1. Prerequisites: The question being displayed is a true false question.
+
+    2. Test case: `True`<br>
+       Expected: The question is answered with option 'True'. Details of whether the option is correct or incorrect is displayed.
+
+    3. Test case: `T`<br>
+       Expected: Similar to previous.
+
+    4. Test case: `A`<br>
+       Expected: Question is not answered. Error details shown in the status message.
+
+    5. Other incorrect delete commands to try: `True`, `tru`, `flase`<br>
+       Expected: Similar to previous.
+
+2. Answering a short answer question
+
+    1. Prerequisites: The question being displayed is a short answer question
+
+    2. Test case: `ans/Hello There`<br>
+       Expected: The question is answered with answer 'Hello There'. Details of whether the answer is correct or incorrect is displayed.
+
+    3. Test case: `Hello There`<br>
+       Expected: Question is not answered. Error details shown in the status message.
+
+    4. Other incorrect delete commands to try: `ans/`, `an/Hello`, `ansHello There`<br>
+       Expected: Similar to previous.
+
+3. Proceeding to the next question
+
+    1. Prerequisites: The question being displayed is not the last question.
+
+    2. Test case: `next`<br>
+       Expected: The next question in the quiz will be displayed. Status bar will be updated with the updated question number.
+
+    3. Test case: `nxt`<br>
+       Expected: The question displayed remains the same. Error details shown in the status message.
+
+    4. Other incorrect delete commands to try: `n`, `nextt`, `nex t`<br>
+       Expected: Similar to previous.
+
+3. Proceeding to the previous question
+
+    1. Prerequisites: The question being displayed is not the last question.
+
+    2. Test case: `prev`<br>
+       Expected: The next question in the quiz will be displayed. Status bar will be updated with the updated question number.
+
+    3. Test case: `pre`<br>
+       Expected: The question displayed remains the same. Error details shown in the status message.
+
+    4. Other incorrect delete commands to try: `p`, `prevv`, `pre v`<br>
+       Expected: Similar to previous.
 
 ### Saving data
 
