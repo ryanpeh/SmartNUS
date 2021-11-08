@@ -17,7 +17,7 @@ while still having the benefits of a Graphical User Interface (GUI). SmartNUS al
 quiz yourself, as well as add notes for revision. If you can type fast, SmartNUS can make your review
 sessions more effective and faster than traditional GUI apps.
 
-Interested in using our app? Check out the [Quick Start section](#quick-start) to get started!
+Interested in using our app? Check out the [Quick Start section](#3-quick-start) to get started!
 
 ## 2. About
 
@@ -435,6 +435,9 @@ Format: `theme THEME`
 Examples:
 - `theme light`: Sets the theme to light
 - `theme dark`: Sets the theme to dark
+
+![Light Theme UI](images/user-guide/UiLightTheme.png)
+![Dark Theme UI](images/user-guide/UiDarkTheme.png)
 
 ### 4.2. Quiz Window Commands
 
