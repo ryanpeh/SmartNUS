@@ -141,12 +141,6 @@ The `Model` component,
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `SmartNus` model, which `Question` references. This allows `SmartNus` to only require one `Tag` object per unique tag, instead of each `Question` needing their own `Tag` objects.<br>
-
-<img src="images/developer-guide/BetterModelClassDiagram.png" width="450" />
-
-</div>
-
 #### Question class
 
 The `Question` class is an abstract class that stores a `Name`, `Importance`, `Statistic`, `Tag`s and `Choice`s.
@@ -1037,6 +1031,53 @@ testers are expected to do more *exploratory* testing.
 
     4. Other incorrect delete commands to try: `p`, `prevv`, `pre v`<br>
        Expected: Similar to previous.
+
+### Adding an MCQ
+
+1. Prerequisites: List all questions using the `list question` command. Multiple questions in the list.
+
+1. Test case: `mcq qn/What is 5+2? ans/7 opt/1 opt/2 opt/3 i/2 t/Math`<br>
+   Expected: An mcq `What is 5+2?` with options `1, 2, 3` and answer `7` with importance `2` and tag `Math` is created.
+
+1. Test case: `mcq qn/What is 5+3? ans/8 opt/2 opt/2 opt/3 i/2 t/Math`<br>
+   Expected: Question is not created as options are duplicates
+
+1. Other incorrect mcq commands to try: `mcq`, `mcq ans/3`, `...`
+   Expected: Question is not created as there are missing compulsory parameters.
+
+### Adding a TFQ
+
+1. Prerequisites: List all questions using the `list question` command. Multiple questions in the list.
+
+1. Test case: `tfq qn/Is 5+2 = 8? ans/f i/2 t/Math`<br>
+   Expected: An tfq `What is 5+2?` with answer `false`,importance `2` and tag `Math` is created.
+
+1. Test case: `tfq qn/Is 5+2 = 8? ans/yes i/2 t/Math`<br>
+   Expected: Question is not created as answer needs to be either `T` or `F`
+
+1. Other incorrect mcq commands to try: `tfq`, `tfq qn/Is 5+2 = 8?`, `...`
+   Expected: Question is not created as there are missing compulsory parameters.
+
+### Stat
+
+1. Prerequisites: 
+   * List all questions using the `list question` command. Multiple questions in the list.
+   * [Add](#adding-an-mcq) a few questions if there are none.
+   * Add tags A and B to different questions, using the edit command. e.g.`edit 1 t/A`   
+   * Do a few quizzes using the `quiz` command.
+   * List all statistics using the `list tag` command.
+    
+1. Test case: `stat t/A`<br>
+   Expected: Overall statistics for questions tagged with A are shown.
+   
+1. Test case: `stat t/A t/B`<br>
+   Expected: Overall statistics for questions tagged with A and questions tagged with B are shown.
+   The lower performance statistic is shown first.
+   
+1. Other incorrect stat commands to try: `stat adfas`
+   Expected: Error message is shown as this in an invalid command format.
+
+
 
 ### Saving data
 
