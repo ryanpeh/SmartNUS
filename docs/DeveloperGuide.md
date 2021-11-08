@@ -136,19 +136,11 @@ How the `Logic` component determines which parser to use:
 
 The `Model` component,
 
-<<<<<<< HEAD
-- stores the smartNUS data i.e., all [`Question`](#question-class) and `Quiz` objects (which are contained in a `UniqueQuestionList` object).
+- stores the smartNUS data i.e., all `Question` and `Quiz` objects (which are contained in a `UniqueQuestionList` object).
 - stores the currently 'selected' `Question` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Question>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 - stores another list of the currently 'selected' `Question` objects for a `Quiz` as a separate _filtered_ list which is also exposed to outsiders as an unmodifiable `ObservableList<Question>` that can be used in the Quiz UI
 - stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 - does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
-=======
-* stores the smartNUS data i.e., all `Question` and `Quiz` objects (which are contained in a `UniqueQuestionList` object).
-* stores the currently 'selected' `Question` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Question>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* stores another list of the currently 'selected' `Question` objects for a `Quiz` as a separate _filtered_ list which is also exposed to outsiders as an unmodifiable `ObservableList<Question>` that can be used in the Quiz UI
-* stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
-* does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
->>>>>>> 189a0d08966552bde224faef308ba223dccf1e32
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `SmartNus` model, which `Question` references. This allows `SmartNus` to only require one `Tag` object per unique tag, instead of each `Question` needing their own `Tag` objects.<br>
 
@@ -168,26 +160,17 @@ The validity of a `Question` depends on the type of question.
 Types of Questions currently supported by SmartNUS, and their conditions for validity are:
 
 1. Multiple Choice Questions
-<<<<<<< HEAD
-   - Has four `Choices` in total, exactly one of which is correct
+   - Has four `Choice`s in total, exactly one of which is correct
 1. True-False Questions
-   - Has two `Choices` in total, which can only be "True" and "False", exactly one of which is correct
+   - Has two `Choice`s in total, which can only be "True" and "False", exactly one of which is correct
 1. Short Answer Questions
-   - TODO
-1. Multiple Response Questions (coming soon)
-   - Has four `Choices` in total, at least one of which is correct
-=======
-   * Has four `Choice`s in total, exactly one of which is correct
-1. True-False Questions
-   * Has two `Choice`s in total, which can only be "True" and "False", exactly one of which is correct
-1. Short Answer Questions
-   * Has one `Choice` in total which is correct and contains at least one `keyword`
->>>>>>> 189a0d08966552bde224faef308ba223dccf1e32
+   - Has one `Choice` in total which is correct and contains at least one `keyword`
 
 ## Note class
 
 The `Note` class is the class that stores a text - defined as a `title`. The condition for validity of notes is:
-* It should not be empty.
+
+- It should not be empty.
 
 ## Statistic Class
 
@@ -281,6 +264,7 @@ This section describes some noteworthy details on how certain features are imple
 The find questions feature allows users to search for `Question`s by three parameters: name, tags and importance.
 
 #### Implementation
+
 The find questions feature is implemented using `FindCommandParser`, `FindCommand` and `Predicate`s that implement the `Predicate<Question>` interface.
 Given below is a class diagram of the main classes involved in the implementation of this feature.
 
@@ -290,11 +274,11 @@ The FindCommandParser parses the user input into predicates that the `Question`s
 Each condition is represented by a predicate that extends from `Predicate<Question>`. The three search parameters in the user input, name, tags and importance,
 are parsed and used to create the `NameContainsKeywordsPredicate`, `TagsContainKeywordsPredicate` and `HasImportancePredicate` respectively.
 
-| Predicate | Function                                | 
-| -------- | ------------------------------------------ | 
-|`NameContainsKeywordsPredicate` | Checks if a `Question`'s `Name` contains all the given keywords |
-|`TagsContainKeywordsPredicate`| Checks if a `Question` contains at least one `Tag`s whose name matches a keywords |
-|`HasImportancePredicate`| Checks if a `Question` has a particular `Importance` value |
+| Predicate                       | Function                                                                          |
+| ------------------------------- | --------------------------------------------------------------------------------- |
+| `NameContainsKeywordsPredicate` | Checks if a `Question`'s `Name` contains all the given keywords                   |
+| `TagsContainKeywordsPredicate`  | Checks if a `Question` contains at least one `Tag`s whose name matches a keywords |
+| `HasImportancePredicate`        | Checks if a `Question` has a particular `Importance` value                        |
 
 These predicates are passed from the `FindCommandParser` to the `FindCommand`.
 `FindCommand` composes these predicates into a logical AND of all predicates. When the `FindCommand` is executed,
@@ -305,16 +289,18 @@ executes `"find class t/CS2103T"`.
 ![Find Command Sequence Diagram](images/developer-guide/FindSequenceDiagram.png)
 
 #### Proposed Extensions
+
 The find feature currently only supports finding questions. It can be extended to search for both `Question`s and `Note`s.
-Here is the proposed implementation of such a feature: 
+Here is the proposed implementation of such a feature:
+
 1. The `FindCommandParser` will take in an additional
-parameter, either "note" or "question". 
+   parameter, either "note" or "question".
 2. Depending on which item the user wants to search for, the `FindCommandParser`
-will create a `FindNoteParser` or a `FindQuestionParser`. 
+   will create a `FindNoteParser` or a `FindQuestionParser`.
 3. The parsers will parse user inputs into either `Predicate<Note>`
-or `Predicate<Question>`, depending on the item that the user is searching for. 
+   or `Predicate<Question>`, depending on the item that the user is searching for.
 4. If the user is searching for `Note`s, a `FindNoteCommand` will be generated. If the user is searching for `Question`s, a `FindQuestionCommand` is created.
-The activity diagram below illustrates this implementation.
+   The activity diagram below illustrates this implementation.
 
 ![Find Command Activity Diagram](images/developer-guide/FindActivityDiagram.png)
 
@@ -555,8 +541,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 Use case ends.
 
-<<<<<<< HEAD
-=======
 **Use case: List tag**
 
 **MSS**
@@ -566,13 +550,11 @@ Use case ends.
 
 **Extensions**
 
-* 1a. User does not specify the keyword `tag`.
-* SmartNUS shows error message.
+- 1a. User does not specify the keyword `tag`.
+- SmartNUS shows error message.
 
 Use case ends.
 
-
->>>>>>> 189a0d08966552bde224faef308ba223dccf1e32
 **Use case: Add Multiple Choice question and options**
 
 **MSS**
@@ -592,13 +574,8 @@ Use case ends.
 
   Use case ends.
 
-<<<<<<< HEAD
-- 1c. User specifies more than one correct answer.
-- SmartNUS shows error message.
-=======
 * 1c. User specifies more than 3 incorrect options.
 * SmartNUS shows error message.
->>>>>>> 189a0d08966552bde224faef308ba223dccf1e32
 
   Use case ends.
 
@@ -613,24 +590,13 @@ Use case ends.
 
 - 1a. User does not specify the correct answer.
 
-<<<<<<< HEAD
-  - 1a1. SmartNUS shows error message.
+      Use case ends.
 
-    Use case ends.
-
-- 1b. User specifies more than one correct answer.
+* 1b. User specifies a blank answer.
 
   - 1b1. SmartNUS shows error message.
 
     Use case ends.
-=======
-      Use case ends.
-      
-* 1b. User specifies a blank answer.
-    * 1b1. SmartNUS shows error message.
-    
-        Use case ends.
->>>>>>> 189a0d08966552bde224faef308ba223dccf1e32
 
 - 1c. User does not specify an appropriate answer.
 
@@ -686,41 +652,6 @@ Use case ends.
 
   - 3a1. SmartNUS shows an error message.
 
-<<<<<<< HEAD
-    Use case resumes at Step 2.
-
-**Use case: Tag a question**
-
-**MSS**
-
-1.  User requests to list questions.
-2.  SmartNUS shows a list of all questions.
-3.  User requests to tag a specific question in the list with specific tag(s).
-4.  SmartNUS tags the question with the specified tags.  
-    Use case ends.
-
-**Extensions**
-
-- 2a. The list is empty.
-
-  - 2a1. SmartNUS shows message that there are no questions.
-
-    Use case ends.
-
-- 3a. The given index is invalid.
-
-  - 3a1. SmartNUS shows an error message.
-
-    Use case resumes at Step 2.
-
-- 3b. At least one specified tag does not exist.
-
-  - 3b1. SmartNUS creates tags that do not exist.
-
-    Use case resumes at Step 4.
-
-=======
->>>>>>> 189a0d08966552bde224faef308ba223dccf1e32
 **Use case: List questions containing specific tags**
 
 **MSS**
