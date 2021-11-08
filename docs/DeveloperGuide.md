@@ -1079,6 +1079,29 @@ testers are expected to do more *exploratory* testing.
 
 
 
+### Adding a note
+1. Successfully add a note in english.
+   1. Prerequisite: On the Note panel/viewing notes (if not, run the `list note` command)
+   2. Test case `note note/this is a test note`
+       Expected: A new note will be added and SmartNus will look like:
+       ![image](images/user-guide/UiSuccessfulEnglishNote.PNG)
+2. Successfully add a note in another language
+   1. Prerequisite: On the Note panel/viewing notes (if not, run the `list note` command)
+   2. Test case `note note/Hello in hindi is: नमस्ते`
+      Expected: A new note will be added and SmartNus will look like:
+      ![image](images/user-guide/SuccessfulNoteInAnotherLanguage.PNG)
+
+3. Successfully delete a note
+    1. Prerequisite: On the Note panel/viewing notes (if not, run the `list note` command) and there are at least 3 notes in the note list.
+    2. Test case `delete note 3`
+       Expected: A success message comes and the 3rd note gets deleted. SmartNus looks like:
+       ![image](images/user-guide/SuccessfulNoteDeletion.PNG)
+   
+4. Give an invalid index for note deletion
+   1. Prerequisite: On the Note panel/viewing notes (if not, run the `list note` command) and there are at least 3 notes in the note list.
+   2. Test case `delete note 2103`
+      Expected: An error message pops up and note list is unchanged. SmartNus looks like:
+      ![image](images/user-guide/NoteDeletionFailure.PNG)
 ### Saving data
 
 1. Dealing with missing/corrupted data files
