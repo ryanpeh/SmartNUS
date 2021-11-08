@@ -110,7 +110,7 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
-#### 4.1.2 Switching between panels : `list`
+#### 4.1.2. 4.1.2 Switch between panels : `list`
 
 Format: `list question` OR `list note` OR `list tag`
 
@@ -129,7 +129,20 @@ Commands that deal with a specific entity can only be run in their own panel. E.
 
 For more details on which command can run in which panel, refer to the [Main Window Command Summary](#main-window-command-summary)
 
-#### 4.1.3. Add a Multiple Choice Question: `mcq`
+#### 4.1.3. Add a Question
+
+The following features allow you to add various types of questions to the question bank.
+
+
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Note:**<br> 
+You cannot add a duplicate `Question` to SmartNUS or edit a `Question` to become a duplicate of an existing one.
+`Question`s are considered duplicates if they have the same title or question statement.                
+
+</div>
+
+##### 4.1.3.1. Add a Multiple Choice Question: `mcq`
 
 Adds a multiple choice question to the question bank.
 
@@ -168,7 +181,7 @@ Examples:
   
       having importance 2.
 
-#### 4.1.4. Add a True False Question: `tfq`
+##### 4.1.3.2. Add a True False Question: `tfq`
 
 Adds a true false question to the question bank.
 
@@ -195,7 +208,7 @@ Examples:
 * `tfq qn/Is CS2103T a fun module? ans/t i/2`: Is CS2103T a fun module? True
 * `tfq qn/Will entering multiple valid answers create problems? ans/t ans/f i/2`: Will entering multiple valid answers create problems? False
 
-#### 4.1.5. Add a Short Answer Question: `saq`
+##### 4.1.3.3. Add a Short Answer Question: `saq`
 
 Adds a short answer question to the question bank.
 
@@ -236,7 +249,7 @@ Examples:
       "potter harry", "harrypotter" and "wordthatincludesharryandpotter"
     * Incorrect answers include "Potter" and "harr pottery"
 
-#### 4.1.6. Add notes: `note`
+#### 4.1.4. Add notes: `note`
 Adds a note to the note list.
 Format: `note note/NOTE`
 
@@ -248,7 +261,7 @@ Notes accept all text and numbers.
 
 **Required Parameters:**
 * `question` or `note` or `tag` to specify what to list
-#### 4.1.7. Delete a Question or Note: `delete`
+#### 4.1.5. Delete a Question or Note: `delete`
 
 Deletes an existing question or note from the question bank or note list.
 
@@ -269,7 +282,7 @@ The `QUESTION_INDEX` or `NOTE_INDEX` refers to the index number shown in the dis
   * **a positive integer** between 1 and 2147483647 (both inclusive)
   * Equal to or smaller than the number of items in the list. Eg. If a list contains 5 questions, `6` is not a valid index but `3` is.
 
-#### 4.1.8. Edit a Question and Answers: `edit`
+#### 4.1.6. Edit a Question and Answers: `edit`
 
 Edits an existing question in the question bank with the specified question number.
 
@@ -322,7 +335,7 @@ run the `list question` command.
 
 </div>
 
-#### 4.1.9. Find/Search Questions: `find`
+#### 4.1.7. Find/Search Questions: `find`
 
 Shows a list of all questions in SmartNUS that have all the specified keywords in their titles,
 at least one of the specified tags, and the importance value (if specified).
@@ -364,7 +377,7 @@ Examples:
   * e.g. A question titled "What is the load word instruction used for?" tagged with only CS2100 and with an importance value of 2 will be listed.
 * `find java` returns a question titled "How do you output text to the console in Java?" but not a question titled "Javascript is commonly used in web development. True or false?" (since `java` is not a full word match for `javascript`).
 
-#### 4.1.10. Find/Search Stats: `stat`
+#### 4.1.8. Find/Search Stats: `stat`
 
 Shows the list of statistics by Tag for the questions attempted.
 
@@ -386,7 +399,7 @@ Examples:
 * `stat t/CS2100 t/MIPS` returns the overall statistics for the questions tagged with `CS2100` or `MIPS` or both.
 
 <!-- TODO: add brief description before format to standardise format-->
-#### 4.1.11. Start a Quiz: `quiz`
+#### 4.1.9. Start a Quiz: `quiz`
 Format: `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX...]`
 
 **Optional Parameters**
@@ -411,25 +424,25 @@ Examples:
 * `quiz lim/5 t/CS2100 t/MIPS` quiz will select questions tagged with at least one of the tags, limited to 5 questions.
 * `quiz n/1 2 3` quiz will select the questions with index number 1 2 3.
 
-#### 4.1.12. Clear All Entries : `clear`
+#### 4.1.10. Clear All Entries : `clear`
 
 Clears all entries (questions, notes and tags) from the question bank.
 
 Format: `clear`
 
-#### 4.1.13. Exit the Program : `exit`
+#### 4.1.11. Exit the Program : `exit`
 
 Exits the program.
 
 Format: `exit`
 
-#### 4.1.14. Change the Theme: `theme`
+#### 4.1.12. Change the Theme: `theme`
 
 Changes the theme of the app.
 
 Format: `theme THEME`
 
-##### Parameters:
+##### 4.1.12.1. Parameters:
 - `THEME`: can only be `light` or `dark`
 
 Examples:
