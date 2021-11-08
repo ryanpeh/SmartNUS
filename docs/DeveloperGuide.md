@@ -851,13 +851,14 @@ testers are expected to do more *exploratory* testing.
 ### Adding a short answer question
 
    1. Prerequisites: On the Question panel/viewing questions (e.g. after running the `list question` or `find` commands).
+
    2. Test case: `saq qn/What is the name of this app? ans/k/SmartNUS i/3`
       
       Expected: A new short answer question with the specified details is added and shown on the displayed list of questions.
-   4. Test case: `saq qn/What is the name of this app? ans/SmartNUS i/3`
+   3. Test case: `saq qn/What is the name of this app? ans/SmartNUS i/3`
    
       Expected: No new question is added and an error message is thrown as the answer must contain at least one keyword (specified by `k/`).
-   5. Test case: `saq qn/What is the name of this app? ans/k/SmartNUS`
+   4. Test case: `saq qn/What is the name of this app? ans/k/SmartNUS`
 
       Expected: No new question is added and an error message is thrown as the user failed to specify the importance (`i/`) of the question.
 
@@ -865,19 +866,20 @@ testers are expected to do more *exploratory* testing.
 ### Editing a question
 
    1. Prerequisites: On the Question panel/viewing questions (e.g. after running the `list question` or `find` commands). List displayed contains at least 3 questions. The first one is a Multiple Choice Question, the second is a True False Question and the third is a Short Answer Question.
+
    2. Test case: `edit 1 qn/This is my new question ans/1 opt/2 opt/3 opt/4 t/`
 
       Expected: First question in the list is edited with the new title, new answer and options, and all tags (if the question had any) are removed.
-   4. Test case: `edit 2 ans/T t/Java`
+   3. Test case: `edit 2 ans/T t/Java`
 
       Expected: Second question in the list is updated with the new answer (True) and now has one tag titled Java
-   5. Test case: `edit 3 ans/k/mitochondria i/3`
+   4. Test case: `edit 3 ans/k/mitochondria i/3`
 
       Expected: Third question in the list is updated with a new answer, keyword and importance.
-   6. Test case: `edit 1`
+   5. Test case: `edit 1`
 
       Expected: No question is edited. Error message is shown as no parameters to be edited are specified.
-   7. Test case: `edit 1 qn/`
+   6. Test case: `edit 1 qn/`
 
       Expected: No question is edited. Error mesesage is shown as `qn/` parameter cannot be empty.
 
@@ -885,29 +887,29 @@ testers are expected to do more *exploratory* testing.
 ### Finding questions
 
    1. Prerequisites: On the Question panel/viewing questions (e.g. after running the `list question` or `find` commands).
+
    2. Test case: `find t/Java t/CS2103T`
 
       Expected: All questions in SmartNUS tagged with Java, CS2103T or both are shown.
    3. Test case: `find coding standard t/cs2103t i/2`
-      
-   4. Expected: All questions that contain the full words "coding" and "standard" in their titles (in any order) AND are tagged with "cs2103t" AND have importance of 2 are shown.
-   5. Test case: `find`
-      
-   6. Expected: An error message is shown as user did not specify any parameters to find by.
+   
+      Expected: All questions that contain the full words "coding" and "standard" in their titles (in any order) AND are tagged with "cs2103t" AND have importance of 2 are shown.
+   4. Test case: `find`
+
+      Expected: An error message is shown as user did not specify any parameters to find by.
 
 
 ### Deleting a question while all questions are being shown
+1. Prerequisites: List all questions using the `list question` command. Multiple questions in the list.
 
-    1. Prerequisites: List all questions using the `list question` command. Multiple questions in the list.
+2. Test case: `delete question 1`<br>
+   Expected: First question is deleted from the list. Details of the deleted question shown in the status message. Timestamp in the status bar is updated.
 
-    1. Test case: `delete question 1`<br>
-       Expected: First question is deleted from the list. Details of the deleted question shown in the status message. Timestamp in the status bar is updated.
+3. Test case: `delete question 0`<br>
+   Expected: No question is deleted. Error details shown in the status message. Status bar remains the same.
 
-    1. Test case: `delete question 0`<br>
-       Expected: No question is deleted. Error details shown in the status message. Status bar remains the same.
-
-    1. Other incorrect delete commands to try: `delete`, `delete note x`, `...` (where x is larger than the list size)<br>
-       Expected: Similar to previous.
+4. Other incorrect delete commands to try: `delete`, `delete note x`, `...` (where x is larger than the list size)<br>
+   Expected: Similar to previous.
 
 ### Switching Panels and Listing
 1. Switch panel to view all questions
