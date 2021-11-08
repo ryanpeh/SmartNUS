@@ -259,11 +259,14 @@ Given below is a class diagram of the main classes involved in the implementatio
 ![Find Command Class Diagram](images/developer-guide/FindClassDiagram.png)
 
 The FindCommandParser parses the user input into predicates that the `Question`s must match to be included in the `FilteredQuestionList`.
-Each condition is represented by a predicate that extends from Predicate<Question>. The three search parameters in the user input, name, tags and importance,
-are parsed and used to create the NameContainsKeywordsPredicate, TagsContainKeywordsPredicate and HasImportancePredicate respectively.
-`NameContainsKeywordsPredicate`: Checks if a `Question`'s `Name` contains all the given keywords
-`TagsContainKeywordsPredicate`: Checks if a `Question` contains at least one of the tags
-`HasImportancePredicate`: Checks if a `Question` has a particular `Importance` value
+Each condition is represented by a predicate that extends from `Predicate<Question>`. The three search parameters in the user input, name, tags and importance,
+are parsed and used to create the `NameContainsKeywordsPredicate`, `TagsContainKeywordsPredicate` and `HasImportancePredicate` respectively.
+
+`NameContainsKeywordsPredicate`: checks if a `Question`'s `Name` contains all the given keywords
+
+`TagsContainKeywordsPredicate`: checks if a `Question` contains at least one of the tags
+
+`HasImportancePredicate`: checks if a `Question` has a particular `Importance` value
 
 These predicates are passed from the `FindCommandParser` to the `FindCommand`.
 `FindCommand` composes these predicates into a logical AND of all predicates. When the `FindCommand` is executed,

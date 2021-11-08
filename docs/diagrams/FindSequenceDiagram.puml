@@ -28,20 +28,20 @@ SmartNusParser -> FindCommandParser : parse("class t/CS2103T")
 
 activate FindCommandParser
 
-FindCommandParser -> FindCommandParser : setNamePredicate(input, predicates)
-activate FindCommandParser
-FindCommandParser --> FindCommandParser
-deactivate FindCommandParser
-
-FindCommandParser -> FindCommandParser : setTagsPredicate(input, predicates)
-activate FindCommandParser
-FindCommandParser --> FindCommandParser
-deactivate FindCommandParser
-
-FindCommandParser -> FindCommandParser : setImportancePredicate(input, predicates)
-activate FindCommandParser
-FindCommandParser --> FindCommandParser
-deactivate FindCommandParser
+'FindCommandParser -> FindCommandParser : setNamePredicate(input, predicates)
+'activate FindCommandParser
+'FindCommandParser --> FindCommandParser
+'deactivate FindCommandParser
+'
+'FindCommandParser -> FindCommandParser : setTagsPredicate(input, predicates)
+'activate FindCommandParser
+'FindCommandParser --> FindCommandParser
+'deactivate FindCommandParser
+'
+'FindCommandParser -> FindCommandParser : setImportancePredicate(input, predicates)
+'activate FindCommandParser
+'FindCommandParser --> FindCommandParser
+'deactivate FindCommandParser
 
 create FindCommand
 FindCommandParser -> FindCommand
