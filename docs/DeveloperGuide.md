@@ -361,10 +361,6 @@ Below is the sequence diagram to show how the quiz is started.
 
 ![QuizSequenceDiagram](images/developer-guide/QuizSequenceDiagram.png)
 
-#### Parsing of user input
-
-As different commands are available to the user at the `QuizWindow` and the `MainWindow`, it is necessary to determine which commands are valid for the user to execute based on which window the user is at.
-
 #### Answering of questions
 
 The answering of questions feature allows users to select their desired choice for questions during a quiz.
