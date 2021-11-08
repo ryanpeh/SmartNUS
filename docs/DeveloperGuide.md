@@ -354,10 +354,11 @@ The start quiz feature allows users to start a quiz from the main window.
 
 The quiz feature is facilitated by `MainWindow`, `LogicManager`, `SmartNusParser` and `QuizCommand`. Given below is an example usage scenario of how the start quiz mechanism behaves at each step.
 
-1. User input from `MainWindow` class in the Ui component is passed to the `LogicManager` to execute.
-2. `LogicManager` will then call `SmartNusParser`, which will parse the user input to return a `QuizCommandParser`.
-3. Once parsed, `QuizCommandParser` will return a `QuizCommand`, and when executed, will update the questions available in the model with the questions to be displayed in the quiz as well as return a `CommandResult` that indicates to start the quiz.
-4. The `CommandResult` is then returned back to `MainWindow` which will then create a new `QuizWindow` to be displayed.
+1. User input `quiz lim/5` from `MainWindow` class in the Ui component is passed to the `LogicManager` to execute.
+2. `LogicManager` will then call `SmartNusParser#parserCommand()`, which will create a `QuizCommandParser`.
+3. Additionally, `SmartNusParser` will then call the `QuizCommandParser#parse()` method to parse the arguments `lim/5`, which will create a `QuizCommand`.
+4. `QuizCommand#execute()` will be invoked by `LogicManager` to execute the command, which will then call `Model#updateFilteredQuizQuestionList()` to update the questions in the `Model`.
+5. The `CommandResult` is then returned back to `MainWindow` which will then create a new `QuizWindow` to be displayed.
 
 Below is the sequence diagram to show how the quiz is started.
 
