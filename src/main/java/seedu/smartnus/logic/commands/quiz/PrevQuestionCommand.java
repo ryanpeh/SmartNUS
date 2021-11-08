@@ -12,7 +12,7 @@ import seedu.smartnus.model.quiz.exceptions.QuizOutOfBoundException;
 public class PrevQuestionCommand extends Command {
     public static final String COMMAND_WORD = "prev";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Quizzes the previous question, takes no arguments";
-    public static final String MESSAGE_SUCCESS = "Got Previous Question!";
+    public static final String MESSAGE_SUCCESS = "Got the Previous Question!";
     public static final String MESSAGE_START_OF_QUIZ = "You have reached the beginning of the quiz, enter '"
             + ExitCommand.COMMAND_WORD + "' to exit the quiz.";
 
