@@ -947,8 +947,12 @@ testers are expected to do more *exploratory* testing.
 
 ### Saving data
 
-1. Dealing with missing/corrupted data files
+1. Dealing with missing data files
 
-    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+    - Delete the save file `smartnus.json` in the `data` folder and launch the app by opening the jar file.<br>
+       Expected: Shows the GUI with the sample data.
 
-1. _{ more test cases …​ }_
+2. Dealing with corrupted data files
+
+    - Corrupt the save file `smartnus.json` in the `data` folder (e.g. Add a line "Corrupted data" at the end of the file) and launch the app by opening the jar file.<br>
+       Expected: Shows the GUI with no data.
