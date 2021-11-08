@@ -6,7 +6,7 @@ skinparam classBackgroundColor STORAGE_COLOR
 
 package "Logic" #F4F6F6{
 
-package "Parsers" { 
+package "Parsers" {
 Class SmartNusParser LOGIC_COLOR
 Class FindCommandParser LOGIC_COLOR
 }

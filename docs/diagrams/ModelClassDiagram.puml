@@ -4,18 +4,49 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-Class "{abstract}\nQuestion" as Question
+Package Model <<Rectangle>>{
+Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyUserPrefs <<Interface>>
+Interface Model <<Interface>>
+Class AddressBook
+Class ReadOnlyAddressBook
+Class Model
+Class ModelManager
+Class UserPrefs
+Class ReadOnlyUserPrefs
+
+
+Class UniqueQuestionList
+Class Question
 Class Name
 Class Importance
 Class Tag
 
-Question *-left-> Name
-Question *-l-> Importance
-Question *-l-> "1..*" Choice
-Question *-l-> "*" Tag
-Question *-l-> "1" Statistic
-MultipleChoiceQuestion -up-|> Question
-TrueFalseQuestion -up-|> Question
-ShortAnswerQuestion -up-|> Question
+}
 
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Model
+
+AddressBook .up.|> ReadOnlyAddressBook
+
+ModelManager .up.|> Model
+Model .right.> ReadOnlyUserPrefs
+Model .left.> ReadOnlyAddressBook
+ModelManager -left-> "1" AddressBook
+ModelManager -right-> "1" UserPrefs
+UserPrefs .up.|> ReadOnlyUserPrefs
+
+AddressBook *--> "1" UniqueQuestionList
+UniqueQuestionList --> "~* all" Question
+Question *--> Name
+Question *--> Phone
+Question *--> Email
+Question *--> Address
+Question *--> "*" Tag
+
+Name -[hidden]right-> Phone
+Phone -[hidden]right-> Address
+Address -[hidden]right-> Email
+
+ModelManager -->"~* filtered" Question
 @enduml
