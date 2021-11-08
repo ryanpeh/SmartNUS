@@ -94,8 +94,8 @@ Here's a (partial) class diagram of the `Logic` component:
 
 How the `Logic` component works:
 1. When `Logic` is called upon to execute a command, it uses either the `SmartNusParser` or the `QuizInputParser` class to parse the user command, depending on which window the user is currently on (i.e. Main Window or Quiz Window).
-1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddCommand`) which is executed by the `LogicManager`.
-1. The command can communicate with the `Model` when it is executed (e.g. to add a question).
+1. This results in a `Command` object (more precisely, an object of one of its subclasses, `ABCCommand` or `XYZCommand`, which are placeholders for Commands created by `SmartNusParser` and `QuizInputParser` respectively e.g. `AddMcqCommand` created by `SmartNusParser` is a `XYZCommand`, while `AnswerMcqCommand` created by `QuizInputParser` is a `ABCCommand`) which is executed by the `LogicManager`.
+1. The command can communicate with the `Model` when it is executed (e.g. to add a question for `AddMcqCommand`).
 1. The result of the command execution is encapsulated as a `CommandResult` object which is then returned from `Logic`.
 
 The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("delete question 1")` API call.
