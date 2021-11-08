@@ -137,9 +137,9 @@ Examples:
       * B. 1
       * C. 0
       * D. 2 (correct)
-      
+
       having importance 1.
-    
+
 * `mcq qn/What is 1 + 5? opt/3 opt/1 opt/0 ans/12 ans/6 i/2`
   * creates a new MCQ question:
     * What is 1 + 1?
@@ -147,7 +147,7 @@ Examples:
       * B. 1
       * C. 0
       * D. 6 (correct)
-        
+  
       having importance 2.
 
 #### 4.1.3. Add a True False Question: `tfq`
@@ -166,7 +166,7 @@ Format: `tfq qn/QUESTION ans/ANSWER i/IMPORTANCE [t/TAG]`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A true false question can only have one answer, either "T" or "F"
-</div> 
+</div>
 
 Examples:
 * `tfq qn/Is 1+1 = 2? ans/T i/1` : Is 1+1 = 2? True.
@@ -222,7 +222,7 @@ Format: `note note/NOTE`
 **Required Parameters:**
 * `note/` The note statement
 
-Notes accept all text and numbers. 
+Notes accept all text and numbers.
 #### 4.1.6. List All Items : `list`
 
 Shows a list of all questions, notes, or tags stored in SmartNus.
@@ -369,7 +369,7 @@ Format: `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX...]`
 * If no parameters are passed, a quiz session will be created using all the questions in the question list.
   * If the total number of questions is less than the limit, it will just give all the questions.
 * TAG can be used to filter the quiz to only give questions with the tags specified, works with limit.
-* INDEX can be used to filter the quiz to only give questions with the specified question numbers. 
+* INDEX can be used to filter the quiz to only give questions with the specified question numbers.
   The index **must be a positive integer** from 1 to 2147483647
 
 * A valid index and limit is:
