@@ -162,8 +162,8 @@ Types of Questions currently supported by SmartNUS, and their conditions for val
 
 ## Note class
 
-The `Note` class is a class that stores a text.
-The note of a `Note` depends on whether the note starts without a whitespace or not.
+The `Note` class is the class that stores a text - defined as a `title`. The condition for validity of notes is:
+* It should not be empty.
 
 ## Statistic Class
 The `Statistic` class is a class that keeps track of the user performance in answering the questions. 
@@ -522,11 +522,25 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to list notes.
-2.  SmartNUS displays a list of all stored note.
+2.  SmartNUS displays a list of all stored notes.
 
 **Extensions**
 
 * 1a. User does not specify the keyword `note`.
+* SmartNUS shows error message.
+
+Use case ends.
+
+**Use case: List tag**
+
+**MSS**
+
+1.  User requests to list tag.
+2.  SmartNUS displays a list of all stored tags.
+
+**Extensions**
+
+* 1a. User does not specify the keyword `tag`.
 * SmartNUS shows error message.
 
 Use case ends.
@@ -551,7 +565,7 @@ Use case ends.
   
   Use case ends.
 
-* 1c. User specifies more than one correct answer.
+* 1c. User specifies more than 3 incorrect options.
 * SmartNUS shows error message.
 
   Use case ends.
@@ -570,14 +584,9 @@ Use case ends.
     * 1a1. SmartNUS shows error message.
 
       Use case ends.
-
-* 1b. User specifies more than one correct answer.
-    * 1b1. SmartNUS shows error message.
-
-      Use case ends.
       
-* 1c. User does not specify an appropriate answer.
-    * 1c1. SmartNUS shows error message.
+* 1b. User specifies a blank answer.
+    * 1b1. SmartNUS shows error message.
     
         Use case ends.
 
@@ -691,7 +700,7 @@ Use case ends.
 ### Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2. Should be able to hold up to 1000 questions without a noticeable sluggishness in performance for typical usage.
+2. Should be able to hold up to 500 questions and 500 notes without a noticeable sluggishness in performance for typical usage.
 3. A student with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 4. The data should be stored locally and should be in an editable json file.
 5. The product should be for a single user at a time.
@@ -735,15 +744,15 @@ testers are expected to do more *exploratory* testing.
 
 1. Deleting a question while all questions are being shown
 
-   1. Prerequisites: List all questions using the `list` command. Multiple questions in the list.
+   1. Prerequisites: List all questions using the `list question` command. Multiple questions in the list.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   1. Test case: `delete question 1`<br>
+      Expected: First question is deleted from the list. Details of the deleted question shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete 0`<br>
+   1. Test case: `delete question 0`<br>
       Expected: No question is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+   1. Other incorrect delete commands to try: `delete`, `delete note x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
 1. _{ more test cases …​ }_

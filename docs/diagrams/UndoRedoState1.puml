@@ -1,14 +1,16 @@
 @startuml
 !include style.puml
+
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
+BUI_COLOR #1D8900
 
-title After command "delete 5"
+title After command "delete question 5"
 
 package States <<rectangle>> {
-    class State1 as "__ab0:AddressBook__"
-    class State2 as "__ab1:AddressBook__"
-    class State3 as "__ab2:AddressBook__"
+    class State1 as "__sn0:SmartNus__"
+    class State2 as "__sn1:SmartNus__"
+    class State3 as "__sn2:SmartNus__"
 }
 
 State1 -[hidden]right-> State2
@@ -19,4 +21,4 @@ hide State3
 class Pointer as "Current State" #FFFFF
 
 Pointer -up-> State2
-@end
+@enduml

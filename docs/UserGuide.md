@@ -21,7 +21,7 @@ Interested in using our app? Check out the [Quick Start section](#quick-start) t
 
 ## 2. About
 
-This section will provide you with the details on how to navigate and interpret the user guide. This guide includes all the features the app provides, with in-depth explanations and examples on how to use them. 
+This section will provide you with the details on how to navigate and interpret the user guide. This guide includes all the features the app provides, with in-depth explanations and examples on how to use them.
 
 ### 2.1. Using the User Guide
 
@@ -30,12 +30,12 @@ The user guide has been structured in a way that makes it easy for you to naviga
 Here's a quick summary of the available sections in the user guide:
 
 <!-- TODO: Ensure that the numberings below are correct at the end -->
-* [Section 1: Introduction](#1-introduction) - Introduction of SmartNUS
-* [Section 2: About](#2-about) - Introduction of SmartNUS
+* [Section 1: Introduction](#1-introduction) - Introduction to SmartNUS
+* [Section 2: About](#2-about) - About SmartNUS
 * [Section 3: Quick Start](#3-quick-start) - A quick start guide to get you started with using SmartNUS.
 * [Section 4: Features](#4-features) - Documentation of all available features SmartNus has to offer.
 * [Section 5: FAQ](#5-faq) - Frequently asked questions about SmartNUS.
-* [Section 6: Command Summary](#6-main-window-command-summary) - Summary of available SmartNUS commands and formats.
+* [Section 6: Command Summary](#6-main-window-command-summary) - Summary of all available SmartNUS commands and formats.
 
 ### 2.2. Commands
 
@@ -62,7 +62,7 @@ Here's a quick summary of the available sections in the user guide:
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * All commands are case-sensitive unless otherwise stated.<br>
- e.g. `help` or `/ans` is acceptable, but `Help` or `Ans/` is not acceptable.<br>
+  e.g. `help` or `/ans` is acceptable, but `Help` or `Ans/` is not acceptable.<br>
 
 </div>
 
@@ -96,7 +96,7 @@ Here's a quick summary of the available sections in the user guide:
 
 ## 4. Features
 
-This section lists all the commands SmartNUS supports, with information about the commands as well as relevant examples.
+This section lists all the commands that SmartNUS supports, with syntax and information about the commands as well as relevant examples.
 
 ### 4.1. Main Window Commands
 
@@ -113,27 +113,61 @@ Format: `help`
 
 Adds a multiple choice question to the question bank.
 
-Format: `mcq qn/QUESTION opt/OPTION1 opt/OPTION2 opt/OPTION3 ans/ANSWER i/IMPORTANCE [t/TAG]`
+Format: `mcq qn/QUESTION opt/INCORRECT_OPTION1 opt/INCORRECT_OPTION2 opt/INCORRECT_OPTION3 ans/ANSWER i/IMPORTANCE [t/TAG]`
+#####Required Parameters:
+* `qn/` The MC Question statement
+* `opt/` The incorrect choices. 3 in total.
+* `ans/` The correct choice. 1 in total.
+* `i/` The importance of the question for the user. An integer between 1 and 3. 3 signifies the highest importance and 1 signifies the lowest importance.
 
+#####Optional Parameters:
+* `t/` The tags of the question
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A multiple choice question must have exactly three incorrect options and one correct answer
 </div>
 
 Examples:
-* `mcq qn/what is 1 + 1? opt/3 opt/1 opt/0 ans/2 i/1`
+* `mcq qn/What is 1 + 1? opt/3 opt/1 opt/0 ans/2 i/1`
+  * creates a new MCQ question:
+    * What is 1 + 1?
+      * A. 3
+      * B. 1
+      * C. 0
+      * D. 2 (correct)
+      
+      having importance 1.
+    
+* `mcq qn/What is 1 + 5? opt/3 opt/1 opt/0 ans/12 ans/6 i/2`
+  * creates a new MCQ question:
+    * What is 1 + 1?
+      * A. 3
+      * B. 1
+      * C. 0
+      * D. 6 (correct)
+        
+      having importance 2.
 
 #### 4.1.3. Add a True False Question: `tfq`
 
 Adds a true false question to the question bank.
 
 Format: `tfq qn/QUESTION ans/ANSWER i/IMPORTANCE [t/TAG]`
+#####Required Parameters:
+* `qn/` The TF Question statement
+* `ans/` The correct choice. 1 in total, can only be either true or false.
+* `i/` The importance of the question for the user. An integer between 1 and 3. 3 signifies the highest importance and 1 signifies the lowest importance.
+
+#####Optional Parameters:
+* `t/` The tags of the question
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A true false question can only have one answer, either "T" or "F"
-</div>
+</div> 
 
 Examples:
-* `tfq qn/Is 1+1 = 2 ? ans/T i/1`
+* `tfq qn/Is 1+1 = 2? ans/T i/1` : Is 1+1 = 2? True.
+* `tfq qn/Is CS2103T a fun module? ans/t i/2`: Is CS2103T a fun module? True.
+* `tfq qn/Will entering multiple valid answers create problems? ans/t ans/f i/2`: Will entering multiple valid answers create problems? False
 
 #### 4.1.4. Add a Short Answer Question: `saq`
 
@@ -141,16 +175,27 @@ Adds a short answer question to the question bank.
 
 Format: `saq qn/QUESTION ans/ANSWER INCLUDING KEYWORDS k/KEYWORD... i/IMPORTANCE [t/TAG]...`
 
+#####Required Parameters:
+* `qn/` The TF Question statement
+* `ans/` The correct answer. 1 in total.
+* `k/` The keywords for evaluating the answer. **Need to be included inside the `ans/` parameter.**
+* `i/` The importance of the question for the user. An integer between 1 and 3. 3 signifies the highest importance and 1 signifies the lowest importance.
+
+#####Optional Parameters:
+* `t/` The tags of the question
+<br>
+
+Caveats:
 * Each short answer question must have exactly one answer.
 * The answer must include at least one keyword which is specified using `k/` (e.g. `ans/k/powerhouse of the k/cell`).
-* Note that keywords MUST be specified within the answer to be recognised as keywords 
+* Note that keywords **MUST be specified within the answer** to be recognised as keywords
   * `qn/my question? k/KEYWORDOUTSIDEANSWER ans/my answer i/2` is an invalid command.
   * See examples given below for valid commands to try out.
 * Keywords are stored in lowercase. Specifying `k/ABC` and `k/abc` both result in "abc" being stored as the keyword. However,
   the answer will be displayed with the correct case ("ABC" and "abc" respectively).
 * During a [quiz](#start-a-quiz-quiz), any answer that contains all the keywords (case-insensitive)
-in any order is considered correct (e.g. "DatAstrUcturesandalgorithms" will be a correct answer
-to a question whose keywords are "structure" and "data").
+  in any order is considered correct (e.g. "DatAstrUcturesandalgorithms" will be a correct answer
+  to a question whose keywords are "structure" and "data").
 * Keywords are made up of alphanumeric characters.
   When specifying a keyword that includes non-alphanumeric characters
   (e.g. `k/"harry, !'abc@#^e,y?`), only the first valid part of the word
@@ -166,50 +211,76 @@ Examples:
       "potter harry", "harrypotter" and "wordthatincludesharryandpotter".
     * Incorrect answers include "Potter" and "harr pottery".
 
-#### 4.1.5. List All Items : `list`
+#### 4.1.5. Add notes: `note`
+Adds a note to the note list.
+Format: `note note/NOTE`
+
+#####Required Parameters:
+* `note/` The note statement
+
+Notes accept all text and numbers. 
+#### 4.1.6. List All Items : `list`
 
 Shows a list of all questions, notes, or tags stored in SmartNus.
 
 Format: `list question` OR `list note` OR `list tag`
 
-#### 4.1.6. Delete a Question or Note: `delete`
+#####Required Parameters:
+* `question` or `note` or `tag` to specify what to list
+#### 4.1.7. Delete a Question or Note: `delete`
 
 Deletes an existing question or note from the question bank or note list.
 
 Format: `delete question QUESTION_INDEX` OR `delete note NOTE_INDEX`
 
-* Deletes the question or note with the specified `QUESTION_INDEX` or `NOTE_INDEX`.
-* The `QUESTION_INDEX` or `NOTE_INDEX` refers to the index number shown in the displayed list. The index **must be a positive integer** from 1 to 2147483647
+#####Required Parameters:
+* `question` and `QUESTION_INDEX` OR `note` and `NOTE_INDEX`
+<div>
+* Deletes the question or note with the specified `QUESTION_INDEX` or `NOTE_INDEX`, if the index is valid.
+* The `QUESTION_INDEX` or `NOTE_INDEX` refers to the index number shown in the displayed list.
+* A valid index is:
+  * **a positive integer** between 1 and 2147483647 (both inclusive)
+  * Equal to or smaller than the number of items in the list. Eg. If a list contains 5 questions, `6` is not a valid index but `3` is.
 
-#### 4.1.7. Edit a Question and Answers: `edit`
+#### 4.1.8. Edit a Question and Answers: `edit`
 
 Edits an existing question in the question bank with the specified question number.
 
 Format: `edit QUESTION_ID [qn/QUESTION] [t/TAG]... [ans/CORRECT_ANSWER] [opt/INCORRECT_OPTION]... [i/IMPORTANCE]`
 
-* Existing values will be updated to the input values. 
+#####Required Parameters
+* `QUESTION_ID` refers to the index number shown in the displayed question list.
+
+#####Optional Parameters
+* `qn/` The new question statement
+* `t/` The new question tags
+* `ans/` The new correct answer
+* `opt/` The new incorrect options (if question is a `MCQ`)
+* `i/`The new importance
+<div>
+* Existing values will be updated to the input values.
 * You cannot edit question type (e.g. cannot edit a Multiple Choice Question to a True-False Question)
 * At least one of the optional fields must be provided.
 
 
-* Edit Tags 
-  * When editing tags, the existing tags of the question will be removed i.e adding of tags is not cumulative. 
+* Edit Tags
+  * When editing tags, the existing tags of the question will be removed i.e adding of tags is not cumulative.
   * You can remove all the question’s tags by typing `t/` without specifying any tags after it.
 
 
-* Edit Answers/Options 
-  * If editing the answers of a question, all option(s) and answer(s) must be valid for the type of question being edited. 
+* Edit Answers/Options
+  * If editing the answers of a question, all option(s) and answer(s) must be valid for the type of question being edited.
   * Multiple Choice Question: Specify all three incorrect options (`opt/`) and one correct answer (`ans/`).
   * True/False Question: Only specify the correct answer (`ans/`), which must be “T” or “F”.
   * Short Answer Question: Only specify the correct answer (`ans/`) which must include at least one keyword (`k/`).
 
 Examples:
 * Multiple Choice Question (MCQ): `edit 1 opt/1 opt/2 opt/3 ans/4 t/` sets the incorrect options to 1, 2, and 3,
-and the correct answer to 4, and removes all the tags from Question 1 if it is an MCQ
+  and the correct answer to 4, and removes all the tags from Question 1 if it is an MCQ
 * True/False Question (TFQ): `edit 2 ans/T` sets the answer of Question 2 to True if it is a TFQ.
 * Short Answer Question (SAQ): `edit 3 ans/k/powerhouse of the k/cell t/CS2100`
-sets the answer of Question 3 to powerhouse of the cell, with keywords "powerhouse" and "cell",
-and replaces all tags with CS2100 if Question 3 is an SAQ.
+  sets the answer of Question 3 to powerhouse of the cell, with keywords "powerhouse" and "cell",
+  and replaces all tags with CS2100 if Question 3 is an SAQ.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 
@@ -220,24 +291,30 @@ run the `list question` command.
 
 </div>
 
-#### 4.1.8. Find/Search Questions: `find`
+#### 4.1.9. Find/Search Questions: `find`
 
 Shows a list of all questions in SmartNUS that have all the specified keywords,
 at least one of the specified tags, and the importance value (if specified).
 
 Format: `find [KEYWORDS]... [t/TAG]... [i/IMPORTANCE]`
 
-* At least one of the optional fields to find by must be specified.
+#####Parameters
+* `KEYWORDS` The specific keyword(s) to be searched
+* `TAG` The specific tag(s) to be searched
+* `IMPORTANCE` The importance to be searched
+<div>
+
+* **At least** one of the optional fields to find by must be specified.
 * The search is case-insensitive for both keywords and tags (e.g. `math` will match `MaTH`).
 * Only full words will be matched for both keywords and tags (e.g. `CS2100` will not match `CS210`).
-* The following characters `,.?!:;*"()[]{}` which are commonly used to separate words are not considered part of a word or keyword. 
-Instead, they are considered as word separators similar to a space.
+* The following characters `,.?!:;*"()[]{}` which are commonly used to separate words are not considered part of a word or keyword.
+  Instead, they are considered as word separators similar to a space.
   * `find *("literature":,;?!)]}` returns the same result as `find literature`.
   * `find ,:;?(]` is an invalid command as it is the same as finding a blank keyword or only inputting spaces as keywords.
   * `find first? second (third...)!` is the same as `find first second third`.
 * Hyphenated words are considered as one word (e.g. `find grey-box` will not return a question titled `grey box`).
 * Any question that has at least one of the tags **AND** all the keywords in its title (in any order)
-**AND** the importance specified will be listed.
+  **AND** the importance specified will be listed.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 You can search for more than one tag or keyword.
@@ -251,15 +328,15 @@ To return to the list of all questions, use the `list question` command.
 
 Examples:
 * `find load word t/CS2100 t/MIPS i/2` returns questions tagged with at least one of the tags, with importance value 2 and whose title
-includes "load" and "word" in any order.
+  includes "load" and "word" in any order.
   * e.g. A question titled "What is the load word instruction used for?" tagged with only CS2100 and with an importance value of 2 will be listed.
 * `find java` returns a question titled "How do you output text to the console in Java?" but not a question titled "Javascript is commonly used in web development. True or false?" (since `java` is not a full word match for `javascript`).
 
 <!-- TODO: standardise format, remove params from header, add brief description-->
-#### 4.1.9. Find/Search Stats: `stat [t/TAG]...`
+#### 4.1.10. Find/Search Stats: `stat [t/TAG]...`
 
 * Shows the list of statistics by Tag for the questions attempted.
-* The search is case-insentitive for tags
+* The search is case-insensitive for tags
 * Only full words will be matched (e.g. `CS2100` will not match `CS210`)
 * Statistics for any of the tags passed in will be shown
 * If no parameters are passed in, it will show all statistics
@@ -268,11 +345,14 @@ Examples:
 * `stat t/CS2100 t/MIPS` returns the overall statistics for the questions tagged with `CS2100` or `MIPS` or both.
 
 <!-- TODO: add brief description before format to standardise format-->
-#### 4.1.10. Start a Quiz: `quiz`
+#### 4.1.11. Start a Quiz: `quiz`
 Format: `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX...]`
 
+#####Optional Parameters
+* `lim/` positive, non-zero integer that will limit the number of questions in the quiz.
+* `t/` quiz will be formed from questions with the specified tag. If such a tag does not exist, quiz will not start.
+* `n/` quiz just one question - `INDEX` refers to the index number shown in the displayed question list.
 * If no parameters are passed, a quiz session will be created using all the questions in the question list.
-* LIMIT is a positive, non-zero integer that will limit the number of questions in the quiz.
   * If the total number of questions is less than the limit, it will just give all the questions.
 * TAG can be used to filter the quiz to only give questions with the tags specified, works with limit.
 * INDEX can be used to filter the quiz to only give questions with the specified question numbers. 
@@ -288,25 +368,25 @@ Format: `quiz`
 Examples:
 *  `quiz` opens a new quiz window and only [quiz commands](#quiz_window_commands) can be used.
 
-#### 4.1.11. Clear All Entries : `clear`
+#### 4.1.12. Clear All Entries : `clear`
 
 Clears all entries (questions, notes and tags) from the question bank.
 
 Format: `clear`
 
-#### 4.1.12. Exit the Program : `exit`
+#### 4.1.13. Exit the Program : `exit`
 
 Exits the program.
 
 Format: `exit`
 
-#### 4.1.13. Change the Theme: `theme`
+#### 4.1.14. Change the Theme: `theme`
 
 Changes the theme of the app.
 
 Format: `theme THEME`
 
-Parameters:
+#####Parameters:
 - `THEME`: can only be light or dark
 
 Examples:
@@ -375,7 +455,9 @@ If your changes to the data file makes its format invalid, SmartNUS will discard
 Action | Format, Examples
 --------|------------------
 **MCQ** | `mcq qn/QUESTION opt/OPTION1 opt/OPTION2 opt/OPTION3 ans/ANSWER i/IMPORTANCE` <br> e.g., `mcq qn/what is 1 + 1? opt/3 opt/1 opt/0 ans/2 i/1`
+**TFQ** | `tfq qn/QUESTION ans/ANSWER i/IMPORTANCE` <br> e.g., `mcq qn/Is 1 + 1 = 2? ans/t i/1`
 **SAQ** | `saq qn/QUESTION ans/ANSWER INCLUDING KEYWORDS k/KEYWORD... i/IMPORTANCE [t/TAG]...` <br> e.g., `saq qn/what is Shakespeare's first name? ans/k/William i/1`
+**Note** | `note note/NOTE` <br> e.g., `note note/This is a note`
 **Delete** | `delete question QUESTION_INDEX` OR `delete note NOTE_INDEX`<br> e.g., `delete question 1`, `delete note 2`
 **Quiz** | `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX...]` <br>
 **Exit** | `exit` <br>
@@ -389,7 +471,7 @@ Action | Format, Examples
 **Option B** | `B` <br>
 **Option C** | `C` <br>
 **Option D** | `D` <br>
-**Option True** | `T`, `True` (Case-insensitive) <br> 
+**Option True** | `T`, `True` (Case-insensitive) <br>
 **Option False** | `F`, `False` (Case-insensitive) <br>
 **SAQ Answer** | `ans/ANSWER`<br> e.g., `ans/Harry Potter` <br>
 **Next** | `next` <br>
