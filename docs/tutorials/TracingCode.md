@@ -26,8 +26,8 @@ Note how the diagram shows only the execution flows _between_ the main component
 
 Before we proceed, ensure that you have done the following:
 1. Read the [*Architecture* section of the DG](../DeveloperGuide.md#architecture)
-1. Set up the project in Intellij IDEA
-1. Learn basic debugging features of Intellij IDEA
+2. Set up the project in Intellij IDEA. [Guide](../SettingUp.md)
+3. Learn basic debugging features of Intellij IDEA
    * If you are using a different IDE, we'll leave it to you to figure out the equivalent feature to use in your IDE.
    * If you are not using an IDE, we'll let you figure out how to achieve the same using your coding toolchain.
 
@@ -65,7 +65,7 @@ public interface Logic {
 ```
 
 But apparently, this is an interface, not a concrete implementation.
-That should be fine because the [Architecture section of the Developer Guide](../DeveloperGuide.html#architecture) tells us that components interact through interfaces. Here's the relevant diagram:
+That should be fine because the [Architecture section of the Developer Guide](../DeveloperGuide.md#architecture) tells us that components interact through interfaces. Here's the relevant diagram:
 
 <img src="../images/developer-guide/ComponentManagers.png" width="300" />
 
@@ -76,7 +76,7 @@ Next, let's find out which statement(s) in the `UI` code is calling this method,
 :bulb: **Intellij Tip:** The ['**Find Usages**' feature](https://www.jetbrains.com/help/idea/find-highlight-usages.html#find-usages) can find from which parts of the code a class/method/variable is being used.
 </div>
 
-![`Find Usages` tool window. `Edit` \> `Find` \> `Find Usages`.](../images/tracing/FindUsages.png)
+![`Find Usages` tool window. `Edit` \> `Find` \> `Find Usages`.](../images/tracing/searchResultsForExecuteMethod.png)
 
 Bingo\! `MainWindow#executeCommand()` seems to be exactly what we’re looking for\!
 
@@ -85,7 +85,7 @@ Now let’s set the breakpoint. First, double-click the item to reach the corres
 
 ## Tracing the execution path
 
-Recall from the User Guide that the `edit` command has the format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​` For this tutorial we will be issuing the command `edit 1 n/Alice Yeoh`.
+Recall from the User Guide that the `edit` command has the format: `edit INDEX [qn/QUESTION] [a/ANSWER] [opt/INCORRECT_OPTION]… [t/TAG]…​` For this tutorial we will be issuing the command `edit 1 opt/1 opt/2 opt/3 ans/4 t/easy`.
 
 <div markdown="span" class="alert alert-primary">
 
@@ -94,7 +94,7 @@ Recall from the User Guide that the `edit` command has the format: `edit INDEX [
 
 1. To start the debugging session, simply `Run` \> `Debug Main`
 
-1. When the GUI appears, enter `edit 1 n/Alice Yeoh` into the command box and press `Enter`.
+1. When the GUI appears, enter `edit 1 opt/1 opt/2 opt/3 ans/4 t/easy` into the command box and press `Enter`.
 
 1. The Debugger tool window should show up and show something like this:<br>
    ![DebuggerStep1](../images/tracing/DebuggerStep1.png)
@@ -120,14 +120,14 @@ Recall from the User Guide that the `edit` command has the format: `edit INDEX [
 
         CommandResult commandResult;
         //Parse user input from String to a Command
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = smartNus.parseCommand(commandText);
         //Executes the Command and stores the result
         commandResult = command.execute(model);
 
         try {
             //We can deduce that the previous line of code modifies model in some way
             // since it's being stored here.
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveSmartNus(model.getSmartNus());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -141,7 +141,7 @@ Recall from the User Guide that the `edit` command has the format: `edit INDEX [
 1. _Step over_ the logging code since it is of no interest to us now.
    ![StepOver](../images/tracing/StepOver.png)
 
-1. _Step into_ the line where user input in parsed from a String to a Command, which should bring you to the `AddressBookParser#parseCommand()` method (partial code given below):
+1. _Step into_ the line where user input in parsed from a String to a Command, which should bring you to the `smartNus#parseCommand()` method (partial code given below):
    ``` java
    public Command parseCommand(String userInput) throws ParseException {
        ...
@@ -175,7 +175,7 @@ Recall from the User Guide that the `edit` command has the format: `edit INDEX [
    ![EditCommand](../images/tracing/EditCommand.png)
 
 1. As you just traced through some code involved in parsing a command, you can take a look at this class diagram to see where the various parsing-related classes you encountered fit into the design of the `Logic` component.
-   <img src="../images/ParserClasses.png" width="600"/>
+   <img src="../images/developer-guide/ParserClasses.png" width="600"/>
 
 1. Let’s continue stepping through until we return to `LogicManager#execute()`.
 
@@ -205,22 +205,22 @@ Recall from the User Guide that the `edit` command has the format: `edit INDEX [
    * it uses the `updateFilteredQuestionList` method to ask the `Model` to populate the 'filtered list' with _all_ questions.<br>
      FYI, The 'filtered list' is the list of questions resulting from the most recent operation that will be shown to the user immediately after. For the `edit` command, we populate it with all the questions so that the user can see the edited question along with all other questions. If this was a `find` command, we would be setting that list to contain the search results instead.<br>
      To provide some context, given below is the class diagram of the `Model` component. See if you can figure out where the 'filtered list' of questions is being tracked.
-     <img src="../images/ModelClassDiagram.png" width="450" /><br>
-   * :bulb: This may be a good time to read through the [`Model` component section of the DG](../DeveloperGuide.html#model-component)
+     <img src="../images/developer-guide/ModelClassDiagram.png" width="450" /><br>
+   * :bulb: This may be a good time to read through the [`Model` component section of the DG](../DeveloperGuide.md#model-component)
 
 1. As you step through the rest of the statements in the `EditCommand#execute()` method, you'll see that it creates a `CommandResult` object (containing information about the result of the execution) and returns it.<br>
    Advancing the debugger by one more step should take you back to the middle of the `LogicManager#execute()` method.<br>
 
 1. Given that you have already seen quite a few classes in the `Logic` component in action, see if you can identify in this partial class diagram some of the classes you've encountered so far, and see how they fit into the class structure of the `Logic` component:
-    <img src="../images/LogicClassDiagram.png" width="550"/>
-   * :bulb: This may be a good time to read through the [`Logic` component section of the DG](../DeveloperGuide.html#logic-component)
+    <img src="../images/developer-guide/LogicClassDiagram.png" width="550"/>
+   * :bulb: This may be a good time to read through the [`Logic` component section of the DG](../DeveloperGuide.md#logic-component)
 
 1. Similar to before, you can step over/into statements in the `LogicManager#execute()` method to examine how the control is transferred to the `Storage` component and what happens inside that component.
 
    <div markdown="span" class="alert alert-primary">:bulb: **Intellij Tip:** When trying to step into a statement such as `storage.saveAddressBook(model.getAddressBook())` which contains multiple method calls, Intellij will let you choose (by clicking) which one you want to step into.
    </div>
 
-1.  As you step through the code inside the `Storage` component, you will eventually arrive at the `JsonAddressBook#saveAddressBook()` method which calls the `JsonSerializableAddressBook` constructor, to create an object that can be _serialized_ (i.e., stored in storage medium) in JSON format. That constructor is given below (with added line breaks for easier readability):
+1.  As you step through the code inside the `Storage` component, you will eventually arrive at the `JsonSmartNusStorage#saveSmartNus()` method which calls the `JsonSerializableSmartNus` constructor, to create an object that can be _serialized_ (i.e., stored in storage medium) in JSON format. That constructor is given below (with added line breaks for easier readability):
 
     **`JsonSerializableAddressBook` constructor:**
     ``` java
@@ -239,12 +239,12 @@ Recall from the User Guide that the `edit` command has the format: `edit INDEX [
     }
     ```
 
-1. It appears that a `JsonAdaptedQuestion` is created for each `Question` and then added to the `JsonSerializableAddressBook`.
+1. It appears that a `JsonAdaptedQuestion` is created for each `Question` and then added to the `JsonSerializableSmartNus`.
    This is because regular Java objects need to go through an _adaptation_ for them to be suitable to be saved in JSON format.
 
 1. While you are stepping through the classes in the `Storage` component, here is the component's class diagram to help you understand how those classes fit into the structure of the component.<br>
-   <img src="../images/StorageClassDiagram.png" width="550" />
-   * :bulb: This may be a good time to read through the [`Storage` component section of the DG](../DeveloperGuide.html#storage-component)
+   <img src="../images/developer-guide/StorageClassDiagram.png" width="550" />
+   * :bulb: This may be a good time to read through the [`Storage` component section of the DG](../DeveloperGuide.md#storage-component)
 
 1. We can continue to step through until you reach the end of the `LogicManager#execute()` method and return to the `MainWindow#executeCommand()` method (the place where we put the original breakpoint).
 
@@ -259,7 +259,7 @@ Recall from the User Guide that the `edit` command has the format: `edit INDEX [
     ```
 
 1. Finally, you can step through until you reach the end of`MainWindow#executeCommand()`.<br>
-   :bulb: This may be a good time to read through the [`UI` component section of the DG](../DeveloperGuide.html#ui-component)
+   :bulb: This may be a good time to read through the [`UI` component section of the DG](../DeveloperGuide.md#ui-component)
 
 
 ## Conclusion
@@ -273,15 +273,15 @@ Here are some quick questions you can try to answer based on your execution path
     instead? What exceptions do you think will be thrown (if any), where
     will the exceptions be thrown and where will they be handled?
 
-    1.  `redit 1 n/Alice Yu`
+    1.  `redit 1 opt/1 opt/2 opt/3 ans/4 t/easy`
 
-    2.  `edit 0 n/Alice Yu`
+    2.  `edit 0 opt/1 opt/2 opt/3 ans/4 t/easy`
 
-    3.  `edit 1 n/Alex Yeoh`
+    3.  `edit 1 qn/Alex Yeoh`
 
     4.  `edit 1`
 
-    5.  `edit 1 n/アリス ユー`
+    5.  `edit 1 qn/アリス ユー`
 
     6.  `edit 1 t/one t/two t/three t/one`
 
@@ -292,10 +292,10 @@ Here are some quick questions you can try to answer based on your execution path
 
     2.  Allow `delete` to remove more than one index at a time
 
-    3.  Save the address book in the CSV format instead
+    3.  Save the smartNUS in the CSV format instead
 
     4.  Add a new command
 
     5.  Add a new field to `Question`
 
-    6.  Add a new entity to the address book
+    6.  Add a new entity to the smartNus

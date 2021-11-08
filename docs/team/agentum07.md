@@ -5,7 +5,7 @@ title: Abhishek Gupta's Project Portfolio Page
 
 ### Project: SmartNus
 
-**SmartNUS** is a desktop app specifically designed for students to revise for their exams. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 13 kLoC.
+**SmartNUS** is a desktop app specifically designed for students to revise for their exams. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 17 kLoC.
 
 Given below are my contributions to the project.
 
@@ -20,19 +20,26 @@ Given below are my contributions to the project.
 
 * **Enhancements to existing features**:
   * Enhanced the `delete` command to be able to delete notes and questions (Pull request [\#92](https://github.com/AY2122S1-CS2103T-F12-1/tp/pull/92))
+  * Enhanced the `list` command to be able to list notes and questions (Pull request [\#54](https://github.com/AY2122S1-CS2103T-F12-1/tp/pull/54))
   * Wrote additional tests for existing features to increase coverage (Pull request [\#233](https://github.com/AY2122S1-CS2103T-F12-1/tp/pull/233))
   * Added the functionality to store and load choices from the local json file [#35](https://github.com/AY2122S1-CS2103T-F12-1/tp/pull/35)
+  * Tweaked outputs of commands to improve user experience.
 
 
 * **Documentation**:
   * User Guide:
     * Added documentation for the features `delete` and `note` [\#236](https://github.com/AY2122S1-CS2103T-F12-1/tp/pull/236)
     * Did cosmetic tweaks to existing documentation of features `question`, `tag` [\#236](https://github.com/AY2122S1-CS2103T-F12-1/tp/pull/236)
+    * Standardized the UG command explanation format, enhanced the documentation of `Question` functionality
   * Developer Guide:
     * Added implementation details of the `delete` feature.
+    * Created class diagrams for the `undo` feature
+    * Added implementation details of the `note` feature 
+    * Came up with User Stories and Non-Functional Requirements
 
 
-* **Community**:
+* **Team Based Tasks**:
   * PRs reviewed and merged [PRs](https://github.com/AY2122S1-CS2103T-F12-1/tp/pulls?q=is%3Apr+reviewed-by%3AAgentum07)
   * Reported bugs for other teams ([bugs reported](https://github.com/Agentum07/ped/issues))
-  * Coordinating the team meetings
+  * Coordinated the team meetings
+  * Fixed issues raised during the Practical Exam Dry Run 
