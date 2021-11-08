@@ -140,6 +140,12 @@ public interface Model {
     void updateFilteredQuizQuestionList(Predicate<Question> predicate);
 
     /**
+     * Updates the filter of the filtered quiz list to filter by the given {@code predicate} with current state.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredQuizQuestionListWithCurrent(Predicate<Question> predicate);
+
+    /**
      * Sorts the filtered quiz question list using the given {@code comparator}
      * @throws NullPointerException if {@code comparator} is null.
      */
