@@ -23,7 +23,7 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 <div markdown="span" class="alert alert-primary">
 
-:bulb: **Tip:** The `.puml` files used to create diagrams in this document can be found in the [diagrams](https://github.com/se-edu/addressbook-level3/tree/master/docs/diagrams/) folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
+:bulb: **Tip:** The `.puml` files used to create diagrams in this document can be found in the [diagrams](https://github.com/AY2122S1-CS2103T-F12-1/tp/blob/master/docs/diagrams/) folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
 </div>
 
 ### Architecture
@@ -222,7 +222,7 @@ Each `QuizManager` class stores the following information about the quiz:
 <img src="images/developer-guide/StorageClassDiagram.png" width="550" />
 
 The `Storage` component,
-* can save both address book data and user preference data in json format, and read them back into corresponding objects.
+* can save both smartNus data and user preference data in json format, and read them back into corresponding objects.
 * inherits from both `SmartNusStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
@@ -343,31 +343,31 @@ Without saving it in the storage, the user will have to keep changing the theme 
 
 The proposed undo/redo mechanism is facilitated by `VersionedSmartNus`. It extends `SmartNus` with an undo/redo history, stored internally as an `smartNusStateList` and `currentStatePointer`. Additionally, it implements the following operations:
 
-* `VersionedSmartNus#commit()` — Saves the current address book state in its history.
-* `VersionedSmartNus#undo()` — Restores the previous address book state from its history.
-* `VersionedSmartNus#redo()` — Restores a previously undone address book state from its history.
+* `VersionedSmartNus#commit()` — Saves the current smartNus state in its history.
+* `VersionedSmartNus#undo()` — Restores the previous smartNus state from its history.
+* `VersionedSmartNus#redo()` — Restores a previously undone smartNus state from its history.
 
 These operations are exposed in the `Model` interface as `Model#commitSmartNus()`, `Model#undoSmartNus()` and `Model#redoSmartNus()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedSmartNus` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedSmartNus` will be initialized with the initial smartNus state, and the `currentStatePointer` pointing to that single smartNus state.
 
 ![UndoRedoState0](images/developer-guide/UndoRedoState0.png)
 
-Step 2. The user executes `delete 5` command to delete the 5th question in the address book. The `delete` command calls `Model#commitSmartNus()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `SmartNusStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th question in the smartNus. The `delete` command calls `Model#commitSmartNus()`, causing the modified state of the smartNus after the `delete 5` command executes to be saved in the `SmartNusStateList`, and the `currentStatePointer` is shifted to the newly inserted smartNus state.
 
 ![UndoRedoState1](images/developer-guide/UndoRedoState1.png)
 
-Step 3. The user executes `add n/David …​` to add a new question. The `add` command also calls `Model#commitSmartNus()`, causing another modified address book state to be saved into the `smartNusStateList`.
+Step 3. The user executes `add n/David …​` to add a new question. The `add` command also calls `Model#commitSmartNus()`, causing another modified smartNus state to be saved into the `smartNusStateList`.
 
 ![UndoRedoState2](images/developer-guide/UndoRedoState2.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitSmartNus()`, so the address book state will not be saved into the `smartNusStateList`.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitSmartNus()`, so the smartNus state will not be saved into the `smartNusStateList`.
 
 </div>
 
-Step 4. The user now decides that adding the question was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoSmartNus()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the question was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoSmartNus()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous smartNus state, and restores the smartNus to that state.
 
 ![UndoRedoState3](images/developer-guide/UndoRedoState3.png)
 
@@ -384,17 +384,17 @@ The following sequence diagram shows how the undo operation works:
 
 </div>
 
-The `redo` command does the opposite — it calls `Model#redoSmartNus()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite — it calls `Model#redoSmartNus()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the smartNus to that state.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `smartNusStateList.size() - 1`, pointing to the latest address book state, then there are no undone SmartNus states to restore. The `redo` command uses `Model#canRedoSmartNus()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `smartNusStateList.size() - 1`, pointing to the latest smartNus state, then there are no undone SmartNus states to restore. The `redo` command uses `Model#canRedoSmartNus()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
 </div>
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitSmartNus()`, `Model#undoSmartNus()` or `Model#redoSmartNus()`. Thus, the `smartNusStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the smartNus, such as `list`, will usually not call `Model#commitSmartNus()`, `Model#undoSmartNus()` or `Model#redoSmartNus()`. Thus, the `smartNusStateList` remains unchanged.
 
 ![UndoRedoState4](images/developer-guide/UndoRedoState4.png)
 
-Step 6. The user executes `clear`, which calls `Model#commitSmartNus()`. Since the `currentStatePointer` is not pointing at the end of the `smartNusStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitSmartNus()`. Since the `currentStatePointer` is not pointing at the end of the `smartNusStateList`, all smartNus states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
 
 ![UndoRedoState5](images/developer-guide/UndoRedoState5.png)
 
@@ -406,7 +406,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 **Aspect: How undo & redo executes:**
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire smartNus.
   * Pros: Easy to implement.
   * Cons: May have performance issues in terms of memory usage.
 
@@ -429,7 +429,7 @@ _{Explain here how the data archiving feature will be implemented}_
   * Pros: Easy to implement.
   * Cons: May have performance issues in terms of memory usage.
 
-* **Alternative 2:** Saves the entire address book.
+* **Alternative 2:** Saves the entire smartNus.
   * Pros: Easy to implement.
   * Cons: May have performance issues in terms of memory usage.
 
