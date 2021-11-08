@@ -12,7 +12,7 @@ Class XYZCommand
 Class ABCCommand
 Class CommandResult
 Class "{abstract}\nCommand" as Command
-
+Class QuizInputParser
 
 Interface Logic <<Interface>>
 Class LogicManager
@@ -36,14 +36,17 @@ QuizInputParser ..> ABCCommand : creates >
 QuizInputParser .right[hidden].> SmartNusParser
 SmartNusParser .left[hidden].> SmartNusParser
 
-ABCCommand -up-|> Command
 XYZCommand -up-|> Command
+ABCCommand -up-|> Command
 LogicManager .left.> Command : executes >
 
 LogicManager --> Model
 LogicManager --> Storage
 Storage --[hidden] Model
 Command .right.> Model
+
+note bottom of XYZCommand: XYZCommand = AddQuestionCommand, \nFindCommand, etc
+note bottom of ABCCommand: ABCCommand = AnswerMcqCommand, \nNextQuestionCommand, etc
 
 Logic ..> CommandResult
 LogicManager .down.> CommandResult

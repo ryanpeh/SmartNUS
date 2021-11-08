@@ -158,24 +158,24 @@ and a Set of Strings representing `keywords` used for evaluating answers to Shor
 The validity of a `Question` depends on the type of question.
 Types of Questions currently supported by SmartNUS, and their conditions for validity are:
 1. Multiple Choice Questions
-   * Has four `Choice`s in total, exactly one of which is correct
+    * Has four `Choice`s in total, exactly one of which is correct
 1. True-False Questions
-   * Has two `Choice`s in total, which can only be "True" and "False", exactly one of which is correct
+    * Has two `Choice`s in total, which can only be "True" and "False", exactly one of which is correct
 1. Short Answer Questions
-   * Has one `Choice` in total which is correct and contains at least one `keyword`
+    * Has one `Choice` in total which is correct and contains at least one `keyword`
 
 #### Note class
 
 The `Note` class is the class that stores a text - defined as a `NoteName`. The condition for validity of notes is:
 * It should not be empty.
 
-The notes are stored in a `NoteList` that represents a list of notes in which you can add notes, delete notes, or filter notes. 
+The notes are stored in a `NoteList` that represents a list of notes in which you can add notes, delete notes, or filter notes.
 Here is a class diagram of the Notes class.
 
 ![Note Class Diagram](images/developer-guide/NoteClassDiagram.png)
 
 #### Statistic Class
-The `Statistic` class is a class that keeps track of the user performance in answering the questions in a quiz. 
+The `Statistic` class is a class that keeps track of the user performance in answering the questions in a quiz.
 The performance is tracked by:
 * Number of attempts
 * Number of correct attempts
@@ -206,8 +206,6 @@ Here is the class diagram for `Statistic` and `TagStatistic`:
 
 #### Quiz class
 
-[//]: # (TODO: Insert class diagram)
-
 The `Quiz` class is an interface that is used to manage a quiz. A `Quiz` can get the current question, go to the next question, go to the previous question, attempt to answer the question, and get the `Statistic` of the `Quiz`.
 
 The `QuizManager` class implements the `Quiz` interface. It manages the logic behind the quiz, and is created once a quiz is started.
@@ -218,6 +216,7 @@ Each `QuizManager` class stores the following information about the quiz:
 * `selectedChoices`: A list of `Choice` objects used to keep track of the choices that the user has entered so far
 * `statistic`: A `Statistic` object used to keep track of the statistics of the quiz
 
+![QuizManager Class Diagram](images/developer-guide/QuizManagerClassDiagram.png)
 
 ### Storage component
 
@@ -351,13 +350,13 @@ executes `"find class t/CS2103T"`.
 The find feature currently only supports finding questions. It can be extended to search for both `Question`s and `Note`s.
 Here is the proposed implementation of such a feature:
 1. The `FindCommandParser` will take in an additional
-parameter, either "note" or "question".
+   parameter, either "note" or "question".
 2. Depending on which item the user wants to search for, the `FindCommandParser`
-will create a `FindNoteParser` or a `FindQuestionParser`.
+   will create a `FindNoteParser` or a `FindQuestionParser`.
 3. The parsers will parse user inputs into either `Predicate<Note>`
-or `Predicate<Question>`, depending on the item that the user is searching for.
+   or `Predicate<Question>`, depending on the item that the user is searching for.
 4. If the user is searching for `Note`s, a `FindNoteCommand` will be generated. If the user is searching for `Question`s, a `FindQuestionCommand` is created.
-The activity diagram below illustrates this implementation.
+   The activity diagram below illustrates this implementation.
 
 ![Find Command Activity Diagram](images/developer-guide/FindActivityDiagram.png)
 
@@ -375,6 +374,68 @@ Once a `Theme` is kept inside the `Model`, the `UI` component can fetch the `The
 
 The reason why a `Theme` is kept inside the `Model`'s `UserPrefs` is because it allows the current theme to be saved in the storage as a user preference.
 Without saving it in the storage, the user will have to keep changing the theme every time the user opens the app.
+
+### Quiz feature
+
+All features related to the quiz functionality.
+
+#### Starting a quiz
+
+The start quiz feature allows users to start a quiz from the main window.
+
+##### Implementation
+
+The quiz feature is facilitated by `MainWindow`, `LogicManager`, `SmartNusParser` and `QuizCommand`. Given below is an example usage scenario of how the start quiz mechanism behaves at each step.
+
+1. User input `quiz lim/5` from `MainWindow` class in the Ui component is passed to the `LogicManager#execute()` method.
+2. `LogicManager` will then call `SmartNusParser#parserCommand()`, which will create a `QuizCommandParser`.
+3. Additionally, `SmartNusParser` will then call the `QuizCommandParser#parse()` method to parse the arguments `lim/5`, which will create a `QuizCommand`.
+4. `QuizCommand#execute()` will be invoked by `LogicManager` to execute the command, which will then call `Model#updateFilteredQuizQuestionList()` to update the questions in the `Model`.
+5. The `CommandResult` is then returned back to `MainWindow` which will then create a new `QuizWindow` to be displayed.
+
+Below is the sequence diagram to show how the quiz is started.
+
+![QuizSequenceDiagram](images/developer-guide/QuizSequenceDiagram.png)
+
+#### Parsing of user input
+
+As different commands are available to the user at the `QuizWindow` and the `MainWindow`, it is necessary to determine which commands are valid for the user to execute based on which window the user is at.
+
+#### Answering of questions
+
+The answering of questions feature allows users to select their desired choice for questions during a quiz.
+
+##### Implementation
+
+Given below is an example usage scenario of how the mechanism of answering a multiple choice question behaves at each step.
+
+1. User input `A` and the `QuizManager` object from the `QuizWindow` class in the Ui component are passed to the `LogicManager#execute()` method.
+1. `LogicManager` will then call `QuizInputParser#parserCommand()`, which will create a `AnswerMcqCommandParser`.
+1. Additionally, `QuizInputParser` will then call the `AnswerMcqCommandParser#parse()` method to parse the arguments `A` and the `QuizManager` object, which will create a `AnswerMcqCommand`.
+1. `AnswerMcqCommand#execute()` will be invoked by `LogicManager` to execute the command, which will then call `QuizManager#answerAndCheckAnswer()` to update choices in `QuizManager`.
+1. The `CommandResult` is then returned back to `QuizWindow` which will update the Ui with the updated message and the selected choice.
+
+Below is the sequence diagram to show how a multiple choice question is answered.
+
+![AnswerMcqCommandSequenceDiagram](images/developer-guide/AnswerMcqCommandSequenceDiagram.png)
+
+#### Next question
+
+The next question feature allows users to proceed to the next question during a quiz.
+
+##### Implementation
+
+Given below is an example usage scenario of how the mechanism of proceeding to the next question behaves at each step.
+
+1. User input `next` and the `QuizManager` object from the `QuizWindow` class in the Ui component are passed to the `LogicManager#execute()` method.
+1. `LogicManager` will then call `QuizInputParser#parserCommand()`, which will create a `NextQuestionCommand`.
+1. `NextQuestionCommand#execute()` will be invoked by `LogicManager` to execute the command, which will then call `QuizManager#nextQuestion()` to update the current question index in `QuizManager`.
+1. The `CommandResult` is then returned back to `QuizWindow` which will update the Ui with the updated message and question.
+
+Below is the sequence diagram to show how the next question is shown.
+
+![NextQuestionCommandSequenceDiagram](images/developer-guide/NextQuestionCommandSequenceDiagram.png)
+
 
 ### \[Proposed\] Undo/redo feature
 
@@ -459,19 +520,6 @@ _{more aspects and alternatives to be added}_
 ### \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
-
-##### Design considerations
-
-**Aspect: How commands are determined to be valid for each mode:**
-
-* **Alternative 1 (current choice):** Command Parsers
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
-
-* **Alternative 2:** Saves the entire smartNus.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
-
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -578,7 +626,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 1a. User does not specify the keyword `note`.
 * SmartNUS shows error message.
 
-Use case ends.
+  Use case ends.
 
 **Use case: List tag**
 
@@ -592,7 +640,7 @@ Use case ends.
 * 1a. User does not specify the keyword `tag`.
 * SmartNUS shows error message.
 
-Use case ends.
+  Use case ends.
 
 
 **Use case: Add Multiple Choice question and options**
@@ -637,7 +685,7 @@ Use case ends.
 * 1b. User specifies a blank answer.
     * 1b1. SmartNUS shows error message.
 
-        Use case ends.
+      Use case ends.
 
 
 **Use case: Delete a question**
@@ -698,12 +746,12 @@ Use case ends.
 * 1a. User does not specify any tags.
     * 1a1. SmartNUS shows an error message.
 
-    Use case ends.
+  Use case ends.
 
 * 1b. User specifies tag names that are not alphanumeric.
     * 1b1. SmartNUS shows an error message.
 
-    Use case ends.
+  Use case ends.
 
 * 2a. There are no questions in SmartNUS that contain at least one of the specified tags.
     * 2a1. SmartNUS shows message that there are no questions.
@@ -776,33 +824,33 @@ testers are expected to do more *exploratory* testing.
 
 1. Initial launch
 
-   1. Download the jar file and copy into an empty folder
+2. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+  3. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
-1. Saving window preferences
+4. Saving window preferences
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
+    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+5. _{ more test cases …​ }_
 
 ### Deleting a question
 
 1. Deleting a question while all questions are being shown
 
-   1. Prerequisites: List all questions using the `list question` command. Multiple questions in the list.
+    1. Prerequisites: List all questions using the `list question` command. Multiple questions in the list.
 
-   1. Test case: `delete question 1`<br>
-      Expected: First question is deleted from the list. Details of the deleted question shown in the status message. Timestamp in the status bar is updated.
+    1. Test case: `delete question 1`<br>
+       Expected: First question is deleted from the list. Details of the deleted question shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete question 0`<br>
-      Expected: No question is deleted. Error details shown in the status message. Status bar remains the same.
+    1. Test case: `delete question 0`<br>
+       Expected: No question is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete note x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+    1. Other incorrect delete commands to try: `delete`, `delete note x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
 
 1. _{ more test cases …​ }_
 
@@ -810,6 +858,6 @@ testers are expected to do more *exploratory* testing.
 
 1. Dealing with missing/corrupted data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
