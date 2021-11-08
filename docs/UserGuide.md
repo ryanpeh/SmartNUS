@@ -411,6 +411,9 @@ Examples:
 * `quiz lim/5 t/CS2100 t/MIPS` quiz will select questions tagged with at least one of the tags, limited to 5 questions.
 * `quiz n/1 2 3` quiz will select the questions with index number 1 2 3.
 
+Expected Outcome:
+![QuizCommand](images/user-guide/QuizCommand.png)
+
 #### 4.1.12. Clear All Entries : `clear`
 
 Clears all entries (questions, notes and tags) from the question bank.
@@ -443,10 +446,16 @@ Answers the multiple choice question with the options.
 
 Format: `A` `B` `C` or `D` (case-insensitive)
 
+Expected Outcome:
+![AnswerMcqCommand](images/user-guide/AnswerMcqCommand.png)
+
 #### 4.2.2. Answer a True False Question: `T` `F`
 Answers the multiple choice question with the options.
 
 Format: `T` `F` `True` `False` (case-insensitive)
+
+Expected Outcome:
+![AnswerSaqCommand](images/user-guide/AnswerTfqCommand.png)
 
 #### 4.2.3. Answer a Short Answer Question: `ans/`
 Answers the short answer question with the provided answer.
@@ -457,16 +466,24 @@ Format: `ans/ANSWER`
 Examples:
 * `ans/Harry Potter` answers the short answer question with "Harry Potter".
 
+Expected Outcome:
+![AnswerTfqCommand](images/user-guide/AnswerSaqCommand.png)
+
 #### 4.2.4. Go to the Next Question: `next`
 Navigate to the next question.
 
 Format: `next`
+
+Expected Outcome:
+![NextQuestionCommand](images/user-guide/NextQuestionCommand.png)
 
 #### 4.2.5. Go to the Previous Question: `prev`
 Navigate to the previous question.
 
 Format `prev`
 
+Expected Outcome:
+![PrevQuestionCommand](images/user-guide/PrevQuestionCommand.png)
 
 #### 4.2.6. Exit the Quiz: `exit`
 Exits the quiz.
