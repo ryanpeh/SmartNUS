@@ -1125,7 +1125,7 @@ testers are expected to do more *exploratory* testing.
    2. Test case `delete note 2103`
       Expected: An error message pops up and note list is unchanged. SmartNus looks like:
       ![image](images/user-guide/NoteDeletionFailure.PNG)
->>>>>>> 76a4e0328516dd14dd1cd3cdd7f5fc335acb1c7d
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files
@@ -1134,4 +1134,3 @@ testers are expected to do more *exploratory* testing.
 
     1. Test case: Update the `importance` of the first question in the saved data (`docs/smartnus.json`) into a valud of `"300"`. This will cause the saved data file to be corrupted.  <br>
       Expected: When launching the app all the data will not be shown.
-1. _{ more test cases …​ }_
