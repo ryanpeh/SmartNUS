@@ -39,7 +39,7 @@ Given below are my contributions to the project.
         * Updated class diagrams of `Logic`, `Model`, `Storage` and implementation details of the `add question` feature ([\#251](https://github.com/AY2122S1-CS2103T-F12-1/tp/pull/251))
 
 * **Team-Based Tasks**:
-    * Updated class diagrams of various classes that were changed due to morphing from AB3 to SmartNus ([\#30](https://github.com/AY2122S1-CS2103T-F12-1/tp/pull/30))
+    * Updated class diagrams of various classes that were changed due to morphing from AB3 to SmartNus ([\#251](https://github.com/AY2122S1-CS2103T-F12-1/tp/pull/251))
     * Managed release `v1.3` on GitHub
     * PRs reviewed (with non-trivial review comments):
       [\#51](https://github.com/AY2122S1-CS2103T-F12-1/tp/pull/51), [\#214](https://github.com/AY2122S1-CS2103T-F12-1/tp/pull/214)
