@@ -7,14 +7,13 @@ participant ":QuizInputParser" as QuizInputParser LOGIC_COLOR
 participant ":AnswerMcqCommandParser" as AnswerMcqCommandParser LOGIC_COLOR
 participant "d:AnswerMcqCommand" as AnswerMcqCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant "quizManager:QuizManager" as QuizManager LOGIC_COLOR
 end box
 
-participant ":QuizManager" as QuizManager MODEL_COLOR
-
-[-> LogicManager : execute("A")
+[-> LogicManager : execute("A", quizManager)
 activate LogicManager
 
-LogicManager -> QuizInputParser : parseCommand("A")
+LogicManager -> QuizInputParser : parseCommand("A", quizManager)
 activate QuizInputParser
 
 create AnswerMcqCommandParser
@@ -24,7 +23,7 @@ activate AnswerMcqCommandParser
 AnswerMcqCommandParser --> QuizInputParser
 deactivate AnswerMcqCommandParser
 
-QuizInputParser -> AnswerMcqCommandParser : parse("A")
+QuizInputParser -> AnswerMcqCommandParser : parse("A", quizManager)
 activate AnswerMcqCommandParser
 
 create AnswerMcqCommand

@@ -401,7 +401,7 @@ The start quiz feature allows users to start a quiz from the main window.
 
 The quiz feature is facilitated by `MainWindow`, `LogicManager`, `SmartNusParser` and `QuizCommand`. Given below is an example usage scenario of how the start quiz mechanism behaves at each step.
 
-1. User input `quiz lim/5` from `MainWindow` class in the Ui component is passed to the `LogicManager` to execute.
+1. User input `quiz lim/5` from `MainWindow` class in the Ui component is passed to the `LogicManager#execute()` method.
 2. `LogicManager` will then call `SmartNusParser#parserCommand()`, which will create a `QuizCommandParser`.
 3. Additionally, `SmartNusParser` will then call the `QuizCommandParser#parse()` method to parse the arguments `lim/5`, which will create a `QuizCommand`.
 4. `QuizCommand#execute()` will be invoked by `LogicManager` to execute the command, which will then call `Model#updateFilteredQuizQuestionList()` to update the questions in the `Model`.
@@ -430,14 +430,32 @@ The answering of questions feature allows users to select their desired choice f
 
 Given below is an example usage scenario of how the mechanism of answering a multiple choice question behaves at each step.
 
-1. User input and the current `QuizManager` object are passed to the `LogicManager` to execute.
-2. `LogicManager` will then call `QuizInputParser`, which will identify type of the current `Question` from `QuizManager`, which will return a `AnswerMcqCommandParser`.
-3. The `AnswerMcqCommandParser` will return a `QuizCommand`, and when executed, will update `QuizManager` with the choice selected by the user, as well as return a `CommandResult` with the response to be displayed to the user.
-4. The `CommandResult` is then returned back to the `QuizWindow` which will then update the Ui with the updated message and the selected choice from `QuizManager`.
+1. User input `A` and the `QuizManager` object from the `QuizWindow` class in the Ui component are passed to the `LogicManager#execute()` method.
+1. `LogicManager` will then call `QuizInputParser#parserCommand()`, which will create a `AnswerMcqCommandParser`.
+1. Additionally, `QuizInputParser` will then call the `AnswerMcqCommandParser#parse()` method to parse the arguments `A` and the `QuizManager` object, which will create a `AnswerMcqCommand`.
+1. `AnswerMcqCommand#execute()` will be invoked by `LogicManager` to execute the command, which will then call `QuizManager#answerAndCheckAnswer()` to update choices in `QuizManager`.
+1. The `CommandResult` is then returned back to `QuizWindow` which will update the Ui with the updated message and the selected choice.
 
 Below is the sequence diagram to show how a multiple choice question is answered.
 
 ![AnswerMcqCommandSequenceDiagram](images/developer-guide/AnswerMcqCommandSequenceDiagram.png)
+
+#### Next question
+
+The next question feature allows users to proceed to the next question during a quiz.
+
+##### Implementation
+
+Given below is an example usage scenario of how the mechanism of proceeding to the next question behaves at each step.
+
+1. User input `next` and the `QuizManager` object from the `QuizWindow` class in the Ui component are passed to the `LogicManager#execute()` method.
+1. `LogicManager` will then call `QuizInputParser#parserCommand()`, which will create a `NextQuestionCommand`.
+1. `NextQuestionCommand#execute()` will be invoked by `LogicManager` to execute the command, which will then call `QuizManager#nextQuestion()` to update the current question index in `QuizManager`.
+1. The `CommandResult` is then returned back to `QuizWindow` which will update the Ui with the updated message and question.
+
+Below is the sequence diagram to show how the next question is shown.
+
+![NextQuestionCommandSequenceDiagram](images/developer-guide/NextQuestionCommandSequenceDiagram.png)
 
 ---
 
