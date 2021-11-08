@@ -286,7 +286,7 @@ While the changes to code may be minimal, the test data will have to be updated 
 
 <div markdown="span" class="alert alert-warning">
 
-:exclamation: You must delete SmartNus' storage file located at `/data/smartnus.json` before running it! Not doing so will cause SmartNus to default to an empty questin list!
+:exclamation: You must delete SmartNus' storage file located at `/data/smartnus.json` before running it! Not doing so will cause SmartNus to default to an empty question list!
 
 </div>
 

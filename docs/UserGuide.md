@@ -119,8 +119,8 @@ Format: `mcq qn/QUESTION opt/INCORRECT_OPTION1 opt/INCORRECT_OPTION2 opt/INCORRE
 
 **Required Parameters:**
 * `qn/` The multiple choice question statement
-* `opt/` The incorrect choices. Exactly 3 input in total.
-* `ans/` The correct choice. Exactly 1 in total.
+* `opt/` The incorrect choices. Exactly 3 inputs in total.
+* `ans/` The correct choice. Exactly 1 input in total.
 * `i/` The importance of the question for the user. An integer between 1 and 3. 3 signifies the highest importance and 1 signifies the lowest importance.
 
 **Optional Parameters:**
@@ -372,9 +372,13 @@ Format: `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX...]`
 * INDEX can be used to filter the quiz to only give questions with the specified question numbers.
   The index **must be a positive integer** from 1 to 2147483647
 
-* A valid index and limit is:
+* A valid index is:
   * **a positive integer** between 1 and 2147483647 (both inclusive)
   * Equal to or smaller than the number of items in the list. Eg. If a list contains 5 questions, `6` is not a valid index but `3` is.
+
+* A valid limit is:
+  * **a positive integer** between 1 and 2147483647 (both inclusive)
+  * Equal to or smaller than the number of items in the list. Eg. If a list contains 5 questions, `6` is a valid limit but only `5` questions will be shown in the quiz.
 
 Examples:
 * `quiz lim/5 t/CS2100 t/MIPS` quiz will select questions tagged with at least one of the tags, limited to 5 questions.
