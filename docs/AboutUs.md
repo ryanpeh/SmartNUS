@@ -14,7 +14,7 @@ We are a team based in the [School of Computing, National University of Singapor
 <img src="images/agentum07.png" width="200px">
 
 [[github](https://github.com/agentum07)]
-[[portfolio](team/abhishekgupta.md)]
+[[portfolio](team/agentum07.md)]
 
 * Role: Developer
 * Responsibilities: Implementation of note features, refactoring storage
@@ -43,10 +43,10 @@ We are a team based in the [School of Computing, National University of Singapor
 <img src="images/cedricongjh.png" width="200px">
 
 [[github](http://github.com/cedricongjh)]
-[[portfolio](team/johndoe.md)]
+[[portfolio](team/cedricongjh.md)]
 
 * Role: Developer
-* Responsibilities:
+* Responsibilities: Adding MCQs and TFQs, enhancing quiz features, enhancing statistics 
 
 ### Peh Kai Min, Ryan
 
