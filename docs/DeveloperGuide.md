@@ -36,7 +36,7 @@ Given below is a quick overview of main components and how they interact with ea
 
 **Main components of the architecture**
 
-**`Main`** has two classes called [`Main`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java). It is responsible for,
+**`Main`** has two classes called [`Main`](https://github.com/AY2122S1-CS2103T-F12-1/tp/blob/master/src/main/java/seedu/smartnus/Main.java) and [`MainApp`](https://github.com/AY2122S1-CS2103T-F12-1/tp/blob/master/src/main/java/seedu/smartnus/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup methods where necessary.
 
@@ -73,9 +73,9 @@ The **API** of this component is specified in [`Ui.java`](https://github.com/AY2
 
 ![Structure of the UI Component](images/developer-guide/UiClassDiagram.png)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `QuestionListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `Panel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2122S1-CS2103T-F12-1/tp/blob/master/src/main/java/seedu/smartnus/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2122S1-CS2103T-F12-1/tp/blob/master/src/main/resources/view/HelpWindow.fxml)
 
 The `UI` component,
 
@@ -143,7 +143,7 @@ The `Model` component,
 
 </div>
 
-## Question class
+#### Question class
 
 The `Question` class is an abstract class that stores a name, importance, and any number of tags and `Choices`.
 A `Choice` stores a name and a boolean value `isCorrect` representing if it is a correct answer to the `Question`.
@@ -159,13 +159,18 @@ Types of Questions currently supported by SmartNUS, and their conditions for val
 1. Multiple Response Questions (coming soon)
    * Has four `Choices` in total, at least one of which is correct
 
-## Note class
+#### Note class
 
-The `Note` class is the class that stores a text - defined as a `title`. The condition for validity of notes is:
+The `Note` class is the class that stores a text - defined as a `NoteName`. The condition for validity of notes is:
 * It should not be empty.
 
-## Statistic Class
-The `Statistic` class is a class that keeps track of the user performance in answering the questions. 
+The notes are stored in a `NoteList` that represents a list of notes in which you can add notes, delete notes, or filter notes. 
+Here is a class diagram of the Notes class.
+
+![Note Class Diagram](images/developer-guide/NoteClassDiagram.png)
+
+#### Statistic Class
+The `Statistic` class is a class that keeps track of the user performance in answering the questions in a quiz. 
 The performance is tracked by:
 * Number of attempts
 * Number of correct attempts
@@ -184,7 +189,7 @@ Below is an activity diagram to show the process:
 
 ![Statistic Activity Diagram](images/developer-guide/StatisticActivityDiagram.png)
 
-### TagStatistic Class
+##### TagStatistic Class
 The `TagStatistic` class inherits from the `Statistic` class. The `TagStatistic` class is specifically used to keep track of the statistics of each tags.
 
 Here is the class diagram for `Statistic` and `TagStatistic`:
@@ -194,11 +199,13 @@ Here is the class diagram for `Statistic` and `TagStatistic`:
 
 
 
-## QuizManager class
+#### Quiz class
 
 [//]: # (TODO: Insert class diagram)
 
-The `QuizManager` class is the class that manages the logic behind the quiz, and is created once a quiz is started.
+The `Quiz` class is an interface that is used to manage a quiz. A `Quiz` can get the current question, go to the next question, go to the previous question, attempt to answer the question, and get the `Statistic` of the `Quiz`.
+
+The `QuizManager` class implements the `Quiz` interface. It manages the logic behind the quiz, and is created once a quiz is started.
 
 Each `QuizManager` class stores the following information about the quiz:
 * `questions`: A list of `Question` objects for all the questions in the quiz
@@ -222,7 +229,7 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.smartnus.commons` package.
 
-### Theme Class
+#### Theme Class
 The `Theme` class is a class that stores the `css` file of a theme.
 Currently, there are two available themes: `LightTheme` and `DarkTheme`which inherits from `Theme`:
 
@@ -248,6 +255,41 @@ Without saving it in the storage, the user will have to keep changing the theme 
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Quiz feature
+
+All features that have to do with the quiz.
+
+#### Starting a quiz
+
+The start quiz feature allows users to start a quiz from the main window.
+
+##### Implementation
+
+The quiz feature is facilitated by `MainWindow`, `LogicManager`, `SmartNusParser` and `QuizCommand`. Given below is an example usage scenario of how the start quiz mechanism behaves at each step.
+
+1. User input from `MainWindow` class in the Ui component is passed to the `LogicManager` to execute.
+2. `LogicManager` will then call `SmartNusParser`, which will parse the user input to return a `QuizCommandParser`.
+3. Once parsed, `QuizCommandParser` will return a `QuizCommand`, and when executed, will update the questions available in the model with the questions to be displayed in the quiz as well as return a `CommandResult` that indicates to start the quiz.
+4. The `CommandResult` is then returned back to `MainWindow` which will then create a new `QuizWindow` to be displayed.
+
+Below is the sequence diagram to show how the quiz is started.
+<!-- TODO: Insert quiz diagram -->
+
+#### Parsing of user input
+
+As different commands are available to the user at the `QuizWindow` and the `MainWindow`, it is necessary to determine which commands are valid for the user to execute based on which window the user is at.
+
+#### Answering of questions
+
+The answering of questions feature allows users to select their desired choice for questions during a quiz.
+
+##### Implementation
+ Given below is an example usage scenario of how the mechanism of answering a multiple choice question behaves at each step.
+
+1. User input and the current `QuizManager` object are passed to the `LogicManager` to execute.
+2. `LogicManager` will then call `QuizInputParser`, which will identify type of the current `Question` from `QuizManager`, which will return a `AnswerMcqCommandParser`.
+3. Once parsed, `QuizCommandParser` will return a `QuizCommand`, and when executed, will update the questions available in the model with the questions to be displayed in the quiz as well as return a `CommandResult` that indicates to start the quiz.
+4. The `CommandResult` is then returned back to `MainWindow` which will then create a new `QuizWindow` to be displayed.
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
@@ -332,30 +374,6 @@ _{more aspects and alternatives to be added}_
 
 _{Explain here how the data archiving feature will be implemented}_
 
-### Quiz feature
-
-All features that have to do with the quiz.
-
-#### Starting a quiz
-
-The start quiz feature allows users to start a quiz from the main window.
-
-##### Implementation
-
-The quiz feature is facilitated by `MainWindow`, `LogicManager`, `SmartNusParser` and `QuizCommand`. Given below is an example usage scenario of how the start quiz mechanism behaves at each step.
-
-1. User input from `MainWindow` class in the Ui component is passed to the `LogicManager` to execute.
-2. `LogicManager` will then call `SmartNusParser`, which will parse the user input to return a `QuizCommandParser`.
-3. Once parsed, `QuizCommandParser` will return a `QuizCommand`, and when executed, will update the questions available in the model with the questions to be displayed in the quiz as well as return a `CommandResult` that indicates to start the quiz.
-4. The `CommandResult` is then returned back to `MainWindow` which will then create a new `QuizWindow` to be displayed.
-
-Below is the sequence diagram to show how the quiz is started.
-<!-- TODO: Insert quiz diagram -->
-
-#### Parsing of user input
-
-As different commands are available to the user at the `QuizWindow` and the `MainWindow`, it is necessary to determine which commands are valid for the user to execute based on which window the user is at.
-
 ##### Design considerations
 
 **Aspect: How commands are determined to be valid for each mode:**
@@ -367,18 +385,6 @@ As different commands are available to the user at the `QuizWindow` and the `Mai
 * **Alternative 2:** Saves the entire address book.
   * Pros: Easy to implement.
   * Cons: May have performance issues in terms of memory usage.
-
-#### Answering of questions
-
-The answering of questions feature allows users to select their desired choice for questions during a quiz.
-
-##### Implementation
- Given below is an example usage scenario of how the mechanism of answering a multiple choice question behaves at each step.
-
-1. User input and the current `QuizManager` object are passed to the `LogicManager` to execute.
-2. `LogicManager` will then call `QuizInputParser`, which will identify type of the current `Question` from `QuizManager`, which will return a `AnswerMcqCommandParser`.
-3. Once parsed, `QuizCommandParser` will return a `QuizCommand`, and when executed, will update the questions available in the model with the questions to be displayed in the quiz as well as return a `CommandResult` that indicates to start the quiz.
-4. The `CommandResult` is then returned back to `MainWindow` which will then create a new `QuizWindow` to be displayed.
 
 
 
