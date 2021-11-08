@@ -388,6 +388,10 @@ Given below is an example usage scenario of how the mechanism of answering a mul
 3. The `AnswerMcqCommandParser` will return a `QuizCommand`, and when executed, will update `QuizManager` with the choice selected by the user, as well as return a `CommandResult` with the response to be displayed to the user.
 4. The `CommandResult` is then returned back to the `QuizWindow` which will then update the Ui with the updated message and the selected choice from `QuizManager`.
 
+Below is the sequence diagram to show how a multiple choice question is answered.
+
+![AnswerMcqCommandSequenceDiagram](images/developer-guide/AnswerMcqCommandSequenceDiagram.png)
+
 ---
 
 ## **Documentation, logging, testing, configuration, dev-ops**
