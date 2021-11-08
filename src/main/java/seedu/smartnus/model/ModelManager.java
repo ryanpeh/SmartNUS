@@ -218,6 +218,13 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void updateFilteredQuizQuestionListWithCurrent(Predicate<Question> predicate) {
+        requireNonNull(predicate);
+        filteredQuizQuestions = new FilteredList<>(filteredQuestions);
+        filteredQuizQuestions.setPredicate(predicate);
+    }
+
+    @Override
     public void sortFilteredQuizQuestionList(Comparator<Question> comparator) {
         requireNonNull(comparator);
         SortedList<Question> sortedQuizQuestionList = new SortedList<>(this.smartNus.getQuestionList());

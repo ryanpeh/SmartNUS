@@ -69,10 +69,16 @@ public class QuizCommandParser implements Parser<QuizCommand> {
         filterPredicates.add(new ShowAllQuestionsPredicate());
         Comparator<Question> questionComparator = null;
 
+        // Check if no arguments are given
+        if (!hasTagArgs && !hasIndexArgs && !hasLimitArg) {
+            return new QuizCommand(filterPredicates, questionComparator, true);
+        }
+
         // Adds to filter predicate based on arguments the user has passed in
         if (hasIndexArgs) {
             Set<Index> indexSet = ParserUtil.parseQuizIndexes(indexes);
             filterPredicates.add(getIndexPredicate(indexSet));
+            return new QuizCommand(filterPredicates, questionComparator, true);
         } else if (hasTagArgs) {
             Set<Tag> tagList = ParserUtil.parseTags(tags);
             List<String> tagKeywords = new ArrayList<>();

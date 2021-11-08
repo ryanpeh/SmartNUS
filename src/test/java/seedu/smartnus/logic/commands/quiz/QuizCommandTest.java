@@ -56,7 +56,7 @@ class QuizCommandTest {
     @Test
     void execute_quizNoQuestions() {
         filterPredicates.add(new ShowQuestionIndexPredicate(Index.fromOneBased(100)));
-        assertCommandFailure(new QuizCommand(filterPredicates, null), model,
+        assertCommandFailure(new QuizCommand(filterPredicates, null, true), model,
                 QuizCommand.MESSAGE_NO_QUESTIONS);
     }
 

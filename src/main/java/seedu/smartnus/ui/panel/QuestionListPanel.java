@@ -52,7 +52,7 @@ public class QuestionListPanel extends UiPart<Region> implements Panel {
         questionListPanelPlaceholder.setVisible(true);
         questionListPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
 
-        StatusBarFooter status = new StatusBarFooter(logic.getSmartNusFilePath());
+        StatusBarFooter status = new StatusBarFooter("Questions");
         statusbarPlaceholder.getChildren().add(status.getRoot());
 
         return questionListPanel;
