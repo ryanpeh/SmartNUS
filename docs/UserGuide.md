@@ -79,20 +79,20 @@ Here's a quick summary of the available sections in the user guide:
 1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data<br>
    ![Ui](images/user-guide/UiMainWindow.png)
 
-<!-- 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * **`list`** : Lists all contacts.
+   * **`list questions`** : Lists all questions.
 
-   * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * **`tfq`**`qn/ Is 2+3 = 5? ans/T i/3` : Adds a true false question: `Is 2+3 = 5?` with answer 'true' and importance '3' to SmartNus.
 
-   * **`delete`**`3` : Deletes the 3rd contact shown in the current list.
+   * **`delete question`**`1` : Deletes the 1st question shown in the current question list. (If the current list being shown is not the question list, enter **`list questions`** to display the question list before entering the **`delete question`** `1` command)
 
-   * **`clear`** : Deletes all contacts.
+   * **`clear`** : Deletes **all** the data in SmartNus.
 
-   * **`exit`** : Exits the app. -->
+   * **`exit`** : Exits the app.
 
-5. Refer to the [Features](#features) below for details of each command
+Refer to the [Features](#features) below for the details of each command
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -110,7 +110,26 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
-#### 4.1.2. Add a Multiple Choice Question: `mcq`
+#### 4.1.2 Switching between panels : `list`
+
+Format: `list question` OR `list note` OR `list tag`
+
+**Required Parameters:**
+* `question` or `note` or `tag` to specify what to list and change the current panel to.
+
+There are 3 different panels in the main window, each showing one of the 3 different entities (`question`, `note`, `tag`) of SmartNus.
+
+You can tell which panel you are on by looking at the bottom left hand corner of SmartNus:
+
+![Notes Panel](images/user-guide/UiNotesPanel.png)
+
+For the above diagram, SmartNus is currently in the `Notes` panel.
+
+Commands that deal with a specific entity can only be run in their own panel. E.g. Commands that operate (adding, editing, deleting) only on questions can only be run in the `Questions` panel.
+
+For more details on which command can run in which panel, refer to the [Main Window Command Summary](#main-window-command-summary)
+
+#### 4.1.3. Add a Multiple Choice Question: `mcq`
 
 Adds a multiple choice question to the question bank.
 
@@ -123,7 +142,7 @@ Format: `mcq qn/QUESTION opt/INCORRECT_OPTION1 opt/INCORRECT_OPTION2 opt/INCORRE
 * `i/` The importance of the question for the user. An integer between 1 and 3. 3 signifies the highest importance and 1 signifies the lowest importance.
 
 **Optional Parameters:**
-* `t/` The tags of the question. Tags should be a single alphanumeric word.
+* `t/` The tags of the question. Tags must be a single alphanumeric word.
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A multiple choice question must have exactly three incorrect options and one correct answer.
 </div>
@@ -149,7 +168,7 @@ Examples:
   
       having importance 2.
 
-#### 4.1.3. Add a True False Question: `tfq`
+#### 4.1.4. Add a True False Question: `tfq`
 
 Adds a true false question to the question bank.
 
@@ -161,19 +180,22 @@ Format: `tfq qn/QUESTION ans/ANSWER i/IMPORTANCE [t/TAG]`
 * `i/` The importance of the question for the user. An integer between 1 and 3. 3 signifies the highest importance and 1 signifies the lowest importance
 
 **Optional Parameters:**
-* `t/` The tags of the question. Tags should be a single alphanumeric word.
+* `t/` The tags of the question. Tags must be a single alphanumeric word.
+
+Caveat:
+* Each true false question can only have one answer, indicated by using "T" for true, and "F" for false.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A true false question can only have one answer, either "T" or "F".
-</div> 
+"T" or "F", which is used to indicate the answer to the true false question, is case-insensitive.
+</div>
 
 
 Examples:
-* `tfq qn/Is 1+1 = 2? ans/T i/1` : Is 1+1 = 2? True
+* `tfq qn/2*2 = 5? ans/F i/3` : 2*2 = 5? False
 * `tfq qn/Is CS2103T a fun module? ans/t i/2`: Is CS2103T a fun module? True
 * `tfq qn/Will entering multiple valid answers create problems? ans/t ans/f i/2`: Will entering multiple valid answers create problems? False
 
-#### 4.1.4. Add a Short Answer Question: `saq`
+#### 4.1.5. Add a Short Answer Question: `saq`
 
 Adds a short answer question to the question bank.
 
@@ -186,7 +208,7 @@ Format: `saq qn/QUESTION ans/ANSWER INCLUDING KEYWORDS k/KEYWORD... i/IMPORTANCE
 * `i/` The importance of the question for the user. An integer between 1 and 3. 3 signifies the highest importance and 1 signifies the lowest importance
 
 **Optional Parameters:**
-* `t/` The tags of the question. Tags should be a single alphanumeric word.
+* `t/` The tags of the question. Tags must be a single alphanumeric word.
 <br>
 
 Caveats:
@@ -215,7 +237,7 @@ Examples:
       "potter harry", "harrypotter" and "wordthatincludesharryandpotter"
     * Incorrect answers include "Potter" and "harr pottery"
 
-#### 4.1.5. Add notes: `note`
+#### 4.1.6. Add notes: `note`
 Adds a note to the note list.
 Format: `note note/NOTE`
 
@@ -224,11 +246,6 @@ Format: `note note/NOTE`
 
 
 Notes accept all text and numbers.
-#### 4.1.6. List All Items : `list`
-
-Shows a list of all questions, notes, or tags stored in SmartNus.
-
-Format: `list question` OR `list note` OR `list tag`
 
 **Required Parameters:**
 * `question` or `note` or `tag` to specify what to list
@@ -347,14 +364,23 @@ Examples:
   * e.g. A question titled "What is the load word instruction used for?" tagged with only CS2100 and with an importance value of 2 will be listed.
 * `find java` returns a question titled "How do you output text to the console in Java?" but not a question titled "Javascript is commonly used in web development. True or false?" (since `java` is not a full word match for `javascript`).
 
-<!-- TODO: standardise format, remove params from header, add brief description-->
-#### 4.1.10. Find/Search Stats: `stat [t/TAG]...`
+#### 4.1.10. Find/Search Stats: `stat`
 
-* Shows the list of statistics by Tag for the questions attempted.
+Shows the list of statistics by Tag for the questions attempted.
+
+The total number of attempts and correct attempts for questions under each tag will be shown. 
+
+Format: `stat [t/TAG]...`
+
+**Parameters**
+* `TAG` The specific tag(s) to be searched
+
+Caveats:
 * The search is case-insensitive for tags
 * Only full words will be matched (e.g. `CS2100` will not match `CS210`)
 * Statistics for any of the tags passed in will be shown
 * If no parameters are passed in, it will show all statistics
+* For questions that have multiple tags, SmartNus will count its attempts and correct attempts under all its tags.
 
 Examples:
 * `stat t/CS2100 t/MIPS` returns the overall statistics for the questions tagged with `CS2100` or `MIPS` or both.
@@ -366,11 +392,11 @@ Format: `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX...]`
 **Optional Parameters**
 * `lim/` positive, non-zero integer that will limit the number of questions in the quiz.
 * `t/` quiz will be formed from questions with the specified tag. If such a tag does not exist, quiz will not start.
-* `n/` quiz just one question - `INDEX` refers to the index number shown in the displayed question list.
+* `n/` quiz specific questions - `INDEX` refers to the index number shown in the displayed question list.
+  * Multiple indexes can be entered, with a space between them. (e.g. `n/ 1 2 3`)
 * If no parameters are passed, a quiz session will be created using all the questions in the question list.
-  * If the total number of questions is less than the limit, it will just give all the questions.
 * TAG can be used to filter the quiz to only give questions with the tags specified, works with limit.
-* INDEX can be used to filter the quiz to only give questions with the specified question numbers.
+* INDEX can be used to filter the quiz to only give questions with the specified question numbers. Does not work with tag or limit.
   The index **must be a positive integer** from 1 to 2147483647
 
 * A valid index is:
@@ -379,17 +405,11 @@ Format: `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX...]`
 
 * A valid limit is:
   * **a positive integer** between 1 and 2147483647 (both inclusive)
-  * Equal to or smaller than the number of items in the list. Eg. If a list contains 5 questions, `6` is a valid limit but only `5` questions will be shown in the quiz.
+  * Eg. If SmartNus contains 5 questions, `6` is a valid limit but only `5` questions will be shown in the quiz.
 
 Examples:
 * `quiz lim/5 t/CS2100 t/MIPS` quiz will select questions tagged with at least one of the tags, limited to 5 questions.
-
-Format: `quiz`
-
-* Opens a new window for the quiz.
-
-Examples:
-*  `quiz` opens a new quiz window and only [quiz commands](#quiz_window_commands) can be used.
+* `quiz n/1 2 3` quiz will select the questions with index number 1 2 3.
 
 #### 4.1.12. Clear All Entries : `clear`
 
