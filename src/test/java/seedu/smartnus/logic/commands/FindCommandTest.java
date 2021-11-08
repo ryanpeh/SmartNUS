@@ -9,6 +9,7 @@ import static seedu.smartnus.logic.commands.CommandUtil.QUESTION_KEYWORD;
 import static seedu.smartnus.model.util.SampleDataUtil.MCQ_QUESTION_INDEX;
 import static seedu.smartnus.model.util.SampleDataUtil.TFQ_QUESTION_INDEX;
 import static seedu.smartnus.model.util.SampleDataUtil.getSampleQuestions;
+import static seedu.smartnus.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,8 +19,11 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.smartnus.commons.core.Messages;
+import seedu.smartnus.logic.commands.exceptions.CommandException;
 import seedu.smartnus.model.Model;
 import seedu.smartnus.model.ModelManager;
+import seedu.smartnus.model.ModelStubTagPanel;
 import seedu.smartnus.model.UserPrefs;
 import seedu.smartnus.model.question.Importance;
 import seedu.smartnus.model.question.Question;
@@ -148,6 +152,14 @@ public class FindCommandTest {
         expectedModel.updateFilteredQuestionList(namePredicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(getSampleQuestions()[MCQ_QUESTION_INDEX]), model.getFilteredQuestionList());
+    }
+
+    @Test
+    public void find_wrongPanel() {
+        ModelStubTagPanel model = new ModelStubTagPanel();
+        FindCommand command = new FindCommand(new ArrayList<Predicate<Question>>());
+        assertThrows(CommandException.class,
+                Messages.MESSAGE_NOT_IN_QUESTION_PANEL, () -> command.execute(model));
     }
 
     /**

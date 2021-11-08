@@ -56,7 +56,7 @@ public class TypicalQuestions {
                     new Choice(VALID_OPTION_1, false), new Choice(VALID_OPTION_4, false),
                     new Choice(VALID_OPTION_3, false))
             .withTags(VALID_TAG_1)
-            .withStatistic(new Statistic(2, 4)).build();
+            .withStatistic(new Statistic(4, 2)).build();
     public static final Question TF_QUESTION_1 = new QuestionBuilder().withName(VALID_QUESTION_5)
             .withImportance(VALID_IMPORTANCE_2)
             .withChoices(new Choice(Choice.TRUE_CHOICE_TITLE, true),

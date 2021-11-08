@@ -38,7 +38,9 @@ public class MultipleChoiceQuestion extends Question {
                 correctChoiceCount += 1;
             }
         }
-        return choiceCount == (NUMBER_OF_INCORRECT_CHOICES + 1) && correctChoiceCount == 1;
+        return choiceCount == (NUMBER_OF_INCORRECT_CHOICES + 1)
+                && correctChoiceCount == 1
+                && this.getStatistic().isValidStatistic();
     }
 
     @Override

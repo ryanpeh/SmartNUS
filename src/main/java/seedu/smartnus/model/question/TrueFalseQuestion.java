@@ -45,7 +45,9 @@ public class TrueFalseQuestion extends Question {
                 validChoices += 1;
             }
         }
-        return validChoices == NUMBER_OF_CHOICES && correctChoices == 1;
+        return validChoices == NUMBER_OF_CHOICES
+                && correctChoices == 1
+                && this.getStatistic().isValidStatistic();
     }
 
     public static boolean isValidTrueFalseChoice(Choice choice) {

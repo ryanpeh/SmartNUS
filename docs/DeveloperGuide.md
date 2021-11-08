@@ -164,6 +164,36 @@ Types of Questions currently supported by SmartNUS, and their conditions for val
 The `Note` class is the class that stores a text - defined as a `title`. The condition for validity of notes is:
 * It should not be empty.
 
+## Statistic Class
+The `Statistic` class is a class that keeps track of the user performance in answering the questions. 
+The performance is tracked by:
+* Number of attempts
+* Number of correct attempts
+```
+performance = number of correct attempts / number of attempts
+```
+
+Here is a sequence diagram of answering a question correctly:
+
+![Statistic Sequence Diagram](images/developer-guide/StatisticSequenceDiagram.png)
+
+During a quiz, when a user answers a question, the `Statistic` of the `Question` is updated.
+It will increment the number of attempts by 1 and also increment the number of correct attempts by 1
+given that the user answered correctly. If the user does not answer correctly, the number of correct attempts does not increase.
+Below is an activity diagram to show the process:
+
+![Statistic Activity Diagram](images/developer-guide/StatisticActivityDiagram.png)
+
+### TagStatistic Class
+The `TagStatistic` class inherits from the `Statistic` class. The `TagStatistic` class is specifically used to keep track of the statistics of each tags.
+
+Here is the class diagram for `Statistic` and `TagStatistic`:
+
+![Statistic and TagStatistic Class Diagram](images/developer-guide/StatisticClassDiagram.png)
+
+
+
+
 ## QuizManager class
 
 [//]: # (TODO: Insert class diagram)
@@ -191,6 +221,26 @@ The `Storage` component,
 ### Common classes
 
 Classes used by multiple components are in the `seedu.smartnus.commons` package.
+
+### Theme Class
+The `Theme` class is a class that stores the `css` file of a theme.
+Currently, there are two available themes: `LightTheme` and `DarkTheme`which inherits from `Theme`:
+
+![Theme Class Diagram](images/developer-guide/ThemeClassDiagram.png)
+
+The `Theme` class is used by the `UI` component to update the theme and is stored in the `Model` component as a user preference.
+The theme can be changed by executing the `ThemeCommand`.
+
+Here is a sequence diagram when the `ThemeCommand` is executed with a given `Theme` object called `theme` inside the `ThemeCommand`:
+
+![Theme Sequence Diagram](images/developer-guide/ThemeSequenceDiagram.png)
+
+Once a `Theme` is kept inside the `Model`, the `UI` component can fetch the `Theme` and render it accordingly:
+
+![UI Theme Sequence Diagram](images/developer-guide/UiThemeSequenceDiagram.png)
+
+The reason why a `Theme` is kept inside the `Model`'s `UserPrefs` is because it allows the current theme to be saved in the storage as a user preference.
+Without saving it in the storage, the user will have to keep changing the theme every time the user opens the app.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -281,6 +331,55 @@ _{more aspects and alternatives to be added}_
 ### \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
+
+### Quiz feature
+
+All features that have to do with the quiz.
+
+#### Starting a quiz
+
+The start quiz feature allows users to start a quiz from the main window.
+
+##### Implementation
+
+The quiz feature is facilitated by `MainWindow`, `LogicManager`, `SmartNusParser` and `QuizCommand`. Given below is an example usage scenario of how the start quiz mechanism behaves at each step.
+
+1. User input from `MainWindow` class in the Ui component is passed to the `LogicManager` to execute.
+2. `LogicManager` will then call `SmartNusParser`, which will parse the user input to return a `QuizCommandParser`.
+3. Once parsed, `QuizCommandParser` will return a `QuizCommand`, and when executed, will update the questions available in the model with the questions to be displayed in the quiz as well as return a `CommandResult` that indicates to start the quiz.
+4. The `CommandResult` is then returned back to `MainWindow` which will then create a new `QuizWindow` to be displayed.
+
+Below is the sequence diagram to show how the quiz is started.
+<!-- TODO: Insert quiz diagram -->
+
+#### Parsing of user input
+
+As different commands are available to the user at the `QuizWindow` and the `MainWindow`, it is necessary to determine which commands are valid for the user to execute based on which window the user is at.
+
+##### Design considerations
+
+**Aspect: How commands are determined to be valid for each mode:**
+
+* **Alternative 1 (current choice):** Command Parsers
+  * Pros: Easy to implement.
+  * Cons: May have performance issues in terms of memory usage.
+
+* **Alternative 2:** Saves the entire address book.
+  * Pros: Easy to implement.
+  * Cons: May have performance issues in terms of memory usage.
+
+#### Answering of questions
+
+The answering of questions feature allows users to select their desired choice for questions during a quiz.
+
+##### Implementation
+ Given below is an example usage scenario of how the mechanism of answering a multiple choice question behaves at each step.
+
+1. User input and the current `QuizManager` object are passed to the `LogicManager` to execute.
+2. `LogicManager` will then call `QuizInputParser`, which will identify type of the current `Question` from `QuizManager`, which will return a `AnswerMcqCommandParser`.
+3. Once parsed, `QuizCommandParser` will return a `QuizCommand`, and when executed, will update the questions available in the model with the questions to be displayed in the quiz as well as return a `CommandResult` that indicates to start the quiz.
+4. The `CommandResult` is then returned back to `MainWindow` which will then create a new `QuizWindow` to be displayed.
+
 
 
 --------------------------------------------------------------------------------------------------------------------

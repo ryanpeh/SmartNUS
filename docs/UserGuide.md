@@ -346,7 +346,7 @@ Examples:
 
 <!-- TODO: add brief description before format to standardise format-->
 #### 4.1.11. Start a Quiz: `quiz`
-Format: `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX]`
+Format: `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX...]`
 
 #####Optional Parameters
 * `lim/` positive, non-zero integer that will limit the number of questions in the quiz.
