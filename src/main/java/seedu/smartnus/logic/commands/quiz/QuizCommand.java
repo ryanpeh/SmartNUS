@@ -44,6 +44,7 @@ public class QuizCommand extends Command {
 
     private final ArrayList<Predicate<Question>> predicates = new ArrayList<>();
     private final Comparator<Question> comparator;
+    private final boolean isUseCurrentList;
 
     /**
      * Creates a QuizCommand
@@ -54,6 +55,21 @@ public class QuizCommand extends Command {
     public QuizCommand(ArrayList<Predicate<Question>> filterPredicates, Comparator<Question> comparator) {
         this.predicates.addAll(filterPredicates);
         this.comparator = comparator;
+        this.isUseCurrentList = false;
+    }
+
+    /**
+     * Creates a QuizCommand
+     * @param filterPredicates The predicates the questions in the quiz command has to fulfill
+     *                         in order to be in the quiz
+     * @param comparator The comparator used to sort the questions in the quiz
+     * @param isUseCurrentList True if filter uses current List. False otherwise.
+     */
+    public QuizCommand(ArrayList<Predicate<Question>> filterPredicates, Comparator<Question> comparator,
+                       boolean isUseCurrentList) {
+        this.predicates.addAll(filterPredicates);
+        this.comparator = comparator;
+        this.isUseCurrentList = isUseCurrentList;
     }
 
     @Override
@@ -68,7 +84,12 @@ public class QuizCommand extends Command {
             model.sortFilteredQuizQuestionList(comparator);
         }
 
-        model.updateFilteredQuizQuestionList(CommandUtil.combinePredicates(predicates));
+        if (this.isUseCurrentList) {
+            // use current list state
+            model.updateFilteredQuizQuestionListWithCurrent(CommandUtil.combinePredicates(predicates));
+        } else {
+            model.updateFilteredQuizQuestionList(CommandUtil.combinePredicates(predicates));
+        }
 
         if (model.getFilteredQuizQuestionList().isEmpty()) {
             throw new CommandException(MESSAGE_NO_QUESTIONS);

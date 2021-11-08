@@ -20,7 +20,7 @@ public class Messages {
     public static final String MESSAGE_TOO_MANY_ARGUMENTS = "Inserted too many arguments! \n%1$s";
     public static final String MESSAGE_NO_TAGS_AND_INDEXES = "Cannot have tags and indexes together \n%1$s";
     public static final String MESSAGE_NO_LIMIT_AND_INDEXES = "Cannot have limit and indexes together \n%1$s";
-    public static final String MESSAGE_QUESTIONS_LISTED_OVERVIEW = "%1$d questions listed!";
+    public static final String MESSAGE_QUESTIONS_FOUND_OVERVIEW = "%1$d question(s) found!";
     public static final String MESSAGE_INVALID_MCQ_ANSWER_FORMAT = "Invalid answer format!"
             + " Acceptable answers are 'a', 'b', 'c', 'd' (Case-insensitive)\n";
     public static final String MESSAGE_INVALID_TF_ANSWER_FORMAT = "Invalid answer format!"

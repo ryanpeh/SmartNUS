@@ -70,7 +70,7 @@ public class FindCommand extends Command {
         model.updateFilteredQuestionList(combinedPredicate);
 
         return new CommandResult(
-                String.format(Messages.MESSAGE_QUESTIONS_LISTED_OVERVIEW, model.getFilteredQuestionList().size()));
+                String.format(Messages.MESSAGE_QUESTIONS_FOUND_OVERVIEW , model.getFilteredQuestionList().size()));
     }
 
     @Override
