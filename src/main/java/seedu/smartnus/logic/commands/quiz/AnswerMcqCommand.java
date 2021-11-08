@@ -39,7 +39,6 @@ public class AnswerMcqCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        // TODO: Some additional logic here for the UI
         requireNonNull(model);
 
         ArrayList<Choice> choices = currentQuestion.getOrderedChoices();
@@ -87,7 +86,6 @@ public class AnswerMcqCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        // TODO: In future, check if the attributes (if any) for the QuizCommand are the same
         return other == this // short circuit if same object
                 || other instanceof AnswerMcqCommand; // instanceof handles nulls
     }
