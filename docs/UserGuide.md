@@ -64,6 +64,8 @@ Here's a quick summary of the available sections in the user guide:
 * All commands are case-sensitive unless otherwise stated.<br>
   e.g. `help` or `ans/` is acceptable, but `Help` or `Ans/` is not acceptable.<br>
 
+* Parameters *SHOULD NOT* contain any slash "/".
+
 </div>
 
 ## 3. Quick Start
@@ -116,13 +118,13 @@ Adds a multiple choice question to the question bank.
 Format: `mcq qn/QUESTION opt/INCORRECT_OPTION1 opt/INCORRECT_OPTION2 opt/INCORRECT_OPTION3 ans/ANSWER i/IMPORTANCE [t/TAG]`
 
 **Required Parameters:**
-* `qn/` The MC Question statement
-* `opt/` The incorrect choices. 3 in total.
-* `ans/` The correct choice. 1 in total.
+* `qn/` The multiple choice question statement
+* `opt/` The incorrect choices. Exactly 3 input in total.
+* `ans/` The correct choice. Exactly 1 in total.
 * `i/` The importance of the question for the user. An integer between 1 and 3. 3 signifies the highest importance and 1 signifies the lowest importance.
 
 **Optional Parameters:**
-* `t/` The tags of the question
+* `t/` The tags of the question. Tags should be a single alphanumeric word.
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A multiple choice question must have exactly three incorrect options and one correct answer
 </div>
@@ -160,7 +162,7 @@ Format: `tfq qn/QUESTION ans/ANSWER i/IMPORTANCE [t/TAG]`
 * `i/` The importance of the question for the user. An integer between 1 and 3. 3 signifies the highest importance and 1 signifies the lowest importance.
 
 **Optional Parameters:**
-* `t/` The tags of the question
+* `t/` The tags of the question. Tags should be a single alphanumeric word.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A true false question can only have one answer, either "T" or "F"
@@ -184,7 +186,7 @@ Format: `saq qn/QUESTION ans/ANSWER INCLUDING KEYWORDS k/KEYWORD... i/IMPORTANCE
 * `i/` The importance of the question for the user. An integer between 1 and 3. 3 signifies the highest importance and 1 signifies the lowest importance.
 
 **Optional Parameters:**
-* `t/` The tags of the question
+* `t/` The tags of the question. Tags should be a single alphanumeric word.
 <br>
 
 Caveats:
@@ -236,7 +238,12 @@ Deletes an existing question or note from the question bank or note list.
 Format: `delete question QUESTION_INDEX` OR `delete note NOTE_INDEX`
 
 **Required Parameters:**
-* `question` and `QUESTION_INDEX` OR `note` and `NOTE_INDEX`
+* `question` and `QUESTION_INDEX`
+
+OR
+
+
+*  `note` and `NOTE_INDEX`
 <div>
 Deletes the question or note with the specified `QUESTION_INDEX` or `NOTE_INDEX`, if the index is valid.
 
@@ -253,6 +260,10 @@ Format: `edit QUESTION_ID [qn/QUESTION] [t/TAG]... [ans/CORRECT_ANSWER] [opt/INC
 
 **Required Parameters**
 * `QUESTION_ID` refers to the index number shown in the displayed question list.
+
+* A valid index is:
+  * **a positive integer** between 1 and 2147483647 (both inclusive)
+  * Equal to or smaller than the number of items in the list. Eg. If a list contains 5 questions, `6` is not a valid index but `3` is.
 
 **Optional Parameters**
 * `qn/` The new question statement
@@ -361,6 +372,10 @@ Format: `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX...]`
 * INDEX can be used to filter the quiz to only give questions with the specified question numbers. 
   The index **must be a positive integer** from 1 to 2147483647
 
+* A valid index and limit is:
+  * **a positive integer** between 1 and 2147483647 (both inclusive)
+  * Equal to or smaller than the number of items in the list. Eg. If a list contains 5 questions, `6` is not a valid index but `3` is.
+
 Examples:
 * `quiz lim/5 t/CS2100 t/MIPS` quiz will select questions tagged with at least one of the tags, limited to 5 questions.
 
@@ -390,7 +405,7 @@ Changes the theme of the app.
 Format: `theme THEME`
 
 #####Parameters:
-- `THEME`: can only be light or dark
+- `THEME`: can only be `light` or `dark`
 
 Examples:
 - `theme light`: Sets the theme to light
