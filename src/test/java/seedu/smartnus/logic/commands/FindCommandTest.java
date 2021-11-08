@@ -3,7 +3,7 @@ package seedu.smartnus.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.smartnus.commons.core.Messages.MESSAGE_QUESTIONS_LISTED_OVERVIEW;
+import static seedu.smartnus.commons.core.Messages.MESSAGE_QUESTIONS_FOUND_OVERVIEW;
 import static seedu.smartnus.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.smartnus.logic.commands.CommandUtil.QUESTION_KEYWORD;
 import static seedu.smartnus.model.util.SampleDataUtil.MCQ_QUESTION_INDEX;
@@ -89,7 +89,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_multipleKeywords_oneQuestionFound() {
-        String expectedMessage = String.format(MESSAGE_QUESTIONS_LISTED_OVERVIEW, 1);
+        String expectedMessage = String.format(MESSAGE_QUESTIONS_FOUND_OVERVIEW, 1);
         NameContainsKeywordsPredicate predicate = prepareNamePredicate("grey-box test approaches");
         ArrayList<Predicate<Question>> predicateArr = new ArrayList<>();
         predicateArr.add(predicate);
@@ -102,7 +102,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_multipleKeywordsNotAllMatch_noQuestionFound() {
-        String expectedMessage = String.format(MESSAGE_QUESTIONS_LISTED_OVERVIEW, 0);
+        String expectedMessage = String.format(MESSAGE_QUESTIONS_FOUND_OVERVIEW, 0);
         ArrayList<Predicate<Question>> predicateArr = new ArrayList<>();
         NameContainsKeywordsPredicate predicate =
                 prepareNamePredicate("grey-box test approaches word-that-does-not-exist");
@@ -115,7 +115,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_multipleTagsOnlyOneMatches_fourQuestionsFound() {
-        String expectedMessage = String.format(MESSAGE_QUESTIONS_LISTED_OVERVIEW, 4);
+        String expectedMessage = String.format(MESSAGE_QUESTIONS_FOUND_OVERVIEW, 4);
         ArrayList<Predicate<Question>> predicateArr = new ArrayList<>();
         TagsContainKeywordsPredicate predicate = new TagsContainKeywordsPredicate(List.of("CS2103T", "RandomTag"));
         predicateArr.add(predicate);
@@ -129,7 +129,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_wordWithPunctuationMarkMatch_oneQuestionFound() {
-        String expectedMessage = String.format(MESSAGE_QUESTIONS_LISTED_OVERVIEW, 1);
+        String expectedMessage = String.format(MESSAGE_QUESTIONS_FOUND_OVERVIEW, 1);
         NameContainsKeywordsPredicate predicate = prepareNamePredicate("standard");
         ArrayList<Predicate<Question>> predicateArr = new ArrayList<>();
         predicateArr.add(predicate);
@@ -142,7 +142,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_multiplePredicates_oneQuestionFound() {
-        String expectedMessage = String.format(MESSAGE_QUESTIONS_LISTED_OVERVIEW, 1);
+        String expectedMessage = String.format(MESSAGE_QUESTIONS_FOUND_OVERVIEW, 1);
         NameContainsKeywordsPredicate namePredicate = prepareNamePredicate("standard is");
         TagsContainKeywordsPredicate tagPredicate = new TagsContainKeywordsPredicate(List.of("CS2103T", "Java"));
         HasImportancePredicate importancePredicate = new HasImportancePredicate(new Importance("2"));
