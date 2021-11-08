@@ -840,9 +840,34 @@ testers are expected to do more *exploratory* testing.
     1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
     1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
 
-### Adding a short answer question
+### Adding a multiple choice question (MCQ)
+
+1. Prerequisites: List all questions using the `list question` command. Multiple questions in the list.
+
+1. Test case: `mcq qn/What is 5+2? ans/7 opt/1 opt/2 opt/3 i/2 t/Math`<br>
+   Expected: An mcq `What is 5+2?` with options `1, 2, 3` and answer `7` with importance `2` and tag `Math` is created.
+
+1. Test case: `mcq qn/What is 5+3? ans/8 opt/2 opt/2 opt/3 i/2 t/Math`<br>
+   Expected: Question is not created as options are duplicates
+
+1. Other incorrect mcq commands to try: `mcq`, `mcq ans/3`, `...`
+   Expected: Question is not created as there are missing compulsory parameters.
+
+### Adding a true false question (TFQ)
+
+1. Prerequisites: List all questions using the `list question` command. Multiple questions in the list.
+
+1. Test case: `tfq qn/Is 5+2 = 8? ans/f i/2 t/Math`<br>
+   Expected: An tfq `What is 5+2?` with answer `false`,importance `2` and tag `Math` is created.
+
+1. Test case: `tfq qn/Is 5+2 = 8? ans/yes i/2 t/Math`<br>
+   Expected: Question is not created as answer needs to be either `T` or `F`
+
+1. Other incorrect mcq commands to try: `tfq`, `tfq qn/Is 5+2 = 8?`, `...`
+   Expected: Question is not created as there are missing compulsory parameters.
+
+### Adding a short answer question (SAQ)
 
    1. Prerequisites: On the Question panel/viewing questions (e.g. after running the `list question` or `find` commands).
 
@@ -1012,7 +1037,6 @@ testers are expected to do more *exploratory* testing.
     4. Other incorrect delete commands to try: `p`, `prevv`, `pre v`<br>
        Expected: Similar to previous.
 
-<<<<<<< HEAD
 ### Quiz specific questions
 1. Prerequisites: There needs to be at least 5 questions in the question list. And the user needs to be in the question panel by doing `list question`.
 
@@ -1056,32 +1080,6 @@ testers are expected to do more *exploratory* testing.
 1. Quiz limit and and tag
     1. Test case: `quiz lim/3 t/cs2103t` <br>
     Expected: 3 Quiz with a tag of cs2103T will be shown.
-=======
-### Adding an MCQ
-
-1. Prerequisites: List all questions using the `list question` command. Multiple questions in the list.
-
-1. Test case: `mcq qn/What is 5+2? ans/7 opt/1 opt/2 opt/3 i/2 t/Math`<br>
-   Expected: An mcq `What is 5+2?` with options `1, 2, 3` and answer `7` with importance `2` and tag `Math` is created.
-
-1. Test case: `mcq qn/What is 5+3? ans/8 opt/2 opt/2 opt/3 i/2 t/Math`<br>
-   Expected: Question is not created as options are duplicates
-
-1. Other incorrect mcq commands to try: `mcq`, `mcq ans/3`, `...`
-   Expected: Question is not created as there are missing compulsory parameters.
-
-### Adding a TFQ
-
-1. Prerequisites: List all questions using the `list question` command. Multiple questions in the list.
-
-1. Test case: `tfq qn/Is 5+2 = 8? ans/f i/2 t/Math`<br>
-   Expected: An tfq `What is 5+2?` with answer `false`,importance `2` and tag `Math` is created.
-
-1. Test case: `tfq qn/Is 5+2 = 8? ans/yes i/2 t/Math`<br>
-   Expected: Question is not created as answer needs to be either `T` or `F`
-
-1. Other incorrect mcq commands to try: `tfq`, `tfq qn/Is 5+2 = 8?`, `...`
-   Expected: Question is not created as there are missing compulsory parameters.
 
 ### Stat
 
