@@ -1,0 +1,19 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+Interface Quiz <<Interface>>
+Class UiManager
+Class Question
+Class Statistic
+Class Choice
+
+UiManager .up.|> Quiz
+UiManager *--> "*" Question
+UiManager *--> "*" Choice
+UiManager *--> "1" currentIndex
+UiManager *--> "1" Statistic
+
+@enduml
