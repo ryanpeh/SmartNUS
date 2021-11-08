@@ -202,18 +202,17 @@ Adds a short answer question to the question bank.
 Format: `saq qn/QUESTION ans/ANSWER INCLUDING KEYWORDS k/KEYWORD... i/IMPORTANCE [t/TAG]...`
 
 **Required Parameters:**
-* `qn/` The TF Question statement
-* `ans/` The correct answer - 1 in total
-* `k/` The keywords for evaluating the answer. **Need to be included inside the `ans/` parameter**
-* `i/` The importance of the question for the user. An integer between 1 and 3. 3 signifies the highest importance and 1 signifies the lowest importance
+* `qn/` The SA Question statement.
+* `ans/` The correct answer. 1 in total.
+* `k/` The keywords for evaluating the answer. **Need to be included inside the `ans/` parameter.**
+* `i/` The importance of the question for the user. An integer between 1 and 3. 3 signifies the highest importance and 1 signifies the lowest importance.
 
 **Optional Parameters:**
 * `t/` The tags of the question. Tags must be a single alphanumeric word.
 <br>
 
-Caveats:
-* Each short answer question must have exactly one answer
-* The answer must include at least one keyword which is specified using `k/` (e.g. `ans/k/powerhouse of the k/cell`)
+* Each short answer question must have exactly one answer.
+* The answer must include at least one keyword which is specified using `k/` (e.g. `ans/k/powerhouse of the k/cell`).
 * Note that keywords **MUST be specified within the answer** to be recognised as keywords
   * `qn/my question? k/KEYWORDOUTSIDEANSWER ans/my answer i/2` is an invalid command
   * See examples given below for valid commands to try out.
@@ -290,9 +289,9 @@ Format: `edit QUESTION_ID [qn/QUESTION] [t/TAG]... [ans/CORRECT_ANSWER] [opt/INC
 * `opt/` The new incorrect options (if question is a `MCQ`)
 * `i/`The new importance
 <div>
-* Existing values will be updated to the input values.
-* You cannot edit question type (e.g. cannot edit a Multiple Choice Question to a True-False Question)
 * At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* You cannot edit question type (e.g. cannot edit a Multiple Choice Question to a True False Question)
 
 
 * Edit Tags
@@ -325,7 +324,7 @@ run the `list question` command.
 
 #### 4.1.9. Find/Search Questions: `find`
 
-Shows a list of all questions in SmartNUS that have all the specified keywords,
+Shows a list of all questions in SmartNUS that have all the specified keywords in their titles,
 at least one of the specified tags, and the importance value (if specified).
 
 Format: `find [KEYWORDS]... [t/TAG]... [i/IMPORTANCE]`
@@ -337,6 +336,7 @@ Format: `find [KEYWORDS]... [t/TAG]... [i/IMPORTANCE]`
 <div>
 
 * **At least** one of the optional fields to find by must be specified.
+* If `KEYWORDS` are specified, they must be specified before any tags and importance.
 * The search is case-insensitive for both keywords and tags (e.g. `math` will match `MaTH`).
 * Only full words will be matched for both keywords and tags (e.g. `CS2100` will not match `CS210`).
 * The following characters `,.?!:;*"()[]{}` which are commonly used to separate words are not considered part of a word or keyword.
@@ -450,6 +450,7 @@ Format: `T` `F` `True` `False` (case-insensitive)
 
 #### 4.2.3. Answer a Short Answer Question: `ans/`
 Answers the short answer question with the provided answer.
+All text after the first instance of `ans/` is taken as the intended answer.
 
 Format: `ans/ANSWER`
 
@@ -486,7 +487,7 @@ Format: `exit`
 **A**: SmartNUS data are saved as a JSON file `[JAR file location]/data/smartnus.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, SmartNUS will discard all data and start with an empty data file at the next run.
+If your changes to the data file makes its format invalid, SmartNUS will discard all data and start with no data.
 </div>
 
 --------------------------------------------------------------------------------------------------------------------
@@ -502,7 +503,7 @@ Action | Format, Examples | Which Panel? |
 **SAQ** | `saq qn/QUESTION ans/ANSWER INCLUDING KEYWORDS k/KEYWORD... i/IMPORTANCE [t/TAG]...` <br> e.g., `saq qn/what is Shakespeare's first name? ans/k/William i/1` | question
 **Note** | `note note/NOTE` <br> e.g., `note note/This is a note` | note
 **Delete** | `delete question QUESTION_INDEX` OR `delete note NOTE_INDEX`<br> e.g., `delete question 1`, `delete note 2` | question or note
-**Edit** | `edit QUESTION_ID [qn/QUESTION] [t/TAG]... [ans/CORRECT_ANSWER] [opt/INCORRECT_OPTION]... [i/IMPORTANCE]` <br> e.g., `edit 1 opt/1 opt/2 opt/3 ans/4 t/` <br> | question
+**Edit** | `edit QUESTION_ID [qn/QUESTION] [t/TAG]... [ans/CORRECT_ANSWER] [opt/INCORRECT_OPTION]... [i/IMPORTANCE]` <br> e.g., `edit 1 qn/Who wrote Pride and Prejudice? i/3 t/literature` <br> | question
 **Find** | `find [KEYWORDS]... [t/TAG]... [i/IMPORTANCE]` <br> e.g., `find load word t/CS2100 t/MIPS i/2` | question
 **Stat** | `stat [t/TAG]...` <br> | tag
 **Quiz** | `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX...]` <br> | question

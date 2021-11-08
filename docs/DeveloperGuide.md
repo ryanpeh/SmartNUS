@@ -306,7 +306,7 @@ These predicates are passed from the `FindCommandParser` to the `FindCommand`.
 `FindCommand` composes these predicates into a logical AND of all predicates. When the `FindCommand` is executed,
 it updates the `FilteredQuestionList` with `Question`s that match this composed predicate, and hence satisfy all the
 user’s search conditions. Given below is a sequence diagram that shows the execution of a FindCommand when a user
-executes `"find class t/CS2103T"`.
+executes `find t/CS2103T`.
 
 ![Find Command Sequence Diagram](images/developer-guide/FindSequenceDiagram.png)
 
@@ -617,19 +617,19 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**
 
 * 1a. User does not specify any options.
-* SmartNUS shows error message.
+  * SmartNUS shows error message.
 
-  Use case ends.
+    Use case ends.
 
 * 1b. User does not specify the correct answer.
-* SmartNUS shows error message.
-
-  Use case ends.
+  * SmartNUS shows error message.
+  
+    Use case ends.
 
 * 1c. User specifies more than 3 incorrect options.
-* SmartNUS shows error message.
+  * SmartNUS shows error message.
 
-  Use case ends.
+    Use case ends.
 
 
 **Use case: Add True/False question**
@@ -650,6 +650,25 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 1b1. SmartNUS shows error message.
 
       Use case ends.
+
+**Use case: Add Short Answer question**
+
+**MSS**
+
+1.  User requests to add a Short Answer question, indicating the correct answer and keywords.
+2.  SmartNUS saves the question, the correct answer and keywords.
+
+**Extensions**
+
+* 1a. User does not specify the correct answer.
+    * SmartNUS shows error message.
+
+    Use case ends.
+
+* 1b. User specifies an answer without keywords.
+    * SmartNUS shows error message.
+
+    Use case ends.
 
 
 **Use case: Delete a question**
@@ -698,16 +717,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at Step 2.
 
-**Use case: List questions containing specific tags**
+**Use case: Find questions**
 
 **MSS**
 
-1. User requests to list questions containing specific tags.
-2. SmartNUS shows a list of questions that contain at least one of the tags.
+1. User requests to list questions containing specific keywords, tags and/or importance.
+2. SmartNUS shows a list of questions that contain all the keywords, at least one of the tags and the importance value
+   (if these parameters are specified).
 
 **Extensions**
 
-* 1a. User does not specify any tags.
+* 1a. User does not specify any parameters (keywords, tags and importance).
     * 1a1. SmartNUS shows an error message.
 
   Use case ends.
@@ -717,10 +737,43 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-* 2a. There are no questions in SmartNUS that contain at least one of the specified tags.
+* 1c. User specifies an invalid importance value.
+    * 1c1. SmartNUS shows an error message.
+
+    Use case ends.
+
+* 2a. There are no questions in SmartNUS that satisfy the user's search conditions.
     * 2a1. SmartNUS shows message that there are no questions.
 
       Use case ends.
+
+**Use case: Edit a question**
+
+**MSS**
+
+1. User requests to list questions.
+2. SmartNUS shows a list of all questions.
+3. User requests to edit a specific question in the list with new values.
+4. SmartNUS updates the question's details to those specified by the user.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+    * 2a1. SmartNUS shows message that there are no questions.
+
+      Use case ends.
+
+* 3a. The given index is invalid.
+    * 3a1. SmartNUS shows an error message.
+
+      Use case resumes at Step 2.
+
+* 3b. The values provided by the user to update the question are invalid.
+    * 3b1.  SmartNUS shows an error message.
+
+      Use case resumes at Step 2.
 
 
 **Use case: Start a quiz**

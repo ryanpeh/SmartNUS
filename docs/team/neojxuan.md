@@ -32,7 +32,7 @@ Given below are my contributions to the project.
     * User Guide:
         * Added documentation for the features `edit`, `find` and `saq` ([\#106](https://github.com/AY2122S1-CS2103T-F12-1/tp/pull/106))
     * Developer Guide:
-        * Added description and diagram of `Question` class and implementation details of the `find` feature
+        * Added description and diagram of `Question` class and implementation details of the `find` feature ([\#240](https://github.com/AY2122S1-CS2103T-F12-1/tp/pull/240))
 
 * **Team-Based Tasks**:
     * Morphed AB3 into SmartNUS question bank, refactored AB3's Person into abstract Question class from which all new Question types extend
