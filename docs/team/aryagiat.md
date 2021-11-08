@@ -40,7 +40,7 @@ Here are the things I have done in this project:
         * Updated the old links to an updated one ([\#70](https://github.com/AY2122S1-CS2103T-F12-1/tp/pull/70))
         * Created class diagrams for `[coming soon]`
         * Created sequence diagrams for `[coming soon]`
-    
+
 * **Team-Based Tasks**:
     * PRs reviewed and merged: [PRs](https://github.com/AY2122S1-CS2103T-F12-1/tp/pulls?q=is%3Apr+reviewed-by%3Aaryagiat)
     * Starting the weekly meetings
