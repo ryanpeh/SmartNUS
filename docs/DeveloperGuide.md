@@ -246,6 +246,41 @@ Without saving it in the storage, the user will have to keep changing the theme 
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Add question feature
+
+#### Implementation
+
+SmartNus deals with different question types (MCQ, TFQ, SAQ) each of which inherits from the same abstract `Question` class, as detailed in the [`Question`](#question-class) section.
+
+Adding of questions is done through calling the `execute` method of the `AddQuestionCommand`.
+
+The relevant classes, part of the [`Logic`](#logic-component) component, are shown in the class diagram below:
+
+![AddQuestionCommandClassDiagramm](images/developer-guide/AddQuestionCommandClassDiagram.png)
+
+* `AddSaqCommand`, `AddTfqCommand` and `AddMcqCommand` inherits from `AddQuestionCommand`, which inherits from the abstract `Command` class. 
+* `AddQuestionCommand` implements the `execute` method as required by the `Command` abstract class, which adds a question to SmartNus.
+* `AddSaqCommand`, `AddTfqCommand` and `AddMcqCommand` all have the same `execute` method. (i.e. They do not override `AddQuestionCommand#execute`)
+* `SmartNusParser` creates the appropriate subtype (`AddSaqCommand`, `AddTfqCommand` or `AddMcqCommand`) of `AddQuestionCommand` based on the user's input. (e.g. User tells SmartNus to add an `mcq` question, `AddMcqCommand` is created by `SmartNusParser`, the same goes for the other question types)
+
+The sequence diagram below illustrates how a `tfq` is added to SmartNus:
+
+![Interactions Inside the Logic Component for the tfq Command](images/developer-guide/AddQuestionSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `AddTfqCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</div>
+
+
+Here's how the tfq is added:
+
+1. When `Logic` is called upon to `execute` the add tfq command (e.g. `tfq qn/ Is 1+1 = 2 ans/T i/1`), it uses a `SmartNusParser` to parse the command via the `parseCommand` method, returning a `AddTfqCommandParser`.
+2. The `SmartNusParser` calls the `parse` method of `AddTfqCommandParser`, which returns a `AddTfqCommand`.
+3. The `LogicManager` calls the `execute` method of `AddTfqCommand`, which then calls the `addQuestion` method of the model to add the tfq to SmartNus.
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:**  This applies to the other question types as well, e.g. for adding an mcq, `AddMcqCommandParser` will be returned by `SmartNusParser`, which then returns `AddMcqCommand` upon parsing the user's input.
+</div>
+
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
