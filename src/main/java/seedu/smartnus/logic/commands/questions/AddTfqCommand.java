@@ -9,11 +9,11 @@ import seedu.smartnus.model.question.Question;
 public class AddTfqCommand extends AddQuestionCommand {
     public static final String COMMAND_WORD = "tfq";
     public static final String MESSAGE_SUCCESS = "New question added: %s";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a true/false question to SmartNUS. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a true/false question to SmartNUS.\n"
             + "Parameters: "
             + PREFIX_QUESTION + "QUESTION "
             + PREFIX_ANSWER + "ANSWER (either T or F) "
-            + PREFIX_IMPORTANCE + "IMPORTANCE "
+            + PREFIX_IMPORTANCE + "IMPORTANCE\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_QUESTION + "Is 1+1 = 2? "
             + PREFIX_ANSWER + "T "

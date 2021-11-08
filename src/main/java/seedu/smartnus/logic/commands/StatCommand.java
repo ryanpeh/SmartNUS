@@ -20,9 +20,9 @@ public class StatCommand extends Command {
     public static final String MESSAGE_FOUND_STATS_FORMAT = "%1$d stats found!";
     public static final String MESSAGE_NO_TAG_PREFIX = "Please enter a tag prefix before the tag you want to search,"
             + " or enter the command alone to view all stats\n";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds the statistics for a tag (case-insensitive). "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds the statistics for a tag (case-insensitive).\n"
             + "Parameters: "
-            + " [" + PREFIX_TAG + "TAG]..."
+            + " [" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TAG + "CS2040S";
 

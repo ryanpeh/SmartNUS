@@ -32,7 +32,8 @@ public class Messages {
             + "' to view the previous question.";
     public static final String MESSAGE_CONTINUE_QUIZ = "Enter '" + NextQuestionCommand.COMMAND_WORD
             + "' to proceed with the next question, or '" + ExitCommand.COMMAND_WORD + "' to exit the quiz";
-    public static final String MESSAGE_INVALID_LIMIT_ARG = "Limit must be a valid positive integer!";
+    public static final String MESSAGE_INVALID_LIMIT_ARG =
+            "Limit must be a valid positive integer (from 1 to 2147483647 inclusive)!";
     public static final String MESSAGE_INDEX_ERROR = "The index should be a positive integer from 1 to 2147483647";
 
     public static final String MESSAGE_NOT_IN_QUESTION_PANEL = "This is a command for questions. Try to go to "

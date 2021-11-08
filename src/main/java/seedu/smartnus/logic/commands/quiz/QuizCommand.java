@@ -3,6 +3,7 @@ package seedu.smartnus.logic.commands.quiz;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.smartnus.commons.core.Messages.MESSAGE_NOT_IN_QUESTION_PANEL;
+import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_LIMIT;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_NUMBER;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -30,8 +31,10 @@ public class QuizCommand extends Command {
             + "specifying the questions to be included in the quiz.\n"
             + "Parameters: " + "[" + PREFIX_NUMBER + "NUMBER...] "
             + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_LIMIT + "LIMIT]\n"
+            + "LIMIT (must be a positive integer between 1 and 2147483647 both inclusive)\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TAG + "CS2103T " + PREFIX_TAG + "CS2100 \n"
+            + PREFIX_TAG + "CS2103T " + PREFIX_TAG + "CS2100 " + PREFIX_LIMIT + "3"
             + "Example: " + COMMAND_WORD + PREFIX_NUMBER + "1 2 3";
 
 

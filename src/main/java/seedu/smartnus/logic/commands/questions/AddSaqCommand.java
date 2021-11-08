@@ -14,11 +14,11 @@ public class AddSaqCommand extends AddQuestionCommand {
 
     public static final String COMMAND_WORD = "saq";
     public static final String MESSAGE_SUCCESS = "New question added: %s";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an short answer question to SmartNUS. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a short answer question to SmartNUS.\n"
             + "Parameters: "
             + PREFIX_QUESTION + "QUESTION "
             + PREFIX_ANSWER + "ANSWER THAT MUST INCLUDE " + PREFIX_KEYWORD + "KEYWORD... "
-            + PREFIX_IMPORTANCE + "IMPORTANCE "
+            + PREFIX_IMPORTANCE + "IMPORTANCE\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_QUESTION + "You're a wizard, Harry. Where is this quote from? "
             + PREFIX_ANSWER + " "
