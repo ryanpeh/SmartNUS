@@ -444,7 +444,10 @@ Examples:
 #### 4.2.1. Answer a Multiple Choice Question: `A` `B` `C` `D`
 Answers the multiple choice question with the options.
 
-Format: `A` `B` `C` or `D` (case-insensitive)
+Format: `A` `B` `C` `D` (case-insensitive)
+
+Examples:
+- `A`: Answers the multiple choice question with option 'A'
 
 Expected Outcome:
 ![AnswerMcqCommand](images/user-guide/AnswerMcqCommand.png)
@@ -453,6 +456,10 @@ Expected Outcome:
 Answers the multiple choice question with the options.
 
 Format: `T` `F` `True` `False` (case-insensitive)
+
+Examples:
+- `T`: Answers the multiple choice question with option 'True'
+- `True`: Answers the multiple choice question with option 'True'
 
 Expected Outcome:
 ![AnswerSaqCommand](images/user-guide/AnswerTfqCommand.png)
@@ -464,7 +471,7 @@ All text after the first instance of `ans/` is taken as the intended answer.
 Format: `ans/ANSWER`
 
 Examples:
-* `ans/Harry Potter` answers the short answer question with "Harry Potter".
+* `ans/Harry Potter`: Answers the short answer question with "Harry Potter".
 
 Expected Outcome:
 ![AnswerTfqCommand](images/user-guide/AnswerSaqCommand.png)
