@@ -12,10 +12,10 @@ box Model MODEL_COLOR_T1
 participant ":ModelManager" as ModelManager MODEL_COLOR
 end box
 
-[-> LogicManager : execute("find class t/CS2103T")
+[-> LogicManager : execute("find t/CS2103T")
 activate LogicManager
 
-LogicManager -> SmartNusParser : parseCommand("find class t/CS2103T")
+LogicManager -> SmartNusParser : parseCommand("find t/CS2103T")
 activate SmartNusParser
 
 create FindCommandParser
@@ -24,7 +24,7 @@ activate FindCommandParser
 FindCommandParser -> SmartNusParser
 deactivate FindCommandParser
 
-SmartNusParser -> FindCommandParser : parse("class t/CS2103T")
+SmartNusParser -> FindCommandParser : parse("t/CS2103T")
 
 activate FindCommandParser
 

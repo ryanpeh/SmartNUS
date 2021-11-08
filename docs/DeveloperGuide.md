@@ -306,7 +306,7 @@ These predicates are passed from the `FindCommandParser` to the `FindCommand`.
 `FindCommand` composes these predicates into a logical AND of all predicates. When the `FindCommand` is executed,
 it updates the `FilteredQuestionList` with `Question`s that match this composed predicate, and hence satisfy all the
 user’s search conditions. Given below is a sequence diagram that shows the execution of a FindCommand when a user
-executes `"find class t/CS2103T"`.
+executes `find t/CS2103T`.
 
 ![Find Command Sequence Diagram](images/developer-guide/FindSequenceDiagram.png)
 
