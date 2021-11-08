@@ -893,25 +893,24 @@ testers are expected to do more *exploratory* testing.
 
       Expected: All questions in SmartNUS tagged with Java, CS2103T or both are shown.
    3. Test case: `find coding standard t/cs2103t i/2`
-      
-   4. Expected: All questions that contain the full words "coding" and "standard" in their titles (in any order) AND are tagged with "cs2103t" AND have importance of 2 are shown.
+   
+      Expected: All questions that contain the full words "coding" and "standard" in their titles (in any order) AND are tagged with "cs2103t" AND have importance of 2 are shown.
    5. Test case: `find`
       
-   6. Expected: An error message is shown as user did not specify any parameters to find by.
+      Expected: An error message is shown as user did not specify any parameters to find by.
 
 
 ### Deleting a question while all questions are being shown
+1. Prerequisites: List all questions using the `list question` command. Multiple questions in the list.
 
-    1. Prerequisites: List all questions using the `list question` command. Multiple questions in the list.
+2. Test case: `delete question 1`<br>
+   Expected: First question is deleted from the list. Details of the deleted question shown in the status message. Timestamp in the status bar is updated.
 
-    1. Test case: `delete question 1`<br>
-       Expected: First question is deleted from the list. Details of the deleted question shown in the status message. Timestamp in the status bar is updated.
+3. Test case: `delete question 0`<br>
+   Expected: No question is deleted. Error details shown in the status message. Status bar remains the same.
 
-    1. Test case: `delete question 0`<br>
-       Expected: No question is deleted. Error details shown in the status message. Status bar remains the same.
-
-    1. Other incorrect delete commands to try: `delete`, `delete note x`, `...` (where x is larger than the list size)<br>
-       Expected: Similar to previous.
+4. Other incorrect delete commands to try: `delete`, `delete note x`, `...` (where x is larger than the list size)<br>
+   Expected: Similar to previous.
 
 ### Switching Panels and Listing
 1. Switch panel to view all questions
