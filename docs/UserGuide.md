@@ -409,7 +409,7 @@ Changes the theme of the app.
 
 Format: `theme THEME`
 
-#####Parameters:
+##### Parameters:
 - `THEME`: can only be `light` or `dark`
 
 Examples:
@@ -475,16 +475,22 @@ If your changes to the data file makes its format invalid, SmartNUS will discard
 <!-- TODO: Ensure that all commands are added below -->
 ### 6.1. Main Window Command Summary
 
-Action | Format, Examples
---------|------------------
-**MCQ** | `mcq qn/QUESTION opt/OPTION1 opt/OPTION2 opt/OPTION3 ans/ANSWER i/IMPORTANCE` <br> e.g., `mcq qn/what is 1 + 1? opt/3 opt/1 opt/0 ans/2 i/1`
-**TFQ** | `tfq qn/QUESTION ans/ANSWER i/IMPORTANCE` <br> e.g., `mcq qn/Is 1 + 1 = 2? ans/t i/1`
-**SAQ** | `saq qn/QUESTION ans/ANSWER INCLUDING KEYWORDS k/KEYWORD... i/IMPORTANCE [t/TAG]...` <br> e.g., `saq qn/what is Shakespeare's first name? ans/k/William i/1`
-**Note** | `note note/NOTE` <br> e.g., `note note/This is a note`
-**Delete** | `delete question QUESTION_INDEX` OR `delete note NOTE_INDEX`<br> e.g., `delete question 1`, `delete note 2`
-**Quiz** | `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX...]` <br>
-**Exit** | `exit` <br>
-**Help** | `help` <br>
+Action | Format, Examples | Which Panel? |
+--------|------------------|-------------
+**MCQ** | `mcq qn/QUESTION opt/OPTION1 opt/OPTION2 opt/OPTION3 ans/ANSWER i/IMPORTANCE` <br> e.g., `mcq qn/what is 1 + 1? opt/3 opt/1 opt/0 ans/2 i/1` | question
+**TFQ** | `tfq qn/QUESTION ans/ANSWER i/IMPORTANCE` <br> e.g., `mcq qn/Is 1 + 1 = 2? ans/t i/1` | question
+**SAQ** | `saq qn/QUESTION ans/ANSWER INCLUDING KEYWORDS k/KEYWORD... i/IMPORTANCE [t/TAG]...` <br> e.g., `saq qn/what is Shakespeare's first name? ans/k/William i/1` | question
+**Note** | `note note/NOTE` <br> e.g., `note note/This is a note` | note
+**Delete** | `delete question QUESTION_INDEX` OR `delete note NOTE_INDEX`<br> e.g., `delete question 1`, `delete note 2` | question or note
+**Edit** | `edit QUESTION_ID [qn/QUESTION] [t/TAG]... [ans/CORRECT_ANSWER] [opt/INCORRECT_OPTION]... [i/IMPORTANCE]` <br> e.g., `edit 1 opt/1 opt/2 opt/3 ans/4 t/` <br> | question
+**Find** | `find [KEYWORDS]... [t/TAG]... [i/IMPORTANCE]` <br> e.g., `find load word t/CS2100 t/MIPS i/2` | question
+**Stat** | `stat [t/TAG]...` <br> | tag
+**Quiz** | `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX...]` <br> | question
+**Theme** | `theme light` or `theme dark` <br> | all
+**List** | `list question` or `list note` or `list tag` <br> | all
+**Clear** | `clear` <br> | all
+**Exit** | `exit` <br> | all
+**Help** | `help` <br> | all
 
 ### 6.2. Quiz Window Command Summary
 
