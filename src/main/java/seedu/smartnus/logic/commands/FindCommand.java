@@ -2,7 +2,6 @@ package seedu.smartnus.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.smartnus.commons.core.Messages.MESSAGE_NOT_IN_QUESTION_PANEL;
-import static seedu.smartnus.logic.commands.CommandUtil.QUESTION_KEYWORD;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_IMPORTANCE;
 import static seedu.smartnus.logic.parser.CliSyntax.PREFIX_TAG;
 
