@@ -82,11 +82,11 @@ Here's a quick summary of the available sections in the user guide:
 Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * **`list questions`** : Lists all questions.
+   * **`list question`** : Lists all questions.
 
    * **`tfq`**`qn/ Is 2+3 = 5? ans/T i/3` : Adds a true false question: `Is 2+3 = 5?` with answer 'true' and importance '3' to SmartNus.
 
-   * **`delete question`**`1` : Deletes the 1st question shown in the current question list. (If the current list being shown is not the question list, enter **`list questions`** to display the question list before entering the **`delete question`** `1` command)
+   * **`delete question`**`1` : Deletes the 1st question shown in the current question list. (If the current list being shown is not the question list, enter **`list question`** to display the question list before entering the **`delete question`** `1` command)
 
    * **`clear`** : Deletes **all** the data in SmartNus.
 
