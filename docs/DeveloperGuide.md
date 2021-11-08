@@ -239,17 +239,6 @@ Currently, there are two available themes: `LightTheme` and `DarkTheme`which inh
 The `Theme` class is used by the `UI` component to update the theme and is stored in the `Model` component as a user preference.
 The theme can be changed by executing the `ThemeCommand`.
 
-Here is a sequence diagram when the `ThemeCommand` is executed with a given `Theme` object called `theme` inside the `ThemeCommand`:
-
-![Theme Sequence Diagram](images/developer-guide/ThemeSequenceDiagram.png)
-
-Once a `Theme` is kept inside the `Model`, the `UI` component can fetch the `Theme` and render it accordingly:
-
-![UI Theme Sequence Diagram](images/developer-guide/UiThemeSequenceDiagram.png)
-
-The reason why a `Theme` is kept inside the `Model`'s `UserPrefs` is because it allows the current theme to be saved in the storage as a user preference.
-Without saving it in the storage, the user will have to keep changing the theme every time the user opens the app.
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Implementation**
@@ -332,6 +321,21 @@ or `Predicate<Question>`, depending on the item that the user is searching for.
 The activity diagram below illustrates this implementation.
 
 ![Find Command Activity Diagram](images/developer-guide/FindActivityDiagram.png)
+
+### Change Theme Feature
+The `Theme` class is used by the `UI` component to update the theme and is stored in the `Model` component as a user preference.
+The theme can be changed by executing the `ThemeCommand`.
+
+Here is a sequence diagram when the `ThemeCommand` is executed with a given `Theme` object called `theme` inside the `ThemeCommand`. Currently the `theme` object can either be a `LightTheme` or `DarkTheme`
+
+![Theme Sequence Diagram](images/developer-guide/ThemeSequenceDiagram.png)
+
+Once a `Theme` is kept inside the `Model`, the `UI` component can fetch the `Theme` and render it accordingly:
+
+![UI Theme Sequence Diagram](images/developer-guide/UiThemeSequenceDiagram.png)
+
+The reason why a `Theme` is kept inside the `Model`'s `UserPrefs` is because it allows the current theme to be saved in the storage as a user preference.
+Without saving it in the storage, the user will have to keep changing the theme every time the user opens the app.
 
 ### \[Proposed\] Undo/redo feature
 
