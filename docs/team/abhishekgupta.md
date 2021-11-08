@@ -30,10 +30,12 @@ Given below are my contributions to the project.
   * User Guide:
     * Added documentation for the features `delete` and `note` [\#236](https://github.com/AY2122S1-CS2103T-F12-1/tp/pull/236)
     * Did cosmetic tweaks to existing documentation of features `question`, `tag` [\#236](https://github.com/AY2122S1-CS2103T-F12-1/tp/pull/236)
-    * Standardized the UG command explanation format.
+    * Standardized the UG command explanation format, enhanced the documentation of `Question` functionality
   * Developer Guide:
     * Added implementation details of the `delete` feature.
     * Created class diagrams for the `undo` feature
+    * Added implementation details of the `note` feature 
+    * Came up with User Stories and Non-Functional Requirements
 
 
 * **Team Based Tasks**:
