@@ -5,48 +5,42 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlySmartNus <<Interface>>
 Interface ReadOnlyUserPrefs <<Interface>>
 Interface Model <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class SmartNus
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
-
 Class UniqueQuestionList
-Class Question
-Class Name
-Class Importance
-Class Tag
+Class NoteList
 
+Class Question
+Class Note
+
+Class TagStatistic
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+SmartNus .up.|> ReadOnlySmartNus
 
 ModelManager .up.|> Model
 Model .right.> ReadOnlyUserPrefs
-Model .left.> ReadOnlyAddressBook
-ModelManager -left-> "1" AddressBook
+Model .left.> ReadOnlySmartNus
+ModelManager -left-> "1" SmartNus
 ModelManager -right-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniqueQuestionList
+SmartNus *--> "1" UniqueQuestionList
+SmartNus *--> "1" NoteList
 UniqueQuestionList --> "~* all" Question
-Question *--> Name
-Question *--> Phone
-Question *--> Email
-Question *--> Address
-Question *--> "*" Tag
-
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+NoteList --> "~* all" Note
 
 ModelManager -->"~* filtered" Question
+ModelManager -->"~* filtered" TagStatistic
+ModelManager -->"~* filtered" Note
 @enduml

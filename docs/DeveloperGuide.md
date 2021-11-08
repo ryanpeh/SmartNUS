@@ -94,8 +94,8 @@ Here's a (partial) class diagram of the `Logic` component:
 
 How the `Logic` component works:
 1. When `Logic` is called upon to execute a command, it uses either the `SmartNusParser` or the `QuizInputParser` class to parse the user command, depending on which window the user is currently on (i.e. Main Window or Quiz Window).
-1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddCommand`) which is executed by the `LogicManager`.
-1. The command can communicate with the `Model` when it is executed (e.g. to add a question).
+1. This results in a `Command` object (more precisely, an object of one of its subclasses, `ABCCommand` or `XYZCommand`, which are placeholders for Commands created by `SmartNusParser` and `QuizInputParser` respectively e.g. `AddMcqCommand` created by `SmartNusParser` is a `XYZCommand`, while `AnswerMcqCommand` created by `QuizInputParser` is a `ABCCommand`) which is executed by the `LogicManager`.
+1. The command can communicate with the `Model` when it is executed (e.g. to add a question for `AddMcqCommand`).
 1. The result of the command execution is encapsulated as a `CommandResult` object which is then returned from `Logic`.
 
 The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("delete question 1")` API call.
@@ -107,7 +107,7 @@ The Sequence Diagram below illustrates the interactions within the `Logic` compo
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 </div>
 
-Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
+Here are some other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
 
 <img src="images/developer-guide/ParserClasses.png" width="600"/>
 
@@ -126,14 +126,18 @@ How the `Logic` component determines which parser to use:
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2122S1-CS2103T-F12-1/tp/blob/master/src/main/java/seedu/smartnus/model/Model.java)
 
+Here's a (partial) class diagram of the `Model` component:
+
 <img src="images/developer-guide/ModelClassDiagram.png" width="450" />
 
 
 The `Model` component,
 
-* stores the smartNUS data i.e., all [`Question`](#question-class) and `Quiz` objects (which are contained in a `UniqueQuestionList` object).
-* stores the currently 'selected' `Question` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Question>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the smartNUS data i.e., all [`Question`](#question-class) and [`Note`](#note-class) (which are contained in `UniqueQuestionList` and `NoteList` objects respectively).
+* stores the currently 'selected' `Question` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Question>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list changes.
 * stores another list of the currently 'selected' `Question` objects for a `Quiz` as a separate _filtered_ list which is also exposed to outsiders as an unmodifiable `ObservableList<Question>` that can be used in the Quiz UI
+* stores a list of the currently 'selected' `Note` objects as a separate _filtered_ list which is also exposed to outsiders as an unmodifiable `ObservableList<Note>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list changes.
+* stores a list of the currently 'selected' `TagStatistic` objects as a separate _filtered_ list which is also exposed to outsiders as an unmodifiable `ObservableList<TagStatistic>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list changes.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
@@ -145,19 +149,20 @@ The `Model` component,
 
 ## Question class
 
-The `Question` class is an abstract class that stores a name, importance, and any number of tags and `Choices`.
-A `Choice` stores a name and a boolean value `isCorrect` representing if it is a correct answer to the `Question`.
-The validity of a `Question` depends on the type of question.
+The `Question` class is an abstract class that stores a `Name`, `Importance`, `Statistic`, `Tag`s and `Choice`s.
+A `Choice` stores a `title` String, a boolean value `isCorrect` representing if it is a correct answer to the `Question`,
+and a Set of Strings representing `keywords` used for evaluating answers to Short Answer Questions.
 
+![Question Class Diagram](images/developer-guide/QuestionClassDiagram.png)
+
+The validity of a `Question` depends on the type of question.
 Types of Questions currently supported by SmartNUS, and their conditions for validity are:
 1. Multiple Choice Questions
-   * Has four `Choices` in total, exactly one of which is correct
+   * Has four `Choice`s in total, exactly one of which is correct
 1. True-False Questions
-   * Has two `Choices` in total, which can only be "True" and "False", exactly one of which is correct
+   * Has two `Choice`s in total, which can only be "True" and "False", exactly one of which is correct
 1. Short Answer Questions
-   * Has one `Answer`, with one or more `Keywords` for evaluation. 
-1. Multiple Response Questions (coming soon)
-   * Has four `Choices` in total, at least one of which is correct
+   * Has one `Choice` in total which is correct and contains at least one `keyword`
 
 ## Note class
 
@@ -165,7 +170,7 @@ The `Note` class is the class that stores a text - defined as a `title`. The con
 * It should not be empty.
 
 ## Statistic Class
-The `Statistic` class is a class that keeps track of the user performance in answering the questions. 
+The `Statistic` class is a class that keeps track of the user performance in answering the questions.
 The performance is tracked by:
 * Number of attempts
 * Number of correct attempts
@@ -214,7 +219,7 @@ Each `QuizManager` class stores the following information about the quiz:
 <img src="images/developer-guide/StorageClassDiagram.png" width="550" />
 
 The `Storage` component,
-* can save both address book data and user preference data in json format, and read them back into corresponding objects.
+* can save both SmartNus data and user preference data in json format, and read them back into their corresponding objects. (`Question` and `Note` objects)
 * inherits from both `SmartNusStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
@@ -247,6 +252,83 @@ Without saving it in the storage, the user will have to keep changing the theme 
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented.
+
+### Add question feature
+
+#### Implementation
+
+SmartNus deals with different question types (MCQ, TFQ, SAQ) each of which inherits from the same abstract `Question` class, as detailed in the [`Question`](#question-class) section.
+
+Adding of questions is done through calling the `execute` method of the `AddQuestionCommand`.
+
+The relevant classes, part of the [`Logic`](#logic-component) component, are shown in the class diagram below:
+
+![AddQuestionCommandClassDiagramm](images/developer-guide/AddQuestionCommandClassDiagram.png)
+
+* `AddSaqCommand`, `AddTfqCommand` and `AddMcqCommand` inherits from `AddQuestionCommand`, which inherits from the abstract `Command` class.
+* `AddQuestionCommand` implements the `execute` method as required by the `Command` abstract class, which adds a question to SmartNus.
+* `AddSaqCommand`, `AddTfqCommand` and `AddMcqCommand` all have the same `execute` method. (i.e. They do not override `AddQuestionCommand#execute`)
+* `SmartNusParser` creates the appropriate subtype (`AddSaqCommand`, `AddTfqCommand` or `AddMcqCommand`) of `AddQuestionCommand` based on the user's input. (e.g. User tells SmartNus to add an `mcq` question, `AddMcqCommand` is created by `SmartNusParser`, the same goes for the other question types)
+
+The sequence diagram below illustrates how a `tfq` is added to SmartNus:
+
+![Interactions Inside the Logic Component for the tfq Command](images/developer-guide/AddQuestionSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `AddTfqCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</div>
+
+
+Here's how the tfq is added:
+
+1. When `Logic` is called upon to `execute` the add tfq command (e.g. `tfq qn/ Is 1+1 = 2 ans/T i/1`), it uses a `SmartNusParser` to parse the command via the `parseCommand` method, returning a `AddTfqCommandParser`.
+2. The `SmartNusParser` calls the `parse` method of `AddTfqCommandParser`, which returns a `AddTfqCommand`.
+3. The `LogicManager` calls the `execute` method of `AddTfqCommand`, which then calls the `addQuestion` method of the model to add the tfq to SmartNus.
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:**  This applies to the other question types as well, e.g. for adding an mcq, `AddMcqCommandParser` will be returned by `SmartNusParser`, which then returns `AddMcqCommand` upon parsing the user's input.
+</div>
+
+
+### Find questions feature
+
+The find questions feature allows users to search for `Question`s by three parameters: name, tags and importance.
+
+#### Implementation
+The find questions feature is implemented using `FindCommandParser`, `FindCommand` and `Predicate`s that implement the `Predicate<Question>` interface.
+Given below is a class diagram of the main classes involved in the implementation of this feature.
+
+![Find Command Class Diagram](images/developer-guide/FindClassDiagram.png)
+
+The FindCommandParser parses the user input into predicates that the `Question`s must match to be included in the `FilteredQuestionList`.
+Each condition is represented by a predicate that extends from `Predicate<Question>`. The three search parameters in the user input, name, tags and importance,
+are parsed and used to create the `NameContainsKeywordsPredicate`, `TagsContainKeywordsPredicate` and `HasImportancePredicate` respectively.
+
+| Predicate | Function                                |
+| -------- | ------------------------------------------ |
+|`NameContainsKeywordsPredicate` | Checks if a `Question`'s `Name` contains all the given keywords |
+|`TagsContainKeywordsPredicate`| Checks if a `Question` contains at least one `Tag`s whose name matches a keywords |
+|`HasImportancePredicate`| Checks if a `Question` has a particular `Importance` value |
+
+These predicates are passed from the `FindCommandParser` to the `FindCommand`.
+`FindCommand` composes these predicates into a logical AND of all predicates. When the `FindCommand` is executed,
+it updates the `FilteredQuestionList` with `Question`s that match this composed predicate, and hence satisfy all the
+user’s search conditions. Given below is a sequence diagram that shows the execution of a FindCommand when a user
+executes `"find class t/CS2103T"`.
+
+![Find Command Sequence Diagram](images/developer-guide/FindSequenceDiagram.png)
+
+#### Proposed Extensions
+The find feature currently only supports finding questions. It can be extended to search for both `Question`s and `Note`s.
+Here is the proposed implementation of such a feature:
+1. The `FindCommandParser` will take in an additional
+parameter, either "note" or "question".
+2. Depending on which item the user wants to search for, the `FindCommandParser`
+will create a `FindNoteParser` or a `FindQuestionParser`.
+3. The parsers will parse user inputs into either `Predicate<Note>`
+or `Predicate<Question>`, depending on the item that the user is searching for.
+4. If the user is searching for `Note`s, a `FindNoteCommand` will be generated. If the user is searching for `Question`s, a `FindQuestionCommand` is created.
+The activity diagram below illustrates this implementation.
+
+![Find Command Activity Diagram](images/developer-guide/FindActivityDiagram.png)
 
 ### \[Proposed\] Undo/redo feature
 
@@ -471,7 +553,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. User does not specify the keyword `question`.
 * SmartNUS shows error message.
-* 
+
   Use case ends.
 
 **Use case: List notes**
@@ -519,7 +601,7 @@ Use case ends.
 
 * 1b. User does not specify the correct answer.
 * SmartNUS shows error message.
-  
+
   Use case ends.
 
 * 1c. User specifies more than 3 incorrect options.
@@ -541,10 +623,10 @@ Use case ends.
     * 1a1. SmartNUS shows error message.
 
       Use case ends.
-      
+
 * 1b. User specifies a blank answer.
     * 1b1. SmartNUS shows error message.
-    
+
         Use case ends.
 
 
@@ -593,34 +675,6 @@ Use case ends.
     * 3a1. SmartNUS shows an error message.
 
       Use case resumes at Step 2.
-
-
-**Use case: Tag a question**
-
-**MSS**
-
-1.  User requests to list questions.
-2.  SmartNUS shows a list of all questions.
-3.  User requests to tag a specific question in the list with specific tag(s).
-4.  SmartNUS tags the question with the specified tags.  
-    Use case ends.
-
-**Extensions**
-
-* 2a. The list is empty.
-    * 2a1. SmartNUS shows message that there are no questions.
-
-      Use case ends.
-
-* 3a. The given index is invalid.
-    * 3a1. SmartNUS shows an error message.
-
-      Use case resumes at Step 2.
-
-* 3b. At least one specified tag does not exist.
-    * 3b1. SmartNUS creates tags that do not exist.
-
-      Use case resumes at Step 4.
 
 **Use case: List questions containing specific tags**
 
