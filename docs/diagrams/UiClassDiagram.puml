@@ -33,10 +33,12 @@ UiManager -down-> "1" MainWindow
 MainWindow *-down->  "1" CommandBox
 MainWindow *-down-> "1" ResultDisplay
 MainWindow *-down-> "1" QuestionListPanel
+MainWindow *-down-> "1" NoteListPanel
 MainWindow *-down-> "1" StatusBarFooter
 MainWindow --> "0..1" HelpWindow
 
 QuestionListPanel -down-> "*" QuestionCard
+NoteListPanel -down-> "*" NoteCard
 
 MainWindow -left-|> UiPart
 
@@ -44,14 +46,18 @@ ResultDisplay --|> UiPart
 CommandBox --|> UiPart
 QuestionListPanel --|> UiPart
 QuestionCard --|> UiPart
+NoteListPanel --|> UiPart
+NoteCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow --|> UiPart
 
 QuestionCard ..> Model
+NoteCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
 QuestionListPanel -[hidden]left- HelpWindow
+NoteListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
