@@ -24,12 +24,8 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 <div markdown="span" class="alert alert-primary">
 
-<<<<<<< HEAD
-:bulb: **Tip:** The `.puml` files used to create diagrams in this document can be found in the [diagrams](https://github.com/se-edu/addressbook-level3/tree/master/docs/diagrams/) folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
-
-=======
 :bulb: **Tip:** The `.puml` files used to create diagrams in this document can be found in the [diagrams](https://github.com/AY2122S1-CS2103T-F12-1/tp/blob/master/docs/diagrams/) folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
->>>>>>> 6d1b9c3e229c7ed3de8fdfb6eb38dbde962f8066
+
 </div>
 
 ### Architecture
@@ -42,16 +38,10 @@ Given below is a quick overview of main components and how they interact with ea
 
 **Main components of the architecture**
 
-<<<<<<< HEAD
-**`Main`** has two classes called [`Main`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java). It is responsible for,
+**`Main`** has two classes called [`Main`](https://github.com/AY2122S1-CS2103T-F12-1/tp/blob/master/src/main/java/seedu/smartnus/Main.java) and [`MainApp`](https://github.com/AY2122S1-CS2103T-F12-1/tp/blob/master/src/main/java/seedu/smartnus/MainApp.java). It is responsible for,
 
 - At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 - At shut down: Shuts down the components and invokes cleanup methods where necessary.
-=======
-**`Main`** has two classes called [`Main`](https://github.com/AY2122S1-CS2103T-F12-1/tp/blob/master/src/main/java/seedu/smartnus/Main.java) and [`MainApp`](https://github.com/AY2122S1-CS2103T-F12-1/tp/blob/master/src/main/java/seedu/smartnus/MainApp.java). It is responsible for,
-* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-* At shut down: Shuts down the components and invokes cleanup methods where necessary.
->>>>>>> 6d1b9c3e229c7ed3de8fdfb6eb38dbde962f8066
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 
@@ -182,26 +172,18 @@ Types of Questions currently supported by SmartNUS, and their conditions for val
 
 #### Note class
 
-<<<<<<< HEAD
-The `Note` class is the class that stores a text - defined as a `title`. The condition for validity of notes is:
+The `Note` class is the class that stores a text - defined as a `NoteName`. The condition for validity of notes is:
 
 - It should not be empty.
 
-## Statistic Class
-
-The `Statistic` class is a class that keeps track of the user performance in answering the questions.
-=======
-The `Note` class is the class that stores a text - defined as a `NoteName`. The condition for validity of notes is:
-* It should not be empty.
-
-The notes are stored in a `NoteList` that represents a list of notes in which you can add notes, delete notes, or filter notes. 
+The notes are stored in a `NoteList` that represents a list of notes in which you can add notes, delete notes, or filter notes.
 Here is a class diagram of the Notes class.
 
 ![Note Class Diagram](images/developer-guide/NoteClassDiagram.png)
 
 #### Statistic Class
-The `Statistic` class is a class that keeps track of the user performance in answering the questions in a quiz. 
->>>>>>> 6d1b9c3e229c7ed3de8fdfb6eb38dbde962f8066
+
+The `Statistic` class is a class that keeps track of the user performance in answering the questions in a quiz.
 The performance is tracked by:
 
 - Number of attempts
@@ -222,34 +204,21 @@ Below is an activity diagram to show the process:
 
 ![Statistic Activity Diagram](images/developer-guide/StatisticActivityDiagram.png)
 
-<<<<<<< HEAD
-### TagStatistic Class
-
-=======
 ##### TagStatistic Class
->>>>>>> 6d1b9c3e229c7ed3de8fdfb6eb38dbde962f8066
+
 The `TagStatistic` class inherits from the `Statistic` class. The `TagStatistic` class is specifically used to keep track of the statistics of each tags.
 
 Here is the class diagram for `Statistic` and `TagStatistic`:
 
 ![Statistic and TagStatistic Class Diagram](images/developer-guide/StatisticClassDiagram.png)
 
-<<<<<<< HEAD
-## QuizManager class
-
-The `QuizManager` class is the class that manages the logic behind the quiz, and is created once a quiz is started.
-=======
-
-
-
 #### Quiz class
 
-[//]: # (TODO: Insert class diagram)
+[//]: # "TODO: Insert class diagram"
 
 The `Quiz` class is an interface that is used to manage a quiz. A `Quiz` can get the current question, go to the next question, go to the previous question, attempt to answer the question, and get the `Statistic` of the `Quiz`.
 
 The `QuizManager` class implements the `Quiz` interface. It manages the logic behind the quiz, and is created once a quiz is started.
->>>>>>> 6d1b9c3e229c7ed3de8fdfb6eb38dbde962f8066
 
 Each `QuizManager` class stores the following information about the quiz:
 
@@ -276,12 +245,8 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.smartnus.commons` package.
 
-<<<<<<< HEAD
-### Theme Class
-
-=======
 #### Theme Class
->>>>>>> 6d1b9c3e229c7ed3de8fdfb6eb38dbde962f8066
+
 The `Theme` class is a class that stores the `css` file of a theme.
 Currently, there are two available themes: `LightTheme` and `DarkTheme`which inherits from `Theme`:
 
@@ -290,22 +255,7 @@ Currently, there are two available themes: `LightTheme` and `DarkTheme`which inh
 The `Theme` class is used by the `UI` component to update the theme and is stored in the `Model` component as a user preference.
 The theme can be changed by executing the `ThemeCommand`.
 
-<<<<<<< HEAD
-Here is a sequence diagram when the `ThemeCommand` is executed with a given `Theme` object called `theme` inside the `ThemeCommand`:
-
-![Theme Sequence Diagram](images/developer-guide/ThemeSequenceDiagram.png)
-
-Once a `Theme` is kept inside the `Model`, the `UI` component can fetch the `Theme` and render it accordingly:
-
-![UI Theme Sequence Diagram](images/developer-guide/UiThemeSequenceDiagram.png)
-
-The reason why a `Theme` is kept inside the `Model`'s `UserPrefs` is because it allows the current theme to be saved in the storage as a user preference.
-Without saving it in the storage, the user will have to keep changing the theme every time the user opens the app.
-
 ---
-=======
---------------------------------------------------------------------------------------------------------------------
->>>>>>> 6d1b9c3e229c7ed3de8fdfb6eb38dbde962f8066
 
 ## **Implementation**
 
@@ -344,8 +294,6 @@ Here's how the tfq is added:
 <div markdown="span" class="alert alert-info">:information_source: **Note:**  This applies to the other question types as well, e.g. for adding an mcq, `AddMcqCommandParser` will be returned by `SmartNusParser`, which then returns `AddMcqCommand` upon parsing the user's input.
 </div>
 
-<<<<<<< HEAD
-=======
 ### Quiz feature
 
 All features that have to do with the quiz.
@@ -364,6 +312,7 @@ The quiz feature is facilitated by `MainWindow`, `LogicManager`, `SmartNusParser
 4. The `CommandResult` is then returned back to `MainWindow` which will then create a new `QuizWindow` to be displayed.
 
 Below is the sequence diagram to show how the quiz is started.
+
 <!-- TODO: Insert quiz diagram -->
 
 #### Parsing of user input
@@ -375,6 +324,7 @@ As different commands are available to the user at the `QuizWindow` and the `Mai
 The answering of questions feature allows users to select their desired choice for questions during a quiz.
 
 ##### Implementation
+
 Given below is an example usage scenario of how the mechanism of answering a multiple choice question behaves at each step.
 
 1. User input and the current `QuizManager` object are passed to the `LogicManager` to execute.
@@ -382,7 +332,6 @@ Given below is an example usage scenario of how the mechanism of answering a mul
 3. Once parsed, `QuizCommandParser` will return a `QuizCommand`, and when executed, will update the questions available in the model with the questions to be displayed in the quiz as well as return a `CommandResult` that indicates to start the quiz.
 4. The `CommandResult` is then returned back to `MainWindow` which will then create a new `QuizWindow` to be displayed.
 
->>>>>>> 6d1b9c3e229c7ed3de8fdfb6eb38dbde962f8066
 ### Find questions feature
 
 The find questions feature allows users to search for `Question`s by three parameters: name, tags and importance.
@@ -429,6 +378,7 @@ Here is the proposed implementation of such a feature:
 ![Find Command Activity Diagram](images/developer-guide/FindActivityDiagram.png)
 
 ### Change Theme Feature
+
 The `Theme` class is used by the `UI` component to update the theme and is stored in the `Model` component as a user preference.
 The theme can be changed by executing the `ThemeCommand`.
 
@@ -449,15 +399,9 @@ Without saving it in the storage, the user will have to keep changing the theme 
 
 The proposed undo/redo mechanism is facilitated by `VersionedSmartNus`. It extends `SmartNus` with an undo/redo history, stored internally as an `smartNusStateList` and `currentStatePointer`. Additionally, it implements the following operations:
 
-<<<<<<< HEAD
-- `VersionedSmartNus#commit()` — Saves the current address book state in its history.
-- `VersionedSmartNus#undo()` — Restores the previous address book state from its history.
-- `VersionedSmartNus#redo()` — Restores a previously undone address book state from its history.
-=======
-* `VersionedSmartNus#commit()` — Saves the current smartNus state in its history.
-* `VersionedSmartNus#undo()` — Restores the previous smartNus state from its history.
-* `VersionedSmartNus#redo()` — Restores a previously undone smartNus state from its history.
->>>>>>> 6d1b9c3e229c7ed3de8fdfb6eb38dbde962f8066
+- `VersionedSmartNus#commit()` — Saves the current smartNus state in its history.
+- `VersionedSmartNus#undo()` — Restores the previous smartNus state from its history.
+- `VersionedSmartNus#redo()` — Restores a previously undone smartNus state from its history.
 
 These operations are exposed in the `Model` interface as `Model#commitSmartNus()`, `Model#undoSmartNus()` and `Model#redoSmartNus()` respectively.
 
@@ -518,18 +462,11 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 **Aspect: How undo & redo executes:**
 
-<<<<<<< HEAD
-- **Alternative 1 (current choice):** Saves the entire address book.
-
+- **Alternative 1 (current choice):** Saves the entire smartNus.
   - Pros: Easy to implement.
   - Cons: May have performance issues in terms of memory usage.
-=======
-* **Alternative 1 (current choice):** Saves the entire smartNus.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
->>>>>>> 6d1b9c3e229c7ed3de8fdfb6eb38dbde962f8066
 
-- **Alternative 2:** Individual command knows how to undo/redo by
+* **Alternative 2:** Individual command knows how to undo/redo by
   itself.
   - Pros: Will use less memory (e.g. for `delete`, just save the question being deleted).
   - Cons: We must ensure that the implementation of each individual command are correct.
@@ -540,83 +477,18 @@ _{more aspects and alternatives to be added}_
 
 _{Explain here how the data archiving feature will be implemented}_
 
-<<<<<<< HEAD
-### Quiz feature
-
-All features that have to do with the quiz.
-
-#### Starting a quiz
-
-The start quiz feature allows users to start a quiz from the main window.
-
-##### Implementation
-
-The quiz feature is facilitated by `MainWindow`, `LogicManager`, `SmartNusParser` and `QuizCommand`. Given below is an example usage scenario of how the start quiz mechanism behaves at each step.
-
-1. User input `quiz lim/5` from `MainWindow` class in the Ui component is passed to the `LogicManager#execute()` method.
-2. `LogicManager` will then call `SmartNusParser#parserCommand()`, which will create a `QuizCommandParser`.
-3. Additionally, `SmartNusParser` will then call the `QuizCommandParser#parse()` method to parse the arguments `lim/5`, which will create a `QuizCommand`.
-4. `QuizCommand#execute()` will be invoked by `LogicManager` to execute the command, which will then call `Model#updateFilteredQuizQuestionList()` to update the questions in the `Model`.
-5. The `CommandResult` is then returned back to `MainWindow` which will then create a new `QuizWindow` to be displayed.
-
-Below is the sequence diagram to show how the quiz is started.
-
-![QuizSequenceDiagram](images/developer-guide/QuizSequenceDiagram.png)
-
-#### Parsing of user input
-
-As different commands are available to the user at the `QuizWindow` and the `MainWindow`, it is necessary to determine which commands are valid for the user to execute based on which window the user is at.
-
-=======
->>>>>>> 6d1b9c3e229c7ed3de8fdfb6eb38dbde962f8066
 ##### Design considerations
 
 **Aspect: How commands are determined to be valid for each mode:**
 
-<<<<<<< HEAD
-- **Alternative 1 (current choice):** Having separate parsers for input for from `MainWindow` and `QuizWindow`
-- **Alternative 2:** Having a list of acceptable commands for both windows, and checking
+- **Alternative 1 (current choice):** Command Parsers
 
-#### Answering of questions
+  - Pros: Easy to implement.
+  - Cons: May have performance issues in terms of memory usage.
 
-The answering of questions feature allows users to select their desired choice for questions during a quiz.
-
-##### Implementation
-
-Given below is an example usage scenario of how the mechanism of answering a multiple choice question behaves at each step.
-
-1. User input `A` and the `QuizManager` object from the `QuizWindow` class in the Ui component are passed to the `LogicManager#execute()` method.
-1. `LogicManager` will then call `QuizInputParser#parserCommand()`, which will create a `AnswerMcqCommandParser`.
-1. Additionally, `QuizInputParser` will then call the `AnswerMcqCommandParser#parse()` method to parse the arguments `A` and the `QuizManager` object, which will create a `AnswerMcqCommand`.
-1. `AnswerMcqCommand#execute()` will be invoked by `LogicManager` to execute the command, which will then call `QuizManager#answerAndCheckAnswer()` to update choices in `QuizManager`.
-1. The `CommandResult` is then returned back to `QuizWindow` which will update the Ui with the updated message and the selected choice.
-
-Below is the sequence diagram to show how a multiple choice question is answered.
-
-![AnswerMcqCommandSequenceDiagram](images/developer-guide/AnswerMcqCommandSequenceDiagram.png)
-
-#### Next question
-
-The next question feature allows users to proceed to the next question during a quiz.
-
-##### Implementation
-
-Given below is an example usage scenario of how the mechanism of proceeding to the next question behaves at each step.
-
-1. User input `next` and the `QuizManager` object from the `QuizWindow` class in the Ui component are passed to the `LogicManager#execute()` method.
-1. `LogicManager` will then call `QuizInputParser#parserCommand()`, which will create a `NextQuestionCommand`.
-1. `NextQuestionCommand#execute()` will be invoked by `LogicManager` to execute the command, which will then call `QuizManager#nextQuestion()` to update the current question index in `QuizManager`.
-1. The `CommandResult` is then returned back to `QuizWindow` which will update the Ui with the updated message and question.
-=======
-* **Alternative 1 (current choice):** Command Parsers
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
-
-* **Alternative 2:** Saves the entire smartNus.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
-
->>>>>>> 6d1b9c3e229c7ed3de8fdfb6eb38dbde962f8066
+- **Alternative 2:** Saves the entire smartNus.
+  - Pros: Easy to implement.
+  - Cons: May have performance issues in terms of memory usage.
 
 Below is the sequence diagram to show how the next question is shown.
 
