@@ -262,11 +262,11 @@ The FindCommandParser parses the user input into predicates that the `Question`s
 Each condition is represented by a predicate that extends from `Predicate<Question>`. The three search parameters in the user input, name, tags and importance,
 are parsed and used to create the `NameContainsKeywordsPredicate`, `TagsContainKeywordsPredicate` and `HasImportancePredicate` respectively.
 
-`NameContainsKeywordsPredicate`: checks if a `Question`'s `Name` contains all the given keywords
-
-`TagsContainKeywordsPredicate`: checks if a `Question` contains at least one of the tags
-
-`HasImportancePredicate`: checks if a `Question` has a particular `Importance` value
+| Predicate | Function                                | 
+| -------- | ------------------------------------------ | 
+|`NameContainsKeywordsPredicate` | Checks if a `Question`'s `Name` contains all the given keywords |
+|`TagsContainKeywordsPredicate`| Checks if a `Question` contains at least one `Tag`s whose name matches a keywords |
+|`HasImportancePredicate`| Checks if a `Question` has a particular `Importance` value |
 
 These predicates are passed from the `FindCommandParser` to the `FindCommand`.
 `FindCommand` composes these predicates into a logical AND of all predicates. When the `FindCommand` is executed,
@@ -276,7 +276,16 @@ executes `"find class t/CS2103T"`.
 
 ![Find Command Sequence Diagram](images/developer-guide/FindSequenceDiagram.png)
 
+#### Proposed Extensions
+The find feature currently only supports finding questions. It can be extended to search for both `Question`s and `Note`s.
+Here is the proposed implementation of such a feature. The `FindCommandParser` will take in an additional
+parameter, either "note" or "question". Depending on which item the user wants to search for, the `FindCommandParser`
+will create a `FindNoteParser` or a `FindQuestionParser`. The parsers will parse user inputs into either `Predicate<Note>`
+or `Predicate<Question>`. If the user is searching for `Note`s,
+a `FindNoteCommand` will be generated. If the user is searching for `Question`s, a `FindQuestionCommand` is created.
+The activity diagram below illustrates this implementation.
 
+![Find Command Activity Diagram](images/developer-guide/FindActivityDiagram.png)
 
 ### \[Proposed\] Undo/redo feature
 
