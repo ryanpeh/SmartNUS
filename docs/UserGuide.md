@@ -404,11 +404,11 @@ Format: `quiz [lim/ LIMIT] [t/TAG]... [n/INDEX...]`
 
 **Optional Parameters**
 * `lim/` positive, non-zero integer that will limit the number of questions in the quiz.
-* `t/` quiz will be formed from questions with the specified tag. If such a tag does not exist, quiz will not start.
+* `t/` quiz will be formed from questions with at least one of the specified tag(s).
 * `n/` quiz specific questions - `INDEX` refers to the index number shown in the displayed question list.
   * Multiple indexes can be entered, with a space between them. (e.g. `n/ 1 2 3`)
 * If no parameters are passed, a quiz session will be created using all the questions in the question list.
-* TAG can be used to filter the quiz to only give questions with the tags specified, works with limit.
+* TAG can be used to filter the quiz to only give questions with at least one of the tags specified, works with limit.
 * INDEX can be used to filter the quiz to only give questions with the specified question numbers. Does not work with tag or limit.
   The index **must be a positive integer** from 1 to 2147483647
 
