@@ -146,8 +146,8 @@ The `Model` component,
 ## Question class
 
 The `Question` class is an abstract class that stores a `Name`, `Importance`, `Statistic`, `Tag`s and `Choice`s.
-A `Choice` stores a title String, a boolean value `isCorrect` representing if it is a correct answer to the `Question`,
-and a Set of keyword Strings.
+A `Choice` stores a `title` String, a boolean value `isCorrect` representing if it is a correct answer to the `Question`,
+and a Set of Strings representing `keywords` used for evaluating answers to Short Answer Questions.
 
 ![Question Class Diagram](images/developer-guide/QuestionClassDiagram.png)
 
