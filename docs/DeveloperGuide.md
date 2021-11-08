@@ -962,6 +962,80 @@ testers are expected to do more *exploratory* testing.
         Expected: A quiz window will open but only 1 question will be tested, specifically the first question. Since there is no question 500, only question 1 will be tested. The status bar of the quiz window should state that there is only 1 question in the quiz.
 
 
+
+### Quiz
+
+1. Answering a multiple choice question
+
+    1. Prerequisites: The question being displayed is a multiple choice question.
+
+    1. Test case: `A`<br>
+       Expected: The question is answered with option 'A'. Details of whether the option is correct or incorrect is displayed.
+
+    1. Test case: `a`<br>
+       Expected: Similar to previous.
+
+    1. Test case: `E`<br>
+       Expected: Question is not answered. Error details shown in the status message.
+
+    2. Other incorrect delete commands to try: `e`, `asdf`, `ans`<br>
+       Expected: Similar to previous.
+
+2. Answering a true false question
+
+    1. Prerequisites: The question being displayed is a true false question.
+
+    2. Test case: `True`<br>
+       Expected: The question is answered with option 'True'. Details of whether the option is correct or incorrect is displayed.
+
+    3. Test case: `T`<br>
+       Expected: Similar to previous.
+
+    4. Test case: `A`<br>
+       Expected: Question is not answered. Error details shown in the status message.
+
+    5. Other incorrect delete commands to try: `True`, `tru`, `flase`<br>
+       Expected: Similar to previous.
+
+2. Answering a short answer question
+
+    1. Prerequisites: The question being displayed is a short answer question
+
+    2. Test case: `ans/Hello There`<br>
+       Expected: The question is answered with answer 'Hello There'. Details of whether the answer is correct or incorrect is displayed.
+
+    3. Test case: `Hello There`<br>
+       Expected: Question is not answered. Error details shown in the status message.
+
+    4. Other incorrect delete commands to try: `ans/`, `an/Hello`, `ansHello There`<br>
+       Expected: Similar to previous.
+
+3. Proceeding to the next question
+
+    1. Prerequisites: The question being displayed is not the last question.
+
+    2. Test case: `next`<br>
+       Expected: The next question in the quiz will be displayed. Status bar will be updated with the updated question number.
+
+    3. Test case: `nxt`<br>
+       Expected: The question displayed remains the same. Error details shown in the status message.
+
+    4. Other incorrect delete commands to try: `n`, `nextt`, `nex t`<br>
+       Expected: Similar to previous.
+
+3. Proceeding to the previous question
+
+    1. Prerequisites: The question being displayed is not the last question.
+
+    2. Test case: `prev`<br>
+       Expected: The next question in the quiz will be displayed. Status bar will be updated with the updated question number.
+
+    3. Test case: `pre`<br>
+       Expected: The question displayed remains the same. Error details shown in the status message.
+
+    4. Other incorrect delete commands to try: `p`, `prevv`, `pre v`<br>
+       Expected: Similar to previous.
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files
