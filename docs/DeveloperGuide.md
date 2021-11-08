@@ -939,26 +939,6 @@ testers are expected to do more *exploratory* testing.
 1. Don't change theme
     1. Test case: `theme not a theme` <br>
        Expected: The theme will not change and an error message will be shown saying `Invalid command format`.
-
-### Quiz specific questions
-1. Prerequisites: There needs to be at least 5 questions in the question list. And the user needs to be in the question panel by doing `list question`.
-
-1. Quiz single question    
-    1. Test case: `quiz n/1`
-        Expected: A quiz window will open and only 1 question will be tested, particularly the first question in the question list you saw earlier. The status bar of the quiz window should state that there is only 1 question in the quiz.
-    
-    1. Test case: `quiz n/100`
-        Expected: A quiz window will not open and an error message will say that `Quiz has no questions`.
-    
-1. Quiz multiple question
-    1. Test case: `quiz n/1 2`
-        Expected: A quiz window will open and 2 questions will be tested, particularly the first and second question in the question list you saw earler. Do `next` command to confirm that the second question is indeed the second question in the list. The status bar of the quiz window should state that there are 2 questions in the quiz.
-
-    1. Test case: `quiz n/1 500`
-        Expected: A quiz window will open but only 1 question will be tested, specifically the first question. Since there is no question 500, only question 1 will be tested. The status bar of the quiz window should state that there is only 1 question in the quiz.
-
-
-
 ### Quiz
 
 1. Answering a multiple choice question
@@ -1032,6 +1012,51 @@ testers are expected to do more *exploratory* testing.
     4. Other incorrect delete commands to try: `p`, `prevv`, `pre v`<br>
        Expected: Similar to previous.
 
+<<<<<<< HEAD
+### Quiz specific questions
+1. Prerequisites: There needs to be at least 5 questions in the question list. And the user needs to be in the question panel by doing `list question`.
+
+1. Quiz single question    
+    1. Test case: `quiz n/1` <br>
+        Expected: A quiz window will open and only 1 question will be tested, particularly the first question in the question list you saw earlier. The status bar of the quiz window should state that there is only 1 question in the quiz.
+    
+    1. Test case: `quiz n/100` <br>
+        Expected: A quiz window will not open and an error message will say that `Quiz has no questions`.
+    
+1. Quiz multiple question
+    1. Test case: `quiz n/1 2` <br>
+        Expected: A quiz window will open and 2 questions will be tested, particularly the first and second question in the question list you saw earler. Do `next` command to confirm that the second question is indeed the second question in the list. The status bar of the quiz window should state that there are 2 questions in the quiz.
+
+    1. Test case: `quiz n/1 500` <br>
+        Expected: A quiz window will open but only 1 question will be tested, specifically the first question. Since there is no question 500, only question 1 will be tested. The status bar of the quiz window should state that there is only 1 question in the quiz.
+
+### Quiz with tags and limits
+1. Prerequisites: use the dummy data by deleting the saved data file at `data/smartnus.json`. And the user needs to be in the question panel by doing `list question`.
+
+1. Quiz only tags
+    1. Test case: `quiz t/st2334` <br>
+    Expected: Only 2 questions will be in the quiz.
+
+    1. Test case: `quiz t/cs2103t t/java` <br>
+    Expected: Only 4 questions will be in the quiz.
+
+    1. Test case: `quiz t/abc def` <br>
+    Expected: Quiz window will not open and an error message will show that the `Tag is invalid`.
+
+1. Quiz limit
+    1. Test case: `quiz lim/3` <br>
+    Expected: Only 3 questions will be in the quiz.
+
+    1. Test case: `quiz lim/100` <br>
+    Expected: Only 9 questions will be in the quiz as there are only 9 questions.
+
+    1. Test case: `quiz lim/abc` <br>
+    Expected: Quiz window will not open and an error message will show that the `Limit is invalid`.
+
+1. Quiz limit and and tag
+    1. Test case: `quiz lim/3 t/cs2103t` <br>
+    Expected: 3 Quiz with a tag of cs2103T will be shown.
+=======
 ### Adding an MCQ
 
 1. Prerequisites: List all questions using the `list question` command. Multiple questions in the list.
@@ -1102,10 +1127,13 @@ testers are expected to do more *exploratory* testing.
    2. Test case `delete note 2103`
       Expected: An error message pops up and note list is unchanged. SmartNus looks like:
       ![image](images/user-guide/NoteDeletionFailure.PNG)
+>>>>>>> 76a4e0328516dd14dd1cd3cdd7f5fc335acb1c7d
 ### Saving data
 
 1. Dealing with missing/corrupted data files
 
-    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+    1. Prerequisites: have a saved data located in `docs/smartnus.json`. If you don't have it, launch the app and it should generate dummy data for you. Close the app after that.
 
+    1. Test case: Update the `importance` of the first question in the saved data (`docs/smartnus.json`) into a valud of `"300"`. This will cause the saved data file to be corrupted.  <br>
+      Expected: When launching the app all the data will not be shown.
 1. _{ more test cases …​ }_
