@@ -1,3 +1,4 @@
+# SmartNUS
 [![CI Status](https://github.com/AY2122S1-CS2103T-F12-1/tp/workflows/Java%20CI/badge.svg)](https://github.com/AY2122S1-CS2103T-F12-1/tp/actions)
 [![codecov](https://codecov.io/gh/AY2122S1-CS2103T-F12-1/tp/branch/master/graph/badge.svg?token=6LH2DLRN3E)](https://codecov.io/gh/AY2122S1-CS2103T-F12-1/tp)
 
